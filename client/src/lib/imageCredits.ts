@@ -7,7 +7,7 @@
  * visible on any page that renders the images.
  *
  * None of these photographs show Study Hub BD's own office, staff or students.
- * They show the world the consultancy works in — do not caption them otherwise.
+ * They show the world the consultancy works in. Do not caption them otherwise.
  */
 
 export type ImageCredit = {

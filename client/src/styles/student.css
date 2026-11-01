@@ -1,33 +1,30 @@
 /* ====================================================================== *
  *  STUDENT PORTAL                                                        *
  *                                                                        *
- *  An app screen, not a page: it is worked in rather than read, so it    *
- *  follows different rules from the rest of this stylesheet.             *
+ *  Same brand as the public site: the navy field, the gold action, the   *
+ *  Lexend display face. The rail is navy so a student knows whose        *
+ *  portal this is the moment it opens, and the canvas stays quiet so     *
+ *  the only loud things on screen are the documents still blocking the   *
+ *  visa.                                                                 *
  *                                                                        *
- *   - Colour goes on data, never on chrome. The sidebar is white with a  *
- *     hairline, the active item is a neutral grey pill, and the only     *
- *     saturated pixels on the screen are the statuses a student has to   *
- *     act on. The navy field and the gold button belong to the marketing *
- *     pages; a 240px navy rail here would be a sixth of the screen.      *
- *   - Surfaces are flat. A panel is a 1px line and a tone step, never a  *
- *     shadow.                                                            *
- *   - No hero heading. The page title is 20-24px; the largest thing on   *
- *     the screen is the figure that answers its question.                *
- *   - A finished item is plain text, not a coloured tag, and an item     *
- *     that is not due yet is grey with no background — the GOV.UK task   *
- *     list rule, which keeps the colour budget for what is blocked.      *
+ *  Surfaces are flat at rest and answer on hover. Status colour is       *
+ *  spent only where there is something to decide: an accepted item is    *
+ *  plain text with a dot, an item not due yet is grey with no fill.      *
  * ====================================================================== */
 
 .sp {
-  --sp-canvas: #f6f7f9;
+  --sp-canvas: #f4f6f9;
   --sp-panel: #ffffff;
-  --sp-line: #e2e6ed;
-  --sp-line-soft: #eef0f4;
+  --sp-line: #e4e9f0;
+  --sp-line-soft: #eef1f6;
   --sp-ink: #0f1a2e;
-  --sp-mute: #5b6676;
+  --sp-mute: #4a5568;
   --sp-faint: #67707e;
 
-  /* status pairs — dark text on its own pale tint */
+  --sp-navy: #0f1a2e;
+  --sp-navy-soft: #c9d3e2;
+  --sp-gold: #d4af37;
+
   --sp-ok: #04250e;
   --sp-ok-bg: #dcfae5;
   --sp-info: #16366b;
@@ -37,275 +34,293 @@
   --sp-bad: #831c1e;
   --sp-bad-bg: #ffedea;
 
+  --sp-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
   min-height: 100vh;
   min-height: 100svh;
   background: var(--sp-canvas);
   color: var(--sp-ink);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sp {
+    scroll-behavior: smooth;
+  }
 }
 
 .sp *:focus-visible {
-  outline: 2px solid #15466b;
+  outline: 2px solid var(--sp-gold);
   outline-offset: 2px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 /* --- shell ------------------------------------------------------------ */
 .sp-shell {
   display: grid;
-  grid-template-columns: 236px minmax(0, 1fr);
+  grid-template-columns: 252px minmax(0, 1fr);
   min-height: 100vh;
   min-height: 100svh;
-  /* The sidebar is sticky and one viewport tall, so on a long page its
-   * grid cell runs past it. Painting the shell white and the canvas on
-   * the main column keeps the rail white all the way down. */
-  background: var(--sp-panel);
+  background: var(--sp-navy);
 }
 
 .sp-side {
-  background: var(--sp-panel);
-  border-right: 1px solid var(--sp-line);
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
   height: 100vh;
   height: 100svh;
+  background: var(--sp-navy);
+  color: #fff;
 }
 
-/* The product is named: mark, name, and the scope under it. A screen
- * whose product cannot be named from a screenshot reads as a template. */
 .sp-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 16px 14px;
-  border-bottom: 1px solid var(--sp-line-soft);
+  gap: 11px;
+  padding: 20px 18px 18px;
+  text-decoration: none;
+  color: inherit;
 }
 .sp-brand img {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   flex: none;
 }
 .sp-brand-name {
   display: block;
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.15;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #fff;
 }
 .sp-brand-scope {
   display: block;
   font-size: 12px;
-  color: var(--sp-faint);
-  line-height: 1.3;
+  line-height: 1.35;
+  color: var(--sp-gold);
+  letter-spacing: 0.01em;
 }
 
 .sp-nav {
-  padding: 10px 8px;
+  padding: 6px 12px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-}
-.sp-nav-group {
-  font-size: 12px;
-  color: var(--sp-faint);
-  padding: 14px 8px 6px;
+  gap: 3px;
 }
 .sp-nav-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 34px;
-  padding: 0 10px;
-  border-radius: 8px;
-  color: var(--sp-mute);
-  font-size: 14px;
+  gap: 12px;
+  min-height: 42px;
+  padding: 0 12px;
+  border-radius: 9px;
+  color: var(--sp-navy-soft);
+  font-size: 14.5px;
   text-decoration: none;
   transition:
-    background-color 140ms ease,
-    color 140ms ease;
+    background-color 180ms var(--sp-ease),
+    color 180ms var(--sp-ease);
 }
 .sp-nav-item:hover {
-  background: #f1f3f6;
-  color: var(--sp-ink);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
 }
-/* the active item: a neutral pill, the label unchanged — not a brand fill */
+/* the active item keeps the navy and takes a gold edge, the one brand
+ * mark in the rail */
 .sp-nav-item[aria-current="page"] {
-  background: #ebedf1;
-  color: var(--sp-ink);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
   font-weight: 500;
+}
+.sp-nav-item[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  bottom: 11px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--sp-gold);
 }
 .sp-nav-item svg {
   flex: none;
-  color: var(--sp-faint);
+  opacity: 0.75;
 }
 .sp-nav-item[aria-current="page"] svg {
-  color: var(--sp-ink);
+  opacity: 1;
 }
-/* a count appears only on a queue that needs action */
 .sp-nav-count {
   margin-left: auto;
   font-size: 12px;
   font-weight: 600;
-  min-width: 20px;
-  height: 20px;
+  min-width: 21px;
+  height: 21px;
   padding: 0 6px;
-  border-radius: 10px;
+  border-radius: 11px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--sp-warn-bg);
-  color: var(--sp-warn);
+  background: var(--sp-gold);
+  color: var(--sp-navy);
+  font-variant-numeric: tabular-nums;
 }
 
 .sp-side-foot {
   margin-top: auto;
-  padding: 10px 8px 14px;
-  border-top: 1px solid var(--sp-line-soft);
+  padding: 14px 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 .sp-user {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: 11px;
+  padding: 6px 12px 12px;
 }
 .sp-avatar {
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   flex: none;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
   font-weight: 600;
-  background: #e8eefb;
-  color: #16366b;
+  background: var(--sp-gold);
+  color: var(--sp-navy);
+}
+.sp-user-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+}
+.sp-user-meta {
+  display: block;
+  font-size: 12.5px;
+  color: #8fa0b8;
 }
 
 /* --- canvas ----------------------------------------------------------- */
 .sp-main {
   min-width: 0;
   background: var(--sp-canvas);
-  padding: 22px clamp(16px, 2.4vw, 32px) 56px;
+  border-radius: 18px 0 0 18px;
+  padding: 30px clamp(18px, 2.6vw, 40px) 64px;
 }
 .sp-wrap {
-  max-width: 1100px;
+  max-width: 1140px;
 }
+
 .sp-title-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 .sp-title {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.75rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 .sp-sub {
-  font-size: 14px;
+  font-size: 14.5px;
   color: var(--sp-mute);
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
-/* --- panels: a line and a tone step, never a lifted plane ------------- */
+/* --- panels ----------------------------------------------------------- */
 .sp-panel {
   background: var(--sp-panel);
   border: 1px solid var(--sp-line);
-  border-radius: 10px;
+  border-radius: 14px;
+  overflow: hidden;
 }
 .sp-panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 13px 16px;
+  gap: 14px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--sp-line-soft);
 }
 .sp-panel-title {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 .sp-panel-body {
-  padding: 16px;
+  padding: 20px;
+}
+.sp-panel-note {
+  font-size: 13px;
+  color: var(--sp-faint);
+  margin-top: 3px;
 }
 
 .sp-grid {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
-@media (min-width: 1024px) {
+@media (min-width: 1080px) {
   .sp-grid-2 {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     align-items: start;
   }
 }
+@media (min-width: 760px) {
+  .sp-grid-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
-/* --- the figure that answers the screen's question -------------------- */
+/* --- the lead figure -------------------------------------------------- */
 .sp-lead-figure {
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  line-height: 1;
+  letter-spacing: -0.035em;
   font-variant-numeric: tabular-nums;
 }
 .sp-lead-unit {
+  margin-left: 0.3rem;
+  font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 400;
   color: var(--sp-mute);
   letter-spacing: 0;
 }
 .sp-kpi-label {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--sp-mute);
 }
-.sp-kpi-value {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  margin-top: 2px;
-}
-/* one container split by hairlines, not four floating tiles */
-.sp-kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-}
-.sp-kpis > * {
-  padding: 14px 16px;
-  border-right: 1px solid var(--sp-line-soft);
-}
-.sp-kpis > *:last-child {
-  border-right: 0;
-}
 
-/* --- the unit strip: one block per document in the visa file ---------- *
- *  The product's own element. Every square is a real document, so the    *
- *  strip says at a glance how much of the file is ready and exactly how  *
- *  many items are blocked — which a percentage never does.               */
+/* --- the unit strip: one block per document --------------------------- */
 .sp-units {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 5px;
 }
 .sp-unit {
-  width: 26px;
-  height: 10px;
-  border-radius: 2px;
+  width: 30px;
+  height: 8px;
+  border-radius: 4px;
   background: var(--sp-line);
 }
 .sp-unit-accepted {
@@ -320,19 +335,36 @@
 .sp-unit-rejected {
   background: #b4453f;
 }
+.sp-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  color: var(--sp-mute);
+}
+.sp-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sp-legend .sp-unit {
+  width: 16px;
+}
 
 /* --- status tags ------------------------------------------------------ */
 .sp-tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex: none;
   white-space: nowrap;
-  height: 21px;
-  padding: 0 8px;
-  border-radius: 11px;
-  font-size: 12px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
   font-weight: 500;
+  letter-spacing: 0.005em;
 }
 .sp-tag-info {
   background: var(--sp-info-bg);
@@ -346,8 +378,6 @@
   background: var(--sp-bad-bg);
   color: var(--sp-bad);
 }
-/* finished: plain text, no background — it is the commonest state and
- * does not need to shout */
 .sp-tag-plain {
   padding: 0;
   color: var(--sp-ink);
@@ -359,13 +389,59 @@
   border-radius: 50%;
   background: #2f6f4e;
 }
-/* not due yet: grey, no background, and its row is not actionable */
 .sp-tag-mute {
   padding: 0;
   color: var(--sp-faint);
 }
 
-/* --- rows ------------------------------------------------------------- */
+/* --- task cards: the work waiting on the student ---------------------- *
+ *  The old version squeezed a name, a note, a tag and two buttons into
+ *  one narrow row and wrapped into a mess. Each item gets its own card
+ *  now, with the status at the top, the ask in the middle and the one
+ *  action at the foot.                                                    */
+.sp-task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  background: var(--sp-panel);
+  border: 1px solid var(--sp-line);
+  border-radius: 14px;
+  transition:
+    border-color 200ms var(--sp-ease),
+    transform 200ms var(--sp-ease);
+}
+.sp-task:hover {
+  border-color: #cfd8e6;
+  transform: translateY(-2px);
+}
+.sp-task-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.sp-task-name {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+.sp-task-note {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--sp-mute);
+}
+.sp-task-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+/* --- document rows ---------------------------------------------------- */
 .sp-rows {
   display: flex;
   flex-direction: column;
@@ -373,22 +449,36 @@
 .sp-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 13px 16px;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--sp-line-soft);
+  transition: background-color 160ms var(--sp-ease);
 }
 .sp-row:last-child {
   border-bottom: 0;
 }
+.sp-row:hover {
+  background: #fafbfd;
+}
+.sp-row-icon {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #f1f4f9;
+  color: var(--sp-faint);
+}
 .sp-row-main {
   min-width: 0;
-  flex: 1 1 15rem;
+  flex: 1 1 16rem;
 }
 .sp-row-name {
   display: block;
+  font-size: 14.5px;
   font-weight: 500;
-  font-size: 14px;
   line-height: 1.35;
 }
 .sp-row-meta {
@@ -396,20 +486,46 @@
   font-size: 13px;
   color: var(--sp-faint);
   margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 .sp-row-note {
   display: block;
-  font-size: 13px;
+  font-size: 13.5px;
+  line-height: 1.5;
   color: var(--sp-mute);
-  margin-top: 5px;
-  max-width: 68ch;
+  margin-top: 6px;
+  max-width: 70ch;
 }
 .sp-row-side {
   display: flex;
   align-items: center;
   gap: 8px;
   flex: none;
-  padding-top: 1px;
+  margin-left: auto;
+}
+/* The status gets a column of its own. Without it every row ended at a
+ * different x and the list read as ragged. */
+.sp-row-status {
+  flex: none;
+  display: flex;
+  justify-content: flex-end;
+  width: 8.5rem;
+}
+/* The actions get a fixed column too. Without it the status column slid
+ * left or right depending on how many buttons a row happened to have,
+ * which is what made the list look ragged. */
+.sp-row-actions {
+  flex: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 13.5rem;
+}
+@media (max-width: 700px) {
+  .sp-row-status,
+  .sp-row-actions {
+    width: auto;
+  }
 }
 
 /* --- stages ----------------------------------------------------------- */
@@ -419,27 +535,29 @@
 }
 .sp-stage {
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
-  gap: 12px;
-  padding-bottom: 16px;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 14px;
+  padding-bottom: 22px;
   position: relative;
 }
 .sp-stage:last-child {
   padding-bottom: 0;
 }
-/* the thread between the marks */
 .sp-stage:not(:last-child)::before {
   content: "";
   position: absolute;
-  left: 10px;
-  top: 20px;
+  left: 11px;
+  top: 24px;
   bottom: 2px;
   width: 2px;
   background: var(--sp-line);
 }
+.sp-stage-done:not(:last-child)::before {
+  background: #cfe0d6;
+}
 .sp-stage-mark {
-  width: 21px;
-  height: 21px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -447,7 +565,6 @@
   border: 2px solid var(--sp-line);
   position: relative;
   z-index: 1;
-  font-size: 11px;
 }
 .sp-stage-done .sp-stage-mark {
   background: #2f6f4e;
@@ -455,48 +572,70 @@
   color: #fff;
 }
 .sp-stage-now .sp-stage-mark {
-  border-color: #15466b;
-  box-shadow: inset 0 0 0 3px #15466b; /* taste-skill-ignore: an inset ring drawing the mark itself, not a drop shadow */
+  border-color: var(--sp-gold);
+  background: var(--sp-gold);
+  color: var(--sp-navy);
+}
+.sp-stage-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
 }
 .sp-stage-name {
-  font-weight: 500;
-  font-size: 14px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   line-height: 1.3;
 }
 .sp-stage-todo .sp-stage-name {
   color: var(--sp-faint);
-  font-weight: 400;
+  font-weight: 500;
 }
 .sp-stage-when {
   font-size: 13px;
   color: var(--sp-faint);
+  font-variant-numeric: tabular-nums;
 }
 .sp-stage-note {
   display: block;
-  font-size: 13px;
+  font-size: 13.5px;
+  line-height: 1.55;
   color: var(--sp-mute);
-  margin-top: 4px;
+  margin-top: 5px;
   max-width: 62ch;
 }
 
-/* --- the finding: the one line that needs attention ------------------- */
+/* --- the one line that needs attention -------------------------------- */
 .sp-finding {
   display: flex;
-  gap: 11px;
-  padding: 13px 16px;
-  border: 1px solid #f0dcb4;
-  background: #fffaf0;
-  border-radius: 10px;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border: 1px solid #ecdcb8;
+  background: #fffbf2;
+  border-radius: 14px;
 }
 .sp-finding svg {
   flex: none;
   color: #8a6400;
-  margin-top: 1px;
+  margin-top: 2px;
+}
+.sp-finding-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #4a3a12;
 }
 .sp-finding-text {
+  display: block;
   font-size: 14px;
-  color: #4a3a12;
-  max-width: 76ch;
+  line-height: 1.55;
+  color: #5c4a1e;
+  margin-top: 3px;
+  max-width: 78ch;
 }
 
 /* --- controls --------------------------------------------------------- */
@@ -504,146 +643,246 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  min-height: 36px;
-  padding: 0 14px;
-  border-radius: 8px;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
   border: 1px solid var(--sp-line);
   background: var(--sp-panel);
   color: var(--sp-ink);
-  font-family: inherit;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 500;
+  letter-spacing: -0.005em;
   cursor: pointer;
   text-decoration: none;
   transition:
-    background-color 140ms ease,
-    border-color 140ms ease;
+    background-color 180ms var(--sp-ease),
+    border-color 180ms var(--sp-ease),
+    transform 120ms var(--sp-ease);
 }
 .sp-btn:hover {
-  background: #f3f5f8;
-  border-color: #cfd5de;
+  background: #f5f7fa;
+  border-color: #cfd8e6;
 }
+.sp-btn:active {
+  transform: scale(0.985);
+}
+/* the gold action, the same one the public site uses */
 .sp-btn-primary {
-  background: #15466b;
-  border-color: #15466b;
-  color: #fff;
+  background: var(--sp-gold);
+  border-color: var(--sp-gold);
+  color: var(--sp-navy);
 }
 .sp-btn-primary:hover {
-  background: #0f3755;
-  border-color: #0f3755;
+  background: #c09c22;
+  border-color: #c09c22;
+}
+.sp-btn-ink {
+  background: var(--sp-navy);
+  border-color: var(--sp-navy);
+  color: #fff;
+}
+.sp-btn-ink:hover {
+  background: #1b2b47;
+  border-color: #1b2b47;
 }
 .sp-btn-sm {
-  min-height: 30px;
-  padding: 0 10px;
-  font-size: 13px;
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 13.5px;
 }
 .sp-btn:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* filter chips */
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 18px;
+  border: 1px solid var(--sp-line);
+  background: var(--sp-panel);
+  color: var(--sp-mute);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 180ms var(--sp-ease),
+    color 180ms var(--sp-ease),
+    border-color 180ms var(--sp-ease);
+}
+.sp-chip:hover {
+  border-color: #cfd8e6;
+  color: var(--sp-ink);
+}
+.sp-chip[aria-pressed="true"] {
+  background: var(--sp-navy);
+  border-color: var(--sp-navy);
+  color: #fff;
+}
+.sp-chip-n {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.65;
 }
 
 .sp-label {
   display: block;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 500;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 .sp-input {
   width: 100%;
-  min-height: 40px;
-  padding: 9px 12px;
-  border: 1px solid #cfd5de;
-  border-radius: 8px;
+  min-height: 48px;
+  padding: 12px 15px;
+  border: 1px solid #d4dbe5;
+  border-radius: 11px;
   background: #fff;
   color: var(--sp-ink);
   font-family: inherit;
   font-size: 15px;
+  transition:
+    border-color 180ms var(--sp-ease),
+    background-color 180ms var(--sp-ease);
 }
 .sp-input::placeholder {
   color: var(--sp-faint);
 }
+.sp-input:hover {
+  border-color: #c3cdda;
+}
 .sp-input:focus {
-  border-color: #15466b;
+  border-color: var(--sp-navy);
+  outline: none;
+}
+.sp-input:focus-visible {
+  outline: 2px solid var(--sp-gold);
+  outline-offset: 1px;
 }
 textarea.sp-input {
-  min-height: 86px;
+  min-height: 92px;
   resize: vertical;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 .sp-err {
-  font-size: 13px;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: var(--sp-bad-bg);
   color: var(--sp-bad);
-  margin-top: 6px;
+  font-size: 13.5px;
+  line-height: 1.5;
 }
 .sp-hint {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--sp-mute);
-  margin-top: 6px;
 }
 
 /* --- messages --------------------------------------------------------- */
 .sp-thread {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 16px;
-  /* The thread scrolls inside itself, so arriving at the newest message
-   * does not drag the page title and the composer off the screen. */
-  max-height: min(58vh, 34rem);
+  gap: 18px;
+  padding: 22px 20px;
+  max-height: min(56vh, 32rem);
   overflow-y: auto;
   overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+.sp-day {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--sp-faint);
+}
+.sp-day::before,
+.sp-day::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--sp-line-soft);
 }
 .sp-msg {
-  max-width: 70ch;
+  display: flex;
+  gap: 11px;
+  max-width: min(100%, 40rem);
+}
+.sp-msg-avatar {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  background: #e8edf5;
+  color: var(--sp-navy);
 }
 .sp-msg-head {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 9px;
+  margin-bottom: 5px;
 }
 .sp-msg-who {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
 }
 .sp-msg-at {
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--sp-faint);
+  font-variant-numeric: tabular-nums;
 }
 .sp-msg-body {
-  font-size: 14px;
-  padding: 10px 13px;
-  border-radius: 10px;
-  background: #f1f3f6;
-  border: 1px solid var(--sp-line-soft);
+  font-size: 14.5px;
+  line-height: 1.6;
+  padding: 13px 16px;
+  border-radius: 14px 14px 14px 4px;
+  background: #f2f5f9;
+  color: var(--sp-ink);
 }
 .sp-msg-student {
   margin-left: auto;
+  flex-direction: row-reverse;
 }
 .sp-msg-student .sp-msg-head {
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+.sp-msg-student .sp-msg-avatar {
+  background: var(--sp-gold);
+  color: var(--sp-navy);
 }
 .sp-msg-student .sp-msg-body {
-  background: #e8eefb;
-  border-color: #d6e0f4;
+  background: var(--sp-navy);
+  color: #fff;
+  border-radius: 14px 14px 4px;
 }
 
-/* --- the notice that this is sample data ------------------------------ */
+/* --- the sample-data line --------------------------------------------- */
 .sp-demo {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
-  padding: 10px 14px;
-  border: 1px solid #d7deea;
-  background: #eef2f8;
-  border-radius: 8px;
-  font-size: 13px;
+  align-items: center;
+  padding: 11px 16px;
+  border: 1px solid #dde4ee;
+  background: #eff3f9;
+  border-radius: 11px;
+  font-size: 13.5px;
   color: #2b3b55;
 }
 .sp-demo svg {
   flex: none;
-  margin-top: 2px;
+  opacity: 0.8;
 }
 
 /* --- sign-in ---------------------------------------------------------- */
@@ -652,69 +891,190 @@ textarea.sp-input {
   min-height: 100svh;
   display: grid;
   grid-template-columns: 1fr;
+  background: var(--sp-panel);
 }
-@media (min-width: 900px) {
+@media (min-width: 940px) {
   .sp-auth {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   }
 }
+
+/* The navy side carries a photograph of the gate into Tangail under a
+ * flat navy scrim. A real picture, not a gradient, and the scrim keeps
+ * the type at full contrast over it. */
 .sp-auth-pitch {
-  background: var(--color-ink-field);
+  position: relative;
+  isolation: isolate;
+  background-color: var(--sp-navy);
+  background-image: var(--sp-auth-photo);
+  background-size: cover;
+  background-position: 50% 62%;
   color: #fff;
-  padding: clamp(28px, 5vw, 60px);
+  padding: clamp(32px, 5vw, 64px);
   display: flex;
   flex-direction: column;
-  /* Grouped in the middle rather than pushed to the corners: spreading
-   * three short blocks over a 900px column left two 200px voids inside
-   * the panel. The air belongs at the edges, not between the lines. */
   justify-content: center;
-  gap: 36px;
+  gap: 34px;
+  min-height: 15rem;
 }
+.sp-auth-pitch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(10, 18, 32, 0.84);
+}
+.sp-auth-rule {
+  display: block;
+  width: 42px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--sp-gold);
+}
+.sp-auth-head {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  max-width: 17ch;
+}
+.sp-auth-points {
+  display: grid;
+  gap: 14px;
+  max-width: 44ch;
+}
+.sp-auth-points li {
+  display: flex;
+  gap: 13px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--sp-navy-soft);
+}
+.sp-auth-points svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--sp-gold);
+}
+.sp-auth-foot {
+  font-size: 13px;
+  color: #93a3ba;
+  max-width: 46ch;
+}
+
 .sp-auth-form {
-  background: #fff;
-  padding: clamp(28px, 5vw, 60px);
+  background: var(--sp-panel);
+  padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 56px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .sp-auth-card {
   width: 100%;
-  max-width: 25rem;
+  max-width: 24rem;
+}
+.sp-auth-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.sp-eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--sp-faint);
+  border-radius: 8px;
+}
+.sp-eye:hover {
+  color: var(--sp-ink);
+}
+
+/* --- entrance --------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .sp-rise {
+    animation: sp-rise 480ms var(--sp-ease) both;
+    animation-delay: var(--sp-delay, 0ms);
+  }
+  @keyframes sp-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 /* --- phone ------------------------------------------------------------ */
-@media (max-width: 899px) {
+@media (max-width: 1079px) {
   .sp-shell {
     grid-template-columns: minmax(0, 1fr);
   }
   .sp-side {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 20;
     height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--sp-line);
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-right: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .sp-side::-webkit-scrollbar {
+    display: none;
+  }
+  .sp-brand {
+    padding: 12px 14px;
+    flex: none;
+  }
+  .sp-brand-scope {
+    display: none;
   }
   .sp-nav {
     flex-direction: row;
-    overflow-x: auto;
-    padding: 8px;
-    gap: 4px;
-    scrollbar-width: none;
-  }
-  .sp-nav::-webkit-scrollbar {
-    display: none;
+    padding: 8px 0;
+    flex: 1;
   }
   .sp-nav-item {
     white-space: nowrap;
-    min-height: 38px;
+    min-height: 40px;
   }
-  .sp-nav-group {
-    display: none;
+  .sp-nav-item[aria-current="page"]::before {
+    top: auto;
+    bottom: 0;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
   }
   .sp-side-foot {
+    margin-top: 0;
     border-top: 0;
-    padding: 0 8px 8px;
+    padding: 8px 4px;
+    flex: none;
   }
-  .sp-row {
-    flex-wrap: wrap;
+  .sp-user,
+  .sp-side-foot .sp-nav-item span {
+    display: none;
+  }
+  .sp-main {
+    border-radius: 0;
+    padding-top: 22px;
   }
 }

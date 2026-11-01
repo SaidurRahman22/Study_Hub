@@ -6,12 +6,10 @@ import { useStudent } from "@/contexts/StudentContext";
 /* ====================================================================== *
  *  MESSAGES                                                              *
  *                                                                        *
- *  The question: can I ask my counsellor something without waiting for   *
- *  office hours, and has anyone answered me?                             *
+ *  Can I ask my counsellor something, and has anyone answered me?        *
  *                                                                        *
- *  One thread, oldest first, so the conversation reads the way it        *
- *  happened. The composer sits under it rather than floating, and the    *
- *  newest message is scrolled to on arrival.                             *
+ *  One thread, oldest first, scrolling inside itself so arriving at the  *
+ *  newest message does not drag the page about.                          *
  * ====================================================================== */
 
 function dayLabel(iso: string): string {
@@ -27,6 +25,14 @@ function timeLabel(iso: string): string {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function initials(name: string): string {
+  return name
+    .split(" ")
+    .map(w => w[0])
+    .slice(0, 2)
+    .join("");
 }
 
 export default function StudentMessages() {
@@ -57,23 +63,27 @@ export default function StudentMessages() {
 
   return (
     <StudentShell>
-      <div className="sp-title-row">
+      <div className="sp-title-row sp-rise">
         <div>
           <h1 className="sp-title">Messages</h1>
           <p className="sp-sub">
-            With {student.counsellor}, your counsellor at the Tangail office.
+            With {student.counsellor} at the Tangail office.
           </p>
         </div>
       </div>
 
       <DemoNotice />
 
-      <section className="sp-panel" aria-labelledby="thread-title">
+      <section
+        className="sp-panel sp-rise"
+        aria-labelledby="thread-title"
+        style={{ "--sp-delay": "60ms" } as React.CSSProperties}
+      >
         <div className="sp-panel-head">
           <h2 className="sp-panel-title" id="thread-title">
             Your thread
           </h2>
-          <span style={{ fontSize: 13, color: "var(--sp-faint)" }}>
+          <span className="sp-hint" style={{ flex: "none" }}>
             Replies usually come the next working day
           </span>
         </div>
@@ -83,30 +93,27 @@ export default function StudentMessages() {
             const day = dayLabel(m.at);
             const newDay = day !== lastDay;
             lastDay = day;
+            const mine = m.from === "student";
             return (
               <div key={m.id}>
                 {newDay && (
-                  <p
-                    style={{
-                      textAlign: "center",
-                      fontSize: 12,
-                      color: "var(--sp-faint)",
-                      margin: "4px 0 14px",
-                    }}
-                  >
+                  <p className="sp-day" style={{ marginBottom: 18 }}>
                     {day}
                   </p>
                 )}
-                <article
-                  className={`sp-msg${m.from === "student" ? " sp-msg-student" : ""}`}
-                >
-                  <p className="sp-msg-head">
-                    <span className="sp-msg-who">
-                      {m.from === "student" ? "You" : m.author}
-                    </span>
-                    <span className="sp-msg-at">{timeLabel(m.at)}</span>
-                  </p>
-                  <p className="sp-msg-body">{m.body}</p>
+                <article className={`sp-msg${mine ? " sp-msg-student" : ""}`}>
+                  <span className="sp-msg-avatar" aria-hidden="true">
+                    {initials(m.author)}
+                  </span>
+                  <div style={{ minWidth: 0 }}>
+                    <p className="sp-msg-head">
+                      <span className="sp-msg-who">
+                        {mine ? "You" : m.author}
+                      </span>
+                      <span className="sp-msg-at">{timeLabel(m.at)}</span>
+                    </p>
+                    <p className="sp-msg-body">{m.body}</p>
+                  </div>
                 </article>
               </div>
             );
@@ -116,7 +123,7 @@ export default function StudentMessages() {
 
         <form
           onSubmit={onSubmit}
-          style={{ borderTop: "1px solid var(--sp-line-soft)", padding: 16 }}
+          style={{ borderTop: "1px solid var(--sp-line-soft)", padding: 20 }}
         >
           <label className="sp-label" htmlFor="sp-draft">
             Write to {student.counsellor}
@@ -133,8 +140,8 @@ export default function StudentMessages() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 12,
-              marginTop: 10,
+              gap: 14,
+              marginTop: 12,
               flexWrap: "wrap",
             }}
           >
@@ -147,7 +154,7 @@ export default function StudentMessages() {
               className="sp-btn sp-btn-primary"
               disabled={draft.trim().length === 0}
             >
-              <Send size={14} aria-hidden="true" />
+              <Send size={15} aria-hidden="true" />
               Send
             </button>
           </div>

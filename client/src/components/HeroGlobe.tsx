@@ -37,7 +37,7 @@ function buildHeroConfig(): Record<string, unknown> {
      */
     quality: {
       // Off by default, which renders a still frame with a Play button on
-      // anything under 768px — i.e. no drag and no click-to-name on a
+      // anything under 768px, i.e. no drag and no click-to-name on a
       // phone. "Not interactive" was the complaint, so it is on. The
       // scene's own frame-time probe still tears the canvas down and falls
       // back if a device cannot hold the budget.
@@ -97,8 +97,8 @@ export default function HeroGlobe() {
   const chainRef = useRef<Promise<void>>(Promise.resolve());
 
   /**
-   * The scene turns itself into a single still frame — no loop, and not even
-   * the pointer listeners — whenever `prefers-reduced-motion` is set, Data
+   * The scene turns itself into a single still frame (no loop, and not even
+   * the pointer listeners) whenever `prefers-reduced-motion` is set, Data
    * Saver is on, the browser reports under 4 GB of memory, or the viewport
    * is under the mobile breakpoint. On Windows that first one is the "Show
    * animation effects" switch in Settings, which is commonly off; the result
@@ -158,7 +158,7 @@ export default function HeroGlobe() {
         setFellBack(stillOnly && canRender && !gaveUp);
         setFailure(
           !canRender
-            ? "This browser has no WebGL2, so the globe cannot be drawn. It is usually hardware acceleration being switched off — in Chrome, Settings → System → “Use graphics acceleration when available”."
+            ? "This browser has no WebGL2, so the globe cannot be drawn. It is usually hardware acceleration being switched off. In Chrome, Settings → System → “Use graphics acceleration when available”."
             : gaveUp
               ? "The scene stopped before it could draw. Open the console: the reason is logged there, prefixed [hero]."
               : null,

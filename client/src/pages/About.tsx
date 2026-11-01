@@ -12,7 +12,7 @@ import { asset } from "@/lib/asset";
  *  The idea the page is built on: this is not a Dhaka chain. It is one   *
  *  office on Mymensingh Road, at the Kumudini College gate in Tangail,   *
  *  that takes a student the whole way to a seat abroad. Everything is    *
- *  arranged around that — the place first, then the work, then what the  *
+ *  arranged around that: the place first, then the work, then what the   *
  *  office holds to, then where to find it.                               *
  *                                                                        *
  *  Nothing here claims a number the client has not already published.    *
@@ -20,17 +20,17 @@ import { asset } from "@/lib/asset";
  *  the destination count is read off the data rather than typed in.      *
  * ====================================================================== */
 
-/** The narrative. It describes how the office works today — no founding
+/** The narrative. It describes how the office works today: no founding
  *  date and no origin story, because neither is documented anywhere we
  *  can check. */
 const STORY = [
   "You do not have to go to Dhaka for this. The office is on Mymensingh Road in Tangail, at the Kumudini College gate, and you can walk in and sit across a desk from the person who will handle your file.",
-  "What happens inside is the whole job rather than one slice of it. Counselling on course and country comes first — including the unwelcome answer, that a result is not strong enough yet or that a budget does not reach the country a student had in mind. Then the university application, the motivation letter and the statement of purpose.",
+  "What happens inside is the whole job rather than one slice of it. Counselling on course and country comes first. That includes the unwelcome answer, that a result is not strong enough yet or that a budget does not reach the country a student had in mind. Then the university application, the motivation letter and the statement of purpose.",
   "The language training is in the same building. IELTS, Spoken English and Japanese are taught here, so one team is accountable for both the score and the application it supports. So is the part that files are rejected over: the bank documents and the financial papers an embassy reads closely.",
 ];
 
 /** The district, in four public-domain photographs. None of them shows the
- *  office — they show the town it is in, which is the point of the section
+ *  office; they show the town it is in, which is the point of the section
  *  they sit in. */
 const TANGAIL = [
   {
@@ -56,7 +56,7 @@ const TANGAIL = [
 const REASONS = [
   {
     title: "Counselling before commitment",
-    body: "The first consultation is about whether studying abroad is right for you at all, and which countries your results actually open — not about signing you up.",
+    body: "The first consultation is about whether studying abroad is right for you at all, and which countries your results actually open, not about signing you up.",
   },
   {
     title: "The language training is ours",
@@ -64,7 +64,7 @@ const REASONS = [
   },
   {
     title: "The visa file is prepared here",
-    body: "Financial documents, bank support, SOP and motivation letter — the parts an embassy reads hardest are written and checked in-house before anything is submitted.",
+    body: "The parts an embassy reads hardest are written and checked in-house before anything is submitted: financial documents, bank support, SOP and motivation letter.",
   },
   {
     title: "You can walk in",

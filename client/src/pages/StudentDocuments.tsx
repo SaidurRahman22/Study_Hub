@@ -7,13 +7,12 @@ import { fileProgress, openItems, type DocStatus } from "@/lib/studentData";
 /* ====================================================================== *
  *  DOCUMENTS                                                             *
  *                                                                        *
- *  The question: what have I given them, what is still with them, and    *
- *  what do they want from me?                                            *
+ *  What have I given them, what is still with them, what do they want?   *
  *                                                                        *
- *  Split the way the office works rather than alphabetically: the        *
- *  university file is finished and collapses into a quiet list, while    *
- *  the visa file is live and leads. The filter defaults to everything,   *
- *  because hiding the accepted items would hide the reassurance.         *
+ *  Split the way the office works rather than alphabetically: the visa   *
+ *  file is live so it leads, the university file is finished so it sits  *
+ *  below. The filter starts on everything, because hiding the accepted   *
+ *  items would hide the reassurance.                                     *
  * ====================================================================== */
 
 const FILTERS: { key: "all" | DocStatus; label: string }[] = [
@@ -41,7 +40,7 @@ export default function StudentDocuments() {
     {
       key: "visa" as const,
       title: "The visa file",
-      note: "What the embassy will read. Nothing is submitted until every item here is accepted.",
+      note: "What the embassy reads. Nothing is submitted until every item is accepted.",
       count: `${visa.accepted} of ${visa.due} accepted`,
     },
     {
@@ -54,12 +53,12 @@ export default function StudentDocuments() {
 
   return (
     <StudentShell>
-      <div className="sp-title-row">
+      <div className="sp-title-row sp-rise">
         <div>
           <h1 className="sp-title">Documents</h1>
           <p className="sp-sub">
             {open.length === 0
-              ? "Nothing outstanding — the office has everything it asked for."
+              ? "Nothing outstanding. The office has everything it asked for."
               : `${open.length} item${open.length > 1 ? "s" : ""} need${open.length > 1 ? "" : "s"} something from you.`}
           </p>
         </div>
@@ -67,12 +66,11 @@ export default function StudentDocuments() {
 
       <DemoNotice />
 
-      {/* The filter is a row of plain buttons, not a select: five options
-          that the reader can see at once beat a menu they have to open. */}
       <div
         role="group"
         aria-label="Filter documents by status"
-        style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}
+        className="sp-rise"
+        style={{ display: "flex", flexWrap: "wrap", gap: 9, marginBottom: 18 }}
       >
         {FILTERS.map(f => {
           const n =
@@ -84,26 +82,21 @@ export default function StudentDocuments() {
             <button
               key={f.key}
               type="button"
-              className="sp-btn sp-btn-sm"
+              className="sp-chip"
               aria-pressed={filter === f.key}
               onClick={() => setFilter(f.key)}
-              style={
-                filter === f.key
-                  ? {
-                      borderColor: "#15466b",
-                      boxShadow: "inset 0 0 0 1px #15466b",
-                    }
-                  : undefined
-              }
             >
               {f.label}
-              <span style={{ color: "var(--sp-faint)" }}>{n}</span>
+              <span className="sp-chip-n">{n}</span>
             </button>
           );
         })}
       </div>
 
-      <div className="sp-grid">
+      <div
+        className="sp-grid sp-rise"
+        style={{ "--sp-delay": "60ms" } as React.CSSProperties}
+      >
         {groups.map(group => {
           const docs = show(group.key);
           return (
@@ -117,26 +110,17 @@ export default function StudentDocuments() {
                   <h2 className="sp-panel-title" id={`g-${group.key}`}>
                     {group.title}
                   </h2>
-                  <p className="sp-kpi-label" style={{ marginTop: 2 }}>
-                    {group.note}
-                  </p>
+                  <p className="sp-panel-note">{group.note}</p>
                 </div>
-                <span
-                  style={{
-                    fontSize: 13,
-                    color: "var(--sp-faint)",
-                    flex: "none",
-                  }}
-                >
+                <span className="sp-hint" style={{ flex: "none" }}>
                   {group.count}
                 </span>
               </div>
 
-              {/* An empty section keeps its frame and says why it is empty,
-                  rather than disappearing and leaving the reader guessing. */}
+              {/* An empty section keeps its frame and says why it is empty. */}
               {docs.length === 0 ? (
                 <div className="sp-panel-body">
-                  <p style={{ fontSize: 14, color: "var(--sp-mute)" }}>
+                  <p className="sp-hint">
                     No document in this file has that status.
                   </p>
                 </div>
@@ -152,11 +136,10 @@ export default function StudentDocuments() {
         })}
       </div>
 
-      <p className="sp-hint" style={{ marginTop: 18, maxWidth: "76ch" }}>
-        Scans should be straight, in colour, and readable corner to corner. PDF
+      <p className="sp-hint" style={{ marginTop: 20, maxWidth: "72ch" }}>
+        Scans should be straight, in colour and readable corner to corner. PDF
         or JPG, under 5 MB. If you are unsure whether something is right, send
-        it anyway and ask on the messages screen — it is quicker to check than
-        to redo.
+        it and ask on the messages screen.
       </p>
     </StudentShell>
   );

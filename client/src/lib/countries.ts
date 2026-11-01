@@ -3,7 +3,7 @@
  *
  * Everything here was checked against government, ministry or institution
  * sources in late October / early November 2026. Visa rules in particular
- * change often — several of the figures below changed in 2025 and 2026 — so
+ * change often (several of the figures below changed in 2025 and 2026), so
  * treat this file as a snapshot with a date on it, not a permanent record.
  *
  * Rules for editing:
@@ -128,7 +128,7 @@ export const COUNTRIES: Country[] = [
       { name: 'Dalhousie University', city: 'Halifax', note: 'Smaller east-coast city with lower living costs; ocean sciences' },
     ],
     opportunities: [
-      'Eligible students may work up to 24 hours a week off campus during academic terms, and full time during scheduled breaks. On-campus work is treated separately — confirm with the international office before combining the two.',
+      'Eligible students may work up to 24 hours a week off campus during academic terms, and full time during scheduled breaks. On-campus work is treated separately. Confirm with the international office before combining the two.',
       'The Post-Graduation Work Permit normally matches the length of the programme, up to three years. Graduates with a bachelor\'s, master\'s or doctoral degree are exempt from the field-of-study requirement; graduates of college and other non-degree programmes are not.',
       'Since November 2024 every PGWP applicant must prove language ability: CLB 7 for university graduates, CLB 5 for college and other non-university programmes. This is a test result, not a university letter.',
       'From 1 April 2026 students no longer need a separate work permit for a co-op placement or internship that forms a required part of their programme.',
@@ -149,7 +149,7 @@ export const COUNTRIES: Country[] = [
       livingHigh: 25000,
       currency: 'CAD',
       note:
-        'Indicative only. Fees vary by province, institution and subject: arts and humanities sit near the bottom of the band, engineering and business near the top, and medicine, dentistry and some professional programmes above it. Colleges are generally cheaper than universities. From 1 September 2026 a single study permit applicant outside Quebec must show CAD 23,448 for living expenses in addition to first-year tuition and travel — a visa minimum, not a budget. Confirm the exact fee with the institution.',
+        'Indicative only. Fees vary by province, institution and subject: arts and humanities sit near the bottom of the band, engineering and business near the top, and medicine, dentistry and some professional programmes above it. Colleges are generally cheaper than universities. From 1 September 2026 a single study permit applicant outside Quebec must show CAD 23,448 for living expenses in addition to first-year tuition and travel. That is a visa minimum, not a budget. Confirm the exact fee with the institution.',
     },
   },
   {
@@ -162,7 +162,7 @@ export const COUNTRIES: Country[] = [
     summary:
       'Public universities in Italy charge fees that are scaled to family income, so for many Bangladeshi families the tuition is far lower than in any English-speaking destination. Regional right-to-study grants can reduce it further and add subsidised housing and meals. The trade-off is language: most undergraduate teaching is in Italian, and English-taught bachelor\'s degrees are a small minority.',
     culture:
-      'Northern cities such as Milan and Bologna have cold, damp winters; Rome and the south are milder and Mediterranean. Italy has the largest Bangladeshi community in the European Union — official figures put it at roughly 195,000 legal residents at the end of 2024 — concentrated in metropolitan Rome, Lombardy and the Veneto. Halal butchers and Bangladeshi-run grocers are easy to find in Rome\'s Torpignattara and Esquilino districts and along Via Padova in Milan.',
+      'Northern cities such as Milan and Bologna have cold, damp winters; Rome and the south are milder and Mediterranean. Italy has the largest Bangladeshi community in the European Union (official figures put it at roughly 195,000 legal residents at the end of 2024), concentrated in metropolitan Rome, Lombardy and the Veneto. Halal butchers and Bangladeshi-run grocers are easy to find in Rome\'s Torpignattara and Esquilino districts and along Via Padova in Milan.',
     educationSystem:
       'A bachelor\'s degree (laurea triennale) takes three years and 180 credits. Medicine, law, architecture and a few other fields are single-cycle degrees of five or six years. The year runs in two semesters from late September to July, with examination sessions in January, June and September. Universities are accredited by the ministry on the basis of evaluation by ANVUR, the national agency for the evaluation of universities and research.',
     universities: [
@@ -195,7 +195,7 @@ export const COUNTRIES: Country[] = [
       livingHigh: 16000,
       currency: 'EUR',
       note:
-        'Indicative, and for public universities only. Fees are income-assessed: students who document low family income pay only the fixed element, which at several universities is around EUR 157, while those assessed at higher income pay up to the cap shown. The assessment method for families with income abroad differs between universities, so check your own institution\'s fee regulations. Private universities charge several times these amounts. Living costs depend on the city — Milan is well above Bologna or the south — and the study visa requires a separate proof of funds that rose sharply for 2026/27. Confirm the figure with the university.',
+        'Indicative, and for public universities only. Fees are income-assessed: students who document low family income pay only the fixed element, which at several universities is around EUR 157, while those assessed at higher income pay up to the cap shown. The assessment method for families with income abroad differs between universities, so check your own institution\'s fee regulations. Private universities charge several times these amounts. Living costs depend on the city (Milan is well above Bologna or the south), and the study visa requires a separate proof of funds that rose sharply for 2026/27. Confirm the figure with the university.',
     },
   },
   {
@@ -206,7 +206,7 @@ export const COUNTRIES: Country[] = [
     language: 'English',
     tagline: 'An English-speaking EU island, small and walkable',
     summary:
-      'Malta is in the European Union and teaches in English, which is one of its two official languages. That combination is unusual and removes the language barrier that limits Italy, Denmark and Cyprus for many students. The system is small — one public university and a handful of other providers — so the choice of subject is narrower than in a larger country.',
+      'Malta is in the European Union and teaches in English, which is one of its two official languages. That combination is unusual and removes the language barrier that limits Italy, Denmark and Cyprus for many students. The system is small (one public university and a handful of other providers), so the choice of subject is narrower than in a larger country.',
     culture:
       'The climate is Mediterranean, with hot dry summers and mild winters that rarely fall below about 5°C, which is an easier adjustment than northern Europe. English is used everywhere alongside Maltese, so daily life does not require a second language. There is a growing South Asian population working in hospitality, delivery and construction; halal food is available in Valletta, Hamrun, Marsa and St Julian\'s, though there is no national halal certification body, so ask at each outlet.',
     educationSystem:
@@ -332,7 +332,7 @@ export const COUNTRIES: Country[] = [
       livingHigh: 18000,
       currency: 'GBP',
       note:
-        'Indicative. The lower end reflects classroom-based subjects at post-1992 universities; the upper end reflects laboratory, engineering and clinical subjects at the larger research universities. Medicine and dentistry are charged well above this band. For living costs the Home Office currently requires GBP 1,529 a month in London and GBP 1,171 a month elsewhere, for up to nine months — a visa minimum rather than a realistic budget, and London is the main thing that moves the figure. Confirm the exact fee with the university before accepting an offer.',
+        'Indicative. The lower end reflects classroom-based subjects at post-1992 universities; the upper end reflects laboratory, engineering and clinical subjects at the larger research universities. Medicine and dentistry are charged well above this band. For living costs the Home Office currently requires GBP 1,529 a month in London and GBP 1,171 a month elsewhere, for up to nine months. That is a visa minimum rather than a realistic budget, and London is the main thing that moves the figure. Confirm the exact fee with the university before accepting an offer.',
     },
   },
   {
@@ -345,7 +345,7 @@ export const COUNTRIES: Country[] = [
     summary:
       'National universities in Japan charge a fee set by ministerial ordinance, which makes them markedly cheaper than private universities in most English-speaking countries. Several universities run English-taught undergraduate programmes, but they are a narrow niche within a system that teaches overwhelmingly in Japanese. The best post-study work status still requires a high level of Japanese, so the language question cannot be deferred indefinitely.',
     culture:
-      'Summers in Tokyo are hot and humid in a way that will feel familiar, but winters are cold and dry, and campuses in Sendai, Akita and further north get heavy snow. Typhoons affect the country from summer into autumn. The Bangladeshi student population is growing quickly — 11,392 in May 2025, up by about half in a year, making it the seventh largest nationality. Halal food and prayer facilities are available around major universities and in Tokyo and Osaka, but Japan has no national halal authority, so certification marks vary.',
+      'Summers in Tokyo are hot and humid in a way that will feel familiar, but winters are cold and dry, and campuses in Sendai, Akita and further north get heavy snow. Typhoons affect the country from summer into autumn. The Bangladeshi student population is growing quickly: 11,392 in May 2025, up by about half in a year, making it the seventh largest nationality. Halal food and prayer facilities are available around major universities and in Tokyo and Osaka, but Japan has no national halal authority, so certification marks vary.',
     educationSystem:
       'A bachelor\'s degree takes four years and 124 credits, and six years for medicine, dentistry, veterinary medicine and clinical pharmacy. The academic year runs from April to March in two semesters, and the universities with English-taught programmes usually add an autumn intake in September or October. Universities are approved by the education ministry and must undergo certified evaluation and accreditation at least once every seven years by a recognised agency such as NIAD-QE or JUAA.',
     universities: [
@@ -393,7 +393,7 @@ export const COUNTRIES: Country[] = [
     culture:
       'The climate is Mediterranean, with hot dry summers and mild wet winters, which is an easy adjustment. English is very widely spoken as a legacy of British administration, although Greek and Turkish are the official languages. Nicosia remains a divided city, with a United Nations buffer zone running through it and a pedestrian crossing at Ledra Street. Halal food is harder to find than in Italy or Malta and is concentrated in parts of Nicosia and Limassol.',
     educationSystem:
-      'A bachelor\'s degree takes four years and 240 credits — a year longer than Italy, Malta or England — and medicine takes six, which changes the total cost materially. The year runs in two semesters from September to May or June. Institutions and individual programmes are accredited by the Cyprus Agency of Quality Assurance and Accreditation in Higher Education (CYQAA, also known as DIPAE). Accreditation is granted per programme, so check the specific course on the agency register and not only the university.',
+      'A bachelor\'s degree takes four years and 240 credits (a year longer than Italy, Malta or England), and medicine takes six, which changes the total cost materially. The year runs in two semesters from September to May or June. Institutions and individual programmes are accredited by the Cyprus Agency of Quality Assurance and Accreditation in Higher Education (CYQAA, also known as DIPAE). Accreditation is granted per programme, so check the specific course on the agency register and not only the university.',
     universities: [
       { name: 'University of Cyprus', city: 'Nicosia', note: 'Public flagship; historically Greek-medium at undergraduate level, now introducing English-taught degrees' },
       { name: 'Cyprus University of Technology', city: 'Limassol', note: 'Public and applied; engineering, health sciences and hotel and tourism management' },
@@ -404,7 +404,7 @@ export const COUNTRIES: Country[] = [
     ],
     opportunities: [
       'Students may work up to 20 hours a week during term and up to 38 hours a week while classes are interrupted. The employment contract must be approved and stamped by a District Labour Office before work begins.',
-      'Work is permitted only in occupations and sectors listed by the Minister of Labour. The list covers manual and service work — catering, cleaning, agriculture, food delivery, care and similar — and does not include office, retail or technical part-time work.',
+      'Work is permitted only in occupations and sectors listed by the Minister of Labour. The list covers manual and service work (catering, cleaning, agriculture, food delivery, care and similar) and does not include office, retail or technical part-time work.',
       'The twelve-month post-study permit to look for work or start a business is restricted by law to graduates at level 7 of the European Qualifications Framework, that is master\'s level or above. A bachelor\'s graduate has no job-search permit and would need an employer-sponsored work permit like any other third-country national.',
       'An increase in the weekly student work limit from 20 to 25 hours was proposed in 2024 but has not been confirmed as enacted. Treat 20 hours as current.',
     ],
@@ -483,7 +483,7 @@ export const COUNTRIES: Country[] = [
     summary:
       'Denmark offers well-funded universities, project-based teaching and a transparent system, but it is expensive and the English-taught options at bachelor level are limited. Non-EU students pay full tuition, and the post-study job-seeking permit was cut from three years to one year for applications made on or after 1 October 2026. It suits a student who wants the quality of teaching and is clear-eyed about the cost and the short stay-back period.',
     culture:
-      'Winters are dark rather than extreme: December averages under an hour and a half of sunshine a day, and the annual mean temperature is around 9°C. Daily life does not require Danish, because English is spoken almost universally. The Bangladeshi community is small — official statistics recorded 8,640 people of Bangladeshi origin in Denmark in 2026 — so students should not expect the community support available in London or Toronto. Cycling is the normal way to get around and the cheapest.',
+      'Winters are dark rather than extreme: December averages under an hour and a half of sunshine a day, and the annual mean temperature is around 9°C. Daily life does not require Danish, because English is spoken almost universally. The Bangladeshi community is small (official statistics recorded 8,640 people of Bangladeshi origin in Denmark in 2026), so students should not expect the community support available in London or Toronto. Cycling is the normal way to get around and the cheapest.',
     educationSystem:
       'A university bachelor\'s degree takes three years and 180 credits. A professional bachelor\'s degree at a university college takes three to four and a half years and includes compulsory placements, and a two-year academy profession degree can be topped up to a bachelor\'s in a further eighteen months. The academic year runs from late August or September to June, with examinations in January and June and no teaching in July. The bachelor application deadline is 15 March through optagelse.dk. Accreditation reports are prepared by the Danish Accreditation Institution and decisions are taken by the Accreditation Council.',
     universities: [

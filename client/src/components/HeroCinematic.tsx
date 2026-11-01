@@ -73,8 +73,8 @@ export default function HeroCinematic({ ctaSelector = DEFAULT_CTA_SELECTOR }: He
   const chainRef = useRef<Promise<void>>(Promise.resolve());
 
   /**
-   * The scene turns itself into a single still frame — no loop, and not even
-   * the pointer listeners — whenever `prefers-reduced-motion` is set, Data
+   * The scene turns itself into a single still frame (no loop, and not even
+   * the pointer listeners) whenever `prefers-reduced-motion` is set, Data
    * Saver is on, or the browser reports under 4 GB of memory. On Windows that
    * first one is the "Show animation effects" switch in Settings, which is
    * commonly off; the result looks identical to a hero that was never built.
@@ -119,7 +119,7 @@ export default function HeroCinematic({ ctaSelector = DEFAULT_CTA_SELECTOR }: He
         api = mounted;
 
         // Start the loop at Explore, not at Open. The six beats open on a
-        // closed laptop and the globe does not finish rising until 2.6s —
+        // closed laptop and the globe does not finish rising until 2.6s,
         // so for the first two and a half seconds the hero's one large
         // shape is a desk, which is not what this section is for. Jumping
         // in at Explore puts the globe up on the first frame; the loop then
@@ -142,7 +142,7 @@ export default function HeroCinematic({ ctaSelector = DEFAULT_CTA_SELECTOR }: He
         setFellBack(stillOnly && canRender && !gaveUp);
         setFailure(
           !canRender
-            ? "This browser has no WebGL2, so the globe cannot be drawn. It is usually hardware acceleration being switched off — in Chrome, Settings → System → “Use graphics acceleration when available”."
+            ? "This browser has no WebGL2, so the globe cannot be drawn. It is usually hardware acceleration being switched off. In Chrome, Settings → System → “Use graphics acceleration when available”."
             : gaveUp
               ? "The scene stopped before it could draw. Open the console: the reason is logged there, prefixed [cinematic]."
               : null,

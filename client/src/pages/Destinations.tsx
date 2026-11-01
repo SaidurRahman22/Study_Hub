@@ -11,7 +11,7 @@ import { asset } from "@/lib/asset";
  *                                                                        *
  *  The index: ten compact cards, about half the footprint of the old     *
  *  ones, each opening that country's own page. The expand-in-place       *
- *  accordion and its chevron are gone — the detail has a page now, so a  *
+ *  accordion and its chevron are gone; the detail has a page now, so a   *
  *  card only has to say which country it is and invite the click.        *
  *                                                                        *
  *  The grid carries the landing page's moving fill: one card holds the   *

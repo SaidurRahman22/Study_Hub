@@ -2,7 +2,7 @@ import { useCms } from "@/contexts/CmsContext";
 
 /**
  * The one persistent action. Flat fill, no gradient, and nothing animates on
- * its own — the old version bounced its icon forever, which is a WCAG 2.2.2
+ * its own: the old version bounced its icon forever, which is a WCAG 2.2.2
  * failure and cannot be stopped by the reader. The label is always in the
  * accessible name rather than in a hover-only tooltip, so it reaches the
  * keyboard and the screen reader too.
@@ -33,7 +33,7 @@ export default function WhatsAppButton() {
         transitionTimingFunction: "var(--ease-out)",
       }}
     >
-      {/* WhatsApp's own glyph — lucide has no brand marks */}
+      {/* WhatsApp's own glyph: lucide has no brand marks */}
       <svg
         width="26"
         height="26"

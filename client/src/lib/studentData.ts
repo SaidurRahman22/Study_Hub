@@ -1,5 +1,5 @@
 /* ====================================================================== *
- *  STUDENT PORTAL — DATA MODEL AND SAMPLE RECORD                         *
+ *  STUDENT PORTAL: DATA MODEL AND SAMPLE RECORD                         *
  *                                                                        *
  *  THIS FILE CONTAINS SAMPLE DATA, NOT A REAL STUDENT.                   *
  *                                                                        *
@@ -10,7 +10,7 @@
  *                                                                        *
  *  Before this goes anywhere near a real student:                        *
  *   1. Authentication has to move to a server. A password compared in     *
- *      the browser protects nothing — see `studentSession` in            *
+ *      the browser protects nothing. See `studentSession` in            *
  *      `contexts/StudentContext.tsx`.                                     *
  *   2. Documents have to live in private, access-controlled storage.      *
  *      NOT in this repository: it is a public GitHub repo, and the site   *
@@ -18,8 +18,8 @@
  *      is a passport scan published to the world.                         *
  *   3. Messages need a real transport and an audit trail.                 *
  *                                                                        *
- *  The vocabulary — the six stages, and documents split into the          *
- *  university file and the visa file — follows how the office actually    *
+ *  The vocabulary, the six stages and the split between the          *
+ *  university file and the visa file, follows how the office actually    *
  *  works, and matches the reference portal in D:\project\VFI_website.     *
  * ====================================================================== */
 
@@ -86,7 +86,7 @@ export type StudentRecord = {
  *  Following the GOV.UK task-list guidance: a finished item is plain      *
  *  text rather than a coloured tag, and an item that is not due yet is    *
  *  grey with no background. Colour is spent only where the reader has     *
- *  something to decide — which keeps the coloured area of the screen      *
+ *  something to decide, which keeps the coloured area of the screen      *
  *  small, the way the measured product screens do.                        *
  * ---------------------------------------------------------------------- */
 
@@ -107,7 +107,7 @@ export const STAGE_STATE: Record<StageState, string> = {
   todo: "Not started",
 };
 
-/** Documents the student still has to act on — the portal's whole point. */
+/** Documents the student still has to act on. The portal's whole point. */
 export function openItems(docs: StudentDoc[]): StudentDoc[] {
   return docs.filter(d => d.status === "needed" || d.status === "rejected");
 }
@@ -179,7 +179,7 @@ export const SAMPLE_STUDENT: StudentRecord = {
       name: "Visa file",
       state: "now",
       when: "Since 20 May 2026",
-      note: "Two items outstanding before the file can be submitted.",
+      note: "Two items left before the file can be submitted.",
     },
     {
       name: "Departure",
@@ -192,7 +192,7 @@ export const SAMPLE_STUDENT: StudentRecord = {
     // ---- the university file ----
     {
       id: "passport",
-      name: "Passport — bio page",
+      name: "Passport, bio page",
       group: "application",
       status: "accepted",
       file: "passport-bio-page.pdf",
@@ -269,10 +269,10 @@ export const SAMPLE_STUDENT: StudentRecord = {
     },
     {
       id: "bank",
-      name: "Bank statement — 28 days",
+      name: "Bank statement, 28 days",
       group: "visa",
       status: "needed",
-      note: "UKVI wants 28 unbroken days with the full amount held throughout. The statement you sent covers 19 days, so the clock has to start again.",
+      note: "UKVI wants 28 unbroken days with the full amount held the whole time. Your last statement covered 19 days, so the count starts again.",
     },
     {
       id: "sponsor",
@@ -292,7 +292,7 @@ export const SAMPLE_STUDENT: StudentRecord = {
       file: "photos-set-1.jpg",
       size: "2.1 MB",
       updated: "2026-05-21",
-      note: "Taken against a cream wall. UKVI needs a plain light grey or white background — please have another set done.",
+      note: "The background is cream. UKVI needs plain light grey or white, so please have another set taken.",
     },
     {
       id: "visaform",
@@ -302,21 +302,21 @@ export const SAMPLE_STUDENT: StudentRecord = {
       file: "ukvi-form-draft.pdf",
       size: "410 KB",
       updated: "2026-05-23",
-      note: "Draft checked once. One section on travel history to confirm with you.",
+      note: "Checked once. One section on travel history still to confirm with you.",
     },
     {
       id: "tb",
       name: "TB test certificate",
       group: "visa",
       status: "later",
-      note: "Book this only after the bank statement is settled — the certificate is valid for six months.",
+      note: "Book this after the bank statement is settled. The certificate lasts six months.",
     },
     {
       id: "police",
       name: "Police clearance",
       group: "visa",
       status: "later",
-      note: "Not required for this course. Kept here in case the university adds it.",
+      note: "Not required for this course. Listed in case the university asks later.",
     },
   ],
 
@@ -326,7 +326,7 @@ export const SAMPLE_STUDENT: StudentRecord = {
       from: "agency",
       author: "Rakib Hasan",
       at: "2026-05-19T10:12:00+06:00",
-      body: "Good news — Portsmouth issued your CAS this morning and it is in your documents now. The visa file is the last stretch.",
+      body: "Good news. Portsmouth issued your CAS this morning and it is in your documents now. The visa file is the last stretch.",
     },
     {
       id: "m2",
@@ -340,14 +340,14 @@ export const SAMPLE_STUDENT: StudentRecord = {
       from: "agency",
       author: "Rakib Hasan",
       at: "2026-05-21T09:05:00+06:00",
-      body: "It is the right account, but the statement covers 19 days and UKVI asks for 28 unbroken days with the full amount held the whole time. The money has to stay untouched — if it dips even once, the 28 days start again. Ask the bank for a fresh statement once 28 days have passed, and we will file the same week.",
+      body: "It is the right account, but it covers 19 days. UKVI asks for 28 unbroken days with the full amount held the whole time. If the balance dips even once, the count starts again. Get a fresh statement after 28 clear days and we will file that week.",
     },
     {
       id: "m4",
       from: "agency",
       author: "Rakib Hasan",
       at: "2026-05-21T09:11:00+06:00",
-      body: "Also, the photographs were taken against a cream wall. It has to be plain light grey or white. Any studio near the college gate will know the format — ask for UK visa size.",
+      body: "The photographs were taken against a cream wall. It has to be plain light grey or white. Any studio near the college gate will know the format if you ask for UK visa size.",
     },
     {
       id: "m5",

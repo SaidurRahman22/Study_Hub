@@ -1,21 +1,28 @@
 import { Link } from "wouter";
 import { AlertTriangle, ArrowRight, Check } from "lucide-react";
 import StudentShell, { DemoNotice } from "@/components/StudentShell";
-import { DocumentRow } from "@/components/DocumentRow";
+import { TaskCard } from "@/components/DocumentRow";
 import { useStudent } from "@/contexts/StudentContext";
 import { fileProgress, openItems, STAGE_STATE } from "@/lib/studentData";
 
 /* ====================================================================== *
  *  OVERVIEW                                                              *
  *                                                                        *
- *  The one question this screen answers: where has my application got    *
- *  to, and what is the office waiting on me for?                         *
+ *  One question: where has my application got to, and what is the        *
+ *  office waiting on me for?                                             *
  *                                                                        *
- *  So the largest figure on the screen is how much of the visa file is   *
- *  accepted, the finding sits directly under the title where it is read  *
- *  first, and the most frequent job — sending in the document that is    *
- *  holding everything up — is one click from here.                       *
+ *  So the biggest figure is how much of the visa file is accepted, the   *
+ *  blocking item sits under the title where it is read first, and the    *
+ *  things waiting on the student get the full width as cards instead of  *
+ *  being crushed into a narrow column.                                   *
  * ====================================================================== */
+
+const LEGEND = [
+  { key: "accepted", label: "accepted" },
+  { key: "review", label: "with Study Hub" },
+  { key: "needed", label: "we need this" },
+  { key: "rejected", label: "to send again" },
+] as const;
 
 export default function StudentPortal() {
   const { student } = useStudent();
@@ -30,66 +37,110 @@ export default function StudentPortal() {
     .reverse()
     .find(m => m.from === "agency");
 
-  /* Only documents that are actually due get a block. An item marked
-   * "not needed yet" is left out of both the strip and the figure, so
-   * neither can read as worse than the file really is. */
+  /* Only documents that are due get a block, so neither the strip nor
+   * the figure can read as worse than the file really is. */
   const units = visaDocs.filter(d => d.status !== "later");
+  const firstName = student.name.split(" ")[0];
 
   return (
     <StudentShell>
-      <div className="sp-title-row">
+      <div className="sp-title-row sp-rise">
         <div>
-          <h1 className="sp-title">Your application</h1>
+          <h1 className="sp-title">Hello, {firstName}</h1>
           <p className="sp-sub">
             {student.course} · {student.university} · {student.intake} intake
           </p>
         </div>
         <Link href="/student/documents" className="sp-btn sp-btn-primary">
           Go to documents
-          <ArrowRight size={15} aria-hidden="true" />
+          <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
 
       <DemoNotice />
 
       {blocker && (
-        <p className="sp-finding" style={{ marginBottom: 14 }}>
-          <AlertTriangle size={16} aria-hidden="true" />
-          <span className="sp-finding-text">
-            <strong style={{ fontWeight: 600 }}>{blocker.name}</strong> is
-            holding up the visa file. {blocker.note}
+        <p className="sp-finding sp-rise" style={{ marginBottom: 18 }}>
+          <AlertTriangle size={18} aria-hidden="true" />
+          <span>
+            <span className="sp-finding-title">
+              {blocker.name} is holding up the visa file
+            </span>
+            <span className="sp-finding-text">{blocker.note}</span>
           </span>
         </p>
       )}
 
-      <div className="sp-grid sp-grid-2">
-        {/* ---------- left: the file, then the route through it ---------- */}
+      {open.length > 0 && (
+        <section
+          className="sp-rise"
+          aria-labelledby="waiting-on-you"
+          style={
+            { "--sp-delay": "60ms", marginBottom: 18 } as React.CSSProperties
+          }
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: 12,
+              marginBottom: 12,
+            }}
+          >
+            <h2 className="sp-panel-title" id="waiting-on-you">
+              Waiting on you
+            </h2>
+            <span className="sp-hint">
+              {open.length} item{open.length > 1 ? "s" : ""} waiting
+            </span>
+          </div>
+          <ul className="sp-grid sp-grid-cards">
+            {open.map(doc => (
+              <TaskCard key={doc.id} doc={doc} />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div
+        className="sp-grid sp-grid-2 sp-rise"
+        style={{ "--sp-delay": "120ms" } as React.CSSProperties}
+      >
         <div className="sp-grid">
           <section className="sp-panel" aria-labelledby="visa-file">
             <div className="sp-panel-head">
-              <h2 className="sp-panel-title" id="visa-file">
-                The visa file
-              </h2>
-              <span style={{ fontSize: 13, color: "var(--sp-faint)" }}>
+              <div>
+                <h2 className="sp-panel-title" id="visa-file">
+                  The visa file
+                </h2>
+                <p className="sp-panel-note">
+                  Every block is one document the embassy looks for
+                </p>
+              </div>
+              <span className="sp-hint" style={{ flex: "none" }}>
                 {student.country}
               </span>
             </div>
             <div className="sp-panel-body">
-              <p className="sp-lead-figure">
-                {progress.accepted}
-                <span className="sp-lead-unit">
-                  {" "}
+              {/* The gap between figure and unit is a margin, so the text
+                  node has no space in it. The label spells it out for a
+                  screen reader. */}
+              <p
+                className="sp-lead-figure"
+                aria-label={`${progress.accepted} of ${progress.due} documents accepted`}
+              >
+                <span aria-hidden="true">{progress.accepted}</span>
+                <span className="sp-lead-unit" aria-hidden="true">
                   of {progress.due} accepted
                 </span>
               </p>
-              <p
-                className="sp-kpi-label"
-                style={{ marginTop: 4, marginBottom: 14 }}
-              >
-                Every block is one document the embassy will look for.
-              </p>
 
-              <ul className="sp-units" aria-hidden="true">
+              <ul
+                className="sp-units"
+                aria-hidden="true"
+                style={{ marginTop: 18 }}
+              >
                 {units.map(d => (
                   <li
                     key={d.id}
@@ -99,32 +150,15 @@ export default function StudentPortal() {
                 ))}
               </ul>
 
-              <ul
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "10px 18px",
-                  marginTop: 14,
-                  fontSize: 13,
-                  color: "var(--sp-mute)",
-                }}
-              >
-                {(
-                  [
-                    ["accepted", "accepted"],
-                    ["review", "with Study Hub"],
-                    ["needed", "we need this"],
-                    ["rejected", "to send again"],
-                  ] as const
-                ).map(([key, label]) => {
+              <ul className="sp-legend">
+                {LEGEND.map(({ key, label }) => {
                   const n = units.filter(d => d.status === key).length;
                   if (!n) return null;
                   return (
-                    <li key={key} className="flex items-center gap-2">
+                    <li key={key}>
                       <span
                         className={`sp-unit sp-unit-${key}`}
                         aria-hidden="true"
-                        style={{ width: 14 }}
                       />
                       {n} {label}
                     </li>
@@ -140,7 +174,7 @@ export default function StudentPortal() {
                 Where you are
               </h2>
               {current && (
-                <span style={{ fontSize: 13, color: "var(--sp-faint)" }}>
+                <span className="sp-hint" style={{ flex: "none" }}>
                   {current.when}
                 </span>
               )}
@@ -154,18 +188,19 @@ export default function StudentPortal() {
                   >
                     <span className="sp-stage-mark" aria-hidden="true">
                       {stage.state === "done" && (
-                        <Check size={11} strokeWidth={3} />
+                        <Check size={12} strokeWidth={3} />
                       )}
                     </span>
                     <span>
-                      <span className="sp-stage-name">
-                        {stage.name}
-                        <span className="sr-only">
-                          {" "}
-                          — {STAGE_STATE[stage.state]}
+                      <span className="sp-stage-head">
+                        <span className="sp-stage-name">
+                          {stage.name}
+                          <span className="sr-only">
+                            , {STAGE_STATE[stage.state]}
+                          </span>
                         </span>
+                        <span className="sp-stage-when">{stage.when}</span>
                       </span>
-                      <span className="sp-stage-when"> · {stage.when}</span>
                       {stage.note && (
                         <span className="sp-stage-note">{stage.note}</span>
                       )}
@@ -177,49 +212,23 @@ export default function StudentPortal() {
           </section>
         </div>
 
-        {/* ---------- right: what you have to do, and the last word ------ */}
         <div className="sp-grid">
-          <section className="sp-panel" aria-labelledby="waiting-on-you">
-            <div className="sp-panel-head">
-              <h2 className="sp-panel-title" id="waiting-on-you">
-                Waiting on you
-              </h2>
-              <span style={{ fontSize: 13, color: "var(--sp-faint)" }}>
-                {open.length === 0
-                  ? "Nothing"
-                  : `${open.length} item${open.length > 1 ? "s" : ""}`}
-              </span>
-            </div>
-            {open.length === 0 ? (
-              <div className="sp-panel-body">
-                <p style={{ fontSize: 14, color: "var(--sp-mute)" }}>
-                  Nothing for you to do. The office has everything it asked for.
-                </p>
-              </div>
-            ) : (
-              <ul className="sp-rows">
-                {open.map(doc => (
-                  <DocumentRow key={doc.id} doc={doc} />
-                ))}
-              </ul>
-            )}
-          </section>
-
           {lastFromAgency && (
             <section className="sp-panel" aria-labelledby="latest-message">
               <div className="sp-panel-head">
                 <h2 className="sp-panel-title" id="latest-message">
-                  Latest from the office
+                  Latest message
                 </h2>
                 <Link
                   href="/student/messages"
-                  style={{ fontSize: 13, color: "var(--sp-ink)" }}
+                  className="sp-hint"
+                  style={{ flex: "none" }}
                 >
-                  All messages
+                  See all
                 </Link>
               </div>
               <div className="sp-panel-body">
-                <p className="sp-msg-head" style={{ marginBottom: 6 }}>
+                <p className="sp-msg-head" style={{ marginBottom: 8 }}>
                   <span className="sp-msg-who">{lastFromAgency.author}</span>
                   <span className="sp-msg-at">
                     {new Date(lastFromAgency.at).toLocaleDateString("en-GB", {
@@ -228,7 +237,13 @@ export default function StudentPortal() {
                     })}
                   </span>
                 </p>
-                <p style={{ fontSize: 14, color: "var(--sp-mute)" }}>
+                <p
+                  style={{
+                    fontSize: 14.5,
+                    lineHeight: 1.6,
+                    color: "var(--sp-mute)",
+                  }}
+                >
                   {lastFromAgency.body}
                 </p>
               </div>
@@ -242,16 +257,16 @@ export default function StudentPortal() {
               </h2>
             </div>
             <div className="sp-panel-body">
-              <p style={{ fontSize: 14, fontWeight: 500 }}>
+              <p style={{ fontSize: 15, fontWeight: 500 }}>
                 {student.counsellor}
               </p>
               <p className="sp-kpi-label" style={{ marginTop: 2 }}>
-                Study Hub BD, Tangail · file {student.studentId}
+                Study Hub BD, Tangail
               </p>
               <Link
                 href="/student/messages"
                 className="sp-btn sp-btn-sm"
-                style={{ marginTop: 12 }}
+                style={{ marginTop: 16 }}
               >
                 Ask a question
               </Link>

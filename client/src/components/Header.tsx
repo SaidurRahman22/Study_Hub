@@ -27,7 +27,7 @@ export default function Header() {
   const panelRef = useRef<HTMLDivElement>(null);
 
   /* On the landing page the bar is part of the navy block at the top of the
-   * page — utility strip, navigation and hero are one field, the way the
+   * page: utility strip, navigation and hero are one field, the way the
    * reference site does it. It is NOT an overlay: the header is a sibling
    * above the hero, so leaving it transparent put white type on the white
    * page rather than on the navy. */
@@ -92,7 +92,7 @@ export default function Header() {
           <Link
             href="/"
             className="group flex items-center gap-3"
-            aria-label={`${g.siteName} — home`}
+            aria-label={`${g.siteName}, home`}
           >
             <img
               src={asset("/images/logo-mark.png")}

@@ -19,7 +19,7 @@ import { useCms } from "@/contexts/CmsContext";
  *  hand off to.                                                          *
  *                                                                        *
  *  WHERE THE ANSWERS GO. This project has no database and no mail        *
- *  service — `api/` holds only the admin and content endpoints. A form   *
+ *  service: `api/` holds only the admin and content endpoints. A form    *
  *  that posted nowhere would be the same defect as the dead contact      *
  *  form the audit flagged, so this one does not pretend: it composes     *
  *  the enquiry and hands it to WhatsApp (the number the office already   *
@@ -128,7 +128,7 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
     const digits = f.phone.replace(/\D/g, "");
     if (!digits) e.phone = "Enter a phone number we can call you back on.";
     else if (digits.length < 10)
-      e.phone = "That number looks too short — include the full number.";
+      e.phone = "That number looks too short. Include the full number.";
     if (f.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim()))
       e.email = "That email address does not look right.";
     return e;
@@ -202,7 +202,7 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
   /** The enquiry as plain text, in the order a counsellor reads it. */
   const compose = () => {
     const lines = [
-      "Consultation request — Study Hub BD",
+      "Consultation request: Study Hub BD",
       "",
       `Name: ${f.name.trim()}`,
       `Phone: ${f.phone.trim()}`,
@@ -230,7 +230,7 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
         "noopener"
       );
     } else {
-      const subject = `Consultation request — ${f.name.trim()}`;
+      const subject = `Consultation request: ${f.name.trim()}`;
       window.location.href = `mailto:${g.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
     setSentVia(via);
@@ -277,7 +277,7 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
                 : "Your email program has opened with the request filled in. Press send there and we will have it."}
             </p>
             <p className="lp-small lp-soft mt-4">
-              Nothing was sent automatically — you stay in control of the
+              Nothing was sent automatically. You stay in control of the
               message. If nothing opened, call{" "}
               <a
                 href={`tel:+880${g.phone1.replace(/\D/g, "").replace(/^0/, "")}`}

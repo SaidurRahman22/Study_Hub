@@ -9,8 +9,8 @@ import { asset } from "@/lib/asset";
  *  ONE COUNTRY                                                           *
  *                                                                        *
  *  Opened from a card on /destinations. The shape follows the reference  *
- *  site's country bands — a positioning line, quick facts, then the      *
- *  detail — but kept to the landing page's own type, colour and motion.  *
+ *  site's country bands (a positioning line, quick facts, then the       *
+ *  detail), but kept to the landing page's own type, colour and motion.  *
  *                                                                        *
  *  Every figure on this page is indicative. The cost panel says so in    *
  *  as many words rather than leaving a student to assume otherwise.      *
@@ -57,7 +57,7 @@ export default function Country() {
     ["Intakes", c.intakes],
     [
       "Tuition a year",
-      `${money(c.cost.tuitionLow, c.cost.currency)}–${money(c.cost.tuitionHigh, c.cost.currency)}`,
+      `${money(c.cost.tuitionLow, c.cost.currency)}-${money(c.cost.tuitionHigh, c.cost.currency)}`,
     ],
   ];
 
@@ -213,7 +213,7 @@ export default function Country() {
             delay={100}
           >
             A few of the institutions that come up most often. Which one fits
-            depends on your results, your subject and your budget — that is what
+            depends on your results, your subject and your budget. That is what
             the counselling session is for.
           </Reveal>
 
@@ -330,7 +330,7 @@ export default function Country() {
                     fontSize: "var(--text-head)",
                   }}
                 >
-                  {money(c.cost.tuitionLow, c.cost.currency)} –{" "}
+                  {money(c.cost.tuitionLow, c.cost.currency)} -{" "}
                   {money(c.cost.tuitionHigh, c.cost.currency)}
                 </p>
               </div>
@@ -345,7 +345,7 @@ export default function Country() {
                     fontSize: "var(--text-head)",
                   }}
                 >
-                  {money(c.cost.livingLow, c.cost.currency)} –{" "}
+                  {money(c.cost.livingLow, c.cost.currency)} -{" "}
                   {money(c.cost.livingHigh, c.cost.currency)}
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function Country() {
             These are indicative bands, not quotations. Tuition differs by
             course and institution, and living costs differ sharply between
             cities. Confirm the figure with the institution before you budget on
-            it — we will do that with you.
+            it. We will do that with you.
           </Reveal>
         </div>
       </section>

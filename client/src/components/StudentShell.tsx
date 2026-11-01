@@ -12,15 +12,11 @@ import { openItems, unreadFromAgency } from "@/lib/studentData";
 import { asset } from "@/lib/asset";
 
 /* ====================================================================== *
- *  The portal shell: a 236px labelled sidebar and the canvas.            *
+ *  The portal shell: a navy rail and the canvas.                         *
  *                                                                        *
- *  The sidebar is white with a hairline rather than a navy rail. On a    *
- *  1440px screen a navy rail would be a sixth of every pixel the student *
- *  sees, and on an app screen the colour budget belongs to the data —    *
- *  here, to the three documents that are actually blocking the visa.     *
- *                                                                        *
- *  Counts appear only on a queue that needs action, and their noun is    *
- *  clear from the label they sit on.                                     *
+ *  The rail carries the site's navy so a student knows whose portal      *
+ *  this is on sight. The active item takes a gold edge, the one brand    *
+ *  mark in the chrome. Counts appear only where something is waiting.    *
  * ====================================================================== */
 
 const NAV = [
@@ -33,9 +29,8 @@ export default function StudentShell({ children }: { children: ReactNode }) {
   const [location, navigate] = useLocation();
   const { student, signedIn, restoring, signOut, lastRead } = useStudent();
 
-  /* The guard. A signed-out reader is sent to the sign-in screen rather
-   * than shown an empty portal. This is a convenience, not a security
-   * control — see the note at the top of StudentContext. */
+  /* A signed-out reader goes to the sign-in screen. This is a
+   * convenience, not a security control. See StudentContext. */
   useEffect(() => {
     if (!restoring && !signedIn) navigate("/student/login", { replace: true });
   }, [restoring, signedIn, navigate]);
@@ -44,7 +39,7 @@ export default function StudentShell({ children }: { children: ReactNode }) {
     return (
       <div className="sp">
         <div className="sp-main">
-          <p className="sp-sub">Loading your file…</p>
+          <p className="sp-sub">Loading your file</p>
         </div>
       </div>
     );
@@ -72,19 +67,17 @@ export default function StudentShell({ children }: { children: ReactNode }) {
           <Link
             href="/"
             className="sp-brand"
-            aria-label="Study Hub BD — back to the main site"
+            aria-label="Study Hub BD, back to the website"
           >
             <img
               src={asset("/images/logo-mark.png")}
               alt=""
-              width={30}
-              height={30}
+              width={34}
+              height={34}
             />
             <span>
               <span className="sp-brand-name">Study Hub BD</span>
-              <span className="sp-brand-scope">
-                Student file {student.studentId}
-              </span>
+              <span className="sp-brand-scope">File {student.studentId}</span>
             </span>
           </Link>
 
@@ -99,7 +92,7 @@ export default function StudentShell({ children }: { children: ReactNode }) {
                   className="sp-nav-item"
                   aria-current={location === item.href ? "page" : undefined}
                 >
-                  <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
+                  <Icon size={17} strokeWidth={1.75} aria-hidden="true" />
                   {item.label}
                   {count > 0 && (
                     <span className="sp-nav-count">
@@ -122,25 +115,8 @@ export default function StudentShell({ children }: { children: ReactNode }) {
                 {initials}
               </span>
               <span style={{ minWidth: 0 }}>
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {student.name}
-                </span>
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: 12,
-                    color: "var(--sp-faint)",
-                  }}
-                >
-                  {student.country}
-                </span>
+                <span className="sp-user-name">{student.name}</span>
+                <span className="sp-user-meta">{student.country}</span>
               </span>
             </div>
             <button
@@ -157,8 +133,8 @@ export default function StudentShell({ children }: { children: ReactNode }) {
                 navigate("/student/login", { replace: true });
               }}
             >
-              <LogOut size={16} strokeWidth={1.75} aria-hidden="true" />
-              Sign out
+              <LogOut size={17} strokeWidth={1.75} aria-hidden="true" />
+              <span>Sign out</span>
             </button>
           </div>
         </aside>
@@ -171,17 +147,13 @@ export default function StudentShell({ children }: { children: ReactNode }) {
   );
 }
 
-/** The standing reminder that nothing here is a real record. One line, on
- *  every screen of the portal, until a back end exists. */
+/** One line, on every portal screen, until there is a back end. */
 export function DemoNotice() {
   return (
-    <p className="sp-demo" style={{ marginBottom: 16 }}>
+    <p className="sp-demo" style={{ marginBottom: 18 }}>
       <Info size={15} aria-hidden="true" />
       <span>
-        <strong style={{ fontWeight: 600 }}>Sample data.</strong> This portal is
-        a working prototype — the file below belongs to a made-up student, and
-        anything you upload or send stays in this browser tab. No document is
-        stored or transmitted anywhere.
+        Sample data. Nothing you upload or send here is stored or sent anywhere.
       </span>
     </p>
   );

@@ -15,7 +15,7 @@ import {
 } from "@/lib/studentData";
 
 /* ====================================================================== *
- *  STUDENT SESSION — DEMONSTRATION ONLY                                   *
+ *  STUDENT SESSION: DEMONSTRATION ONLY                                   *
  *                                                                        *
  *  Read this before wiring anything real to it.                           *
  *                                                                        *
@@ -79,7 +79,7 @@ type StudentContextValue = {
   signIn: (email: string, password: string) => SignInResult;
   signOut: () => void;
   /** Records the NAME of a chosen file. The file itself is never read,
-   *  never stored and never uploaded — there is nowhere to put it. */
+   *  never stored and never uploaded. There is nowhere to put it. */
   attachDocument: (docId: string, fileName: string, sizeBytes: number) => void;
   sendMessage: (body: string) => void;
   markMessagesRead: () => void;
@@ -111,7 +111,7 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       const given = email.trim().toLowerCase();
       if (given !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
         // One message for both cases, so the form does not say which half
-        // was wrong — the habit a real sign-in needs.
+        // was wrong, the habit a real sign-in needs.
         return {
           ok: false,
           error: "That email and password do not match an account.",

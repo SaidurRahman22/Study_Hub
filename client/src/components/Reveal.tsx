@@ -12,7 +12,7 @@ import {
  * Section entrances.
  *
  * The hidden state is applied by `data-observed`, which is only ever set from
- * a layout effect — so if the script never runs, or the browser has no
+ * a layout effect, so if the script never runs, or the browser has no
  * IntersectionObserver, every word stays on the page at full opacity. That is
  * the whole reason the opacity lives behind an attribute rather than in the
  * class itself.
@@ -25,7 +25,7 @@ type RevealProps = {
   children: ReactNode;
   as?: ElementType;
   className?: string;
-  /** staggered in reading order — heading, then text, then picture */
+  /** staggered in reading order: heading, then text, then picture */
   delay?: number;
   /** travel in px; a picture that opens from its arch uses `variant="open"` instead */
   y?: number;
@@ -137,7 +137,7 @@ export function ScrollProgress() {
 /**
  * A figure that counts up once, when it arrives. The final value is the
  * initial render, so it is correct without script and correct under reduced
- * motion — the animation only ever replaces an already-right number.
+ * motion; the animation only ever replaces an already-right number.
  */
 export function CountUp({ value, className = "" }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);

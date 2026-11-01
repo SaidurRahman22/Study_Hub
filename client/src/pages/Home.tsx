@@ -13,7 +13,7 @@ import { useConsultation } from "@/components/ConsultationDialog";
  *  Section order follows nhpeducationconsultants.com, at the client's    *
  *  request. The design language is Swiss: a twelve-column grid, a        *
  *  restrained type scale, surfaces told apart by a step in tone rather   *
- *  than by lines or shadows, and one accent — the logo's gold — carried  *
+ *  than by lines or shadows, and one accent, the logo's gold, carried    *
  *  on the action and almost nothing else.                                *
  *                                                                        *
  *  The copy is a visa consultancy's, not a language school's: the page   *
@@ -180,7 +180,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ FIGURES — a slim navy strip, not three giant tiles ===== */}
+      {/* ============ FIGURES: a slim navy strip, not three giant tiles ====== */}
       <section className="lp-field-ink" aria-labelledby="figures-title">
         <div className="lp-frame py-10 md:py-12">
           <h2 id="figures-title" className="sr-only">
@@ -243,7 +243,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ COUNTRIES — a clean card grid ============ */}
+      {/* ============ COUNTRIES: a clean card grid ============= */}
       <section
         id="countries"
         className="lp-section"
@@ -392,7 +392,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ VISA SUCCESS — appears once real rates exist ========== */}
+      {/* ============ VISA SUCCESS: appears once real rates exist =========== */}
       {VISA_SUCCESS.length > 0 && (
         <section
           className="lp-section lp-field-step"
@@ -432,7 +432,7 @@ export default function Home() {
         </section>
       )}
 
-      {/* ============ HOW WE WORK — three numbered stages ============ */}
+      {/* ============ HOW WE WORK: three numbered stages ============= */}
       <section className="lp-section lp-field-step" aria-labelledby="how-title">
         <div className="lp-frame">
           <SectionHead
@@ -480,7 +480,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ TESTIMONIALS — quotes lead, portraits are incidental == */}
+      {/* ============ TESTIMONIALS: quotes lead, portraits are incidental === */}
       <section className="lp-section" aria-labelledby="stories-title">
         <div className="lp-frame">
           <SectionHead
@@ -511,7 +511,7 @@ export default function Home() {
             ))}
           </ul>
 
-          {/* where they actually landed — the substance, as a compact list */}
+          {/* where they actually landed: the substance, as a compact list */}
           <Reveal as="h3" className="lp-sub mt-14" y={12}>
             Where they landed
           </Reveal>
@@ -562,7 +562,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ RECOGNITIONS / EVENTS / PARTNERS — data-gated ========= */}
+      {/* ============ RECOGNITIONS / EVENTS / PARTNERS: data-gated ========== */}
       {RECOGNITIONS.length > 0 && (
         <section
           className="lp-section lp-field-step"

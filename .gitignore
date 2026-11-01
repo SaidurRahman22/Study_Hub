@@ -120,3 +120,8 @@ temp/
 # Archives of the project itself. The repo is the source of truth, not a zip
 # snapshot of it.
 *.zip
+
+# Local development credentials (seeded dev accounts, local database only).
+# Never committed: these exist so the local XAMPP/Laravel setup can be signed
+# into during development. They are not real user data and not production.
+*.local.txt

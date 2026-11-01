@@ -3,10 +3,10 @@
 # Static files are served first; these rules only catch what is left, which
 # is every client-side route. Order matters, most specific first.
 #
-# The admin is its own document with its own stylesheet, so it cannot share
-# the site's shell. See client/admin.html.
+# NOTE: do not add a "/admin -> /admin.html" rule. Pages already serves
+# admin.html at /admin and canonicalises /admin.html back to /admin, so that
+# rule creates a 308 redirect loop. Only the sub-routes need rewriting.
 
-/admin           /admin.html    200
 /admin/*         /admin.html    200
 
 # Everything else is a route the site invents in the browser.

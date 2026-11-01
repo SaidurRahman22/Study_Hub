@@ -1,0 +1,65 @@
+name: Deploy site to Cloudflare Pages
+
+# Builds the React site and publishes it to the Cloudflare Pages project
+# "studyhub-bd" on every push to main, so the live site tracks the repo.
+#
+# The Pages project is a direct-upload project, so the build happens here
+# rather than on Cloudflare's side.
+#
+# Required repository secrets (Settings > Secrets and variables > Actions):
+#   CLOUDFLARE_API_TOKEN   a token with the "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID  the Cloudflare account id
+#
+# Optional repository variable:
+#   VITE_API_URL  the public Laravel API origin, e.g. https://api.example.com/api
+#                 Leave it unset until the API is hosted; the build then falls
+#                 back to the local dev API, which a public visitor cannot reach
+#                 (the contact form and student sign-in will show a clear
+#                 "could not reach the server" message rather than failing
+#                 silently).
+
+on:
+  push:
+    branches: [main]
+    # Changes that cannot affect the static site do not need a deploy.
+    paths-ignore:
+      - 'backend/**'
+      - 'Docs/**'
+      - '**.md'
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes an in-flight one.
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build the site
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: npm run build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/public --project-name=studyhub-bd --branch=main

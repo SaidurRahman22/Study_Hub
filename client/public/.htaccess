@@ -28,6 +28,10 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
+  # The admin is a second document with its own stylesheet, so /admin and
+  # everything under it goes to admin.html rather than the site's shell.
+  RewriteRule ^admin(/.*)?$ admin.html [L]
+
   # Everything else is a client-side route; hand it the app.
   # The target has NO leading slash on purpose: Apache resolves it against
   # the directory this .htaccess sits in, so the same file works whether the

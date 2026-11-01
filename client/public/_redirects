@@ -1,0 +1,13 @@
+# Cloudflare Pages routing.
+#
+# Static files are served first; these rules only catch what is left, which
+# is every client-side route. Order matters, most specific first.
+#
+# The admin is its own document with its own stylesheet, so it cannot share
+# the site's shell. See client/admin.html.
+
+/admin           /admin.html    200
+/admin/*         /admin.html    200
+
+# Everything else is a route the site invents in the browser.
+/*               /index.html    200

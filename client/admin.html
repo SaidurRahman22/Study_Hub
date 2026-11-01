@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/admin-favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>Study Hub BD — Admin</title>
+    <!--
+      A second Vite entry, separate from the public site on purpose.
+
+      The admin is the TailwindAdmin template, which brings its own copy of
+      Tailwind and its own @theme. @theme is global, so loading it beside the
+      marketing site's stylesheet would have the two fighting over fonts,
+      radii and shadows. A separate document gives the template exactly the
+      CSS it was built with and keeps the public site untouched.
+
+      The cost is that moving between the site and the admin is a page load
+      rather than a client-side transition, which is normal for an admin.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- The template's own faces, moved here out of globals.css: a bare
+         @import is only honoured before any rule, and the bundler puts
+         Tailwind's rules above it. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/tailadmin/main.tsx"></script>
+  </body>
+</html>

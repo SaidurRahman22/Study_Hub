@@ -1,11 +1,14 @@
 import tailwindcss from "@tailwindcss/vite";
+import svgr from "@svgr/rollup";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "path";
 import { defineConfig } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
-const plugins = [react(), tailwindcss(), vitePluginManusRuntime()];
+// svgr lets the admin template import .svg files as React components, which
+// seven of its files do.
+const plugins = [svgr(), react(), tailwindcss(), vitePluginManusRuntime()];
 
 /**
  * Where the site will be served from.
@@ -30,6 +33,10 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "client", "src"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
+      // The vendored admin template writes its internal imports as
+      // "src/components/..." (212 of them). This points that prefix at the
+      // template's own folder rather than the site's source.
+      src: path.resolve(import.meta.dirname, "client", "src", "tailadmin"),
     },
   },
   envDir: path.resolve(import.meta.dirname),
@@ -37,6 +44,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        // The public site.
+        main: path.resolve(import.meta.dirname, "client", "index.html"),
+        // The admin, built as its own document so the template's stylesheet
+        // never meets the site's. See client/admin.html.
+        admin: path.resolve(import.meta.dirname, "client", "admin.html"),
+      },
+    },
   },
   server: {
     port: 3000,

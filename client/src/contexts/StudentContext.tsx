@@ -8,13 +8,37 @@ import {
   type ReactNode,
 } from "react";
 import {
-  SAMPLE_STUDENT,
   type Attachment,
   type Message,
   type Notification,
   type StudentDoc,
   type StudentRecord,
 } from "@/lib/studentData";
+import { getMyApplication, getToken, login, logout, setToken } from "@/lib/api";
+
+/** Map the API's /my/application payload to the portal's StudentRecord. */
+function mapApplication(a: Record<string, unknown>): StudentRecord {
+  const stages = Array.isArray(a.stages) ? (a.stages as Record<string, unknown>[]) : [];
+  return {
+    name: String(a.name ?? ""),
+    email: String(a.email ?? ""),
+    studentId: String(a.studentId ?? ""),
+    counsellor: String(a.counsellor ?? ""),
+    country: String(a.country ?? ""),
+    university: String(a.university ?? ""),
+    course: String(a.course ?? ""),
+    intake: String(a.intake ?? ""),
+    stages: stages.map((s) => ({
+      name: String(s.name ?? ""),
+      state: (s.state as StudentRecord["stages"][number]["state"]) ?? "todo",
+      when: String(s.when ?? ""),
+      note: s.note ? String(s.note) : undefined,
+    })),
+    documents: (Array.isArray(a.documents) ? a.documents : []) as StudentDoc[],
+    messages: (Array.isArray(a.messages) ? a.messages : []) as Message[],
+    notifications: (Array.isArray(a.notifications) ? a.notifications : []) as Notification[],
+  };
+}
 
 /* ====================================================================== *
  *  STUDENT SESSION: DEMONSTRATION ONLY                                   *
@@ -45,9 +69,8 @@ import {
 /** The one demo account. Deliberately obvious, and shown on the sign-in
  *  screen so nobody mistakes the portal for a live service. */
 const DEMO_EMAIL = "student@demo.studyhubbd.com";
-const DEMO_PASSWORD = "demo1234";
+const DEMO_PASSWORD = "password";
 
-const SESSION_KEY = "shb_student_demo_session";
 const READ_KEY = "shb_student_demo_last_read";
 const NOTES_KEY = "shb_student_demo_notes_read";
 
@@ -79,7 +102,7 @@ type StudentContextValue = {
    *  not flash the sign-in screen at a reader who is already signed in */
   restoring: boolean;
   lastRead: string | null;
-  signIn: (email: string, password: string) => SignInResult;
+  signIn: (email: string, password: string) => Promise<SignInResult>;
   signOut: () => void;
   /** Records the NAME of a chosen file. The file itself is never read,
    *  never stored and never uploaded. There is nowhere to put it. */
@@ -105,37 +128,48 @@ export function StudentProvider({ children }: { children: ReactNode }) {
   const [lastRead, setLastRead] = useState<string | null>(null);
   const [notesLastRead, setNotesLastRead] = useState<string | null>(null);
 
+  /* Restore a session from the stored token: ask the API who it belongs to.
+   * A dead or missing token just lands on the sign-in screen. */
   useEffect(() => {
-    if (readStore(SESSION_KEY) === DEMO_EMAIL) {
-      setStudent(SAMPLE_STUDENT);
-      setLastRead(readStore(READ_KEY));
-      setNotesLastRead(readStore(NOTES_KEY));
+    if (!getToken()) {
+      setRestoring(false);
+      return;
     }
-    setRestoring(false);
+    getMyApplication()
+      .then((app) => {
+        setStudent(mapApplication(app as Record<string, unknown>));
+        setLastRead(readStore(READ_KEY));
+        setNotesLastRead(readStore(NOTES_KEY));
+      })
+      .catch(() => setToken(null))
+      .finally(() => setRestoring(false));
   }, []);
 
   const signIn = useCallback(
-    (email: string, password: string): SignInResult => {
-      const given = email.trim().toLowerCase();
-      if (given !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
-        // One message for both cases, so the form does not say which half
-        // was wrong, the habit a real sign-in needs.
+    async (email: string, password: string): Promise<SignInResult> => {
+      try {
+        await login(email.trim(), password);
+        const app = await getMyApplication();
+        setStudent(mapApplication(app as Record<string, unknown>));
+        setLastRead(readStore(READ_KEY));
+        setNotesLastRead(readStore(NOTES_KEY));
+        return { ok: true };
+      } catch (e) {
+        setToken(null);
         return {
           ok: false,
-          error: "That email and password do not match an account.",
+          error:
+            e instanceof Error
+              ? e.message
+              : "That email and password do not match an account.",
         };
       }
-      writeStore(SESSION_KEY, DEMO_EMAIL);
-      setStudent(SAMPLE_STUDENT);
-      setLastRead(readStore(READ_KEY));
-      setNotesLastRead(readStore(NOTES_KEY));
-      return { ok: true };
     },
     []
   );
 
   const signOut = useCallback(() => {
-    writeStore(SESSION_KEY, null);
+    void logout();
     setStudent(null);
   }, []);
 

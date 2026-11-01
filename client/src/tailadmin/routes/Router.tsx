@@ -8,35 +8,36 @@ import Loadable from '../layouts/full/shared/loadable/Loadable';
 const FullLayout = Loadable(lazy(() => import('../layouts/full/FullLayout')));
 const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')));
 
-// authentication
-
-const Login2 = Loadable(lazy(() => import('../views/authentication/auth2/Login')));
-
-const Register2 = Loadable(lazy(() => import('../views/authentication/auth2/Register')));
-
-const Maintainance = Loadable(lazy(() => import('../views/authentication/Maintainance')));
-
-// Dashboards
+// Dashboard, the template's own, left as it is.
 const Modern = Loadable(lazy(() => import('../views/dashboards/Modern')));
 
-//pages
-const UserProfile = Loadable(lazy(() => import('../views/pages/user-profile/UserProfile')));
+// Students (operations)
+const StudentsPage = Loadable(lazy(() => import('../views/students/StudentsPage')));
+const ApplicationsPage = Loadable(lazy(() => import('../views/students/ApplicationsPage')));
+const DocumentsPage = Loadable(lazy(() => import('../views/students/DocumentsPage')));
+const MessagesPage = Loadable(lazy(() => import('../views/students/MessagesPage')));
+const AnnouncementsPage = Loadable(lazy(() => import('../views/students/AnnouncementsPage')));
+const BookingsPage = Loadable(lazy(() => import('../views/students/BookingsPage')));
 
-/* ****Apps***** */
-const Notes = Loadable(lazy(() => import('../views/apps/notes/Notes')));
-const Form = Loadable(lazy(() => import('../views/utilities/form/Form')));
-const Table = Loadable(lazy(() => import('../views/utilities/table/Table')));
-const Tickets = Loadable(lazy(() => import('../views/apps/tickets/Tickets')));
-const CreateTickets = Loadable(lazy(() => import('../views/apps/tickets/CreateTickets')));
-const Blog = Loadable(lazy(() => import('../views/apps/blog/Blog')));
-const BlogDetail = Loadable(lazy(() => import('../views/apps/blog/BlogDetail')));
+// Website content
+const HomePage = Loadable(lazy(() => import('../views/content/HomePage')));
+const AboutPage = Loadable(lazy(() => import('../views/content/AboutPage')));
+const ServicesPage = Loadable(lazy(() => import('../views/content/ServicesPage')));
+const DestinationsPage = Loadable(lazy(() => import('../views/content/DestinationsPage')));
+const SuccessPage = Loadable(lazy(() => import('../views/content/SuccessPage')));
+const IeltsPage = Loadable(lazy(() => import('../views/content/IeltsPage')));
+const ContactPage = Loadable(lazy(() => import('../views/content/ContactPage')));
 
+// Site
+const MediaPage = Loadable(lazy(() => import('../views/content/MediaPage')));
+const LegalPage = Loadable(lazy(() => import('../views/content/LegalPage')));
+const SettingsPage = Loadable(lazy(() => import('../views/content/SettingsPage')));
+
+// Authentication / error (template, kept for the shell)
+const Login2 = Loadable(lazy(() => import('../views/authentication/auth2/Login')));
+const Register2 = Loadable(lazy(() => import('../views/authentication/auth2/Register')));
+const Maintainance = Loadable(lazy(() => import('../views/authentication/Maintainance')));
 const Error = Loadable(lazy(() => import('../views/authentication/Error')));
-
-// // icons
-const SolarIcon = Loadable(lazy(() => import('../views/icons/SolarIcon')));
-
-// const SamplePage = lazy(() => import('../views/sample-page/SamplePage'));
 
 const Router = [
   {
@@ -44,18 +45,30 @@ const Router = [
     element: <FullLayout />,
     children: [
       { path: '/', exact: true, element: <Modern /> },
-      // { path: '/', exact: true, element: <SamplePage /> },
-      { path: '*', element: <Navigate to="/auth/404" /> },
 
-      { path: '/apps/notes', element: <Notes /> },
-      { path: '/utilities/form', element: <Form /> },
-      { path: '/utilities/table', element: <Table /> },
-      { path: '/apps/tickets', element: <Tickets /> },
-      { path: '/apps/tickets/create', element: <CreateTickets /> },
-      { path: '/apps/blog/post', element: <Blog /> },
-      { path: '/apps/blog/detail/:id', element: <BlogDetail /> },
-      { path: '/user-profile', element: <UserProfile /> },
-      { path: '/icons/iconify', element: <SolarIcon /> },
+      // Students
+      { path: '/students', element: <StudentsPage /> },
+      { path: '/students/applications', element: <ApplicationsPage /> },
+      { path: '/students/documents', element: <DocumentsPage /> },
+      { path: '/students/messages', element: <MessagesPage /> },
+      { path: '/students/announcements', element: <AnnouncementsPage /> },
+      { path: '/students/bookings', element: <BookingsPage /> },
+
+      // Website content
+      { path: '/pages/home', element: <HomePage /> },
+      { path: '/pages/about', element: <AboutPage /> },
+      { path: '/pages/services', element: <ServicesPage /> },
+      { path: '/pages/destinations', element: <DestinationsPage /> },
+      { path: '/pages/success', element: <SuccessPage /> },
+      { path: '/pages/ielts', element: <IeltsPage /> },
+      { path: '/pages/contact', element: <ContactPage /> },
+
+      // Site
+      { path: '/media', element: <MediaPage /> },
+      { path: '/legal', element: <LegalPage /> },
+      { path: '/settings', element: <SettingsPage /> },
+
+      { path: '*', element: <Navigate to="/auth/404" /> },
     ],
   },
   {
@@ -63,9 +76,7 @@ const Router = [
     element: <BlankLayout />,
     children: [
       { path: '/auth/auth2/login', element: <Login2 /> },
-
       { path: '/auth/auth2/register', element: <Register2 /> },
-
       { path: '/auth/maintenance', element: <Maintainance /> },
       { path: '404', element: <Error /> },
       { path: '/auth/404', element: <Error /> },
@@ -74,9 +85,12 @@ const Router = [
   },
 ];
 
-/* The whole template is served under /admin on this site, so every route
- * above is relative to that prefix: "/" is /admin, "/apps/notes" is
- * /admin/apps/notes. */
-const router = createBrowserRouter(Router, { basename: '/admin' });
+/* Served under /admin on this site, so every route above is relative to that
+ * prefix: "/" is /admin, "/pages/home" is /admin/pages/home. */
+/* Served under /admin, relative to wherever the site is deployed: "/admin" at a
+ * domain root (Vercel), "/studyhub/admin" in a XAMPP sub-folder. */
+const router = createBrowserRouter(Router, {
+  basename: `${import.meta.env.BASE_URL}admin`,
+});
 
 export default router;

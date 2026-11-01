@@ -42,13 +42,13 @@ export default function StudentLogin() {
     if (error) errorRef.current?.focus();
   }, [error]);
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email.trim() || !password) {
       setError("Enter your email and password.");
       return;
     }
-    const result = signIn(email, password);
+    const result = await signIn(email, password);
     if (result.ok) navigate("/student", { replace: true });
     else setError(result.error);
   }

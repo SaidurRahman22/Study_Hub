@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Switch, useLocation } from "wouter";
+import { Route, Switch, useLocation, Router as WouterRouter } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CmsProvider } from "./contexts/CmsContext";
@@ -138,7 +138,11 @@ function App() {
             <ConsultationProvider>
               <StudentProvider>
                 <Toaster />
-                <Shell />
+                {/* Base so routing works whether the app is served at the
+                    domain root (Vercel) or a sub-folder (XAMPP /studyhub/). */}
+                <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                  <Shell />
+                </WouterRouter>
               </StudentProvider>
             </ConsultationProvider>
           </TooltipProvider>

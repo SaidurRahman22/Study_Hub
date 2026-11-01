@@ -1,9 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Icon } from '@iconify/react';
 import SidebarContent, { ChildItem, MenuItem } from '../sidebar/sidebaritems';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import SimpleBar from 'simplebar-react';
 import { Input } from 'src/components/ui/input';
+import { usePageSearch } from 'src/content/search';
 
 interface SearchResult {
   name: string
@@ -14,6 +15,15 @@ interface SearchResult {
 
 function Search() {
   const [query, setQuery] = useState('');
+  // The top bar also drives the current list page's filtering.
+  const { setQuery: setPageQuery, placeholder } = usePageSearch();
+  const location = useLocation();
+
+  // Start each page with an empty box.
+  useEffect(() => {
+    setQuery('');
+    setPageQuery('');
+  }, [location.pathname, setPageQuery]);
 
   // 🔍 Recursive search through menu
   const searchItems = (items: (MenuItem | ChildItem)[], q: string, parentPath = ''): SearchResult[] => {
@@ -58,16 +68,18 @@ function Search() {
         />
 
         <Input
-          placeholder="Search...."
+          placeholder={placeholder}
           className="rounded-xl pl-10"
-          required
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setPageQuery(e.target.value);
+          }}
         />
       </div>
       <div
         className={`absolute w-full bg-background rounded-md top-11 z-10 start-0 shadow-md border border-border ${
-          Boolean(query) ? 'block' : 'hidden'
+          Boolean(query) && results.length > 0 ? 'block' : 'hidden'
         }`}
       >
         <SimpleBar className="h-72 p-4 custom-scroll">

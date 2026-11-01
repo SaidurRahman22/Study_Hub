@@ -1,13 +1,48 @@
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { Mail, Phone, MapPin, Clock, CheckCircle } from "lucide-react";
 import { useCms } from "@/contexts/CmsContext";
 import RichText from "@/components/RichText";
 import { useConsultation } from "@/components/ConsultationDialog";
+import { submitEnquiry } from "@/lib/api";
 
 export default function Contact() {
   const { content } = useCms();
   const { open: openConsultation } = useConsultation();
   const c = content.contact;
   const g = content.global;
+
+  /* The contact form now posts to the Laravel API and stores an enquiry. */
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
+    "idle"
+  );
+  const [error, setError] = useState("");
+
+  const set =
+    (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    setError("");
+    try {
+      await submitEnquiry({ ...form, source: "contact" });
+      setStatus("done");
+      setForm({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Please try again.");
+      setStatus("error");
+    }
+  }
 
   return (
     <div className="bg-off-white">
@@ -100,74 +135,117 @@ export default function Contact() {
             </h2>
 
             <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-golden">
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-black mb-2">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Your name"
-                      className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-black mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
-                    />
-                  </div>
+              {status === "done" ? (
+                <div className="text-center py-10">
+                  <CheckCircle className="w-14 h-14 text-green-600 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-black mb-2">
+                    Thank you, we have your message
+                  </h3>
+                  <p className="text-gray">
+                    Someone from Study Hub BD will get back to you shortly. For
+                    anything urgent, call {g.phone1}.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setStatus("idle")}
+                    className="mt-6 px-6 py-3 border-2 border-golden text-black font-semibold rounded-lg hover:bg-light-golden transition-all"
+                  >
+                    Send another message
+                  </button>
                 </div>
+              ) : (
+                <form className="space-y-6" onSubmit={onSubmit} noValidate>
+                  {status === "error" && (
+                    <div
+                      role="alert"
+                      className="rounded-lg border-2 border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
+                    >
+                      {error}
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={form.name}
+                        onChange={set("name")}
+                        placeholder="Your name"
+                        className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={form.email}
+                        onChange={set("email")}
+                        placeholder="your@email.com"
+                        className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
+                      />
+                    </div>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-2">
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        value={form.phone}
+                        onChange={set("phone")}
+                        placeholder="+880..."
+                        className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-2">
+                        Subject
+                      </label>
+                      <select
+                        value={form.subject}
+                        onChange={set("subject")}
+                        className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
+                      >
+                        <option value="">Select a subject</option>
+                        <option>IELTS Inquiry</option>
+                        <option>Japanese Language</option>
+                        <option>Admission Support</option>
+                        <option>Visa Assistance</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-sm font-semibold text-black mb-2">
-                      Phone
+                      Message
                     </label>
-                    <input
-                      type="tel"
-                      placeholder="+880..."
-                      className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all"
-                    />
+                    <textarea
+                      value={form.message}
+                      onChange={set("message")}
+                      placeholder="Your message..."
+                      rows={5}
+                      className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all resize-none"
+                    ></textarea>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-black mb-2">
-                      Subject
-                    </label>
-                    <select className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all">
-                      <option>Select a subject</option>
-                      <option>IELTS Inquiry</option>
-                      <option>Japanese Language</option>
-                      <option>Admission Support</option>
-                      <option>Visa Assistance</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-black mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    placeholder="Your message..."
-                    rows={5}
-                    className="w-full px-4 py-3 border-2 border-light-golden rounded-lg focus:outline-none focus:border-golden focus:ring-2 focus:ring-golden focus:ring-opacity-20 transition-all resize-none"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-gradient-to-r from-golden to-dark-golden text-black font-bold rounded-lg hover:shadow-lg transition-all transform hover:scale-105"
-                >
-                  Send Message
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="w-full px-8 py-4 bg-gradient-to-r from-golden to-dark-golden text-black font-bold rounded-lg hover:shadow-lg transition-all transform hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    {status === "sending" ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              )}
 
               <p className="text-center text-gray text-sm mt-6">
                 Or register directly through our{" "}

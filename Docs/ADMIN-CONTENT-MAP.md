@@ -45,15 +45,32 @@ content.<key> in each page        e.g. content.home.hero.title
 
 ## 2. The admin panel structure (target map)
 
-The admin currently keeps the TailAdmin template's own menu as it ships — by
-instruction, the content editor pages will be built later under direction. The table
-below is therefore the **target** map: what each content section will edit once built,
-grouped the way an editor thinks about the site rather than the way the JSON is shaped.
-It is the spec for that work, not a description of the menu as it stands today.
+The admin has two jobs, and the sidebar reflects both: **run the student operations**
+(the portal side) and **edit the marketing website** (the CMS side). The sidebar is now
+shaped to this map; each item opens a section page that states what it will manage. The
+editor forms themselves are built section by section under direction.
 
-| Content section (planned) | Route | CMS key(s) it edits | Public page(s) |
+**Overview**
+
+| Section | Route | Data it edits | Where it shows |
 |---|---|---|---|
 | **Dashboard** | `/` | — (overview only) | — |
+
+**Students (operations)** — see §6. Not CMS; these need a real private backend.
+
+| Section | Route | Data it edits | Where it shows |
+|---|---|---|---|
+| **Students** | `/students` | the student records | student portal |
+| **Applications & visa** | `/students/applications` | each student's `stages[]` | `/student` |
+| **Documents** | `/students/documents` | each student's `documents[]` + feedback | `/student/documents` |
+| **Messages** | `/students/messages` | each student's `messages[]` | `/student/messages` |
+| **Announcements** | `/students/announcements` | each student's `notifications[]` | `/student/notifications` |
+| **Bookings** | `/students/bookings` | consultation requests (not captured yet) | the consultation form |
+
+**Website content (CMS)** — driven by `content/site-content.json`.
+
+| Section | Route | CMS key(s) it edits | Public page(s) |
+|---|---|---|---|
 | **Home page** | `/pages/home` | `home` | `/` |
 | **About page** | `/pages/about` | `about` | `/about` |
 | **Services** | `/pages/services` | `servicesPage`, `services` | `/services` |
@@ -61,7 +78,12 @@ It is the spec for that work, not a description of the menu as it stands today.
 | **Success stories** | `/pages/success` | `successPage`, `successStories` | `/success-stories` |
 | **IELTS course** | `/pages/ielts` | `ielts` | `/ielts` |
 | **Contact page** | `/pages/contact` | `contact` | `/contact` |
-| **Media library** | `/media` | (image files) | all |
+
+**Site**
+
+| Section | Route | Data it edits | Public page(s) |
+|---|---|---|---|
+| **Media library** | `/media` | image files | all |
 | **Legal & compliance** | `/legal` | `legal` | `/privacy`, `/terms`, `/refunds`, `/complaints`, `/cookies`, `/data-processing` |
 | **Settings** | `/settings` | `global`, `header`, `footer` | all (header, footer, contact buttons) |
 
@@ -216,26 +238,89 @@ into thinking a Japanese page exists.
 
 ---
 
-## 5. Plan
+## 5. The student portal (operations side) — assessment
+
+The admin is not only a website editor. The site has a **student portal**
+(`/student`, `/student/documents`, `/student/messages`, `/student/notifications`,
+`/student/login`) where a student tracks their application. The agency side of that —
+creating files, moving stages, checking documents, replying, posting notices — had no
+home in the admin. It does now, as the **Students** group (§2).
+
+**The data model** is `StudentRecord` in `client/src/lib/studentData.ts`:
+`name, email, studentId, counsellor, country, university, course, intake`, plus four
+lists — `stages[]` (the six-stage done/now/todo progression), `documents[]` (each with
+a status and a feedback note, split into the university file and the visa file),
+`messages[]` (the two-way thread), and `notifications[]` (document/stage/message/
+announcement notices). Each admin section maps to one of these.
+
+**The hard truth about this side (not git-as-database).** The marketing CMS is one JSON
+file committed to a public repo, and that model is fine for marketing copy. It is
+**wrong** for student data:
+- The portal has **no backend** today. It runs on one hardcoded `SAMPLE_STUDENT`, with
+  browser-only "auth" that protects nothing.
+- Student **documents are passport scans, bank statements, NIDs**. They must live in
+  **private, access-controlled storage**, never in the public content repo — committing
+  one publishes it to the world.
+- So the Students sections cannot save through the content API the website uses. They
+  need a real database and file store with per-student access control. **This is the
+  biggest build on the roadmap, and it is a backend, not a frontend, job.**
+
+**Bookings is a gap, not a feature yet.** The website's "Book a consultation" dialog
+(`ConsultationDialog.tsx`) sends straight to WhatsApp or email and **stores nothing** —
+there is a `submitToEndpoint` stub waiting for "the day there is a service." So the
+Bookings section has nothing to list until the form posts to a store first. It is in the
+sidebar so the gap is visible and planned, not forgotten.
+
+---
+
+## 6. Plan
 
 **Done so far:**
-- This audit, mapping every public page and component to the CMS and listing the §4
-  gaps.
-- The TailAdmin panel stands up under `/admin` with its own menu kept as it ships.
+- This audit, mapping every public page and component to the CMS (§3–§4) and the student
+  portal (§5).
+- The TailAdmin panel stands up under `/admin`, with the sidebar shaped to the full §2
+  map: Overview, Students, Website content, Site. (The template's demo menu and its
+  "Get Pro" promo are removed.)
+- **Every section now has a built editor UI** in the TailAdmin design (frontend phase):
+  - Website content + Site (Home, About, Services, Destinations, Success, IELTS, Contact,
+    Media, Legal, Settings) — forms over the live content, populated from `/api/content`
+    with the bundled JSON as fallback, each carrying a notice on its §4 gaps.
+  - Students (Students, Applications & visa, Documents, Messages, Announcements, Bookings)
+    — tables, a stage tracker, a document review list, a message thread and a bookings
+    inbox, populated from sample fixtures (`content/students.ts`) since there is no
+    backend.
+  - Shared foundation: `content/store.tsx` (website content), `content/fields.tsx` (form
+    toolkit), `content/ui.tsx` (app-screen primitives), `content/students.ts` (fixtures).
 
-**Building the content editors (next, under direction):**
-Each §2 section becomes a page in the TailAdmin design, showing the real fields it
-governs, populated from the current content, with a notice on any §4 gap so the limit
-is visible. The order and approach are the user's call.
+**Student screens are now interactive (in-memory):** create / delete a student and change
+their password; collapse each applications card and add titled case-note feedback; set a
+document's status, write feedback, and upload a document for a student; post an
+announcement to one student or to everyone ("All"); reply in Messages; create a booking
+and change a booking's status. The top-bar search is global and filters whichever list is
+open. All of this is held in a client-side store seeded from fixtures, so **it works and
+shows immediately but resets on reload** — there is no backend.
+
+**Still to wire (not built yet):**
+- **Saving the website content.** The CMS forms hold edits in local state; Save is a stub.
+- **The student backend.** A real database and private, access-controlled file store, with
+  server-side auth, so students, documents (actual files), messages, announcements and
+  bookings persist and are secure (§5). The store methods are the shape it will implement.
+- **Website → bookings capture.** The consultation form must post to that store (and copy
+  to WhatsApp) so website bookings land in the Bookings inbox automatically.
 
 **Function connection (the phase after):**
-1. Wire the editor to `GET /api/content` + save (the old working save logic in
-   `client/src/admin/` can be ported; it already does the GitHub commit with the sha
-   guard).
-2. Decide §4A: promote `lib/countries.ts` to a CMS `countries` collection, or leave
+1. **Website content:** wire the editors to `GET /api/content` + save (the working save
+   logic in `client/src/admin/` can be ported; it already commits with the sha guard).
+2. **Student backend (the big one):** stand up a real database and private file store
+   with per-student access control and server-side auth, so student files, documents,
+   messages and announcements can be managed for real. This is not git-as-database and
+   not a frontend job (§5).
+3. **Bookings:** make the consultation form post to a store before the Bookings section
+   can list anything (§5).
+4. Decide §4A: promote `lib/countries.ts` to a CMS `countries` collection, or leave
    destinations developer-edited.
-3. Decide §4E: make the contact form work, or drop it for the dialog.
-4. Decide §4F: build `/japanese`, or delete the key.
+5. Decide §4E: make the contact form work, or drop it for the dialog.
+6. Decide §4F: build `/japanese`, or delete the key.
 
 ---
 

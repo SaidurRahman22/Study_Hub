@@ -1,0 +1,1968 @@
+{
+ "url": "http://localhost:4173/",
+ "at": "2026-10-31T18:17:10.626Z",
+ "allow": [
+  "eyebrow",
+  "font-not-dealt"
+ ],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.41,
+    0.57,
+    0.46,
+    0.66,
+    0.54,
+    0.33,
+    0.64
+   ],
+   "motion": {
+    "elements": 71,
+    "css": 1,
+    "transitions": 69,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 6098,
+     "screens": 6.8,
+     "words": 799,
+     "img": 19,
+     "video": 1,
+     "canvas": 1,
+     "svg": 11,
+     "sections": 10,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg",
+      "cyprus.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "chars": 29,
+     "lines": 2,
+     "size": 52,
+     "vw": 3.6,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.4,
+     "top": 290,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "lines": 2,
+     "size": 52,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study abroad, start to finish",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 290,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 861,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 861,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 861,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 1263,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Choose Study Hub BD",
+      "words": 5,
+      "chars": 23,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 2167,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What makes us different",
+      "words": 4,
+      "chars": 23,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 2669,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "How we work",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 3370,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What Our Students Say",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 4123,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to start your application?",
+      "words": 5,
+      "chars": 32,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.33,
+      "top": 5084,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 10,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.82,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.18,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      16,
+      17,
+      22,
+      38,
+      52
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 48,
+     "max": {
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "text": "Study abroad, start to finish"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Your Dream, Our Mission",
+      "above": "Study abroad, start to finish",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 252
+     },
+     {
+      "text": "Destinations",
+      "above": "Where our students go",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 1225
+     },
+     {
+      "text": "Why us",
+      "above": "Why Choose Study Hub BD",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 2129
+     },
+     {
+      "text": "About us",
+      "above": "What makes us different",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 2642
+     },
+     {
+      "text": "Process",
+      "above": "How we work",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 3332
+     },
+     {
+      "text": "Students",
+      "above": "What Our Students Say",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 4085
+     },
+     {
+      "text": "Contact",
+      "above": "Ready to start your application?",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 5046
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2043,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 5605,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.31
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.27
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.21
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.17
+      },
+      {
+       "color": "#8a6d12",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 5,
+     "radius": 8,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Register Now",
+      "Start your application",
+      "See the ten countries",
+      "WhatsApp"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 29,
+     "boxRadius": 10,
+     "squareMedia": 1,
+     "roundedMedia": 11,
+     "mediaRadius": 10,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.42
+     }
+    ],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 6098,
+    "margins": {
+     "left": 124,
+     "right": 144
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 141,
+      "height": 5464,
+      "words": 719,
+      "media": 12,
+      "middle": 0,
+      "heading": {
+       "text": "Study abroad,",
+       "size": 52,
+       "tag": "h1"
+      },
+      "left": 124,
+      "right": 15,
+      "textLeft": 124,
+      "textRight": 146,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 5605,
+      "height": 494,
+      "words": 118,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 124,
+      "right": 144,
+      "textLeft": 124,
+      "textRight": 144,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study abroad, start to finish",
+      "size": 52,
+      "top": 290,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 124,
+      "n": 16
+     },
+     {
+      "x": 559,
+      "n": 4
+     },
+     {
+      "x": 957,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 23,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.07,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 120,
+     "h": 780
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.3,
+    0.74,
+    0.57,
+    0.57,
+    0.5,
+    0.69,
+    0.47,
+    0.86
+   ],
+   "motion": {
+    "elements": 71,
+    "css": 1,
+    "transitions": 69,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 8181,
+     "screens": 8,
+     "words": 791,
+     "img": 19,
+     "video": 1,
+     "canvas": 1,
+     "svg": 11,
+     "sections": 10,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg",
+      "cyprus.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "chars": 29,
+     "lines": 2,
+     "size": 43.9,
+     "vw": 5.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.75,
+     "top": 240,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "lines": 2,
+     "size": 43.9,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study abroad, start to finish",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 240,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 1116,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 1116,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 1116,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 1544,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Choose Study Hub BD",
+      "words": 5,
+      "chars": 23,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 2857,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What makes us different",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 3422,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "How we work",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 4268,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What Our Students Say",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 5491,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to start your application?",
+      "words": 5,
+      "chars": 32,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 6481,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 10,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.82,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.18,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      17,
+      20,
+      32,
+      44
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.7,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 48,
+     "max": {
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "text": "Study abroad, start to finish"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Your Dream, Our Mission",
+      "above": "Study abroad, start to finish",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 204
+     },
+     {
+      "text": "Destinations",
+      "above": "Where our students go",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 1507
+     },
+     {
+      "text": "Why us",
+      "above": "Why Choose Study Hub BD",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 2820
+     },
+     {
+      "text": "About us",
+      "above": "What makes us different",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 3386
+     },
+     {
+      "text": "Process",
+      "above": "How we work",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 4232
+     },
+     {
+      "text": "Students",
+      "above": "What Our Students Say",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 5454
+     },
+     {
+      "text": "Contact",
+      "above": "Ready to start your application?",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15.3,
+      "top": 6444
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2764,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#e8eaef",
+       "top": 6877,
+       "hsl": {
+        "h": 223,
+        "s": 0.18,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 7353,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.32
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.26
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.21
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.17
+      },
+      {
+       "color": "#8a6d12",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 5,
+     "radius": 8,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Register Now",
+      "Start your application",
+      "See the ten countries",
+      "WhatsApp"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 29,
+     "boxRadius": 10,
+     "squareMedia": 1,
+     "roundedMedia": 11,
+     "mediaRadius": 10,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.32
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 8181,
+    "margins": {
+     "left": 47,
+     "right": 47
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 172,
+      "height": 7182,
+      "words": 718,
+      "media": 12,
+      "middle": 0,
+      "heading": {
+       "text": "Study abroad,",
+       "size": 44,
+       "tag": "h1"
+      },
+      "left": 15,
+      "right": 15,
+      "textLeft": 47,
+      "textRight": 64,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 7353,
+      "height": 828,
+      "words": 118,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 47,
+      "right": 86,
+      "textLeft": 47,
+      "textRight": 86,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study abroad, start to finish",
+      "size": 44,
+      "top": 240,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 47,
+      "n": 15
+     },
+     {
+      "x": 67,
+      "n": 4
+     },
+     {
+      "x": 410,
+      "n": 3
+     }
+    ],
+    "leftBlocks": 22,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.49,
+    0.63,
+    0.83,
+    0.59,
+    0.59,
+    0.78,
+    0.61,
+    0.75,
+    0.62,
+    0.34,
+    0.88,
+    0.96
+   ],
+   "motion": {
+    "elements": 69,
+    "css": 1,
+    "transitions": 67,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 9458,
+     "screens": 11.2,
+     "words": 782,
+     "img": 19,
+     "video": 1,
+     "canvas": 1,
+     "svg": 11,
+     "sections": 10,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg",
+      "cyprus.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "chars": 29,
+     "lines": 2,
+     "size": 34,
+     "vw": 8.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 192,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study abroad, start to finish",
+     "words": 5,
+     "lines": 2,
+     "size": 34,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study abroad, start to finish",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 192,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 1035,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.26,
+      "top": 1035,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.26,
+      "top": 1035,
+      "tag": "dd",
+      "kind": "statement"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1525,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Choose Study Hub BD",
+      "words": 5,
+      "chars": 23,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2895,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What makes us different",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3770,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "How we work",
+      "words": 3,
+      "chars": 11,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5044,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What Our Students Say",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6314,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to start your application?",
+      "words": 5,
+      "chars": 32,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7815,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 10,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.82,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.18,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      14,
+      15,
+      16,
+      18,
+      26,
+      34
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.1,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 38,
+     "max": {
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "text": "Study abroad, start to finish"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Your Dream, Our Mission",
+      "above": "Study abroad, start to finish",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15,
+      "top": 156
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 1152,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2803,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 8586,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.32
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.26
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.21
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.17
+      },
+      {
+       "color": "#8a6d12",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 7,
+     "inHero": 2,
+     "radius": 8,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Start your application",
+      "See the ten countries"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 29,
+     "boxRadius": 10,
+     "squareMedia": 1,
+     "roundedMedia": 1,
+     "mediaRadius": 10,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.35
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 9458,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 124,
+      "height": 8463,
+      "words": 706,
+      "media": 12,
+      "middle": 0,
+      "heading": {
+       "text": "Study abroad,",
+       "size": 34,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 27,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 8586,
+      "height": 872,
+      "words": 114,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 22,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study abroad, start to finish",
+      "size": 34,
+      "top": 192,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 16
+     },
+     {
+      "x": 40,
+      "n": 7
+     }
+    ],
+    "leftBlocks": 23,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 1440,
+   "message": "The margins differ: 124px on the left, 144px on the right, at 1440px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\v4\\desktop-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\desktop-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\v4\\tablet-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\tablet-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\v4\\mobile-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\mobile-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\v4\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

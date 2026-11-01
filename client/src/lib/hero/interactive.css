@@ -1,0 +1,385 @@
+/* ====================================================================== *
+ *  HERO GLOBE — the interactive scene's own stylesheet                   *
+ *                                                                        *
+ *  Ported from the <style> block of hero.html (source lines 23-460).     *
+ *  Two changes, and only these:                                          *
+ *                                                                        *
+ *   1. The demo page's chrome is gone -- .masthead, .wordmark, .btn,     *
+ *      .btn-quiet, .site-foot, .foot-line, .hero-copy, h1, .subhead,     *
+ *      .hero-note, .hero-actions, .wrap, the dev panel, the bare `body`  *
+ *      and `html` rules and the :root colour tokens. The React page      *
+ *      supplies all of that.                                            *
+ *   2. Every surviving selector is scoped under .globe-stage, so nothing *
+ *      here can reach the rest of the site.                              *
+ *                                                                        *
+ *  --c-primary, --c-accent and --c-neutral are deliberately NOT declared *
+ *  here: applyThemeToDom() writes them onto the document element from    *
+ *  the config, and they inherit down. Declaring them on .globe-stage     *
+ *  would out-rank that inherited value and freeze the theme.             *
+ * ====================================================================== */
+
+.globe-stage {
+  /* The demo page's :root tokens, minus the three the config owns.
+     The destination card paints --c-neutral under --ink, so these have to
+     pair with theme.neutral. That is #FFFFFF -- the page is going white --
+     so this is the LIGHT pairing: the demo's own light ink set, exactly as
+     hero.html declares it at :root. The demo's dark-scheme block
+     (#F3EFE7 / #B3A997 / #1E1B16 / #26221C) is not ported, because against
+     a white card it would be near-white copy on a near-white ground. */
+  --ink:       #F3EFE7;
+  --ink-soft:  #B3A997;
+  --surface:   #1E1B16;
+  --surface-2: #26221C;
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:  "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gutter: clamp(20px, 4vw, 56px);
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* what .hero carried: the positioned, sized box .stage fills */
+  position: relative;
+  min-height: calc(100svh - 66px);
+  display: grid;
+  align-items: center;
+  isolation: isolate;
+}
+
+@media (max-width: 900px) {
+  .globe-stage { min-height: calc(100svh - 60px); }
+}
+
+.globe-stage,
+.globe-stage *,
+.globe-stage *::before,
+.globe-stage *::after { box-sizing: border-box; }
+
+.globe-stage :where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ====================================================================== *
+ *  THE STAGE                                                             *
+ *  One container holds the video and the canvas layered above it, and    *
+ *  the scrim over the safe zone.                                         *
+ * ====================================================================== */
+.globe-stage .stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+/* The video is the poster, the mobile hero and the fallback. The canvas
+   fades in over it once the scene is ready and the video keeps playing
+   underneath at zero opacity. */
+.globe-stage .stage video,
+.globe-stage .stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.globe-stage .stage video { z-index: 0; background: var(--c-neutral); }
+.globe-stage .stage canvas {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .9s var(--ease);
+  /* Vertical page scrolling must keep working over the canvas on phones. */
+  /* The whole globe answers a drag, not only the pins. */
+  cursor: grab;
+  touch-action: pan-y;
+}
+.globe-stage .stage canvas:active { cursor: grabbing; }
+.globe-stage .stage[data-mode="video"] canvas:active { cursor: default; }
+
+.globe-stage .stage canvas.ready { opacity: 1; }
+.globe-stage .stage[data-mode="video"] canvas { display: none; }
+
+/* The scrim is the one gradient on the page: it buys the headline its
+   contrast over a moving scene and nothing else. */
+.globe-stage .scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,   /* taste-skill-ignore: the scrim the brief requires, for headline contrast over a moving scene */
+      rgb(from var(--c-neutral) r g b / .97) 0%,
+      rgb(from var(--c-neutral) r g b / .93) 28%,
+      rgb(from var(--c-neutral) r g b / .62) 46%,
+      rgb(from var(--c-neutral) r g b / 0) 62%);
+}
+@supports not (color: rgb(from white r g b / 1)) {
+  /* the literals are the brand neutral #FFFFFF, where the demo's were its own */
+  .globe-stage .scrim { background: linear-gradient(90deg, var(--c-neutral) 0%, var(--c-neutral) 28%, rgba(255,255,255,.6) 46%, rgba(255,255,255,0) 62%); }  /* taste-skill-ignore: scrim fallback */
+}
+@media (max-width: 900px) {
+  .globe-stage .scrim {
+    background: linear-gradient(180deg,  /* taste-skill-ignore: the same scrim, turned for the portrait safe zone */
+      var(--c-neutral) 0%, var(--c-neutral) 42%,
+      rgb(from var(--c-neutral) r g b / .55) 58%,
+      rgb(from var(--c-neutral) r g b / 0) 74%);
+  }
+}
+
+/* ====================================================================== *
+ *  KEYBOARD PARITY                                                       *
+ *  One real button per destination, layered over the canvas at the       *
+ *  pin's projected position. Invisible until focused; focus applies      *
+ *  the same highlight as hover, plus a ring.                             *
+ * ====================================================================== */
+/* The list covers the whole stage so each button can sit over its pin.
+   Without pointer-events: none it is a transparent sheet in front of the
+   canvas, and every pointer event the scene needs lands on it instead --
+   the buttons opt back in when focus reaches them. */
+.globe-stage .pinlist { position: absolute; inset: 0; z-index: 3; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+.globe-stage .pinlist li { position: absolute; transform: translate(-50%, -50%); }
+.globe-stage .pinlist button {
+  padding: 7px 13px;
+  border: 0;
+  border-radius: 0;
+  background: var(--c-primary);
+  color: #fff;
+  font: 600 14px/1 var(--sans);
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.9);
+  transition: opacity .2s var(--ease), transform .2s var(--ease);
+}
+.globe-stage .pinlist button:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* ====================================================================== *
+ *  DESTINATION CARD -- DOM, not 3D text, outside the safe zone           *
+ * ====================================================================== */
+.globe-stage .destcard {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  bottom: clamp(28px, 6vh, 72px);
+  width: min(330px, calc(100vw - var(--gutter) * 2));
+  padding: 24px 26px 26px;
+  background: var(--c-neutral);
+  color: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease), visibility .35s;
+  box-shadow: 0 18px 48px rgb(22 19 15 / .16);   /* taste-skill-ignore: a dialog, not a resting element */
+}
+.globe-stage .destcard[data-open="true"] { opacity: 1; visibility: visible; transform: none; }
+/* `h1, h2, h3` was page chrome and went with it, so the card's heading
+   carries the display face itself. */
+.globe-stage .destcard h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  font-size: 28px;
+  line-height: 1.02;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+.globe-stage .destcard p  { margin: 0 0 18px; font-size: 15.5px; color: var(--ink-soft); }
+.globe-stage .destcard .btn { width: 100%; padding-block: 13px; }
+.globe-stage .destcard .close {
+  position: absolute; top: 10px; right: 10px;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  background: none; border: 0; cursor: pointer;
+  color: var(--ink-soft); font-size: 20px; line-height: 1;
+}
+.globe-stage .destcard .close:hover { color: var(--ink); }
+@media (max-width: 900px) {
+  .globe-stage .destcard { right: var(--gutter); left: var(--gutter); width: auto; bottom: 24px; }
+}
+
+/* ====================================================================== *
+ *  CAPTURE MODE -- deterministic, no chrome                              *
+ *                                                                        *
+ *  The bare `body { background:#000 }` rule the demo page had is dropped: *
+ *  the page's own background is not this stylesheet's to repaint.        *
+ * ====================================================================== */
+body[data-capture="true"] .globe-stage .scrim,
+body[data-capture="true"] .globe-stage .pinlist,
+body[data-capture="true"] .globe-stage .destcard { display: none !important; }
+body[data-capture="true"] .globe-stage { min-height: 100svh; }
+body[data-capture="true"] .globe-stage .stage video { display: none; }
+
+.globe-stage .vh {
+  position: absolute; width: 1px; height: 1px;   /* taste-skill-ignore: the visually-hidden utility */
+  margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* Nothing moves on its own when the visitor has asked for that. */
+@media (prefers-reduced-motion: reduce) {
+  .globe-stage,
+  .globe-stage *,
+  .globe-stage *::before,
+  .globe-stage *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- entrance motion --------------------------------------------------
+   observeRises() still runs, scoped to the mount root, so the rule it
+   depends on travels with it. */
+.globe-stage [data-rise] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.globe-stage [data-rise].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .globe-stage [data-rise] { opacity: 1; transform: none; }
+}
+
+/* ====================================================================== *
+ *  PAGE OVERRIDES                                                        *
+ *                                                                        *
+ *  Appended after the port, so the diff against the original stays       *
+ *  readable above. The React page composes the scene differently from    *
+ *  the demo page it came from, and these rules are what that costs.      *
+ * ====================================================================== */
+
+.globe-stage {
+  /* The demo page loaded Public Sans and Source Serif; this site loads
+     Hanken Grotesk and nothing else, so the two aliases point at it
+     rather than silently falling back to a system face. */
+  --sans: var(--font-sans);
+  --serif: var(--font-sans);
+
+  /* The stage is sized by the hero section that positions it, not by its
+     own viewport maths — otherwise it overflows the box on desktop, where
+     it occupies 62% of the width rather than all of it. */
+  min-height: 100%;
+  height: 100%;
+}
+
+/* The demo page set its headline ON the canvas and needed a scrim to keep
+   it readable. This page never puts text over the scene — the copy is
+   beside it on desktop and above it on a phone — so the scrim has no job,
+   and the canvas already clears to the page's own ground colour. */
+.globe-stage .scrim,
+.globe-stage .scrim::before,
+.globe-stage .scrim::after {
+  background: none;
+}
+
+/* `.btn` was page chrome and was stripped with the rest of it, which left
+   the destination card's call to action unstyled. It takes the page's one
+   button shape: flat fill, the arc's ends, no gradient and no shadow. */
+.globe-stage .destcard .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: var(--c-accent, #c9a227);
+  color: #0e0d0b;
+  font: 500 var(--text-body, 1.0625rem) / 1.2 var(--sans);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: background-color 200ms ease;
+}
+.globe-stage .destcard .btn:hover {
+  background: #dcb73c;
+}
+
+/* The card is a dialog, so it keeps its shadow, but it takes the page's
+   shape and loses the serif it no longer has. */
+.globe-stage .destcard {
+  border-radius: 20px;
+}
+.globe-stage .destcard h2 {
+  font-family: var(--sans);
+  letter-spacing: -0.035em;
+}
+
+/* Under reduced motion (or Save-Data, or a low memory report) the scene
+   renders a single still frame and never runs the loop — so the code that
+   pops the destination pins in never fires, and all ten sit at opacity 0.
+   They stay in the DOM as ten focusable buttons, which means a
+   reduced-motion reader gets an invisible control for every destination,
+   and a sighted one gets a globe with nothing marked on it. With no render
+   loop the projection runs once, before the globe has inflated, so all ten
+   would land in a pile on top of each other anyway. The pin overlay is
+   therefore dropped entirely for these readers. Nothing is lost: every
+   destination is a real link in the list below the hero, which is the same
+   ten from the same array.
+
+   ...unless the visitor pressed Play, in which case the loop is running
+   normally and the pins behave the way they do for everyone else. */
+@media (prefers-reduced-motion: reduce) {
+  .globe-stage:not([data-forced-motion]) .pinlist {
+    display: none;
+  }
+}
+
+/* The Play control, shown only when the scene has fallen back to a single
+   still frame (reduced motion, Data Saver, a low memory report, or a
+   viewport under the mobile breakpoint). It is a real button, reachable
+   from the keyboard, and it is the only thing on the page that starts
+   motion someone's own settings asked not to have — so it is never
+   automatic and it says plainly what it does. */
+.globe-stage .globe-play {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: clamp(20px, 6vh, 56px);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 48px;
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--c-accent, #c9a227);
+  color: #0e0d0b;
+  font: 500 var(--text-small, 1rem) / 1.2 var(--sans);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+.globe-stage .globe-play:hover {
+  background: #dcb73c;
+}
+.globe-stage .globe-play:active {
+  transform: translateX(-50%) scale(0.97);
+}
+
+/* Said out loud, in the space the globe would have filled. A hero that
+   cannot draw should say so rather than leave a blank rectangle that looks
+   like an unfinished build. */
+.globe-stage .globe-failure {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-width: min(42ch, calc(100% - 3rem));
+  padding: 1.1rem 1.3rem;
+  border-radius: 14px;
+  background: var(--surface, #eae5da);
+  color: var(--ink, #16130f);
+  font: 400 var(--text-small, 1rem) / 1.5 var(--sans);
+  text-align: center;
+}

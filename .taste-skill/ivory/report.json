@@ -1,0 +1,2022 @@
+{
+ "url": "http://localhost:4173/",
+ "at": "2026-10-31T17:29:50.183Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    0.33,
+    0.28,
+    0.81,
+    0.63,
+    0.36,
+    0.55,
+    0.24,
+    0.66,
+    0.88
+   ],
+   "motion": {
+    "elements": 45,
+    "css": 1,
+    "transitions": 43,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 7436,
+     "screens": 8.3,
+     "words": 490,
+     "img": 21,
+     "video": 1,
+     "canvas": 1,
+     "svg": 7,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "FB-IMG-1773611859839.jpg",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit",
+      "photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 100,
+     "vw": 6.9,
+     "font": "Hanken Grotesk",
+     "weight": 600,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.42,
+     "top": 242,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "lines": 2,
+     "size": 100,
+     "font": "Hanken Grotesk"
+    },
+    "headings": [
+     {
+      "text": "Tangail to ten countries",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 100,
+      "vw": 6.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 242,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.37,
+      "top": 2127,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Since 2023",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.22,
+      "top": 3071,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 100,
+      "vw": 6.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 3103,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 100,
+      "vw": 6.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 3247,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 100,
+      "vw": 6.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.18,
+      "top": 3355,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Ready to Start Your Journey?",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 4853,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Come to the office",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 5319,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GIIT Building",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5853,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Mymensingh Road",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5970,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Kumudini College Gate, Tangail",
+      "words": 4,
+      "chars": 30,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6088,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "01623-935872",
+      "words": 1,
+      "chars": 12,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6205,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "studyhubbd2023@gmail.com",
+      "words": 1,
+      "chars": 24,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 6323,
+      "tag": "li",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 8,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Hanken Grotesk",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      17,
+      19,
+      26,
+      56,
+      100
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Hanken Grotesk",
+      "size": 17,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": -0.006,
+      "contrast": 8.7
+     },
+     "measureChars": 67,
+     "max": {
+      "size": 100,
+      "vw": 6.9,
+      "font": "Hanken Grotesk",
+      "text": "Tangail toten countries"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f3ef",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.19,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f4f3ef",
+       "top": 0,
+       "hsl": {
+        "h": 48,
+        "s": 0.19,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe9e2",
+       "top": 2012,
+       "hsl": {
+        "h": 47,
+        "s": 0.18,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 3071,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      },
+      {
+       "color": "#16130f",
+       "top": 4567,
+       "hsl": {
+        "h": 34,
+        "s": 0.19,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#e0ddd3",
+       "top": 5391,
+       "hsl": {
+        "h": 46,
+        "s": 0.17,
+        "l": 0.85
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a443a",
+       "share": 0.32
+      },
+      {
+       "color": "#16130f",
+       "share": 0.22
+      },
+      {
+       "color": "#b2aea4",
+       "share": 0.2
+      },
+      {
+       "color": "#f4f3ef",
+       "share": 0.2
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#16130f"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 10,
+     "inHero": 5,
+     "radius": "pill",
+     "height": 59,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Register Now",
+      "Register now",
+      "See the ten countries",
+      "WhatsApp"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 9,
+     "boxRadius": 99,
+     "squareMedia": 1,
+     "roundedMedia": 7,
+     "mediaRadius": 999,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.55
+     }
+    ],
+    "nav": {
+     "links": 9,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "hanken grotesk"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 7436,
+    "margins": {
+     "left": 60,
+     "right": 60
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 96,
+      "height": 6575,
+      "words": 410,
+      "media": 8,
+      "middle": 0,
+      "heading": {
+       "text": "Tangail to",
+       "size": 100,
+       "tag": "h1"
+      },
+      "left": 60,
+      "right": 0,
+      "textLeft": 60,
+      "textRight": 60,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 6671,
+      "height": 766,
+      "words": 142,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Study Hub BD",
+       "size": 19,
+       "tag": "h2"
+      },
+      "left": 60,
+      "right": 80,
+      "textLeft": 60,
+      "textRight": 80,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Tangail to ten countries",
+      "size": 100,
+      "top": 242,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 60,
+      "n": 9
+     },
+     {
+      "x": 513,
+      "n": 1
+     },
+     {
+      "x": 724,
+      "n": 1
+     },
+     {
+      "x": 967,
+      "n": 1
+     },
+     {
+      "x": 1095,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 13,
+    "bodySize": 19,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.05,
+    "voidBox": {
+     "x": 0,
+     "y": 780,
+     "w": 540,
+     "h": 120
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    0.16,
+    0.31,
+    0.69,
+    0.76,
+    0.67,
+    0.55,
+    0.33,
+    0.73,
+    0.9
+   ],
+   "motion": {
+    "elements": 46,
+    "css": 1,
+    "transitions": 44,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 8722,
+     "screens": 8.5,
+     "words": 482,
+     "img": 21,
+     "video": 1,
+     "canvas": 1,
+     "svg": 7,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "FB-IMG-1773611859839.jpg",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit",
+      "photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 65.2,
+     "vw": 8.5,
+     "font": "Hanken Grotesk",
+     "weight": 600,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.67,
+     "top": 136,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "lines": 2,
+     "size": 65.2,
+     "font": "Hanken Grotesk"
+    },
+    "headings": [
+     {
+      "text": "Tangail to ten countries",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 65.2,
+      "vw": 8.5,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.67,
+      "top": 136,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.57,
+      "top": 2504,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Since 2023",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.59,
+      "top": 3829,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 65.2,
+      "vw": 8.5,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 3984,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 65.2,
+      "vw": 8.5,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.37,
+      "top": 4432,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 65.2,
+      "vw": 8.5,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.37,
+      "top": 4432,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Ready to Start Your Journey?",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.59,
+      "top": 6037,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Come to the office",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.59,
+      "top": 6535,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GIIT Building",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7137,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Mymensingh Road",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7243,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Kumudini College Gate, Tangail",
+      "words": 4,
+      "chars": 30,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7349,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "01623-935872",
+      "words": 1,
+      "chars": 12,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7455,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "studyhubbd2023@gmail.com",
+      "words": 1,
+      "chars": 24,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7561,
+      "tag": "li",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 8,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Hanken Grotesk",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      16,
+      17,
+      18,
+      23,
+      45,
+      65
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Hanken Grotesk",
+      "size": 16.3,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": -0.006,
+      "contrast": 8.7
+     },
+     "measureChars": 38,
+     "max": {
+      "size": 65.2,
+      "vw": 8.5,
+      "font": "Hanken Grotesk",
+      "text": "Tangail toten countries"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f3ef",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.19,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f4f3ef",
+       "top": 0,
+       "hsl": {
+        "h": 48,
+        "s": 0.19,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe9e2",
+       "top": 2440,
+       "hsl": {
+        "h": 47,
+        "s": 0.18,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 3952,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      },
+      {
+       "color": "#16130f",
+       "top": 5761,
+       "hsl": {
+        "h": 34,
+        "s": 0.19,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#e0ddd3",
+       "top": 6618,
+       "hsl": {
+        "h": 46,
+        "s": 0.17,
+        "l": 0.85
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a443a",
+       "share": 0.32
+      },
+      {
+       "color": "#16130f",
+       "share": 0.21
+      },
+      {
+       "color": "#b2aea4",
+       "share": 0.2
+      },
+      {
+       "color": "#f4f3ef",
+       "share": 0.2
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#16130f"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 10,
+     "inHero": 5,
+     "radius": "pill",
+     "height": 57,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Register Now",
+      "Register now",
+      "See the ten countries",
+      "WhatsApp"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 8,
+     "boxRadius": 99,
+     "squareMedia": 1,
+     "roundedMedia": 7,
+     "mediaRadius": 999,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.39
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "hanken grotesk"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 8722,
+    "margins": {
+     "left": 32,
+     "right": 32
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 96,
+      "height": 7748,
+      "words": 414,
+      "media": 8,
+      "middle": 0,
+      "heading": {
+       "text": "Tangail to",
+       "size": 65,
+       "tag": "h1"
+      },
+      "left": 32,
+      "right": 32,
+      "textLeft": 32,
+      "textRight": 32,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 7844,
+      "height": 879,
+      "words": 123,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Study Hub BD",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 32,
+      "right": 52,
+      "textLeft": 32,
+      "textRight": 52,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Tangail to ten countries",
+      "size": 65,
+      "top": 136,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 32,
+      "n": 13
+     },
+     {
+      "x": 404,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 14,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.36,
+    0.42,
+    0.46,
+    0.97,
+    0.99,
+    0.5,
+    0.46,
+    0.46,
+    0.71,
+    0.41,
+    0.9,
+    0.97
+   ],
+   "motion": {
+    "elements": 44,
+    "css": 1,
+    "transitions": 42,
+    "scripted": 1,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 9728,
+     "screens": 11.5,
+     "words": 481,
+     "img": 21,
+     "video": 1,
+     "canvas": 1,
+     "svg": 8,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 6,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "FB-IMG-1773611859839.jpg",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit",
+      "photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit",
+      "photo-1500648767791-00dcc994a43e?w=400&h=400&fit",
+      "photo-1506794778202-cad84cf45f1d?w=400&h=400&fit"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 46,
+     "vw": 11.8,
+     "font": "Hanken Grotesk",
+     "weight": 600,
+     "tracking": -0.035,
+     "leading": 0.95,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 120,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tangail to ten countries",
+     "words": 4,
+     "lines": 2,
+     "size": 46,
+     "font": "Hanken Grotesk"
+    },
+    "headings": [
+     {
+      "text": "Tangail to ten countries",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 46,
+      "vw": 11.8,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 120,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Where our students go",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 2639,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Since 2023",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4342,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "500+",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 46,
+      "vw": 11.8,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.77,
+      "top": 4480,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "50+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 46,
+      "vw": 11.8,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.32,
+      "top": 4731,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "10+",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 46,
+      "vw": 11.8,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.045,
+      "leading": 0.88,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.32,
+      "top": 4731,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Ready to Start Your Journey?",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6990,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Come to the office",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 600,
+      "tracking": -0.035,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7514,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GIIT Building",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7901,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Mymensingh Road",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 7981,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Kumudini College Gate, Tangail",
+      "words": 4,
+      "chars": 30,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8060,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "01623-935872",
+      "words": 1,
+      "chars": 12,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8180,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "studyhubbd2023@gmail.com",
+      "words": 1,
+      "chars": 24,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Hanken Grotesk",
+      "weight": 400,
+      "tracking": -0.035,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8259,
+      "tag": "li",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 8,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Hanken Grotesk",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      16,
+      17,
+      20,
+      36,
+      46
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Hanken Grotesk",
+      "size": 16,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": -0.005,
+      "contrast": 8.7
+     },
+     "measureChars": 34,
+     "max": {
+      "size": 46,
+      "vw": 11.8,
+      "font": "Hanken Grotesk",
+      "text": "Tangail toten countries"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.03,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f4f3ef",
+     "bodyBgHsl": {
+      "h": 48,
+      "s": 0.19,
+      "l": 0.95
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#f4f3ef",
+       "top": 0,
+       "hsl": {
+        "h": 48,
+        "s": 0.19,
+        "l": 0.95
+       }
+      },
+      {
+       "color": "#ebe9e2",
+       "top": 2575,
+       "hsl": {
+        "h": 47,
+        "s": 0.18,
+        "l": 0.9
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 6878,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      },
+      {
+       "color": "#e0ddd3",
+       "top": 7566,
+       "hsl": {
+        "h": 46,
+        "s": 0.17,
+        "l": 0.85
+       }
+      },
+      {
+       "color": "#16130f",
+       "top": 8554,
+       "hsl": {
+        "h": 34,
+        "s": 0.19,
+        "l": 0.07
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a443a",
+       "share": 0.32
+      },
+      {
+       "color": "#b2aea4",
+       "share": 0.2
+      },
+      {
+       "color": "#16130f",
+       "share": 0.2
+      },
+      {
+       "color": "#f4f3ef",
+       "share": 0.2
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.06
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#16130f"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 56,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Register now",
+      "See the ten countries"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 8,
+     "boxRadius": 99,
+     "squareMedia": 1,
+     "roundedMedia": 7,
+     "mediaRadius": 999,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.39
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "hanken grotesk"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 9728,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 80,
+      "height": 8474,
+      "words": 410,
+      "media": 8,
+      "middle": 0,
+      "heading": {
+       "text": "Tangail to",
+       "size": 46,
+       "tag": "h1"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 23,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 8554,
+      "height": 1174,
+      "words": 105,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Study Hub BD",
+       "size": 17,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 26,
+      "textLeft": 20,
+      "textRight": 26,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Tangail to ten countries",
+      "size": 46,
+      "top": 120,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 12
+     }
+    ],
+    "leftBlocks": 12,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #f4f3ef, section #f4f3ef, section #ebe9e2).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\ivory\\desktop-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\desktop-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\desktop-page-02.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\ivory\\tablet-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\tablet-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\ivory\\mobile-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\mobile-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\ivory\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

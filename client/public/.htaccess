@@ -1,0 +1,54 @@
+# Apache / XAMPP configuration for this single-page app.
+#
+# This file is in client/public, so Vite copies it to the root of the build
+# output and it ends up beside index.html wherever you deploy.
+#
+# WHY IT IS NEEDED: the site has one real HTML file. /ielts, /contact and the
+# rest are routes React invents in the browser. Without the rewrite below,
+# Apache looks for a folder called "ielts" on disk, does not find one, and
+# returns 404 — so every page except the home page is broken on a direct hit,
+# on a refresh, and on any link somebody shares.
+#
+# HOW TO USE IT WITH XAMPP:
+#   1. npm run build
+#   2. copy everything inside dist/public into C:\xampp\htdocs
+#   3. make sure mod_rewrite is on (it is, in a default XAMPP) and that
+#      httpd.conf has "AllowOverride All" for htdocs, or .htaccess is ignored
+#   4. open http://localhost/
+#
+# SUB-FOLDER: build with APP_BASE set, or the asset URLs will point at the
+# server root and 404. See vite.config.ts:
+#   set APP_BASE=/studyhub/ && npm run build   -> copy to htdocs\studyhub
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Leave real files and real directories alone: assets, images, the map data.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else is a client-side route; hand it the app.
+  # The target has NO leading slash on purpose: Apache resolves it against
+  # the directory this .htaccess sits in, so the same file works whether the
+  # site is at the document root or in htdocs\studyhub.
+  RewriteRule . index.html [L]
+</IfModule>
+
+# The globe's country outlines are JSON. Apache knows that type already, but
+# say so in case a stripped-down config does not.
+<IfModule mod_mime.c>
+  AddType application/json .json
+  AddType image/svg+xml .svg
+</IfModule>
+
+# The built asset filenames carry a content hash, so they can be cached hard.
+# index.html must not be, or a visitor keeps the old one after a deploy.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+</IfModule>

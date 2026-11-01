@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Study Hub BD — Admin CMS</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f172a;--s1:#1e293b;--s2:#111827;--bdr:#334155;
+  --tx:#f1f5f9;--mu:#94a3b8;--ac:#f59e0b;--ac2:#d97706;
+  --gr:#10b981;--rd:#ef4444;--sw:240px;--th:56px;
+}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter',Arial,sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.5}
+
+/* ── Login ── */
+#loginScreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#020617,#0f172a 50%,var(--s1));z-index:999}
+.lbox{background:var(--s1);border:1px solid var(--bdr);border-radius:16px;padding:40px;width:min(420px,94vw);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.lbox h1{font-size:22px;margin-bottom:6px}
+.lbox p{color:var(--mu);font-size:13px;margin-bottom:24px}
+#lErr{font-size:13px;margin-bottom:10px;color:#fca5a5;min-height:20px}
+
+/* ── App ── */
+#app{display:none;height:100vh;flex-direction:column}
+#app.show{display:flex}
+
+/* Topbar */
+#topbar{height:var(--th);background:var(--s2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px;padding:0 16px;flex-shrink:0;z-index:50}
+.brand{font-weight:700;font-size:15px;color:var(--ac);white-space:nowrap}
+.tsep{width:1px;height:20px;background:var(--bdr);flex-shrink:0}
+#secLabel{color:var(--mu);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp{flex:1}
+#tStatus{font-size:12px;padding:4px 10px;border-radius:6px;white-space:nowrap;transition:opacity .4s}
+#tStatus.ok{background:rgba(16,185,129,.18);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
+#tStatus.err{background:rgba(239,68,68,.18);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
+#tStatus.hide{opacity:0;pointer-events:none}
+.tbtn{background:var(--s1);border:1px solid var(--bdr);color:var(--tx);border-radius:8px;padding:7px 13px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;transition:background .15s}
+.tbtn:hover{background:var(--bdr)}
+#saveBtn{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#111;font-weight:700;border:none;border-radius:8px;padding:8px 18px;cursor:pointer;font-size:13px;white-space:nowrap;transition:opacity .2s}
+#saveBtn:hover{opacity:.85}
+#saveBtn.busy{opacity:.5;pointer-events:none}
+.tdanger{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fca5a5;border-radius:8px;padding:7px 13px;cursor:pointer;font-size:13px;white-space:nowrap}
+
+/* Main layout */
+#layout{display:flex;flex:1;overflow:hidden}
+
+/* Sidebar */
+#sidebar{width:var(--sw);background:var(--s2);border-right:1px solid var(--bdr);overflow-y:auto;flex-shrink:0}
+.ng{padding:14px 14px 4px;font-size:10px;font-weight:700;color:var(--mu);letter-spacing:.1em;text-transform:uppercase}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 14px;margin:1px 6px;border-radius:8px;cursor:pointer;color:var(--mu);font-size:13px;font-weight:500;transition:all .15s}
+.ni:hover{background:var(--s1);color:var(--tx)}
+.ni.on{background:rgba(245,158,11,.15);color:var(--ac)}
+.ni-ic{font-size:15px;flex-shrink:0}
+
+/* Editor area */
+#ea{flex:1;overflow-y:auto;padding:24px 28px;background:var(--bg)}
+.sp-p{display:none}
+.sp-p.on{display:block}
+.pt{font-size:20px;font-weight:700;margin-bottom:4px}
+.pd{color:var(--mu);font-size:13px;margin-bottom:20px}
+
+/* Cards */
+.card{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:18px;margin-bottom:16px}
+.ct{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
+
+/* Fields */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.frow{grid-template-columns:1fr}}
+.fw{grid-column:1/-1}
+.field{margin-bottom:10px}
+.field:last-child{margin-bottom:0}
+label.fl{display:block;font-size:12px;font-weight:600;color:var(--mu);margin-bottom:4px}
+input[type=text],input[type=url],input[type=email],input[type=tel],input[type=number],input[type=file],select,textarea{
+  width:100%;background:var(--bg);border:1px solid var(--bdr);color:var(--tx);
+  padding:9px 12px;border-radius:8px;font-size:13px;outline:none;font-family:inherit;
+  transition:border-color .15s
+}
+input:focus,textarea:focus,select:focus{border-color:var(--ac)}
+textarea{resize:vertical;min-height:80px}
+
+/* ── Rich text ── */
+.rt-wrap{border:1px solid var(--bdr);border-radius:8px;overflow:hidden;transition:border-color .15s}
+.rt-wrap:focus-within{border-color:var(--ac)}
+.rt-bar{display:flex;flex-wrap:wrap;gap:2px;align-items:center;background:#0b1220;padding:5px 8px;border-bottom:1px solid var(--bdr)}
+.rt-btn{background:transparent;color:var(--tx);border:1px solid transparent;border-radius:5px;padding:3px 8px;cursor:pointer;font-size:13px;line-height:1.4;user-select:none;transition:all .12s}
+.rt-btn:hover{background:var(--s1);border-color:var(--bdr)}
+.rt-sep{width:1px;height:16px;background:var(--bdr);margin:0 3px;flex-shrink:0}
+.rt-sz{background:var(--bg);color:var(--tx);border:1px solid var(--bdr);border-radius:5px;padding:3px 6px;font-size:12px;cursor:pointer}
+.rt-col-lbl{display:flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--bdr);border-radius:5px;padding:2px 8px;cursor:pointer;font-size:12px;color:var(--mu);user-select:none}
+.rt-col-lbl input[type=color]{width:20px;height:16px;border:none;background:none;cursor:pointer;padding:0}
+.rf{min-height:90px;padding:10px 12px;outline:none;color:var(--tx);font-size:14px;line-height:1.65}
+.rf:empty:before{content:attr(data-ph);color:var(--mu);pointer-events:none}
+
+/* Image field */
+.img-fw{display:flex;align-items:flex-start;gap:12px}
+.img-thumb{width:80px;height:60px;object-fit:cover;border-radius:6px;border:1px solid var(--bdr);background:#020617;flex-shrink:0}
+.img-ctrl{flex:1}
+.img-ul{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:5px 10px;background:var(--bg);border:1px dashed var(--bdr);border-radius:6px;cursor:pointer;font-size:12px;color:var(--mu);transition:all .15s}
+.img-ul:hover{border-color:var(--ac);color:var(--ac)}
+.img-ul input{display:none}
+
+/* Array items */
+.ai{background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:14px;margin-bottom:10px}
+.ai-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.ai-num{font-size:11px;font-weight:700;color:var(--mu);background:var(--bdr);padding:2px 8px;border-radius:4px}
+.ai-del{margin-left:auto;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2);color:#fca5a5;border-radius:5px;padding:3px 9px;cursor:pointer;font-size:12px}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;border:1px dashed var(--bdr);color:var(--mu);border-radius:8px;padding:9px;cursor:pointer;font-size:13px;width:100%;margin-top:4px;transition:all .15s}
+.add-btn:hover{border-color:var(--ac);color:var(--ac);background:rgba(245,158,11,.05)}
+
+/* Images grid */
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-top:16px}
+.img-card{background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:10px}
+.img-card img{width:100%;height:105px;object-fit:cover;border-radius:6px}
+.ic-name{font-size:11px;font-weight:700;margin:6px 0 2px;word-break:break-all}
+.ic-path{font-size:10px;color:var(--mu);word-break:break-all;margin-bottom:6px}
+.ic-btns{display:flex;gap:5px}
+.ic-copy{background:var(--s1);border:1px solid var(--bdr);color:var(--tx);border-radius:5px;padding:4px 8px;cursor:pointer;font-size:11px;flex:1}
+.ic-del{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.2);color:#fca5a5;border-radius:5px;padding:4px 8px;cursor:pointer;font-size:11px}
+
+/* Misc */
+hr{border:none;border-top:1px solid var(--bdr);margin:16px 0}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+.btn-p{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#111;font-weight:700;border:none;border-radius:8px;padding:9px 18px;cursor:pointer;transition:opacity .2s}
+.btn-p:hover{opacity:.85}
+.btn-s{background:var(--s1);border:1px solid var(--bdr);color:var(--tx);border-radius:8px;padding:9px 14px;cursor:pointer;font-size:13px;transition:background .15s}
+.btn-s:hover{background:var(--bdr)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div id="loginScreen">
+  <div class="lbox">
+    <h1>🎓 Study Hub BD CMS</h1>
+    <p>Elementor-style content editor. Login with your admin password to edit every page.</p>
+    <div id="lErr"></div>
+    <div class="field"><label class="fl">Admin Password</label><input type="password" id="lPwd" placeholder="Enter your admin password" /></div>
+    <div style="margin-top:16px"><button class="btn-p" id="lBtn" style="width:100%;font-size:15px">Login →</button></div>
+  </div>
+</div>
+
+<!-- ══════════════ APP ══════════════ -->
+<div id="app">
+  <div id="topbar">
+    <span class="brand">🎓 Study Hub BD</span>
+    <div class="tsep"></div>
+    <span id="secLabel">Global Settings</span>
+    <div class="sp"></div>
+    <span id="tStatus" class="hide"></span>
+    <button class="tbtn" id="reloadBtn">↺ Reload</button>
+    <button id="saveBtn">💾 Save Changes</button>
+    <button class="tdanger" id="logoutBtn">Logout</button>
+  </div>
+
+  <div id="layout">
+    <!-- SIDEBAR -->
+    <nav id="sidebar">
+      <div class="ng">Pages</div>
+      <div class="ni on" data-s="global"><span class="ni-ic">🌐</span> Global</div>
+      <div class="ni" data-s="header"><span class="ni-ic">🔝</span> Header</div>
+      <div class="ni" data-s="home"><span class="ni-ic">🏠</span> Home</div>
+      <div class="ni" data-s="about"><span class="ni-ic">ℹ️</span> About</div>
+      <div class="ni" data-s="services"><span class="ni-ic">⚙️</span> Services</div>
+      <div class="ni" data-s="destinations"><span class="ni-ic">🗺️</span> Destinations</div>
+      <div class="ni" data-s="stories"><span class="ni-ic">🏆</span> Success Stories</div>
+      <div class="ni" data-s="ielts"><span class="ni-ic">📚</span> IELTS</div>
+      <div class="ni" data-s="japanese"><span class="ni-ic">🇯🇵</span> Japanese</div>
+      <div class="ni" data-s="contact"><span class="ni-ic">📞</span> Contact</div>
+      <div class="ng">Tools</div>
+      <div class="ni" data-s="images"><span class="ni-ic">🖼️</span> Images</div>
+      <div class="ni" data-s="rawjson"><span class="ni-ic">{}</span> Raw JSON</div>
+    </nav>
+
+    <!-- EDITOR AREA -->
+    <div id="ea">
+
+      <!-- GLOBAL -->
+      <div class="sp-p on" id="sp-global">
+        <div class="pt">🌐 Global Settings</div>
+        <div class="pd">Site-wide info used across all pages.</div>
+        <div class="card">
+          <div class="ct">Site Identity</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Site Name</label><input type="text" id="g-name" /></div>
+            <div class="field"><label class="fl">Tagline</label><input type="text" id="g-tagline" /></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Contact Info</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Phone 1</label><input type="tel" id="g-ph1" /></div>
+            <div class="field"><label class="fl">Phone 2</label><input type="tel" id="g-ph2" /></div>
+            <div class="field"><label class="fl">Email</label><input type="email" id="g-email" /></div>
+            <div class="field"><label class="fl">WhatsApp Number</label><input type="tel" id="g-wa" /></div>
+            <div class="field fw"><label class="fl">Address</label><input type="text" id="g-addr" /></div>
+            <div class="field"><label class="fl">Website</label><input type="text" id="g-web" /></div>
+            <div class="field"><label class="fl">Copyright Year</label><input type="text" id="g-cpy" /></div>
+            <div class="field fw"><label class="fl">Registration Form URL</label><input type="url" id="g-reg" /></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Social Media Links</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Facebook URL</label><input type="url" id="g-fb" /></div>
+            <div class="field"><label class="fl">Instagram URL</label><input type="url" id="g-ig" /></div>
+            <div class="field"><label class="fl">LinkedIn URL</label><input type="url" id="g-li" /></div>
+            <div class="field"><label class="fl">YouTube URL</label><input type="url" id="g-yt" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEADER -->
+      <div class="sp-p" id="sp-header">
+        <div class="pt">🔝 Header</div>
+        <div class="pd">Navigation bar — logo and button text.</div>
+        <div class="card">
+          <div class="ct">Logo</div>
+          <div class="field">
+            <label class="fl">Logo Image</label>
+            <div class="img-fw">
+              <img id="h-logo-prev" class="img-thumb" src="" alt="Logo" />
+              <div class="img-ctrl">
+                <input type="text" id="h-logo" placeholder="/images/logo.png" />
+                <label class="img-ul">📁 Upload New Logo <input type="file" id="h-logo-file" accept="image/*" /></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Navigation</div>
+          <div class="field"><label class="fl">Register Button Text</label><input type="text" id="h-regbtn" /></div>
+        </div>
+      </div>
+
+      <!-- HOME -->
+      <div class="sp-p" id="sp-home">
+        <div class="pt">🏠 Home Page</div>
+        <div class="pd">Main landing page — hero, section headings, CTA.</div>
+        <div class="card">
+          <div class="ct">Hero Section</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Badge Text</label><input type="text" id="hm-badge" /></div>
+            <div class="field"><label class="fl">CTA Button Text</label><input type="text" id="hm-cta" /></div>
+            <div class="field"><label class="fl">Title (plain)</label><input type="text" id="hm-title" /></div>
+            <div class="field"><label class="fl">Title Highlight (coloured)</label><input type="text" id="hm-th" /></div>
+            <div class="field"><label class="fl">Learn More Button</label><input type="text" id="hm-lm" /></div>
+          </div>
+          <div class="field" style="margin-top:4px"><label class="fl">Hero Description</label><div data-rf="hm-desc" data-ph="Write the main hero description here..."></div></div>
+        </div>
+        <div class="card">
+          <div class="ct">Stats (Numbers shown in hero)</div>
+          <div id="hm-stats"></div>
+          <button class="add-btn" id="hm-stats-add">＋ Add Stat</button>
+        </div>
+        <div class="card">
+          <div class="ct">Services Section Heading</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="hm-svc-t" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="hm-svc-h" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="hm-svc-sub" data-ph="Services section subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Destinations Section Heading</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="hm-dest-t" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="hm-dest-h" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="hm-dest-sub" data-ph="Destinations section subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Success Stories Section Heading</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="hm-suc-t" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="hm-suc-h" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="hm-suc-sub" data-ph="Success section subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">CTA Section</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="hm-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button Text</label><input type="text" id="hm-cta-btn" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="hm-cta-sub" data-ph="CTA subtitle text..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="sp-p" id="sp-about">
+        <div class="pt">ℹ️ About Page</div>
+        <div class="pd">About Us page — hero, mission, vision, values, why choose us.</div>
+        <div class="card">
+          <div class="ct">Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="ab-title" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="ab-th" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="ab-sub" data-ph="About page hero subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Mission &amp; Vision</div>
+          <div class="field"><label class="fl">Mission</label><div data-rf="ab-mission" data-ph="Our mission statement..."></div></div>
+          <div class="field" style="margin-top:14px"><label class="fl">Vision</label><div data-rf="ab-vision" data-ph="Our vision statement..."></div></div>
+        </div>
+        <div class="card">
+          <div class="ct">Core Values</div>
+          <div id="ab-vals"></div>
+          <button class="add-btn" id="ab-vals-add">＋ Add Value</button>
+        </div>
+        <div class="card">
+          <div class="ct">Why Choose Us</div>
+          <div id="ab-why"></div>
+          <button class="add-btn" id="ab-why-add">＋ Add Reason</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="ab-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button Text</label><input type="text" id="ab-cta-btn" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="sp-p" id="sp-services">
+        <div class="pt">⚙️ Services Page</div>
+        <div class="pd">Services page — hero and service categories list.</div>
+        <div class="card">
+          <div class="ct">Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="sv-ht" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="sv-hh" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="sv-hsub" data-ph="Services hero subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Service Categories</div>
+          <div id="sv-cats"></div>
+          <button class="add-btn" id="sv-cats-add">＋ Add Category</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="sv-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="sv-cta-btn" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="sv-cta-sub" data-ph="Services CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESTINATIONS -->
+      <div class="sp-p" id="sp-destinations">
+        <div class="pt">🗺️ Destinations</div>
+        <div class="pd">Manage study destination countries shown on the Destinations page.</div>
+        <div class="card">
+          <div class="ct">Page Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="dp-ht" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="dp-hh" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="dp-hsub" data-ph="Destinations hero subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Destination Cards</div>
+          <div id="dest-list"></div>
+          <button class="add-btn" id="dest-add">＋ Add Destination</button>
+        </div>
+        <div class="card">
+          <div class="ct">Why Study Abroad</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Section Title</label><input type="text" id="dp-why-t" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="dp-why-h" /></div>
+          </div>
+          <div id="dp-why-cards" style="margin-top:10px"></div>
+          <button class="add-btn" id="dp-why-add">＋ Add Why Card</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="dp-cta-t" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="dp-cta-sub" data-ph="Destinations CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUCCESS STORIES -->
+      <div class="sp-p" id="sp-stories">
+        <div class="pt">🏆 Success Stories</div>
+        <div class="pd">Student success stories and testimonials.</div>
+        <div class="card">
+          <div class="ct">Page Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="ss-ht" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="ss-hh" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="ss-hsub" data-ph="Success stories hero subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Success Stories</div>
+          <div id="st-list"></div>
+          <button class="add-btn" id="st-add">＋ Add Story</button>
+        </div>
+        <div class="card">
+          <div class="ct">Testimonials</div>
+          <div id="tm-list"></div>
+          <button class="add-btn" id="tm-add">＋ Add Testimonial</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="ss-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="ss-cta-btn" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="ss-cta-sub" data-ph="Success stories CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IELTS -->
+      <div class="sp-p" id="sp-ielts">
+        <div class="pt">📚 IELTS Page</div>
+        <div class="pd">IELTS training program — hero, program info, stats, curriculum.</div>
+        <div class="card">
+          <div class="ct">Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Badge</label><input type="text" id="ie-badge" /></div>
+            <div class="field"><label class="fl">Title</label><input type="text" id="ie-title" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="ie-th" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="ie-cta-btn" /></div>
+            <div class="field fw"><label class="fl">Description</label><div data-rf="ie-desc" data-ph="IELTS hero description..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Program Info</div>
+          <div class="field"><label class="fl">Program Title</label><input type="text" id="ie-pt" /></div>
+          <div class="field" style="margin-top:10px"><label class="fl">Program Description</label><div data-rf="ie-pdesc" data-ph="Program description..."></div></div>
+        </div>
+        <div class="card">
+          <div class="ct">Course Stats</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Total Classes</label><input type="text" id="ie-classes" /></div>
+            <div class="field"><label class="fl">Classes Per Week</label><input type="text" id="ie-perweek" /></div>
+            <div class="field"><label class="fl">Mock Tests</label><input type="text" id="ie-mock" /></div>
+            <div class="field"><label class="fl">Support</label><input type="text" id="ie-support" /></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Curriculum Modules</div>
+          <div id="ie-curr"></div>
+          <button class="add-btn" id="ie-curr-add">＋ Add Module</button>
+        </div>
+        <div class="card">
+          <div class="ct">Why Choose Us</div>
+          <div id="ie-why"></div>
+          <button class="add-btn" id="ie-why-add">＋ Add Reason</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="ie-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="ie-cta-b" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="ie-cta-sub" data-ph="IELTS CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JAPANESE -->
+      <div class="sp-p" id="sp-japanese">
+        <div class="pt">🇯🇵 Japanese Page</div>
+        <div class="pd">Japanese language program — hero, levels, curriculum, why choose us.</div>
+        <div class="card">
+          <div class="ct">Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Badge</label><input type="text" id="jp-badge" /></div>
+            <div class="field"><label class="fl">Title</label><input type="text" id="jp-title" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="jp-th" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="jp-cta-btn" /></div>
+            <div class="field fw"><label class="fl">Description</label><div data-rf="jp-desc" data-ph="Japanese hero description..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Program Info</div>
+          <div class="field"><label class="fl">Program Title</label><input type="text" id="jp-pt" /></div>
+          <div class="field" style="margin-top:10px"><label class="fl">Program Description</label><div data-rf="jp-pdesc" data-ph="Japanese program description..."></div></div>
+        </div>
+        <div class="card">
+          <div class="ct">Course Stats</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Total Classes</label><input type="text" id="jp-classes" /></div>
+            <div class="field"><label class="fl">Classes Per Week</label><input type="text" id="jp-perweek" /></div>
+            <div class="field"><label class="fl">Support</label><input type="text" id="jp-support" /></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Course Levels</div>
+          <div id="jp-levels"></div>
+          <button class="add-btn" id="jp-levels-add">＋ Add Level</button>
+        </div>
+        <div class="card">
+          <div class="ct">Why Choose Us</div>
+          <div id="jp-why"></div>
+          <button class="add-btn" id="jp-why-add">＋ Add Reason</button>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="jp-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="jp-cta-b" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="jp-cta-sub" data-ph="Japanese CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="sp-p" id="sp-contact">
+        <div class="pt">📞 Contact Page</div>
+        <div class="pd">Contact page content and Google Maps settings.</div>
+        <div class="card">
+          <div class="ct">Hero</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Title</label><input type="text" id="ct-title" /></div>
+            <div class="field"><label class="fl">Title Highlight</label><input type="text" id="ct-th" /></div>
+            <div class="field fw"><label class="fl">Subtitle</label><div data-rf="ct-sub" data-ph="Contact page hero subtitle..."></div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ct">Map Settings</div>
+          <div class="field"><label class="fl">Google Maps Embed URL</label><input type="url" id="ct-map-e" /></div>
+          <div class="field" style="margin-top:10px"><label class="fl">Google Maps Directions URL</label><input type="url" id="ct-map-d" /></div>
+        </div>
+        <div class="card">
+          <div class="ct">CTA</div>
+          <div class="frow">
+            <div class="field"><label class="fl">CTA Title</label><input type="text" id="ct-cta-t" /></div>
+            <div class="field"><label class="fl">CTA Button</label><input type="text" id="ct-cta-btn" /></div>
+            <div class="field fw"><label class="fl">CTA Subtitle</label><div data-rf="ct-cta-sub" data-ph="Contact CTA subtitle..."></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGES -->
+      <div class="sp-p" id="sp-images">
+        <div class="pt">🖼️ Image Manager</div>
+        <div class="pd">Upload and manage images. Copy the path to paste into any image field.</div>
+        <div class="card">
+          <div class="ct">Upload Image</div>
+          <div class="frow">
+            <div class="field"><label class="fl">Select Image File</label><input type="file" id="upFile" accept="image/*" /></div>
+            <div class="field"><label class="fl">Folder (optional, e.g. "stories")</label><input type="text" id="upFolder" placeholder="leave blank for /images/" /></div>
+          </div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn-p" id="upBtn">⬆ Upload</button>
+            <button class="btn-s" id="refreshImgBtn">↺ Refresh List</button>
+          </div>
+        </div>
+        <div class="img-grid" id="imgGrid"></div>
+      </div>
+
+      <!-- RAW JSON -->
+      <div class="sp-p" id="sp-rawjson">
+        <div class="pt">{} Raw JSON Editor</div>
+        <div class="pd">Advanced — edit the full site-content.json directly. Use carefully.</div>
+        <div class="card">
+          <textarea id="rawJson" style="min-height:520px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.5"></textarea>
+          <div class="row" style="margin-top:12px">
+            <button class="btn-p" id="saveRawBtn">💾 Save Full JSON</button>
+            <span style="font-size:12px;color:var(--mu)">→ content/site-content.json</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ea -->
+  </div><!-- /layout -->
+</div><!-- /app -->
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════
+// RICH FIELD BUILDER
+// [data-rf] placeholders → toolbar + contenteditable
+// ═══════════════════════════════════════
+function makeRtHTML(id, ph) {
+  var eph = ph.replace(/"/g, '&quot;');
+  return '<div class="rt-wrap">'
+    + '<div class="rt-bar">'
+    + '<button class="rt-btn" data-cmd="bold" title="Bold"><b>B</b></button>'
+    + '<button class="rt-btn" data-cmd="italic" title="Italic"><i>I</i></button>'
+    + '<button class="rt-btn" data-cmd="underline" title="Underline"><u>U</u></button>'
+    + '<span class="rt-sep"></span>'
+    + '<select class="rt-sz" title="Font Size">'
+    + '<option value="">Size</option>'
+    + '<option value="11px">11</option><option value="12px">12</option>'
+    + '<option value="14px">14</option><option value="16px">16</option>'
+    + '<option value="18px">18</option><option value="20px">20</option>'
+    + '<option value="24px">24</option><option value="28px">28</option>'
+    + '<option value="32px">32</option><option value="36px">36</option>'
+    + '</select>'
+    + '<label class="rt-col-lbl" title="Text Colour"><span>A</span>'
+    + '<input type="color" class="rt-col-inp" value="#ffffff" /></label>'
+    + '<span class="rt-sep"></span>'
+    + '<button class="rt-btn" data-cmd="removeFormat" title="Clear Formatting">&#x2715; Clear</button>'
+    + '<button class="rt-btn rt-br" title="Insert Line Break">&#x21B5; BR</button>'
+    + '</div>'
+    + '<div class="rf" id="' + id + '" contenteditable="true" data-ph="' + eph + '"></div>'
+    + '</div>';
+}
+
+function initRichFields() {
+  document.querySelectorAll('[data-rf]').forEach(function(el) {
+    var id  = el.getAttribute('data-rf');
+    var ph  = el.getAttribute('data-ph') || 'Type here...';
+    var tmp = document.createElement('div');
+    tmp.innerHTML = makeRtHTML(id, ph);
+    el.replaceWith(tmp.firstElementChild);
+  });
+}
+
+// ═══════════════════════════════════════
+// SELECTION — save before toolbar causes focus loss
+// ═══════════════════════════════════════
+var savedRange = null;
+
+document.addEventListener('mousedown', function(e) {
+  var bar = e.target.closest('.rt-bar');
+  if (!bar) return;
+
+  // Save selection NOW (before focus possibly moves)
+  var sel = window.getSelection();
+  if (sel && sel.rangeCount > 0) {
+    savedRange = sel.getRangeAt(0).cloneRange();
+  }
+
+  // Buttons: block focus loss and execute immediately
+  var btn = e.target.closest('.rt-btn:not(.rt-br)[data-cmd]');
+  if (btn) {
+    e.preventDefault();
+    document.execCommand(btn.getAttribute('data-cmd'), false, null);
+    return;
+  }
+  var br = e.target.closest('.rt-br');
+  if (br) {
+    e.preventDefault();
+    document.execCommand('insertHTML', false, '<br>');
+  }
+  // color label / select — don't preventDefault, selection already saved above
+});
+
+function restoreAndRun(cb) {
+  if (!savedRange) return;
+  var container = savedRange.commonAncestorContainer;
+  var rf = (container.nodeType === 3 ? container.parentElement : container);
+  rf = rf && rf.closest ? rf.closest('.rf') : null;
+  if (rf) rf.focus();
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(savedRange);
+  cb(sel);
+}
+
+document.addEventListener('change', function(e) {
+  if (!e.target.classList.contains('rt-sz')) return;
+  var size = e.target.value;
+  e.target.value = '';
+  if (!size) return;
+  restoreAndRun(function(sel) {
+    if (!sel.rangeCount) return;
+    var text = sel.getRangeAt(0).toString();
+    if (text) {
+      var safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      document.execCommand('insertHTML', false, '<span style="font-size:' + size + '">' + safe + '</span>');
+    }
+  });
+});
+
+document.addEventListener('input', function(e) {
+  if (!e.target.classList.contains('rt-col-inp')) return;
+  restoreAndRun(function() {
+    document.execCommand('foreColor', false, e.target.value);
+  });
+});
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+var $ = function(id) { return document.getElementById(id); };
+var v  = function(id) { var el = $(id); return el ? el.value : ''; };
+var sv = function(id, val) { var el = $(id); if (el) el.value = val != null ? val : ''; };
+var grv = function(id) { var el = $(id); return el ? el.innerHTML.trim() : ''; };
+var srv = function(id, html) { var el = $(id); if (el) el.innerHTML = html || ''; };
+function xe(s) {
+  return String(s != null ? s : '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════════════
+// API & STATE
+// ═══════════════════════════════════════
+var state = { token: localStorage.getItem('cms_token') || '', content: null, sha: null };
+
+var statusTimer = null;
+function showStatus(msg, ok) {
+  if (ok === undefined) ok = true;
+  var el = $('tStatus');
+  el.textContent = msg;
+  el.className = ok ? 'ok' : 'err';
+  clearTimeout(statusTimer);
+  statusTimer = setTimeout(function() { el.className = 'hide'; }, 4500);
+}
+
+async function api(path, opts) {
+  opts = opts || {};
+  var h = opts.headers || {};
+  if (state.token) h.Authorization = 'Bearer ' + state.token;
+  if (!h['Content-Type'] && opts.body && !(opts.body instanceof FormData))
+    h['Content-Type'] = 'application/json';
+  var res  = await fetch(path, Object.assign({}, opts, { headers: h }));
+  var data = await res.json().catch(function() { return {}; });
+  if (!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
+  return data;
+}
+
+// ═══════════════════════════════════════
+// SECTION NAV
+// ═══════════════════════════════════════
+var SEC_LABELS = {
+  global:'Global Settings', header:'Header', home:'Home Page', about:'About Page',
+  services:'Services', destinations:'Destinations', stories:'Success Stories',
+  ielts:'IELTS', japanese:'Japanese', contact:'Contact',
+  images:'Image Manager', rawjson:'Raw JSON Editor'
+};
+
+function setSection(s) {
+  document.querySelectorAll('.ni').forEach(function(n) { n.classList.toggle('on', n.getAttribute('data-s') === s); });
+  document.querySelectorAll('.sp-p').forEach(function(p) { p.classList.remove('on'); });
+  var p = $('sp-' + s);
+  if (p) p.classList.add('on');
+  $('secLabel').textContent = SEC_LABELS[s] || s;
+  if (s === 'images') loadImages();
+  if (s === 'rawjson' && state.content) $('rawJson').value = JSON.stringify(state.content, null, 2);
+}
+
+// ═══════════════════════════════════════
+// BIND ALL  (JSON → DOM)
+// ═══════════════════════════════════════
+function bindAll() {
+  if (!state.content) return;
+  var c = state.content;
+
+  sv('g-name',c.global && c.global.siteName); sv('g-tagline',c.global && c.global.tagline);
+  sv('g-ph1',c.global && c.global.phone1); sv('g-ph2',c.global && c.global.phone2);
+  sv('g-email',c.global && c.global.email); sv('g-wa',c.global && c.global.whatsapp);
+  sv('g-addr',c.global && c.global.address); sv('g-web',c.global && c.global.website);
+  sv('g-cpy',c.global && c.global.copyrightYear); sv('g-reg',c.global && c.global.registrationLink);
+  sv('g-fb',c.global && c.global.socialMedia && c.global.socialMedia.facebook);
+  sv('g-ig',c.global && c.global.socialMedia && c.global.socialMedia.instagram);
+  sv('g-li',c.global && c.global.socialMedia && c.global.socialMedia.linkedin);
+  sv('g-yt',c.global && c.global.socialMedia && c.global.socialMedia.youtube);
+
+  sv('h-logo',c.header && c.header.logo); sv('h-regbtn',c.header && c.header.registerButtonText);
+  var lp = $('h-logo-prev'); if (lp) lp.src = (c.header && c.header.logo) || '';
+
+  var hh = c.home && c.home.hero;
+  sv('hm-badge',hh && hh.badge); sv('hm-title',hh && hh.title);
+  sv('hm-th',hh && hh.titleHighlight); sv('hm-cta',hh && hh.ctaButton);
+  sv('hm-lm',hh && hh.learnMoreButton);
+  srv('hm-desc',hh && hh.description);
+  renderStats((hh && hh.stats) || []);
+  var hs = c.home && c.home.servicesSection;
+  sv('hm-svc-t',hs && hs.title); sv('hm-svc-h',hs && hs.titleHighlight); srv('hm-svc-sub',hs && hs.subtitle);
+  var hd = c.home && c.home.destinationsSection;
+  sv('hm-dest-t',hd && hd.title); sv('hm-dest-h',hd && hd.titleHighlight); srv('hm-dest-sub',hd && hd.subtitle);
+  var hsu = c.home && c.home.successSection;
+  sv('hm-suc-t',hsu && hsu.title); sv('hm-suc-h',hsu && hsu.titleHighlight); srv('hm-suc-sub',hsu && hsu.subtitle);
+  var hc = c.home && c.home.ctaSection;
+  sv('hm-cta-t',hc && hc.title); sv('hm-cta-btn',hc && hc.buttonText); srv('hm-cta-sub',hc && hc.subtitle);
+
+  var ah = c.about && c.about.hero;
+  sv('ab-title',ah && ah.title); sv('ab-th',ah && ah.titleHighlight); srv('ab-sub',ah && ah.subtitle);
+  srv('ab-mission',c.about && c.about.mission); srv('ab-vision',c.about && c.about.vision);
+  renderTD('ab-vals',(c.about && c.about.values) || []);
+  renderTD('ab-why',(c.about && c.about.whyChooseUs) || []);
+  sv('ab-cta-t',c.about && c.about.ctaTitle); sv('ab-cta-btn',c.about && c.about.ctaButton);
+
+  var sp = c.servicesPage;
+  sv('sv-ht',sp && sp.heroTitle); sv('sv-hh',sp && sp.heroHighlight); srv('sv-hsub',sp && sp.heroSubtitle);
+  renderCategories((sp && sp.categories) || []);
+  sv('sv-cta-t',sp && sp.ctaTitle); sv('sv-cta-btn',sp && sp.ctaButton); srv('sv-cta-sub',sp && sp.ctaSubtitle);
+
+  var dp = c.destinationsPage;
+  sv('dp-ht',dp && dp.heroTitle); sv('dp-hh',dp && dp.heroHighlight); srv('dp-hsub',dp && dp.heroSubtitle);
+  renderDestinations(c.destinations || []);
+  sv('dp-why-t',dp && dp.whyTitle); sv('dp-why-h',dp && dp.whyHighlight);
+  renderTD('dp-why-cards',(dp && dp.whyCards) || []);
+  sv('dp-cta-t',dp && dp.ctaTitle); srv('dp-cta-sub',dp && dp.ctaSubtitle);
+
+  var ssp = c.successPage;
+  sv('ss-ht',ssp && ssp.heroTitle); sv('ss-hh',ssp && ssp.heroHighlight); srv('ss-hsub',ssp && ssp.heroSubtitle);
+  renderStories(c.successStories || []);
+  renderTestimonials((ssp && ssp.testimonials) || []);
+  sv('ss-cta-t',ssp && ssp.ctaTitle); sv('ss-cta-btn',ssp && ssp.ctaButton); srv('ss-cta-sub',ssp && ssp.ctaSubtitle);
+
+  var ih = c.ielts && c.ielts.hero;
+  sv('ie-badge',ih && ih.badge); sv('ie-title',ih && ih.title);
+  sv('ie-th',ih && ih.titleHighlight); sv('ie-cta-btn',ih && ih.ctaButton);
+  srv('ie-desc',ih && ih.description);
+  sv('ie-pt',c.ielts && c.ielts.programTitle); srv('ie-pdesc',c.ielts && c.ielts.programDescription);
+  var ics = c.ielts && c.ielts.courseStats;
+  sv('ie-classes',ics && ics.classes); sv('ie-perweek',ics && ics.perWeek);
+  sv('ie-mock',ics && ics.mockTests); sv('ie-support',ics && ics.support);
+  renderTD('ie-curr',(c.ielts && c.ielts.curriculum) || []);
+  renderTD('ie-why',(c.ielts && c.ielts.whyChooseUs) || []);
+  sv('ie-cta-t',c.ielts && c.ielts.ctaTitle); sv('ie-cta-b',c.ielts && c.ielts.ctaButton);
+  srv('ie-cta-sub',c.ielts && c.ielts.ctaSubtitle);
+
+  var jh = c.japanese && c.japanese.hero;
+  sv('jp-badge',jh && jh.badge); sv('jp-title',jh && jh.title);
+  sv('jp-th',jh && jh.titleHighlight); sv('jp-cta-btn',jh && jh.ctaButton);
+  srv('jp-desc',jh && jh.description);
+  sv('jp-pt',c.japanese && c.japanese.programTitle); srv('jp-pdesc',c.japanese && c.japanese.programDescription);
+  var jcs = c.japanese && c.japanese.courseStats;
+  sv('jp-classes',jcs && jcs.classes); sv('jp-perweek',jcs && jcs.perWeek); sv('jp-support',jcs && jcs.support);
+  renderJpLevels((c.japanese && c.japanese.levels) || []);
+  renderTD('jp-why',(c.japanese && c.japanese.whyChooseUs) || []);
+  sv('jp-cta-t',c.japanese && c.japanese.ctaTitle); sv('jp-cta-b',c.japanese && c.japanese.ctaButton);
+  srv('jp-cta-sub',c.japanese && c.japanese.ctaSubtitle);
+
+  var ch = c.contact && c.contact.hero;
+  sv('ct-title',ch && ch.title); sv('ct-th',ch && ch.titleHighlight); srv('ct-sub',ch && ch.subtitle);
+  sv('ct-map-e',c.contact && c.contact.mapEmbedUrl); sv('ct-map-d',c.contact && c.contact.mapDirectionsUrl);
+  sv('ct-cta-t',c.contact && c.contact.ctaTitle); sv('ct-cta-btn',c.contact && c.contact.ctaButton);
+  srv('ct-cta-sub',c.contact && c.contact.ctaSubtitle);
+
+  $('rawJson').value = JSON.stringify(c, null, 2);
+}
+
+// ═══════════════════════════════════════
+// COLLECT ALL  (DOM → JSON)
+// ═══════════════════════════════════════
+function collectAll() {
+  var c = JSON.parse(JSON.stringify(state.content));
+
+  c.global.siteName=v('g-name'); c.global.tagline=v('g-tagline');
+  c.global.phone1=v('g-ph1'); c.global.phone2=v('g-ph2');
+  c.global.email=v('g-email'); c.global.whatsapp=v('g-wa');
+  c.global.address=v('g-addr'); c.global.website=v('g-web');
+  c.global.copyrightYear=v('g-cpy'); c.global.registrationLink=v('g-reg');
+  c.global.socialMedia.facebook=v('g-fb'); c.global.socialMedia.instagram=v('g-ig');
+  c.global.socialMedia.linkedin=v('g-li'); c.global.socialMedia.youtube=v('g-yt');
+
+  c.header.logo=v('h-logo'); c.header.registerButtonText=v('h-regbtn');
+
+  c.home.hero.badge=v('hm-badge'); c.home.hero.title=v('hm-title');
+  c.home.hero.titleHighlight=v('hm-th'); c.home.hero.ctaButton=v('hm-cta');
+  c.home.hero.learnMoreButton=v('hm-lm'); c.home.hero.description=grv('hm-desc');
+  c.home.hero.stats=collectStats();
+  c.home.servicesSection.title=v('hm-svc-t'); c.home.servicesSection.titleHighlight=v('hm-svc-h');
+  c.home.servicesSection.subtitle=grv('hm-svc-sub');
+  c.home.destinationsSection.title=v('hm-dest-t'); c.home.destinationsSection.titleHighlight=v('hm-dest-h');
+  c.home.destinationsSection.subtitle=grv('hm-dest-sub');
+  c.home.successSection.title=v('hm-suc-t'); c.home.successSection.titleHighlight=v('hm-suc-h');
+  c.home.successSection.subtitle=grv('hm-suc-sub');
+  c.home.ctaSection.title=v('hm-cta-t'); c.home.ctaSection.buttonText=v('hm-cta-btn');
+  c.home.ctaSection.subtitle=grv('hm-cta-sub');
+
+  c.about.hero.title=v('ab-title'); c.about.hero.titleHighlight=v('ab-th');
+  c.about.hero.subtitle=grv('ab-sub');
+  c.about.mission=grv('ab-mission'); c.about.vision=grv('ab-vision');
+  c.about.values=collectTD('ab-vals'); c.about.whyChooseUs=collectTD('ab-why');
+  c.about.ctaTitle=v('ab-cta-t'); c.about.ctaButton=v('ab-cta-btn');
+
+  c.servicesPage.heroTitle=v('sv-ht'); c.servicesPage.heroHighlight=v('sv-hh');
+  c.servicesPage.heroSubtitle=grv('sv-hsub');
+  c.servicesPage.categories=collectCategories();
+  c.servicesPage.ctaTitle=v('sv-cta-t'); c.servicesPage.ctaButton=v('sv-cta-btn');
+  c.servicesPage.ctaSubtitle=grv('sv-cta-sub');
+
+  if (!c.destinationsPage) c.destinationsPage={};
+  c.destinationsPage.heroTitle=v('dp-ht'); c.destinationsPage.heroHighlight=v('dp-hh');
+  c.destinationsPage.heroSubtitle=grv('dp-hsub');
+  c.destinations=collectDestinations();
+  c.destinationsPage.whyTitle=v('dp-why-t'); c.destinationsPage.whyHighlight=v('dp-why-h');
+  c.destinationsPage.whyCards=collectTD('dp-why-cards');
+  c.destinationsPage.ctaTitle=v('dp-cta-t'); c.destinationsPage.ctaSubtitle=grv('dp-cta-sub');
+
+  if (!c.successPage) c.successPage={};
+  c.successPage.heroTitle=v('ss-ht'); c.successPage.heroHighlight=v('ss-hh');
+  c.successPage.heroSubtitle=grv('ss-hsub');
+  c.successStories=collectStories();
+  c.successPage.testimonials=collectTestimonials();
+  c.successPage.ctaTitle=v('ss-cta-t'); c.successPage.ctaButton=v('ss-cta-btn');
+  c.successPage.ctaSubtitle=grv('ss-cta-sub');
+
+  c.ielts.hero.badge=v('ie-badge'); c.ielts.hero.title=v('ie-title');
+  c.ielts.hero.titleHighlight=v('ie-th'); c.ielts.hero.ctaButton=v('ie-cta-btn');
+  c.ielts.hero.description=grv('ie-desc');
+  c.ielts.programTitle=v('ie-pt'); c.ielts.programDescription=grv('ie-pdesc');
+  if (!c.ielts.courseStats) c.ielts.courseStats={};
+  c.ielts.courseStats.classes=v('ie-classes'); c.ielts.courseStats.perWeek=v('ie-perweek');
+  c.ielts.courseStats.mockTests=v('ie-mock'); c.ielts.courseStats.support=v('ie-support');
+  c.ielts.curriculum=collectTD('ie-curr'); c.ielts.whyChooseUs=collectTD('ie-why');
+  c.ielts.ctaTitle=v('ie-cta-t'); c.ielts.ctaButton=v('ie-cta-b'); c.ielts.ctaSubtitle=grv('ie-cta-sub');
+
+  c.japanese.hero.badge=v('jp-badge'); c.japanese.hero.title=v('jp-title');
+  c.japanese.hero.titleHighlight=v('jp-th'); c.japanese.hero.ctaButton=v('jp-cta-btn');
+  c.japanese.hero.description=grv('jp-desc');
+  c.japanese.programTitle=v('jp-pt'); c.japanese.programDescription=grv('jp-pdesc');
+  if (!c.japanese.courseStats) c.japanese.courseStats={};
+  c.japanese.courseStats.classes=v('jp-classes'); c.japanese.courseStats.perWeek=v('jp-perweek');
+  c.japanese.courseStats.support=v('jp-support');
+  c.japanese.levels=collectJpLevels(); c.japanese.whyChooseUs=collectTD('jp-why');
+  c.japanese.ctaTitle=v('jp-cta-t'); c.japanese.ctaButton=v('jp-cta-b'); c.japanese.ctaSubtitle=grv('jp-cta-sub');
+
+  if (!c.contact) c.contact={}; if (!c.contact.hero) c.contact.hero={};
+  c.contact.hero.title=v('ct-title'); c.contact.hero.titleHighlight=v('ct-th');
+  c.contact.hero.subtitle=grv('ct-sub');
+  c.contact.mapEmbedUrl=v('ct-map-e'); c.contact.mapDirectionsUrl=v('ct-map-d');
+  c.contact.ctaTitle=v('ct-cta-t'); c.contact.ctaButton=v('ct-cta-btn');
+  c.contact.ctaSubtitle=grv('ct-cta-sub');
+
+  return c;
+}
+
+// ═══════════════════════════════════════
+// ARRAY RENDERERS
+// ═══════════════════════════════════════
+function renderStats(stats) {
+  var w = $('hm-stats'); w.innerHTML='';
+  (stats||[]).forEach(function(s,i) {
+    var d=document.createElement('div'); d.className='ai'; d.dataset.idx=i;
+    d.innerHTML='<div class="ai-hdr"><span class="ai-num">Stat '+(i+1)+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="frow">'
+      +'<div class="field"><label class="fl">Value (e.g. 500+)</label><input type="text" id="hm-sv-'+i+'" value="'+xe(s.value)+'" /></div>'
+      +'<div class="field"><label class="fl">Label (e.g. Students Placed)</label><input type="text" id="hm-sl-'+i+'" value="'+xe(s.label)+'" /></div>'
+      +'</div>';
+    w.appendChild(d);
+  });
+}
+function collectStats() {
+  return Array.from($('hm-stats').querySelectorAll('.ai')).map(function(el) {
+    var i=el.dataset.idx; return {value:v('hm-sv-'+i),label:v('hm-sl-'+i)};
+  });
+}
+
+function renderTD(wid, items) {
+  var w=$(wid); w.innerHTML='';
+  (items||[]).forEach(function(item,i) {
+    var d=document.createElement('div'); d.className='ai'; d.dataset.idx=i;
+    d.innerHTML='<div class="ai-hdr"><span class="ai-num">Item '+(i+1)+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="field"><label class="fl">Title</label><input type="text" id="'+wid+'-t-'+i+'" value="'+xe(item.title||'')+'" /></div>'
+      +'<div class="field" style="margin-top:8px"><label class="fl">Description</label>'
+      +'<input type="text" id="'+wid+'-d-'+i+'" value="'+xe(item.description||'')+'" /></div>';
+    w.appendChild(d);
+  });
+}
+function collectTD(wid) {
+  return Array.from($(wid).querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),title:v(wid+'-t-'+i),description:v(wid+'-d-'+i)};
+  });
+}
+
+function renderCategories(cats) {
+  var w=$('sv-cats'); w.innerHTML='';
+  (cats||[]).forEach(function(cat,i) {
+    var d=document.createElement('div'); d.className='ai'; d.dataset.idx=i;
+    d.innerHTML='<div class="ai-hdr"><span class="ai-num">Category '+(i+1)+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="field"><label class="fl">Category Title</label><input type="text" id="sv-ct-'+i+'" value="'+xe(cat.title||'')+'" /></div>'
+      +'<div class="field" style="margin-top:8px"><label class="fl">Items (one per line)</label>'
+      +'<textarea id="sv-ci-'+i+'">'+xe((cat.items||[]).join('\n'))+'</textarea></div>';
+    w.appendChild(d);
+  });
+}
+function collectCategories() {
+  return Array.from($('sv-cats').querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),title:v('sv-ct-'+i),
+      items:v('sv-ci-'+i).split('\n').map(function(s){return s.trim();}).filter(Boolean)};
+  });
+}
+
+function renderDestinations(dests) {
+  var w=$('dest-list'); w.innerHTML='';
+  (dests||[]).forEach(function(d,i) {
+    var el=document.createElement('div'); el.className='ai'; el.dataset.idx=i;
+    el.innerHTML='<div class="ai-hdr"><span class="ai-num">'+xe(d.name||d.country||'Destination '+(i+1))+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="frow">'
+      +'<div class="field"><label class="fl">Country Name</label><input type="text" id="dt-n-'+i+'" value="'+xe(d.name||d.country||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Flag Emoji</label><input type="text" id="dt-f-'+i+'" value="'+xe(d.flag||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Short Description</label><input type="text" id="dt-sd-'+i+'" value="'+xe(d.shortDescription||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Full Description</label><textarea id="dt-fd-'+i+'">'+xe(d.fullDescription||'')+'</textarea></div>'
+      +'<div class="field"><label class="fl">Image Path</label><input type="text" id="dt-img-'+i+'" value="'+xe(d.image||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Universities Count</label><input type="text" id="dt-uni-'+i+'" value="'+xe(d.universities||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Students Placed</label><input type="text" id="dt-stu-'+i+'" value="'+xe(d.students||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Highlights (comma separated)</label>'
+      +'<input type="text" id="dt-hi-'+i+'" value="'+xe((d.highlights||[]).join(', '))+'" /></div>'
+      +'</div>';
+    w.appendChild(el);
+  });
+}
+function collectDestinations() {
+  return Array.from($('dest-list').querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),name:v('dt-n-'+i),flag:v('dt-f-'+i),
+      shortDescription:v('dt-sd-'+i),fullDescription:v('dt-fd-'+i),
+      image:v('dt-img-'+i),universities:v('dt-uni-'+i),students:v('dt-stu-'+i),
+      highlights:v('dt-hi-'+i).split(',').map(function(s){return s.trim();}).filter(Boolean)};
+  });
+}
+
+function renderStories(stories) {
+  var w=$('st-list'); w.innerHTML='';
+  (stories||[]).forEach(function(s,i) {
+    var el=document.createElement('div'); el.className='ai'; el.dataset.idx=i;
+    el.innerHTML='<div class="ai-hdr"><span class="ai-num">'+xe(s.name||'Story '+(i+1))+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="frow">'
+      +'<div class="field"><label class="fl">Student Name</label><input type="text" id="st-n-'+i+'" value="'+xe(s.name||'')+'" /></div>'
+      +'<div class="field"><label class="fl">University</label><input type="text" id="st-u-'+i+'" value="'+xe(s.university||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Country</label><input type="text" id="st-c-'+i+'" value="'+xe(s.country||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Program</label><input type="text" id="st-p-'+i+'" value="'+xe(s.program||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Year</label><input type="text" id="st-y-'+i+'" value="'+xe(s.year||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Image Path / URL</label><input type="text" id="st-i-'+i+'" value="'+xe(s.image||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Quote</label><textarea id="st-q-'+i+'">'+xe(s.quote||'')+'</textarea></div>'
+      +'</div>';
+    w.appendChild(el);
+  });
+}
+function collectStories() {
+  return Array.from($('st-list').querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),name:v('st-n-'+i),university:v('st-u-'+i),
+      country:v('st-c-'+i),program:v('st-p-'+i),year:v('st-y-'+i),
+      image:v('st-i-'+i),quote:v('st-q-'+i)};
+  });
+}
+
+function renderTestimonials(tms) {
+  var w=$('tm-list'); w.innerHTML='';
+  (tms||[]).forEach(function(t,i) {
+    var el=document.createElement('div'); el.className='ai'; el.dataset.idx=i;
+    el.innerHTML='<div class="ai-hdr"><span class="ai-num">Testimonial '+(i+1)+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="field"><label class="fl">Quote</label><textarea id="tm-q-'+i+'">'+xe(t.quote||'')+'</textarea></div>'
+      +'<div class="field" style="margin-top:8px"><label class="fl">Author</label>'
+      +'<input type="text" id="tm-a-'+i+'" value="'+xe(t.author||'')+'" /></div>';
+    w.appendChild(el);
+  });
+}
+function collectTestimonials() {
+  return Array.from($('tm-list').querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),quote:v('tm-q-'+i),author:v('tm-a-'+i)};
+  });
+}
+
+function renderJpLevels(levels) {
+  var w=$('jp-levels'); w.innerHTML='';
+  (levels||[]).forEach(function(lv,i) {
+    var el=document.createElement('div'); el.className='ai'; el.dataset.idx=i;
+    el.innerHTML='<div class="ai-hdr"><span class="ai-num">'+xe(lv.level||'Level '+(i+1))+'</span>'
+      +'<button class="ai-del" onclick="this.closest(\'.ai\').remove()">&#x2715; Remove</button></div>'
+      +'<div class="frow">'
+      +'<div class="field"><label class="fl">Level Name (e.g. N5)</label><input type="text" id="jl-n-'+i+'" value="'+xe(lv.level||'')+'" /></div>'
+      +'<div class="field"><label class="fl">Duration</label><input type="text" id="jl-d-'+i+'" value="'+xe(lv.duration||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Description</label><textarea id="jl-desc-'+i+'">'+xe(lv.description||'')+'</textarea></div>'
+      +'</div>';
+    w.appendChild(el);
+  });
+}
+function collectJpLevels() {
+  return Array.from($('jp-levels').querySelectorAll('.ai')).map(function(el,idx) {
+    var i=el.dataset.idx;
+    return {id:String(idx+1),level:v('jl-n-'+i),duration:v('jl-d-'+i),description:v('jl-desc-'+i)};
+  });
+}
+
+// ═══════════════════════════════════════
+// LOAD / SAVE
+// ═══════════════════════════════════════
+async function loadContent() {
+  var data = await api('/api/admin/content');
+  state.content = data.content;
+  state.sha     = data.sha;
+  bindAll();
+}
+
+async function saveContent(content, msg) {
+  var btn = $('saveBtn');
+  btn.classList.add('busy'); btn.textContent = '⏳ Saving...';
+  try {
+    var r = await api('/api/admin/content',{method:'PUT',body:JSON.stringify({content:content,sha:state.sha,message:msg})});
+    state.sha     = r.newSha || state.sha;
+    state.content = content;
+    bindAll();
+    showStatus('✅ Saved & pushed to GitHub!');
+  } finally {
+    btn.classList.remove('busy'); btn.textContent = '💾 Save Changes';
+  }
+}
+
+async function saveAll() {
+  try { await saveContent(collectAll(), '[Admin] CMS update'); }
+  catch(e) { showStatus('❌ ' + e.message, false); }
+}
+
+// ═══════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════
+async function login() {
+  var pwd = $('lPwd').value;
+  if (!pwd) return;
+  $('lBtn').textContent = 'Logging in...';
+  $('lErr').textContent = '';
+  try {
+    var d = await api('/api/admin/login',{method:'POST',body:JSON.stringify({password:pwd})});
+    state.token = d.token;
+    localStorage.setItem('cms_token', state.token);
+    $('loginScreen').style.display = 'none';
+    $('app').classList.add('show');
+    await loadContent();
+    showStatus('✅ Login successful!');
+  } catch(e) {
+    $('lErr').textContent = '❌ ' + e.message;
+    $('lBtn').textContent = 'Login →';
+  }
+}
+
+// ═══════════════════════════════════════
+// IMAGES
+// ═══════════════════════════════════════
+async function loadImages() {
+  try {
+    var data = await api('/api/admin/images');
+    var grid = $('imgGrid'); grid.innerHTML = '';
+    (data.images||[]).forEach(function(img) {
+      var card = document.createElement('div'); card.className='img-card';
+      card.innerHTML='<img src="'+img.publicPath+'" alt="'+img.name+'" loading="lazy" />'
+        +'<div class="ic-name">'+img.name+'</div>'
+        +'<div class="ic-path">'+img.publicPath+'</div>'
+        +'<div class="ic-btns">'
+        +'<button class="ic-copy" data-path="'+img.publicPath+'">&#x1F4CB; Copy Path</button>'
+        +'<button class="ic-del" data-file="'+img.path+'" data-sha="'+img.sha+'">&#x1F5D1;</button>'
+        +'</div>';
+      grid.appendChild(card);
+    });
+  } catch(e) { showStatus('❌ '+e.message, false); }
+}
+
+async function uploadImg(file, folder) {
+  var b64 = await new Promise(function(res,rej) {
+    var r = new FileReader(); r.onload=function(){res(r.result);}; r.onerror=rej; r.readAsDataURL(file);
+  });
+  return api('/api/admin/upload',{method:'POST',body:JSON.stringify({filename:file.name,mimeType:file.type,data:b64,folder:folder})});
+}
+
+// ═══════════════════════════════════════
+// EVENT LISTENERS
+// ═══════════════════════════════════════
+$('lBtn').addEventListener('click', login);
+$('lPwd').addEventListener('keydown', function(e){ if(e.key==='Enter') login(); });
+$('logoutBtn').addEventListener('click', function(){ state.token=''; localStorage.removeItem('cms_token'); location.reload(); });
+$('saveBtn').addEventListener('click', saveAll);
+$('reloadBtn').addEventListener('click', async function(){
+  try { await loadContent(); showStatus('↺ Content reloaded'); }
+  catch(e) { showStatus('❌ '+e.message,false); }
+});
+$('saveRawBtn').addEventListener('click', async function(){
+  try { var c=JSON.parse($('rawJson').value); await saveContent(c,'[Admin] Full JSON update'); }
+  catch(e) { showStatus('❌ '+e.message,false); }
+});
+
+document.querySelectorAll('.ni').forEach(function(n){
+  n.addEventListener('click', function(){ setSection(n.getAttribute('data-s')); });
+});
+
+$('hm-stats-add').addEventListener('click',function(){ renderStats(collectStats().concat([{}])); });
+$('ab-vals-add').addEventListener('click',function(){ renderTD('ab-vals',collectTD('ab-vals').concat([{}])); });
+$('ab-why-add').addEventListener('click',function(){ renderTD('ab-why',collectTD('ab-why').concat([{}])); });
+$('sv-cats-add').addEventListener('click',function(){ renderCategories(collectCategories().concat([{}])); });
+$('dest-add').addEventListener('click',function(){ renderDestinations(collectDestinations().concat([{}])); });
+$('dp-why-add').addEventListener('click',function(){ renderTD('dp-why-cards',collectTD('dp-why-cards').concat([{}])); });
+$('st-add').addEventListener('click',function(){ renderStories(collectStories().concat([{}])); });
+$('tm-add').addEventListener('click',function(){ renderTestimonials(collectTestimonials().concat([{}])); });
+$('ie-curr-add').addEventListener('click',function(){ renderTD('ie-curr',collectTD('ie-curr').concat([{}])); });
+$('ie-why-add').addEventListener('click',function(){ renderTD('ie-why',collectTD('ie-why').concat([{}])); });
+$('jp-levels-add').addEventListener('click',function(){ renderJpLevels(collectJpLevels().concat([{}])); });
+$('jp-why-add').addEventListener('click',function(){ renderTD('jp-why',collectTD('jp-why').concat([{}])); });
+
+$('h-logo').addEventListener('input',function(){ $('h-logo-prev').src=v('h-logo'); });
+$('h-logo-file').addEventListener('change',async function(e){
+  var file=e.target.files&&e.target.files[0]; if(!file) return;
+  try { var d=await uploadImg(file,''); sv('h-logo',d.path); $('h-logo-prev').src=d.path; showStatus('✅ Logo uploaded!'); }
+  catch(e) { showStatus('❌ '+e.message,false); }
+});
+
+$('upBtn').addEventListener('click',async function(){
+  var file=$('upFile').files&&$('upFile').files[0]; if(!file) return showStatus('Select an image first',false);
+  try { await uploadImg(file,v('upFolder')); showStatus('✅ Image uploaded!'); await loadImages(); }
+  catch(e) { showStatus('❌ '+e.message,false); }
+});
+$('refreshImgBtn').addEventListener('click', loadImages);
+
+document.addEventListener('click', async function(e){
+  var cp=e.target.closest('.ic-copy');
+  if(cp){ await navigator.clipboard.writeText(cp.getAttribute('data-path')); showStatus('📋 Path copied!'); }
+  var dl=e.target.closest('.ic-del');
+  if(dl){
+    if(!confirm('Delete this image?')) return;
+    try {
+      await api('/api/admin/images',{method:'DELETE',body:JSON.stringify({path:dl.getAttribute('data-file'),sha:dl.getAttribute('data-sha')})});
+      showStatus('✅ Image deleted'); await loadImages();
+    } catch(e) { showStatus('❌ '+e.message,false); }
+  }
+});
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+initRichFields();
+
+(async function init() {
+  if (state.token) {
+    try {
+      $('loginScreen').style.display = 'none';
+      $('app').classList.add('show');
+      await loadContent();
+      showStatus('✅ Session restored');
+    } catch(e) {
+      localStorage.removeItem('cms_token');
+      state.token = '';
+      $('loginScreen').style.display = 'flex';
+    }
+  }
+})();
+</script>
+</body>
+</html>

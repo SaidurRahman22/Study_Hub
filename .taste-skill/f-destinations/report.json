@@ -1,0 +1,1394 @@
+{
+ "url": "http://localhost:4173/destinations",
+ "at": "2026-10-31T20:23:02.154Z",
+ "allow": [
+  "eyebrow",
+  "font-not-dealt"
+ ],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.96,
+    0.79,
+    0.74,
+    0.96
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 1,
+    "transitions": 24,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 3308,
+     "screens": 3.7,
+     "words": 221,
+     "img": 13,
+     "video": 0,
+     "canvas": 0,
+     "svg": 21,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "passport-stamps.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study Destinations",
+     "words": 2,
+     "chars": 18,
+     "lines": 1,
+     "size": 52,
+     "vw": 3.6,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.4,
+     "top": 438,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study Destinations",
+     "words": 2,
+     "lines": 1,
+     "size": 52,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study Destinations",
+      "words": 2,
+      "chars": 18,
+      "lines": 1,
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 438,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Study Abroad",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 2224,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Choose Your Destination?",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 2604,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 5,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      17,
+      22,
+      38,
+      52
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.3
+     },
+     "measureChars": 60,
+     "max": {
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "text": "Study Destinations"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Destinations",
+      "above": "Study Destinations",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 399
+     },
+     {
+      "text": "Before you choose",
+      "above": "Why Study Abroad",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 2185
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 142,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 142,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2099,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.43
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.38
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.07
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.05
+      },
+      {
+       "color": "#4a5568",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation",
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 15,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 11,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.3
+     }
+    ],
+    "nav": {
+     "links": 7,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 3308,
+    "margins": {
+     "left": 124,
+     "right": 124
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 142,
+      "height": 2668,
+      "words": 129,
+      "media": 11,
+      "middle": 0,
+      "heading": {
+       "text": "Study",
+       "size": 52,
+       "tag": "h1"
+      },
+      "left": 123,
+      "right": 104,
+      "textLeft": 124,
+      "textRight": 173,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 2810,
+      "height": 497,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 17,
+       "tag": "h2"
+      },
+      "left": 124,
+      "right": 144,
+      "textLeft": 124,
+      "textRight": 144,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study Destinations",
+      "size": 52,
+      "top": 438,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 124,
+      "n": 5
+     },
+     {
+      "x": 285,
+      "n": 1
+     },
+     {
+      "x": 334,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 7,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.12,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 660,
+     "h": 240
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.96,
+    0.85,
+    0.74,
+    0.96
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 1,
+    "transitions": 24,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 3971,
+     "screens": 3.9,
+     "words": 214,
+     "img": 13,
+     "video": 0,
+     "canvas": 0,
+     "svg": 21,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "passport-stamps.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study Destinations",
+     "words": 2,
+     "chars": 18,
+     "lines": 1,
+     "size": 43.9,
+     "vw": 5.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.75,
+     "top": 309,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study Destinations",
+     "words": 2,
+     "lines": 1,
+     "size": 43.9,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study Destinations",
+      "words": 2,
+      "chars": 18,
+      "lines": 1,
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 309,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Study Abroad",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 2489,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Choose Your Destination?",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 2868,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 5,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      16,
+      17,
+      20,
+      32,
+      44
+     ],
+     "sizeCount": 5,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.3,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.3
+     },
+     "measureChars": 60,
+     "max": {
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "text": "Study Destinations"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Destinations",
+      "above": "Study Destinations",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.3,
+      "top": 271
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 175,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 175,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#e8eaef",
+       "top": 530,
+       "hsl": {
+        "h": 223,
+        "s": 0.18,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2395,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.42
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.39
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.07
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.05
+      },
+      {
+       "color": "#4a5568",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation",
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 15,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 11,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.47
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 3971,
+    "margins": {
+     "left": 47,
+     "right": 70
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 175,
+      "height": 2953,
+      "words": 129,
+      "media": 11,
+      "middle": 0,
+      "heading": {
+       "text": "Study",
+       "size": 44,
+       "tag": "h1"
+      },
+      "left": 23,
+      "right": 23,
+      "textLeft": 47,
+      "textRight": 75,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 3128,
+      "height": 843,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 47,
+      "right": 109,
+      "textLeft": 47,
+      "textRight": 109,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study Destinations",
+      "size": 44,
+      "top": 309,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 47,
+      "n": 5
+     },
+     {
+      "x": 183,
+      "n": 1
+     },
+     {
+      "x": 221,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 7,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    0.89,
+    0.92,
+    0.89,
+    0.83,
+    0.99
+   ],
+   "motion": {
+    "elements": 26,
+    "css": 1,
+    "transitions": 24,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 4034,
+     "screens": 4.8,
+     "words": 205,
+     "img": 13,
+     "video": 0,
+     "canvas": 0,
+     "svg": 21,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 11,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "passport-stamps.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg",
+      "south-korea.jpg",
+      "united-kingdom.jpg",
+      "japan.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study Destinations",
+     "words": 2,
+     "chars": 18,
+     "lines": 1,
+     "size": 34,
+     "vw": 8.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 227,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study Destinations",
+     "words": 2,
+     "lines": 1,
+     "size": 34,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study Destinations",
+      "words": 2,
+      "chars": 18,
+      "lines": 1,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 227,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Why Study Abroad",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2290,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ready to Choose Your Destination?",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2903,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 3,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 5,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.93,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.07,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      16,
+      18,
+      26,
+      34
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.1,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.3
+     },
+     "measureChars": 39,
+     "max": {
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "text": "Study Destinations"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.05,
+     "centerShare": 0.02,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Destinations",
+      "above": "Study Destinations",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 189
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 125,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 125,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 2196,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 2847,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.42
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.39
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.07
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.05
+      },
+      {
+       "color": "#4a5568",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 1,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 15,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 1,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.32
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 4034,
+    "margins": {
+     "left": 19,
+     "right": 19
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 125,
+      "height": 3025,
+      "words": 129,
+      "media": 11,
+      "middle": 0,
+      "heading": {
+       "text": "Study",
+       "size": 34,
+       "tag": "h1"
+      },
+      "left": 7,
+      "right": 7,
+      "textLeft": 20,
+      "textRight": 24,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 3150,
+      "height": 884,
+      "words": 110,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 22,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study Destinations",
+      "size": 34,
+      "top": 227,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 5
+     },
+     {
+      "x": 125,
+      "n": 1
+     },
+     {
+      "x": 164,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 7,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 768,
+   "message": "The margins differ: 47px on the left, 70px on the right, at 768px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\desktop-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\tablet-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\mobile-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\f-destinations\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

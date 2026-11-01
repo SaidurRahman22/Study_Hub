@@ -1,0 +1,1807 @@
+{
+ "url": "http://localhost:4173/destinations/cyprus",
+ "at": "2026-10-31T20:20:48.500Z",
+ "allow": [
+  "eyebrow",
+  "font-not-dealt"
+ ],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 7,
+   "filled": [
+    0.89,
+    0.73,
+    0.6,
+    0.76,
+    0.64,
+    0.66,
+    0.81
+   ],
+   "motion": {
+    "elements": 43,
+    "css": 1,
+    "transitions": 41,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 5791,
+     "screens": 6.4,
+     "words": 1000,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 16,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "cyprus.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "chars": 15,
+     "lines": 1,
+     "size": 52,
+     "vw": 3.6,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.4,
+     "top": 302,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "lines": 1,
+     "size": 52,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study in Cyprus",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 302,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Life and study in Cyprus",
+      "words": 5,
+      "chars": 24,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 1287,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Universities students ask about",
+      "words": 4,
+      "chars": 31,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 1872,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a degree there opens up",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.33,
+      "top": 2635,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a year costs",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 3734,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "€6,834 – €11,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 3879,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "€9,600 – €12,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.23,
+      "top": 3879,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Thinking about Cyprus?",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 38,
+      "vw": 2.6,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.36,
+      "top": 4607,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 2,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.94,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.06,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      17,
+      22,
+      38,
+      52
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 500,
+      "tracking": 0,
+      "contrast": 16.1
+     },
+     "measureChars": 39,
+     "max": {
+      "size": 52,
+      "vw": 3.6,
+      "font": "Lexend",
+      "text": "Study in Cyprus"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "English-taught EU degrees at mid-range cost",
+      "above": "Study in Cyprus",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 263
+     },
+     {
+      "text": "Living there",
+      "above": "Life and study in Cyprus",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 1248
+     },
+     {
+      "text": "Institutions",
+      "above": "Universities students ask about",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 1833
+     },
+     {
+      "text": "Afterwards",
+      "above": "What a degree there opens up",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 2606
+     },
+     {
+      "text": "Money",
+      "above": "What a year costs",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 3695
+     },
+     {
+      "text": "Tuition a year",
+      "above": "€6,834 – €11,000",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 3844
+     },
+     {
+      "text": "Living a year",
+      "above": "€9,600 – €12,000",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.8,
+      "top": 3844
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 142,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 142,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 1161,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.32
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.22
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.21
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.2
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation",
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 23,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 5,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.23
+     }
+    ],
+    "nav": {
+     "links": 7,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 5791,
+    "margins": {
+     "left": 124,
+     "right": 144
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 142,
+      "height": 5152,
+      "words": 904,
+      "media": 5,
+      "middle": 0,
+      "heading": {
+       "text": "Study in",
+       "size": 52,
+       "tag": "h1"
+      },
+      "left": 123,
+      "right": 101,
+      "textLeft": 124,
+      "textRight": 153,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 5294,
+      "height": 497,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 17,
+       "tag": "h2"
+      },
+      "left": 124,
+      "right": 144,
+      "textLeft": 124,
+      "textRight": 144,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study in Cyprus",
+      "size": 52,
+      "top": 302,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 124,
+      "n": 11
+     },
+     {
+      "x": 955,
+      "n": 3
+     },
+     {
+      "x": 559,
+      "n": 2
+     },
+     {
+      "x": 169,
+      "n": 1
+     },
+     {
+      "x": 346,
+      "n": 1
+     },
+     {
+      "x": 414,
+      "n": 1
+     },
+     {
+      "x": 661,
+      "n": 1
+     },
+     {
+      "x": 1008,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 21,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.15,
+    "voidBox": {
+     "x": 360,
+     "y": 720,
+     "w": 1080,
+     "h": 180
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.96,
+    0.79,
+    0.63,
+    0.64,
+    0.75,
+    0.73,
+    0.88,
+    0.89
+   ],
+   "motion": {
+    "elements": 45,
+    "css": 1,
+    "transitions": 43,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 7274,
+     "screens": 7.1,
+     "words": 993,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 16,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "cyprus.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "chars": 15,
+     "lines": 1,
+     "size": 43.9,
+     "vw": 5.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.75,
+     "top": 333,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "lines": 1,
+     "size": 43.9,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study in Cyprus",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 333,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Life and study in Cyprus",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 1773,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Universities students ask about",
+      "words": 4,
+      "chars": 31,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 2445,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a degree there opens up",
+      "words": 6,
+      "chars": 28,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 3287,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a year costs",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 4451,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "€6,834 – €11,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.82,
+      "top": 4580,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "€9,600 – €12,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.82,
+      "top": 4717,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Thinking about Cyprus?",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 31.5,
+      "vw": 4.1,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.64,
+      "top": 5372,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 2,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.94,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.06,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      16,
+      17,
+      20,
+      32,
+      44
+     ],
+     "sizeCount": 5,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.7,
+      "leading": 1.6,
+      "weight": 500,
+      "tracking": 0,
+      "contrast": 16.1
+     },
+     "measureChars": 62,
+     "max": {
+      "size": 43.9,
+      "vw": 5.7,
+      "font": "Lexend",
+      "text": "Study in Cyprus"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "English-taught EU degrees at mid-range cost",
+      "above": "Study in Cyprus",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16.3,
+      "top": 295
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 175,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 175,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#e8eaef",
+       "top": 758,
+       "hsl": {
+        "h": 223,
+        "s": 0.18,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 1679,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.32
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.22
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.21
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.19
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 4,
+     "inHero": 2,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation",
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 23,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 5,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.27
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 96,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 7274,
+    "margins": {
+     "left": 47,
+     "right": 70
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 175,
+      "height": 6257,
+      "words": 941,
+      "media": 5,
+      "middle": 0,
+      "heading": {
+       "text": "Study in",
+       "size": 44,
+       "tag": "h1"
+      },
+      "left": 19,
+      "right": 19,
+      "textLeft": 47,
+      "textRight": 69,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 6431,
+      "height": 843,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 47,
+      "right": 109,
+      "textLeft": 47,
+      "textRight": 109,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study in Cyprus",
+      "size": 44,
+      "top": 333,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 47,
+      "n": 12
+     },
+     {
+      "x": 67,
+      "n": 4
+     },
+     {
+      "x": 410,
+      "n": 3
+     },
+     {
+      "x": 234,
+      "n": 1
+     },
+     {
+      "x": 287,
+      "n": 1
+     },
+     {
+      "x": 309,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 22,
+    "bodySize": 17,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    0.82,
+    0.79,
+    0.8,
+    0.91,
+    0.76,
+    0.61,
+    0.87,
+    0.7,
+    0.99
+   ],
+   "motion": {
+    "elements": 43,
+    "css": 1,
+    "transitions": 41,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 8338,
+     "screens": 9.9,
+     "words": 984,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 16,
+     "sections": 9,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "cyprus.jpg",
+      "australia.jpg",
+      "canada.jpg",
+      "italy.jpg",
+      "malta.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "chars": 15,
+     "lines": 1,
+     "size": 34,
+     "vw": 8.7,
+     "font": "Lexend",
+     "weight": 600,
+     "tracking": -0.022,
+     "leading": 1.1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 266,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Study in Cyprus",
+     "words": 3,
+     "lines": 1,
+     "size": 34,
+     "font": "Lexend"
+    },
+    "headings": [
+     {
+      "text": "Study in Cyprus",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 266,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Life and study in Cyprus",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1613,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Universities students ask about",
+      "words": 4,
+      "chars": 31,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2563,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a degree there opens up",
+      "words": 6,
+      "chars": 28,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 3886,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "What a year costs",
+      "words": 4,
+      "chars": 17,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5561,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "€6,834 – €11,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5683,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "€9,600 – €12,000",
+      "words": 3,
+      "chars": 16,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": 0,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.79,
+      "top": 5810,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Thinking about Cyprus?",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Lexend",
+      "weight": 600,
+      "tracking": -0.022,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 6662,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 8,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 2,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Source Sans 3",
+       "share": 0.94,
+       "mono": false
+      },
+      {
+       "family": "Lexend",
+       "share": 0.06,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      16,
+      18,
+      26,
+      34
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Source Sans 3",
+      "size": 16.1,
+      "leading": 1.6,
+      "weight": 500,
+      "tracking": 0,
+      "contrast": 16.1
+     },
+     "measureChars": 39,
+     "max": {
+      "size": 34,
+      "vw": 8.7,
+      "font": "Lexend",
+      "text": "Study in Cyprus"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.02,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "English-taught EU degrees at mid-range cost",
+      "above": "Study in Cyprus",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 16,
+      "top": 229
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 125,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0f1a2e",
+       "top": 125,
+       "hsl": {
+        "h": 219,
+        "s": 0.51,
+        "l": 0.12
+       }
+      },
+      {
+       "color": "#f5f6f8",
+       "top": 1505,
+       "hsl": {
+        "h": 220,
+        "s": 0.18,
+        "l": 0.97
+       }
+      },
+      {
+       "color": "#d4af37",
+       "top": 6592,
+       "hsl": {
+        "h": 46,
+        "s": 0.65,
+        "l": 0.52
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#4a5568",
+       "share": 0.33
+      },
+      {
+       "color": "#a9b4c6",
+       "share": 0.22
+      },
+      {
+       "color": "#0f1a2e",
+       "share": 0.21
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.19
+      },
+      {
+       "color": "#7d620f",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#d4af37",
+      "hsl": {
+       "h": 46,
+       "s": 0.65,
+       "l": 0.52
+      },
+      "fg": "#0f1a2e"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 1,
+     "radius": 10,
+     "height": 46,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Book a consultation"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 23,
+     "boxRadius": 14,
+     "squareMedia": 0,
+     "roundedMedia": 1,
+     "mediaRadius": 14,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.16
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 80,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "lexend",
+     "source sans 3"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 8338,
+    "margins": {
+     "left": 20,
+     "right": 21
+    },
+    "sections": [
+     {
+      "sel": "main#main.flex-1",
+      "tag": "main",
+      "top": 125,
+      "height": 7329,
+      "words": 933,
+      "media": 5,
+      "middle": 0,
+      "heading": {
+       "text": "Study in",
+       "size": 34,
+       "tag": "h1"
+      },
+      "left": 19,
+      "right": 19,
+      "textLeft": 20,
+      "textRight": 21,
+      "fullBleed": true,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "footer.lp-field-ink",
+      "tag": "footer",
+      "top": 7454,
+      "height": 884,
+      "words": 110,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Pages",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 22,
+      "textLeft": 20,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Study in Cyprus",
+      "size": 34,
+      "top": 266,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 10
+     },
+     {
+      "x": 40,
+      "n": 7
+     },
+     {
+      "x": 165,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 18,
+    "bodySize": 16,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 52px (3.6vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "WARN",
+   "id": "off-centre",
+   "width": 1440,
+   "message": "The margins differ: 124px on the left, 144px on the right, at 1440px.",
+   "fix": "Put the navigation and the content on one pair of margins; check for padding on one side only, a scrollbar gutter, or a header on another inset than the page.",
+   "alsoAt": [
+    768
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\desktop-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\desktop-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\desktop-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\tablet-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\tablet-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\mobile-fold.jpg",
+   "pages": [
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\mobile-page-01.jpg",
+    "D:\\project\\StudyHub\\.taste-skill\\c-cyprus\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

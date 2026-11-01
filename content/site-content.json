@@ -1,0 +1,731 @@
+{
+  "global": {
+    "siteName": "Study Hub BD",
+    "tagline": "Your Dream, Our Mission",
+    "phone1": "01623-935872",
+    "phone2": "01613-160021",
+    "email": "studyhubbd2023@gmail.com",
+    "address": "GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail",
+    "website": "studyhubbd.com",
+    "whatsapp": "01623935872",
+    "registrationLink": "https://forms.gle/c32cDmiLdKGFvjxE6",
+    "socialMedia": {
+      "facebook": "#",
+      "instagram": "#",
+      "linkedin": "#",
+      "youtube": "#"
+    },
+    "copyrightYear": "2024"
+  },
+  "header": {
+    "logo": "/images/logo.png",
+    "registerButtonText": "Book a consultation"
+  },
+  "home": {
+    "hero": {
+      "badge": "Your Dream, Our Mission",
+      "title": "Study abroad,",
+      "titleHighlight": "start to finish",
+      "description": "We take students from Tangail to universities in ten countries: choosing the course, preparing the application, filing the student visa, and putting together the bank documents the embassy asks to see.",
+      "ctaButton": "Start your application",
+      "learnMoreButton": "See the ten countries",
+      "stats": [
+        {
+          "value": "500+",
+          "label": "Students Placed"
+        },
+        {
+          "value": "50+",
+          "label": "Universities"
+        },
+        {
+          "value": "10+",
+          "label": "Countries"
+        }
+      ]
+    },
+    "servicesSection": {
+      "title": "What we",
+      "titleHighlight": "handle",
+      "subtitle": "Admissions, visa filing and the paperwork around them. Language training is one part of the job, not the whole of it."
+    },
+    "destinationsSection": {
+      "title": "Where our students",
+      "titleHighlight": "go",
+      "subtitle": "Ten countries, with the intakes we file for."
+    },
+    "successSection": {
+      "title": "Where they",
+      "titleHighlight": "landed",
+      "subtitle": "Students we have placed, and what they said about it."
+    },
+    "ctaSection": {
+      "title": "Ready to start your application?",
+      "subtitle": "Tell us where you want to study and we will tell you exactly what the file needs.",
+      "buttonText": "Start your application"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "From Tangail to",
+      "titleHighlight": "ten countries",
+      "subtitle": "One office, on Mymensingh Road at the Kumudini College gate, that takes a student all the way: course and country, the university application, the language test, and the visa file the embassy will read."
+    },
+    "mission": "To take students from Tangail and the districts around it all the way to a university seat abroad — honest counselling first, an application we prepare ourselves, and a visa file we are willing to stand behind.",
+    "vision": "To be the consultancy families in Tangail recommend to one another: known for telling a student the truth about their chances, their budget and their timeline before anyone pays a fee.",
+    "values": [
+      {
+        "id": "1",
+        "title": "Straight answers",
+        "description": "If a country, a budget or a test score does not add up, we say so at the first meeting rather than after the fee is paid."
+      },
+      {
+        "id": "2",
+        "title": "One office, start to finish",
+        "description": "The person who counsels you is the person who prepares your file. Nothing is handed to a sub-agent in another city."
+      },
+      {
+        "id": "3",
+        "title": "Ten countries, not one",
+        "description": "We are not tied to a single destination, so the recommendation can follow your results and your budget."
+      },
+      {
+        "id": "4",
+        "title": "Checked before it is sent",
+        "description": "Every document in an application is read twice in-house before it goes to a university or an embassy."
+      }
+    ],
+    "whyChooseTitle": "Why Choose",
+    "whyChooseHighlight": "Study Hub BD",
+    "ctaTitle": "Start with a conversation",
+    "ctaButton": "Book a consultation",
+    "whyChooseUs": [
+      {
+        "id": "1",
+        "title": "Counselling before commitment",
+        "description": "The first consultation is about whether studying abroad is right for you at all, and which countries your results actually open."
+      },
+      {
+        "id": "2",
+        "title": "The language training is ours",
+        "description": "IELTS, Spoken English and Japanese are taught in this office, so one team is accountable for both the score and the application."
+      },
+      {
+        "id": "3",
+        "title": "The visa file is prepared here",
+        "description": "Bank documents, financial papers, SOP and motivation letter — the parts an embassy reads hardest are written and checked in-house."
+      },
+      {
+        "id": "4",
+        "title": "You can walk in",
+        "description": "GIIT Building, Mymensingh Road, at the Kumudini College gate. No sub-agent in another city, and no file you cannot ask about in person."
+      }
+    ]
+  },
+  "servicesPage": {
+    "heroTitle": "Our",
+    "heroHighlight": "Services",
+    "heroSubtitle": "Comprehensive solutions for every step of your international education journey",
+    "categoriesTitle": "Service",
+    "categoriesHighlight": "Categories",
+    "categories": [
+      {
+        "id": "1",
+        "title": "Language Training",
+        "items": [
+          "IELTS Preparation & Mock Tests",
+          "Japanese Language (N5 to Advanced)",
+          "Spoken English Programs",
+          "Kids English Courses"
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Admission & Visa",
+        "items": [
+          "University Admission Processing",
+          "Visa Guidance & Documentation",
+          "Bank Support & Financial Documents",
+          "Scholarship Opportunities"
+        ]
+      },
+      {
+        "id": "3",
+        "title": "Document Preparation",
+        "items": [
+          "Motivation Letter (MOI)",
+          "Statement of Purpose (SOP)",
+          "Application Assistance",
+          "Profile Review & Feedback"
+        ]
+      },
+      {
+        "id": "4",
+        "title": "Work & Career",
+        "items": [
+          "International Job Visa Assistance",
+          "SSW & TITP Programs",
+          "Career Counseling",
+          "Job Placement Support"
+        ]
+      }
+    ],
+    "ctaTitle": "Ready to Get Started?",
+    "ctaSubtitle": "Choose the service that fits your needs and begin your journey with us today.",
+    "ctaButton": "Book a consultation"
+  },
+  "services": [
+    {
+      "id": "1",
+      "title": "Basic to IELTS",
+      "description": "Foundation English course leading to IELTS preparation."
+    },
+    {
+      "id": "2",
+      "title": "IELTS",
+      "description": "Comprehensive IELTS training with mock tests and expert guidance."
+    },
+    {
+      "id": "3",
+      "title": "Spoken English",
+      "description": "Improve your spoken English with interactive classes."
+    },
+    {
+      "id": "4",
+      "title": "Smart Kids English",
+      "description": "Specialized English program for young learners."
+    },
+    {
+      "id": "5",
+      "title": "MOI, SOP, Assistance",
+      "description": "Professional help with Motivation Letter and Statement of Purpose."
+    },
+    {
+      "id": "6",
+      "title": "Japanese Language",
+      "description": "JLPT, N5, N4, and JFT A2 courses with certified instructors."
+    },
+    {
+      "id": "7",
+      "title": "SSW, VISA, TITP",
+      "description": "Specialized visa and work permit assistance programs."
+    },
+    {
+      "id": "8",
+      "title": "International Job Visa",
+      "description": "Guidance for securing international job opportunities."
+    },
+    {
+      "id": "9",
+      "title": "Scholarship Opportunities",
+      "description": "Access to exclusive scholarship programs worldwide."
+    },
+    {
+      "id": "10",
+      "title": "Admission Processing",
+      "description": "Complete university admission support and guidance."
+    },
+    {
+      "id": "11",
+      "title": "Visa Guidance & Support",
+      "description": "Expert visa application and documentation assistance."
+    },
+    {
+      "id": "12",
+      "title": "Bank Support",
+      "description": "Financial documentation and bank support services."
+    }
+  ],
+  "destinations": [
+    {
+      "id": "1",
+      "name": "Australia",
+      "flag": "🇦🇺",
+      "shortDescription": "World-class universities with excellent career opportunities",
+      "fullDescription": "Australia offers a vibrant study environment with top-ranked universities, diverse culture, and excellent post-study work opportunities. Known for innovative education and high quality of life.",
+      "image": "https://www.bing.com/images/search?view=detailV2&ccid=5GSsgRYK&id=08A15490F70E2D461811EA5EE7DB34D7DE390E8F&thid=OIP.5GSsgRYKfvi4jsTFDOgOEgHaHa&mediaurl=https://emojisymbols.net/wp-content/uploads/2023/08/olt7awxq0.png&q=australia+flag+emoji&ck=8F256C43BFF7F8B17715319AE19AB94E&idpp=rc&expw=512&exph=512&form=rc2idp&ajaxhist=0&ajaxserp=0",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Quality Education",
+        "Post-Study Work Visa",
+        "Diverse Culture"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Canada",
+      "flag": "🇨🇦",
+      "shortDescription": "Affordable education with strong immigration pathways",
+      "fullDescription": "Canada is a top destination for international students with affordable tuition, excellent universities, and clear pathways to permanent residency. Safe, multicultural, and welcoming.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Affordable Tuition",
+        "PR Pathways",
+        "Safe & Welcoming"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Italy",
+      "flag": "🇮🇹",
+      "shortDescription": "Rich culture and history with affordable education",
+      "fullDescription": "Italy combines world-class education with rich cultural heritage. Experience Renaissance art, history, and cuisine while studying at prestigious universities.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Cultural Heritage",
+        "Affordable Programs",
+        "Historic Cities"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Malta",
+      "flag": "🇲🇹",
+      "shortDescription": "Gateway to Europe with quality education",
+      "fullDescription": "Malta offers quality education in a strategic Mediterranean location. Perfect for students seeking European education with a welcoming international community.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "European Gateway",
+        "Quality Education",
+        "Island Life"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "South Korea",
+      "flag": "🇰🇷",
+      "shortDescription": "Advanced technology and innovative education system",
+      "fullDescription": "South Korea is a hub for technology and innovation with cutting-edge universities. Experience modern education in a dynamic and fast-paced environment.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Tech Innovation",
+        "Modern Education",
+        "Vibrant Culture"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "UK",
+      "flag": "🇬🇧",
+      "shortDescription": "Prestigious universities with global recognition",
+      "fullDescription": "The UK is home to world-renowned universities with centuries of academic excellence. Gain a qualification recognized globally and experience British culture.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "World-Class Universities",
+        "Global Recognition",
+        "Rich Heritage"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Japan",
+      "flag": "🇯🇵",
+      "shortDescription": "Cutting-edge technology and unique culture",
+      "fullDescription": "Japan offers a unique blend of traditional culture and modern technology. Study at innovative universities while experiencing one of Asia's most advanced societies.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Technology Hub",
+        "Unique Culture",
+        "High Quality of Life"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Cyprus",
+      "flag": "🇨🇾",
+      "shortDescription": "Mediterranean beauty with quality education",
+      "fullDescription": "Cyprus combines Mediterranean charm with quality education. Enjoy beautiful weather, beaches, and excellent universities in a peaceful setting.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Mediterranean Beauty",
+        "Quality Education",
+        "Affordable Living"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Russia",
+      "flag": "🇷🇺",
+      "shortDescription": "Affordable education with strong academic programs",
+      "fullDescription": "Russia offers affordable education with strong programs in medicine, engineering, and sciences. Experience rich culture and history in major cities.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Affordable Education",
+        "Strong Programs",
+        "Cultural Experience"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Denmark",
+      "flag": "🇩🇰",
+      "shortDescription": "Scandinavian excellence with innovative education",
+      "fullDescription": "Denmark offers innovative education in a progressive society. Known for quality of life, sustainability focus, and excellent universities.",
+      "image": "",
+      "universities": "",
+      "students": "",
+      "highlights": [
+        "Quality of Life",
+        "Innovation Focus",
+        "Sustainability"
+      ]
+    }
+  ],
+  "successStories": [
+    {
+      "id": "1",
+      "name": "Apurbo Bhattacharjee",
+      "university": "Learn Key Institute",
+      "country": "Malta",
+      "program": "",
+      "year": "",
+      "image": "https://i.ibb.co.com/k6s6Sk4n/FB-IMG-1773611859839.jpg",
+      "quote": "Study Hub BD helped me achieve my dream of studying abroad. Their guidance was invaluable!"
+    },
+    {
+      "id": "2",
+      "name": "Lotifur Rahman",
+      "university": "Learn Key Institute",
+      "country": "Malta",
+      "program": "",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      "quote": "The IELTS training was comprehensive and the visa support was seamless. Highly recommended!"
+    },
+    {
+      "id": "3",
+      "name": "Md. Farhad Hossain",
+      "university": "Masha University",
+      "country": "Malaysia",
+      "program": "",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
+      "quote": "From admission to visa, Study Hub BD handled everything professionally. I'm grateful!"
+    },
+    {
+      "id": "4",
+      "name": "Nazmul Hossen",
+      "university": "Cheboksary Medical University",
+      "country": "Russia",
+      "program": "",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+      "quote": "The team's expertise in medical university admissions was exceptional. Thank you!"
+    },
+    {
+      "id": "5",
+      "name": "Foridul Islam",
+      "university": "Cheboksary Medical University",
+      "country": "Russia",
+      "program": "",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      "quote": "Best decision to choose Study Hub BD. They made my journey smooth and stress-free."
+    },
+    {
+      "id": "6",
+      "name": "Musfiqur Khan Siam",
+      "university": "Cheboksary Medical University",
+      "country": "Russia",
+      "program": "",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
+      "quote": "Excellent support throughout the entire process. Highly professional team!"
+    }
+  ],
+  "successPage": {
+    "heroTitle": "Success",
+    "heroHighlight": "Stories",
+    "heroSubtitle": "Meet the students who achieved their dreams with Study Hub BD's expert guidance and support",
+    "sectionTitle": "Our",
+    "sectionHighlight": "Success Stories",
+    "testimonialTitle": "What Our Students",
+    "testimonialHighlight": "Say",
+    "testimonials": [
+      {
+        "id": "1",
+        "quote": "Study Hub BD transformed my study abroad journey. The team's professionalism and dedication were outstanding. I couldn't have done it without them!",
+        "author": "Student from Tangail"
+      },
+      {
+        "id": "2",
+        "quote": "The IELTS training was exactly what I needed. The mock tests helped me understand the exam format perfectly. Highly recommended!",
+        "author": "IELTS Student"
+      },
+      {
+        "id": "3",
+        "quote": "Japanese language classes were engaging and effective. The teachers made learning fun and practical. I'm now working in Japan!",
+        "author": "Japanese Language Student"
+      },
+      {
+        "id": "4",
+        "quote": "From visa documentation to bank support, every step was handled with care and expertise. Study Hub BD is the best!",
+        "author": "Visa Applicant"
+      }
+    ],
+    "ctaTitle": "Be Part of Our Success Stories",
+    "ctaSubtitle": "Join hundreds of students who have achieved their dreams. Your success story starts here!",
+    "ctaButton": "Start Your Journey"
+  },
+  "ielts": {
+    "hero": {
+      "badge": "Language Training",
+      "title": "Master",
+      "titleHighlight": "IELTS",
+      "titleSuffix": "with Expert Guidance",
+      "description": "Comprehensive IELTS preparation designed to help you achieve your target score and unlock global opportunities.",
+      "ctaButton": "Enroll Now"
+    },
+    "courseStats": {
+      "classes": "12",
+      "perWeek": "3",
+      "mockTests": "1",
+      "support": ""
+    },
+    "courseFeatures": [
+      "One month, 12 classes",
+      "One mock test included",
+      "3 classes per week",
+      "Teacher's support"
+    ],
+    "programTitle": "One Month Intensive Program",
+    "programDescription": "Our proven curriculum combines theory, practice, and personalized feedback to maximize your IELTS score.",
+    "curriculum": [
+      {
+        "id": "1",
+        "title": "Reading",
+        "description": "Advanced reading comprehension and skimming techniques"
+      },
+      {
+        "id": "2",
+        "title": "Writing",
+        "description": "Task 1 & 2 practice with detailed feedback"
+      },
+      {
+        "id": "3",
+        "title": "Listening",
+        "description": "Accent training and note-taking strategies"
+      },
+      {
+        "id": "4",
+        "title": "Speaking",
+        "description": "Fluency and pronunciation improvement"
+      }
+    ],
+    "ctaTitle": "Ready to Ace Your IELTS Exam?",
+    "ctaSubtitle": "Join our next batch and start your journey to success today.",
+    "whyChooseUs": [
+      {
+        "id": "1",
+        "title": "Expert Instructors",
+        "description": "Certified IELTS trainers with years of experience."
+      },
+      {
+        "id": "2",
+        "title": "Personalized Feedback",
+        "description": "Individual attention and customized learning plans."
+      },
+      {
+        "id": "3",
+        "title": "Mock Tests",
+        "description": "Practice with real IELTS exam patterns."
+      },
+      {
+        "id": "4",
+        "title": "Ongoing Support",
+        "description": "Teacher support beyond class hours."
+      },
+      {
+        "id": "5",
+        "title": "Flexible Schedule",
+        "description": "Classes designed to fit your busy schedule."
+      },
+      {
+        "id": "6",
+        "title": "Proven Results",
+        "description": "Hundreds achieving their target scores."
+      }
+    ],
+    "ctaButton": ""
+  },
+  "japanese": {
+    "hero": {
+      "badge": "Language Training",
+      "title": "Learn",
+      "titleHighlight": "Japanese",
+      "titleSuffix": "Like Never Before",
+      "description": "Master Japanese from N5 to advanced levels with our certified instructors and comprehensive curriculum.",
+      "ctaButton": "Enroll Now"
+    },
+    "courseStats": {
+      "classes": "16",
+      "perWeek": "4",
+      "support": "∞"
+    },
+    "courseFeatures": [
+      "One month, 16 classes",
+      "4 classes per week",
+      "Small batch sizes",
+      "Teacher's support"
+    ],
+    "programTitle": "One Month Intensive Program",
+    "programDescription": "Our comprehensive Japanese curriculum is designed to build your skills progressively from basics to fluency.",
+    "levels": [
+      {
+        "id": "1",
+        "level": "N5",
+        "duration": "4 weeks",
+        "description": "Beginner level - Basic Japanese for everyday conversations"
+      },
+      {
+        "id": "2",
+        "level": "N4",
+        "duration": "4 weeks",
+        "description": "Elementary level - Intermediate Japanese communication"
+      },
+      {
+        "id": "3",
+        "level": "JFT A2",
+        "duration": "4 weeks",
+        "description": "Pre-intermediate level - Practical Japanese for work and travel"
+      },
+      {
+        "id": "4",
+        "level": "Advanced",
+        "duration": "6 weeks",
+        "description": "Business and professional Japanese communication"
+      }
+    ],
+    "curriculum": [
+      {
+        "id": "1",
+        "title": "Hiragana & Katakana",
+        "description": "Master Japanese writing systems"
+      },
+      {
+        "id": "2",
+        "title": "Kanji",
+        "description": "Learn essential kanji characters"
+      },
+      {
+        "id": "3",
+        "title": "Grammar",
+        "description": "Comprehensive grammar structures and patterns"
+      },
+      {
+        "id": "4",
+        "title": "Conversation",
+        "description": "Real-world dialogue and speaking practice"
+      },
+      {
+        "id": "5",
+        "title": "Listening",
+        "description": "Comprehension of native speakers"
+      },
+      {
+        "id": "6",
+        "title": "Cultural Context",
+        "description": "Understanding Japanese culture and etiquette"
+      }
+    ],
+    "whyChooseUs": [
+      {
+        "id": "1",
+        "title": "Native Instructors",
+        "description": "Learn from certified native Japanese speakers."
+      },
+      {
+        "id": "2",
+        "title": "Structured Curriculum",
+        "description": "Follow JLPT standards and international guidelines."
+      },
+      {
+        "id": "3",
+        "title": "Interactive Classes",
+        "description": "Engaging lessons with real-world applications."
+      },
+      {
+        "id": "4",
+        "title": "Cultural Immersion",
+        "description": "Learn language in cultural context."
+      },
+      {
+        "id": "5",
+        "title": "Certificate Programs",
+        "description": "Recognized certifications upon completion."
+      },
+      {
+        "id": "6",
+        "title": "Career Support",
+        "description": "Guidance for Japanese job opportunities."
+      }
+    ],
+    "ctaTitle": "Start Your Japanese Learning Journey Today",
+    "ctaSubtitle": "Join our next batch and become fluent in Japanese with expert guidance.",
+    "ctaButton": ""
+  },
+  "destinationsPage": {
+    "heroTitle": "Study",
+    "heroHighlight": "Destinations",
+    "heroSubtitle": "Explore 10 countries where Study Hub BD helps students achieve their dreams",
+    "whyTitle": "Why Study",
+    "whyHighlight": "Abroad",
+    "whyCards": [
+      {
+        "id": "1",
+        "title": "Global Perspective",
+        "description": "Gain international experience and expand your worldview"
+      },
+      {
+        "id": "2",
+        "title": "Diverse Network",
+        "description": "Build connections with students from around the world"
+      },
+      {
+        "id": "3",
+        "title": "Career Opportunities",
+        "description": "Access global job markets and international career paths"
+      }
+    ],
+    "ctaTitle": "Ready to Choose Your Destination?",
+    "ctaSubtitle": "Let our counselors help you find the perfect country and university for your goals."
+  },
+  "contact": {
+    "hero": {
+      "title": "Get in",
+      "titleHighlight": "Touch",
+      "subtitle": "Have questions? We're here to help! Contact us today and start your journey with Study Hub BD."
+    },
+    "address": "GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail",
+    "phone1": "01623-935872",
+    "phone2": "01613-160021",
+    "email": "studyhubbd2023@gmail.com",
+    "website": "studyhubbd.com",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3631.8404123456!2d89.9!3d24.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDI0JzAwLjAiTiA4OcKwNTQnMDAuMCJF!5e0!3m2!1sen!2sbd!4v1234567890",
+    "mapDirectionsUrl": "https://maps.google.com/?q=GIIT+Building+Tangail",
+    "ctaTitle": "Ready to Start Your Journey?",
+    "ctaSubtitle": "Contact us today or register online to begin your transformation with Study Hub BD.",
+    "ctaButton": "Book a consultation"
+  },
+  "footer": {
+    "about": "Your trusted partner for international education and language learning.",
+    "copyrightText": "© 2024 Study Hub BD. All rights reserved."
+  }
+}

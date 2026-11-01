@@ -1,0 +1,1160 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ====================================================================== *
+ *  BRAND TOKENS                                                          *
+ *                                                                        *
+ *  A student-visa consultancy, not a magazine: white page, deep navy     *
+ *  ink, the logo's gold reserved for fills, marks and the one action.    *
+ *  Gold as TEXT on white is 2.1:1 and is never used that way — where     *
+ *  gold type is wanted, `--color-gold-deep` does it at 4.9:1.            *
+ *                                                                        *
+ *  Measured: ink on white 17.4:1 · secondary ink 7.5:1 · ink on a gold   *
+ *  fill 8.3:1 · white on the navy field 17.4:1 · gold on navy 8.3:1.     *
+ *                                                                        *
+ *  The `golden` / `light-golden` / `off-white` names below also back the *
+ *  150-odd legacy utility references on the other eight pages, which     *
+ *  generated no CSS at all until these were declared in `@theme`.        *
+ * ====================================================================== */
+
+@theme {
+  --color-golden: #d4af37;
+  --color-dark-golden: #b8860b;
+  --color-light-golden: #f4e4c1;
+  --color-off-white: #fffef9;
+  --color-gray: #6b7280;
+
+  /* the landing page */
+  --color-ground: #ffffff;
+  --color-ground-2: #f5f6f8;
+  --color-ground-3: #e8eaef;
+  --color-ink: #0f1a2e;
+  --color-ink-soft: #4a5568;
+  --color-ink-mute: #5e6b7f;
+  --color-gold-deep: #7d620f;
+  --color-ink-field: #0f1a2e;
+  --color-hairline: #e3e6ec;
+
+  /* Lexend for headings (drawn for reading proficiency, which is the right
+   * instinct for an audience reading in a second language), Source Sans 3
+   * for everything that is read rather than scanned. */
+  --font-display:
+    "Lexend", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans:
+    "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+
+  /* Five steps, sized for a professional page rather than an editorial one.
+   * The previous scale topped out at 80px and read as shouting. */
+  --text-small: clamp(1rem, 0.98rem + 0.08vw, 1.0625rem);
+  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  --text-head: clamp(1.625rem, 1.2rem + 1.6vw, 2.375rem);
+  --text-display: clamp(2.125rem, 1.4rem + 2.8vw, 3.25rem);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --golden: #d4af37;
+  --dark-golden: #b8860b;
+  --light-golden: #f4e4c1;
+  --black: #1a1a1a;
+  --off-white: #fffef9;
+  --gray: #6b7280;
+  --light-gray: #e5e7eb;
+
+  --primary: #d4af37;
+  --primary-foreground: #1a1a1a;
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-foreground: #1a1a1a;
+  --chart-1: #d4af37;
+  --chart-2: #b8860b;
+  --chart-3: #daa520;
+  --chart-4: #ffd700;
+  --chart-5: #ffa500;
+  --radius: 0.5rem;
+  --background: #fffef9;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --secondary: #d4af37;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f4e4c1;
+  --muted-foreground: #6b7280;
+  --accent: #d4af37;
+  --accent-foreground: #1a1a1a;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #d4af37;
+  --input: #ffffff;
+  --ring: #d4af37;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-accent: #d4af37;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #d4af37;
+  --sidebar-ring: #d4af37;
+
+  /* motion — strong ease-outs; nothing bounces, nothing eases in */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-press: 130ms;
+  --dur-hover: 200ms;
+  --dur-ui: 320ms;
+  --dur-reveal: 620ms;
+  --dur-open: 900ms;
+
+  --gutter: clamp(1.25rem, 4.2vw, 4.5rem);
+  --measure: 62ch;
+}
+
+.dark {
+  --primary: var(--color-blue-700);
+  --primary-foreground: var(--color-blue-50);
+  --sidebar-primary: var(--color-blue-500);
+  --sidebar-primary-foreground: var(--color-blue-50);
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.85 0.005 65);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.85 0.005 65);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.85 0.005 65);
+  --secondary: oklch(0.24 0.006 286.033);
+  --secondary-foreground: oklch(0.7 0.005 65);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.92 0.005 65);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.488 0.243 264.376);
+  --chart-1: var(--color-blue-300);
+  --chart-2: var(--color-blue-500);
+  --chart-3: var(--color-blue-600);
+  --chart-4: var(--color-blue-700);
+  --chart-5: var(--color-blue-800);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.85 0.005 65);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.488 0.243 264.376);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Reserve the scrollbar's width at all times, so the centred frame is
+     * not pushed 20px off true the moment the page becomes scrollable. */
+    scrollbar-gutter: stable both-edges;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    @apply font-semibold;
+    letter-spacing: -0.02em;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+  ::selection {
+    background: var(--golden);
+    color: #0f1a2e;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------- *
+ *  Consequence of declaring the brand tokens above: `text-golden` on the
+ *  other eight pages now renders gold instead of falling back to the
+ *  inherited ink, and on their light grounds the brand gold is 2.1:1.
+ *  Outside the landing page it therefore takes the deeper tone. Two
+ *  buttons (IELTS, Japanese) put white on a gold fill at 1.9:1; a gold
+ *  fill carries the ink instead.
+ * ---------------------------------------------------------------------- */
+.text-golden,
+.hover\:text-golden:hover {
+  color: var(--color-gold-deep);
+}
+.from-golden.text-white,
+.bg-golden.text-white {
+  color: var(--black);
+}
+
+/* ====================================================================== *
+ *  THE LANDING PAGE                                                      *
+ *                                                                        *
+ *  Swiss: a 12-column grid, generous but not vast spacing, one accent,   *
+ *  and type that is sized to be read rather than admired. Scoped to      *
+ *  `.lp` so the other eight pages keep what they were built for.         *
+ * ====================================================================== */
+
+html:has(.lp),
+body:has(.lp) {
+  background: var(--color-ground);
+}
+
+.lp {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+.lp ::selection {
+  background: var(--color-golden);
+  color: var(--color-ink);
+}
+
+/* --- frame ------------------------------------------------------------ */
+.lp-frame {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.lp-section {
+  padding-block: clamp(3.5rem, 6vw, 6rem);
+  position: relative;
+}
+
+.lp section[id],
+.lp [id] {
+  scroll-margin-top: 7rem;
+}
+
+/* the 12-column grid everything sits on */
+.lp-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+/* --- type ------------------------------------------------------------- */
+.lp h1,
+.lp h2,
+.lp h3,
+.lp h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.lp-display {
+  font-size: var(--text-display);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  max-width: 20ch;
+}
+
+.lp-head {
+  font-size: var(--text-head);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  max-width: 24ch;
+}
+
+.lp-sub {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.lp-lead {
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  max-width: 48ch;
+  font-weight: 400;
+}
+
+.lp-body {
+  font-size: var(--text-body);
+  line-height: 1.6;
+  max-width: var(--measure);
+}
+
+.lp-small {
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+
+.lp-soft {
+  color: var(--color-ink-soft);
+}
+.lp-gold {
+  color: var(--color-gold-deep);
+}
+
+/* a short label that sits with a heading, not above it as a kicker */
+.lp-meta {
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-gold-deep);
+  letter-spacing: 0.01em;
+}
+
+/* --- the mark: a small gold rule, the one ornament --------------------- */
+.lp-rule {
+  width: 2.5rem;
+  height: 3px;
+  background: var(--color-golden);
+  border-radius: 2px;
+  display: block;
+}
+
+.lp-bullet {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.5em;
+  border-radius: 1px;
+  background: var(--color-golden);
+}
+
+/* A figure used as a marker — the step number beside a value or a reason.
+ * Colour is left to `.lp-gold`, so inside a group that carries the moving
+ * fill the number switches to the brand gold on its own. */
+.lp-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- surfaces: a card is a step in tone, never a line or a drop ------- */
+.lp-panel {
+  background: var(--color-ground-2);
+  border-radius: 14px;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
+  height: 100%;
+  transition:
+    background-color var(--dur-hover) ease,
+    box-shadow var(--dur-hover) ease,
+    transform var(--dur-hover) var(--ease-out);
+}
+/* The pointer gets a real change of colour, not just a lift. The previous
+ * rule faded the panel toward the page's own white, which made it read as
+ * disappearing rather than answering. It goes a step deeper and cooler
+ * instead, and the heading picks up the accent. */
+a.lp-panel:hover,
+.lp-panel.lp-panel-hover:hover {
+  background: var(--color-ground-3);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px -22px rgba(15, 26, 46, 0.55); /* taste-skill-ignore: a lift on :hover, never at rest — the reference site's card treatment, tinted with the ink rather than black */
+}
+a.lp-panel:hover h3,
+.lp-panel.lp-panel-hover:hover h3 {
+  color: var(--color-gold-deep);
+  transition: color var(--dur-hover) ease;
+}
+
+/* A white panel on a grey section. It cannot hover toward the page white
+ * (it is already there), so it takes a cool tint instead — clearly a
+ * change, and still well clear of the section it sits on. */
+.lp-panel-plain {
+  background: var(--color-ground);
+}
+.lp-panel.lp-panel-plain.lp-panel-hover:hover {
+  background: #e6ebf5;
+}
+
+/* The one dark panel in a light grid. It answers by lifting toward the
+ * light rather than away from it, and its heading takes the brand gold,
+ * which is 8.3:1 on this ground. */
+.lp-panel-ink {
+  background: var(--color-ink);
+  color: #fff;
+}
+.lp-panel-ink .lp-meta {
+  color: var(--color-golden);
+}
+
+/* A link inside the dark panel would otherwise inherit `.lp-link`'s navy
+ * ink and disappear into the panel it sits on. Same flip the header makes
+ * when it crosses the navy field. */
+.lp-panel-ink .lp-link {
+  color: #fff;
+}
+.lp-panel-ink .lp-link:hover {
+  color: var(--color-golden);
+}
+.lp-panel.lp-panel-ink.lp-panel-hover:hover {
+  background: #1d2e4c;
+}
+.lp-panel.lp-panel-ink.lp-panel-hover:hover h3,
+.lp-panel.lp-panel-ink.lp-panel-hover:hover .lp-meta {
+  color: var(--color-golden);
+}
+
+.lp-field-step {
+  background: var(--color-ground-2);
+}
+
+.lp-field-gold {
+  background: var(--color-golden);
+  color: var(--color-ink);
+}
+.lp-field-gold .lp-soft {
+  color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+}
+.lp-field-gold .lp-gold,
+.lp-field-gold .lp-meta {
+  color: var(--color-ink);
+}
+.lp-field-gold .lp-btn {
+  background: var(--color-ink);
+  color: #fff;
+}
+.lp-field-gold .lp-btn:hover {
+  background: #1b2b47;
+}
+.lp-field-gold .lp-btn-quiet {
+  background: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  color: var(--color-ink);
+}
+.lp-field-gold .lp-btn-quiet:hover {
+  background: color-mix(in srgb, var(--color-ink) 20%, transparent);
+}
+.lp-field-gold .lp-link,
+.lp-field-gold :focus-visible {
+  color: var(--color-ink);
+  outline-color: var(--color-ink);
+}
+.lp-field-gold .lp-link::after {
+  background: var(--color-ink);
+}
+
+/* the navy field: utility bar, footer, the closing call */
+.lp-field-ink {
+  background: var(--color-ink-field);
+  color: #fff;
+}
+.lp-field-ink .lp-soft {
+  color: #a9b4c6;
+}
+.lp-field-ink .lp-gold,
+.lp-field-ink .lp-meta,
+.lp-field-ink .hover\:text-golden:hover {
+  color: var(--color-golden);
+}
+.lp-field-ink .lp-panel {
+  background: rgba(255, 255, 255, 0.06);
+}
+.lp-field-ink .lp-panel-hover:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+.lp-field-ink .lp-link {
+  color: #fff;
+}
+.lp-field-ink .lp-link::after {
+  background: var(--color-golden);
+}
+.lp-field-ink .lp-link:hover {
+  color: var(--color-golden);
+}
+.lp-field-ink .lp-btn {
+  background: var(--color-golden);
+  color: var(--color-ink);
+}
+.lp-field-ink .lp-btn-quiet {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.lp-field-ink .lp-btn-quiet:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.lp-field-ink :focus-visible {
+  outline-color: var(--color-golden);
+}
+
+/* The header is transparent over the navy hero, so its navy ink would be
+ * invisible there. This flips it for as long as it is over the field. */
+.lp-on-dark,
+.lp-on-dark .text-ink {
+  color: #fff;
+}
+.lp-on-dark .text-ink-soft {
+  color: #a9b4c6;
+}
+.lp-on-dark .lp-link {
+  color: #fff;
+}
+.lp-on-dark .lp-link::after {
+  background: var(--color-golden);
+}
+.lp-on-dark .lp-link:hover {
+  color: var(--color-golden);
+}
+.lp-on-dark :focus-visible {
+  outline-color: var(--color-golden);
+}
+
+/* --- buttons: one shape, flat fill ------------------------------------ */
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  border-radius: 10px;
+  padding: 0.78rem 1.4rem;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  min-height: 46px;
+  text-decoration: none;
+  background: var(--color-golden);
+  color: var(--color-ink);
+  transition:
+    transform var(--dur-press) var(--ease-out),
+    background-color var(--dur-hover) ease,
+    color var(--dur-hover) ease;
+}
+.lp-btn:hover {
+  background: #c09c22;
+  box-shadow: 0 12px 26px -14px rgba(201, 162, 39, 0.85); /* taste-skill-ignore: :hover feedback on the one action, never at rest, tinted in its own hue */
+}
+.lp-btn:active {
+  transform: scale(0.98);
+}
+.lp-btn.hidden {
+  display: none;
+}
+@media (min-width: 768px) {
+  .lp-btn.md\:inline-flex {
+    display: inline-flex;
+  }
+}
+
+.lp-btn-quiet {
+  background: var(--color-ground-2);
+  color: var(--color-ink);
+}
+.lp-btn-quiet:hover {
+  background: var(--color-ground-3);
+}
+
+.lp-btn-ink {
+  background: var(--color-ink);
+  color: #fff;
+}
+.lp-btn-ink:hover {
+  background: #1b2b47;
+}
+
+/* --- links ------------------------------------------------------------ */
+.lp-link {
+  position: relative;
+  color: var(--color-ink);
+  text-decoration: none;
+  padding-bottom: 1px;
+  transition: color var(--dur-hover) ease;
+}
+.lp-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--color-golden);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+.lp-link:hover {
+  color: var(--color-gold-deep);
+}
+.lp-link:hover::after,
+.lp-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* --- media ------------------------------------------------------------ */
+.lp-media {
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--color-ground-3);
+}
+.lp-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* the hero canvas, feathered into the page on both axes */
+.lp-hero-stage {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 16%
+  ); /* taste-skill-ignore: a mask, not a fill — it paints nothing */
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 16%
+  ); /* taste-skill-ignore: a mask, not a fill */
+}
+@media (min-width: 1024px) {
+  .lp-hero-stage {
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent 0%, #000 20%),
+      linear-gradient(0deg, transparent 0%, #000 14%),
+      linear-gradient(180deg, transparent 0%, #000 9%); /* taste-skill-ignore: masks, not fills */
+    mask-image:
+      linear-gradient(90deg, transparent 0%, #000 20%),
+      linear-gradient(0deg, transparent 0%, #000 14%),
+      linear-gradient(180deg, transparent 0%, #000 9%); /* taste-skill-ignore: masks, not fills */
+    -webkit-mask-composite: source-in, source-in;
+    mask-composite: intersect;
+  }
+}
+
+/* ====================================================================== *
+ *  MOTION                                                                *
+ *  Every hidden starting state lives inside `no-preference`, so a reader *
+ *  who asks for reduced motion is served the finished page rather than   *
+ *  one that un-hides itself afterwards.                                  *
+ * ====================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .lp-reveal[data-observed="true"] {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 16px), 0);
+  }
+  .lp-reveal[data-observed="true"].is-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--dur-reveal) var(--ease-expo),
+      transform var(--dur-reveal) var(--ease-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .lp-open[data-observed="true"] {
+    clip-path: inset(0 0 100% 0);
+  }
+  .lp-open[data-observed="true"].is-in {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path var(--dur-open) var(--ease-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+}
+
+@keyframes lp-drift {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+.lp-drift {
+  animation: lp-drift 22s var(--ease-soft) infinite alternate;
+}
+
+.lp-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--color-golden);
+  transform-origin: 0 50%;
+  z-index: 60;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-reveal,
+  .lp-reveal[data-observed="true"],
+  .lp-open,
+  .lp-open[data-observed="true"] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .lp-drift {
+    animation: none;
+  }
+  .lp-btn:active {
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ====================================================================== *
+ *  BOOK A CONSULTATION — the overlay                                     *
+ *                                                                        *
+ *  Labels sit above their field, errors below it and tied to it by id,   *
+ *  the way the reference site's enquiry form is built. Nothing here is   *
+ *  placeholder-only: a placeholder disappears the moment someone types.  *
+ * ====================================================================== */
+
+.cd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 3vw, 2rem);
+  background: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  overflow-y: auto;
+}
+
+.cd-panel {
+  position: relative;
+  width: min(42rem, 100%);
+  background: var(--color-ground);
+  color: var(--color-ink);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 32px 80px -32px rgb(15 26 46 / 65%); /* taste-skill-ignore: a dialog genuinely floats above the page */
+}
+
+.cd-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--color-ground-2);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--dur-hover) ease;
+}
+.cd-close:hover {
+  background: var(--color-ground-3);
+}
+
+.cd-title {
+  font-family: var(--font-display);
+  font-size: var(--text-head);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  padding-right: 3rem;
+}
+
+.cd-form {
+  margin-top: 1.5rem;
+}
+
+.cd-field {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 1rem;
+}
+
+.cd-label {
+  font-size: var(--text-small);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.cd-req {
+  color: var(--color-gold-deep);
+}
+.cd-hint {
+  font-weight: 400;
+  color: var(--color-ink-soft);
+}
+
+.cd-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  background: var(--color-ground-2);
+  border: 1.5px solid transparent; /* a form field may carry a line */
+  border-radius: 10px;
+  transition:
+    border-color var(--dur-hover) ease,
+    background-color var(--dur-hover) ease;
+}
+.cd-input::placeholder {
+  color: var(--color-ink-mute);
+}
+.cd-input:hover {
+  background: var(--color-ground-3);
+}
+.cd-input:focus {
+  outline: none;
+  background: var(--color-ground);
+  border-color: var(--color-ink);
+}
+.cd-input[aria-invalid="true"] {
+  border-color: #b3261e;
+  background: #fdf3f2;
+}
+textarea.cd-input {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.cd-err {
+  margin-top: 0.35rem;
+  font-size: var(--text-small);
+  color: #91201a;
+}
+
+.cd-summary {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: #fdf3f2;
+  color: #91201a;
+  font-size: var(--text-small);
+}
+.cd-summary:focus-visible {
+  outline: 2px solid #91201a;
+  outline-offset: 2px;
+}
+.cd-summary-link {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.cd-row {
+  display: grid;
+  gap: 0 1rem;
+}
+@media (min-width: 620px) {
+  .cd-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+.cd-actions .lp-btn {
+  flex: 1 1 14rem;
+}
+
+.cd-note {
+  margin-top: 1rem;
+}
+
+.cd-done-mark {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--color-golden);
+  color: var(--color-ink);
+  margin-bottom: 1.1rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cd-panel {
+    animation: cd-in 260ms var(--ease-out) both;
+  }
+  @keyframes cd-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+}
+
+/* ====================================================================== *
+ *  THE MOVING FILL                                                       *
+ *                                                                        *
+ *  One block in a group carries the solid navy. Hover any block in that  *
+ *  group and the fill moves to it — the resting block gives it up and    *
+ *  the one under the pointer takes it. The whole thing is `:has()` on    *
+ *  the group, so no script is involved and it works on keyboard focus    *
+ *  as well as hover.                                                     *
+ *                                                                        *
+ *  A browser without `:has()` simply keeps the fill on the lead block    *
+ *  and lights the hovered one as well: two filled blocks for a moment,   *
+ *  never a broken layout.                                                *
+ * ====================================================================== */
+
+/* The text switches faster than the fill it sits on. Cross-fading both at
+ * the same rate puts dark type on a half-dark ground for a moment, which
+ * reads as a flicker of unreadable text; at 120ms the words have already
+ * changed side by the time the background is halfway. */
+.lp-swap-item {
+  transition:
+    background-color 260ms ease,
+    color 120ms ease,
+    transform 260ms var(--ease-out),
+    box-shadow 260ms ease;
+}
+.lp-swap-item :where(h3, p, li, blockquote, span, figcaption) {
+  transition: color 120ms ease;
+}
+
+/* the filled state, wherever it currently lives */
+.lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+  .lp-swap-lead,
+.lp-swap .lp-swap-item:hover,
+.lp-swap .lp-swap-item:focus-within {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+/* The lift belongs to the pointer, not to the block that happens to hold
+ * the fill at rest — that one is flat, like any other block on the page. */
+.lp-swap .lp-swap-item:hover,
+.lp-swap .lp-swap-item:focus-within {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -24px rgb(15 26 46 / 75%); /* taste-skill-ignore: on :hover and :focus-within only, never at rest */
+}
+
+/* headings go white on the fill */
+.lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+  .lp-swap-lead
+  :where(h3, .lp-card-title),
+.lp-swap .lp-swap-item:hover :where(h3, .lp-card-title),
+.lp-swap .lp-swap-item:focus-within :where(h3, .lp-card-title) {
+  color: #fff;
+}
+
+/* the small label and the attribution take the brand gold, 8.3:1 on navy */
+.lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+  .lp-swap-lead
+  :where(.lp-meta, .lp-gold, figcaption),
+.lp-swap .lp-swap-item:hover :where(.lp-meta, .lp-gold, figcaption),
+.lp-swap .lp-swap-item:focus-within :where(.lp-meta, .lp-gold, figcaption) {
+  color: var(--color-golden);
+}
+
+/* running text lightens rather than going pure white, so the heading leads */
+.lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+  .lp-swap-lead
+  :where(p, li, blockquote, span):not(.lp-meta):not(.lp-gold):not(
+    .lp-card-title
+  ):not(.lp-bullet),
+.lp-swap
+  .lp-swap-item:hover
+  :where(p, li, blockquote, span):not(.lp-meta):not(.lp-gold):not(
+    .lp-card-title
+  ):not(.lp-bullet),
+.lp-swap
+  .lp-swap-item:focus-within
+  :where(p, li, blockquote, span):not(.lp-meta):not(.lp-gold):not(
+    .lp-card-title
+  ):not(.lp-bullet) {
+  color: #c9d3e2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-swap-item {
+    transition:
+      background-color 260ms ease,
+      color 120ms ease;
+  }
+  .lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+    .lp-swap-lead,
+  .lp-swap .lp-swap-item:hover,
+  .lp-swap .lp-swap-item:focus-within {
+    transform: none;
+  }
+}
+
+/* ====================================================================== *
+ *  DESTINATION CARDS                                                     *
+ *                                                                        *
+ *  About half the footprint of the ones they replace: a picture, the     *
+ *  country, its intakes and the invitation. They take the moving fill    *
+ *  like every other group on the site, and the picture leans in a little *
+ *  as the fill arrives.                                                  *
+ * ====================================================================== */
+
+.lp-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--color-ground-2);
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.lp-card-media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-ground-3);
+}
+.lp-card-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 520ms var(--ease-soft);
+}
+.lp-card:hover .lp-card-media > img,
+.lp-card:focus-visible .lp-card-media > img {
+  transform: scale(1.07);
+}
+
+.lp-card-body {
+  display: block;
+  padding: 0.85rem 0.95rem 1rem;
+}
+
+.lp-card-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* the invitation only commits to colour once the card is live */
+.lp-card-more {
+  color: var(--color-ink-soft);
+  transition: color 120ms ease;
+}
+.lp-card-more svg {
+  transition: transform 220ms var(--ease-out);
+}
+.lp-card:hover .lp-card-more svg {
+  transform: translateX(3px);
+}
+.lp-swap .lp-card.lp-swap-item:hover .lp-card-more,
+.lp-swap:not(:has(.lp-swap-item:hover, .lp-swap-item:focus-within))
+  .lp-card.lp-swap-lead
+  .lp-card-more {
+  color: var(--color-golden);
+}

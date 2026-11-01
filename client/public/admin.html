@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Hub BD - Admin CMS</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --muted: #1f2937;
+        --text: #f8fafc;
+        --sub: #cbd5e1;
+        --accent: #f59e0b;
+        --ok: #10b981;
+        --danger: #ef4444;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background: linear-gradient(120deg, #020617, #0f172a 45%, #111827);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      .container { width: min(1200px, 94%); margin: 28px auto; }
+      .card {
+        background: rgba(17,24,39,.88);
+        border: 1px solid #334155;
+        border-radius: 14px;
+        padding: 18px;
+        backdrop-filter: blur(8px);
+      }
+      h1,h2,h3 { margin: 0 0 12px; }
+      p { color: var(--sub); }
+      .grid { display: grid; gap: 14px; }
+      .grid-2 { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+      input,textarea,select {
+        width: 100%;
+        border: 1px solid #475569;
+        background: #0b1220;
+        color: #fff;
+        padding: 11px 12px;
+        border-radius: 10px;
+        outline: none;
+      }
+      textarea { min-height: 150px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+      label { display: block; margin: 8px 0 7px; font-size: 14px; color: #e2e8f0; }
+      button {
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn-primary { background: linear-gradient(90deg, #f59e0b, #d97706); color: #111; }
+      .btn-dark { background: #0b1220; color: #fff; border: 1px solid #374151; }
+      .btn-danger { background: var(--danger); color: #fff; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+      .hidden { display: none !important; }
+      .muted { color: #94a3b8; font-size: 13px; }
+      .status { padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; }
+      .status.ok { background: rgba(16,185,129,.18); border: 1px solid rgba(16,185,129,.45); }
+      .status.err { background: rgba(239,68,68,.18); border: 1px solid rgba(239,68,68,.45); }
+      .tabs { display: flex; gap: 8px; margin: 12px 0 14px; flex-wrap: wrap; }
+      .tab { background: #1e293b; color: #dbeafe; border: 1px solid #334155; }
+      .tab.active { background: #f59e0b; color: #111; border-color: #fbbf24; }
+      .section { display: none; }
+      .section.active { display: block; }
+      .images { display: grid; grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); gap: 12px; }
+      .img-card { background: #0b1220; border: 1px solid #334155; border-radius: 10px; padding: 10px; }
+      .img-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; background: #020617; }
+      .code-hint { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size: 12px; color: #cbd5e1; }
+      .right { margin-left: auto; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Study Hub BD - Admin CMS</h1>
+      <p>Non-technical friendly editor. Save করলে website + GitHub auto update হবে.</p>
+
+      <div id="status"></div>
+
+      <div id="loginCard" class="card" style="max-width:520px">
+        <h2>Secure Login</h2>
+        <p class="muted">Only authorized admin can access. Password is checked on server.</p>
+        <label for="password">Admin Password</label>
+        <input id="password" type="password" placeholder="Enter admin password" />
+        <div class="row" style="margin-top:12px">
+          <button class="btn-primary" id="loginBtn">Login</button>
+        </div>
+      </div>
+
+      <div id="panel" class="hidden">
+        <div class="row" style="margin:10px 0 12px">
+          <button class="tab active" data-tab="text">Text & Content</button>
+          <button class="tab" data-tab="images">Images</button>
+          <button class="tab" data-tab="raw">Advanced JSON</button>
+          <button class="btn-dark right" id="refreshBtn">Reload</button>
+          <button class="btn-danger" id="logoutBtn">Logout</button>
+        </div>
+
+        <section id="section-text" class="section active card">
+          <h2>Quick Editor</h2>
+          <div class="grid grid-2">
+            <div>
+              <label>Site Name</label>
+              <input id="siteName" />
+            </div>
+            <div>
+              <label>Tagline</label>
+              <input id="tagline" />
+            </div>
+            <div>
+              <label>Phone 1</label>
+              <input id="phone1" />
+            </div>
+            <div>
+              <label>Phone 2</label>
+              <input id="phone2" />
+            </div>
+            <div>
+              <label>Email</label>
+              <input id="email" />
+            </div>
+            <div>
+              <label>Registration URL</label>
+              <input id="registrationLink" />
+            </div>
+          </div>
+
+          <label style="margin-top:12px">Address</label>
+          <textarea id="address"></textarea>
+
+          <label>Home Hero Description</label>
+          <textarea id="homeHero"></textarea>
+
+          <label>About Hero Subtitle</label>
+          <textarea id="aboutHero"></textarea>
+
+          <div class="row" style="margin-top:10px">
+            <button class="btn-primary" id="saveQuickBtn">Save Quick Changes</button>
+            <span class="muted">This commits changes to GitHub automatically.</span>
+          </div>
+        </section>
+
+        <section id="section-images" class="section card">
+          <h2>Image Manager</h2>
+          <p class="muted">Upload/replace image, then copy path and use it in JSON fields (for testimonials/logo etc).</p>
+          <div class="grid grid-2">
+            <div>
+              <label>Select Image</label>
+              <input id="uploadFile" type="file" accept="image/*" />
+            </div>
+            <div>
+              <label>Optional Folder</label>
+              <input id="uploadFolder" placeholder="example: stories" />
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn-primary" id="uploadBtn">Upload Image</button>
+            <button class="btn-dark" id="loadImagesBtn">Refresh Image List</button>
+          </div>
+          <div id="images" class="images" style="margin-top:14px"></div>
+        </section>
+
+        <section id="section-raw" class="section card">
+          <h2>Advanced JSON Editor</h2>
+          <p class="muted">Power mode. Edit everything including add/remove text blocks, services, stories, images path.</p>
+          <textarea id="rawJson"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="btn-primary" id="saveRawBtn">Save Full JSON</button>
+            <span class="code-hint">content/site-content.json</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const state = {
+        token: localStorage.getItem('cms_token') || '',
+        content: null,
+        sha: null,
+      };
+
+      const el = (id) => document.getElementById(id);
+
+      function showStatus(message, ok = true) {
+        const box = el('status');
+        box.innerHTML = `<div class="status ${ok ? 'ok' : 'err'}">${message}</div>`;
+      }
+
+      function setTab(tab) {
+        document.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
+        document.querySelector(`.tab[data-tab="${tab}"]`)?.classList.add('active');
+        document.querySelectorAll('.section').forEach((s) => s.classList.remove('active'));
+        el(`section-${tab}`).classList.add('active');
+      }
+
+      async function api(path, options = {}) {
+        const headers = options.headers || {};
+        if (state.token) headers.Authorization = `Bearer ${state.token}`;
+        if (!headers['Content-Type'] && options.body && !(options.body instanceof FormData)) {
+          headers['Content-Type'] = 'application/json';
+        }
+        const res = await fetch(path, { ...options, headers });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+        return data;
+      }
+
+      function bindQuickForm() {
+        if (!state.content) return;
+        const c = state.content;
+        el('siteName').value = c.global.siteName || '';
+        el('tagline').value = c.global.tagline || '';
+        el('phone1').value = c.global.phone1 || '';
+        el('phone2').value = c.global.phone2 || '';
+        el('email').value = c.global.email || '';
+        el('registrationLink').value = c.global.registrationLink || '';
+        el('address').value = c.global.address || '';
+        el('homeHero').value = c.home?.hero?.description || '';
+        el('aboutHero').value = c.about?.hero?.subtitle || '';
+        el('rawJson').value = JSON.stringify(c, null, 2);
+      }
+
+      function collectQuickForm() {
+        const c = structuredClone(state.content);
+        c.global.siteName = el('siteName').value.trim();
+        c.global.tagline = el('tagline').value.trim();
+        c.global.phone1 = el('phone1').value.trim();
+        c.global.phone2 = el('phone2').value.trim();
+        c.global.email = el('email').value.trim();
+        c.global.registrationLink = el('registrationLink').value.trim();
+        c.global.address = el('address').value.trim();
+        c.home.hero.description = el('homeHero').value.trim();
+        c.about.hero.subtitle = el('aboutHero').value.trim();
+        return c;
+      }
+
+      async function loadContent() {
+        const data = await api('/api/admin/content');
+        state.content = data.content;
+        state.sha = data.sha;
+        bindQuickForm();
+      }
+
+      async function saveContent(content, message) {
+        const result = await api('/api/admin/content', {
+          method: 'PUT',
+          body: JSON.stringify({ content, sha: state.sha, message }),
+        });
+        state.sha = result.newSha || state.sha;
+        state.content = content;
+        bindQuickForm();
+      }
+
+      async function login() {
+        try {
+          const password = el('password').value;
+          if (!password) return showStatus('Password required', false);
+          const data = await api('/api/admin/login', {
+            method: 'POST',
+            body: JSON.stringify({ password }),
+          });
+          state.token = data.token;
+          localStorage.setItem('cms_token', state.token);
+          el('loginCard').classList.add('hidden');
+          el('panel').classList.remove('hidden');
+          await loadContent();
+          showStatus('Login successful. CMS loaded.');
+        } catch (err) {
+          showStatus(err.message, false);
+        }
+      }
+
+      function logout() {
+        state.token = '';
+        localStorage.removeItem('cms_token');
+        location.reload();
+      }
+
+      async function uploadImage() {
+        try {
+          const file = el('uploadFile').files?.[0];
+          if (!file) return showStatus('Please select an image first', false);
+          const folder = el('uploadFolder').value.trim();
+          const base64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+
+          const data = await api('/api/admin/upload', {
+            method: 'POST',
+            body: JSON.stringify({
+              filename: file.name,
+              mimeType: file.type,
+              data: base64,
+              folder,
+            }),
+          });
+          showStatus(`Image uploaded: ${data.path}`);
+          await loadImages();
+        } catch (err) {
+          showStatus(err.message, false);
+        }
+      }
+
+      async function loadImages() {
+        try {
+          const data = await api('/api/admin/images');
+          const wrap = el('images');
+          wrap.innerHTML = '';
+          (data.images || []).forEach((img) => {
+            const card = document.createElement('div');
+            card.className = 'img-card';
+            card.innerHTML = `
+              <img src="${img.publicPath}" alt="${img.name}" />
+              <div style="margin-top:8px;font-weight:700;word-break:break-all">${img.name}</div>
+              <div class="muted" style="word-break:break-all">${img.publicPath}</div>
+              <div class="row" style="margin-top:8px">
+                <button class="btn-dark copy-btn" data-path="${img.publicPath}">Copy Path</button>
+                <button class="btn-danger del-btn" data-file="${img.path}" data-sha="${img.sha}">Delete</button>
+              </div>
+            `;
+            wrap.appendChild(card);
+          });
+        } catch (err) {
+          showStatus(err.message, false);
+        }
+      }
+
+      async function deleteImage(path, sha) {
+        if (!confirm('Delete this image?')) return;
+        try {
+          await api('/api/admin/images', {
+            method: 'DELETE',
+            body: JSON.stringify({ path, sha }),
+          });
+          showStatus('Image deleted successfully');
+          await loadImages();
+        } catch (err) {
+          showStatus(err.message, false);
+        }
+      }
+
+      el('loginBtn').addEventListener('click', login);
+      el('logoutBtn').addEventListener('click', logout);
+      el('refreshBtn').addEventListener('click', async () => {
+        try { await loadContent(); showStatus('Content reloaded'); } catch (e) { showStatus(e.message, false); }
+      });
+      el('saveQuickBtn').addEventListener('click', async () => {
+        try {
+          const content = collectQuickForm();
+          await saveContent(content, '[Admin] Quick content update');
+          showStatus('Quick changes saved and pushed to GitHub');
+        } catch (e) {
+          showStatus(e.message, false);
+        }
+      });
+      el('saveRawBtn').addEventListener('click', async () => {
+        try {
+          const parsed = JSON.parse(el('rawJson').value);
+          await saveContent(parsed, '[Admin] Full JSON update');
+          showStatus('Full JSON saved and pushed to GitHub');
+        } catch (e) {
+          showStatus(e.message, false);
+        }
+      });
+      el('uploadBtn').addEventListener('click', uploadImage);
+      el('loadImagesBtn').addEventListener('click', loadImages);
+
+      document.querySelectorAll('.tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          setTab(tab.dataset.tab);
+          if (tab.dataset.tab === 'images') loadImages();
+        });
+      });
+
+      document.addEventListener('click', async (e) => {
+        const copyBtn = e.target.closest('.copy-btn');
+        if (copyBtn) {
+          await navigator.clipboard.writeText(copyBtn.dataset.path);
+          showStatus('Image path copied');
+        }
+        const delBtn = e.target.closest('.del-btn');
+        if (delBtn) {
+          deleteImage(delBtn.dataset.file, delBtn.dataset.sha);
+        }
+      });
+
+      (async function init() {
+        if (state.token) {
+          try {
+            el('loginCard').classList.add('hidden');
+            el('panel').classList.remove('hidden');
+            await loadContent();
+            showStatus('Session restored.');
+          } catch {
+            localStorage.removeItem('cms_token');
+            state.token = '';
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

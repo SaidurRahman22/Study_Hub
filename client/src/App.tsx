@@ -24,6 +24,7 @@ import StudentLogin from "./pages/StudentLogin";
 import StudentPortal from "./pages/StudentPortal";
 import StudentDocuments from "./pages/StudentDocuments";
 import StudentMessages from "./pages/StudentMessages";
+import StudentNotifications from "./pages/StudentNotifications";
 
 function Router() {
   return (
@@ -41,6 +42,7 @@ function Router() {
       <Route path={"/student/login"} component={StudentLogin} />
       <Route path={"/student/documents"} component={StudentDocuments} />
       <Route path={"/student/messages"} component={StudentMessages} />
+      <Route path={"/student/notifications"} component={StudentNotifications} />
       <Route path={"/student"} component={StudentPortal} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

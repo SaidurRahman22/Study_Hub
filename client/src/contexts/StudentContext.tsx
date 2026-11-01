@@ -10,6 +10,7 @@ import {
 import {
   SAMPLE_STUDENT,
   type Message,
+  type Notification,
   type StudentDoc,
   type StudentRecord,
 } from "@/lib/studentData";
@@ -47,6 +48,7 @@ const DEMO_PASSWORD = "demo1234";
 
 const SESSION_KEY = "shb_student_demo_session";
 const READ_KEY = "shb_student_demo_last_read";
+const NOTES_KEY = "shb_student_demo_notes_read";
 
 /** localStorage throws in a private window and in some embedded views, and
  *  comes back empty after a clear. Every access is guarded and every
@@ -83,6 +85,9 @@ type StudentContextValue = {
   attachDocument: (docId: string, fileName: string, sizeBytes: number) => void;
   sendMessage: (body: string) => void;
   markMessagesRead: () => void;
+  /** when the bell was last opened */
+  notesLastRead: string | null;
+  markNotificationsRead: () => void;
 };
 
 const StudentContext = createContext<StudentContextValue | null>(null);
@@ -97,11 +102,13 @@ export function StudentProvider({ children }: { children: ReactNode }) {
   const [student, setStudent] = useState<StudentRecord | null>(null);
   const [restoring, setRestoring] = useState(true);
   const [lastRead, setLastRead] = useState<string | null>(null);
+  const [notesLastRead, setNotesLastRead] = useState<string | null>(null);
 
   useEffect(() => {
     if (readStore(SESSION_KEY) === DEMO_EMAIL) {
       setStudent(SAMPLE_STUDENT);
       setLastRead(readStore(READ_KEY));
+      setNotesLastRead(readStore(NOTES_KEY));
     }
     setRestoring(false);
   }, []);
@@ -120,6 +127,7 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       writeStore(SESSION_KEY, DEMO_EMAIL);
       setStudent(SAMPLE_STUDENT);
       setLastRead(readStore(READ_KEY));
+      setNotesLastRead(readStore(NOTES_KEY));
       return { ok: true };
     },
     []
@@ -146,7 +154,20 @@ export function StudentProvider({ children }: { children: ReactNode }) {
               }
             : d
         );
-        return { ...prev, documents };
+        const doc = prev.documents.find(d => d.id === docId);
+        const note: Notification = {
+          id: `n-${docId}-${Date.now()}`,
+          kind: "document",
+          title: `${doc?.name ?? "Document"} sent to the office`,
+          body: "We will check it and come back to you.",
+          at: new Date().toISOString(),
+          href: "/student/documents",
+        };
+        return {
+          ...prev,
+          documents,
+          notifications: [note, ...prev.notifications],
+        };
       });
     },
     []
@@ -174,6 +195,12 @@ export function StudentProvider({ children }: { children: ReactNode }) {
     setLastRead(now);
   }, []);
 
+  const markNotificationsRead = useCallback(() => {
+    const now = new Date().toISOString();
+    writeStore(NOTES_KEY, now);
+    setNotesLastRead(now);
+  }, []);
+
   const value = useMemo(
     () => ({
       student,
@@ -185,6 +212,8 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       attachDocument,
       sendMessage,
       markMessagesRead,
+      notesLastRead,
+      markNotificationsRead,
     }),
     [
       student,
@@ -195,6 +224,8 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       attachDocument,
       sendMessage,
       markMessagesRead,
+      notesLastRead,
+      markNotificationsRead,
     ]
   );
 

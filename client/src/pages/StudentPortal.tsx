@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { AlertTriangle, ArrowRight, Check } from "lucide-react";
 import StudentShell, { DemoNotice } from "@/components/StudentShell";
+import NotificationBell from "@/components/NotificationBell";
 import { TaskCard } from "@/components/DocumentRow";
 import { useStudent } from "@/contexts/StudentContext";
 import { fileProgress, openItems, STAGE_STATE } from "@/lib/studentData";
@@ -51,10 +52,13 @@ export default function StudentPortal() {
             {student.course} · {student.university} · {student.intake} intake
           </p>
         </div>
-        <Link href="/student/documents" className="sp-btn sp-btn-primary">
-          Go to documents
-          <ArrowRight size={16} aria-hidden="true" />
-        </Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <NotificationBell />
+          <Link href="/student/documents" className="sp-btn sp-btn-primary">
+            Go to documents
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
       </div>
 
       <DemoNotice />

@@ -66,6 +66,20 @@ export type Message = {
   body: string;
 };
 
+/** Something that happened on the file. The student did not ask for it,
+ *  so it is announced rather than waited for: a document checked, a stage
+ *  reached, or a word from the office. */
+export type Notification = {
+  id: string;
+  kind: "document" | "stage" | "message" | "announcement";
+  title: string;
+  body?: string;
+  /** ISO date-time */
+  at: string;
+  /** where the detail lives, if there is somewhere to go */
+  href?: string;
+};
+
 export type StudentRecord = {
   name: string;
   email: string;
@@ -78,6 +92,7 @@ export type StudentRecord = {
   stages: Stage[];
   documents: StudentDoc[];
   messages: Message[];
+  notifications: Notification[];
 };
 
 /* ---------------------------------------------------------------------- *
@@ -124,6 +139,14 @@ export function fileProgress(docs: StudentDoc[]): {
     accepted: due.filter(d => d.status === "accepted").length,
     due: due.length,
   };
+}
+
+export function unreadNotifications(
+  notifications: Notification[],
+  lastRead: string | null
+): number {
+  if (!lastRead) return notifications.length;
+  return notifications.filter(n => n.at > lastRead).length;
 }
 
 export function unreadFromAgency(
@@ -355,6 +378,57 @@ export const SAMPLE_STUDENT: StudentRecord = {
       author: "Nusrat Jahan",
       at: "2026-05-24T20:02:00+06:00",
       body: "Understood. The affidavit is uploaded. I will get the photos done this week and the statement on 18 June when the 28 days are complete.",
+    },
+  ],
+
+  /* Newest first. Each one is something that happened to the file without
+     the student asking, which is the whole reason the bell exists. */
+  notifications: [
+    {
+      id: "n6",
+      kind: "announcement",
+      title: "Pre-departure session, Saturday 20 June",
+      body: "4pm at the office for everyone on the September intake. Bring your CAS letter.",
+      at: "2026-05-25T11:00:00+06:00",
+    },
+    {
+      id: "n5",
+      kind: "document",
+      title: "Sponsor affidavit received",
+      body: "With the office for checking. We will confirm by Thursday.",
+      at: "2026-05-24T20:05:00+06:00",
+      href: "/student/documents",
+    },
+    {
+      id: "n4",
+      kind: "message",
+      title: "Rakib Hasan replied",
+      body: "About the bank statement and the photographs.",
+      at: "2026-05-21T09:11:00+06:00",
+      href: "/student/messages",
+    },
+    {
+      id: "n3",
+      kind: "document",
+      title: "Passport photographs sent back",
+      body: "The background is cream. UKVI needs plain light grey or white.",
+      at: "2026-05-21T09:08:00+06:00",
+      href: "/student/documents",
+    },
+    {
+      id: "n2",
+      kind: "stage",
+      title: "Visa file stage started",
+      body: "Two items left before the file can be submitted.",
+      at: "2026-05-20T10:00:00+06:00",
+    },
+    {
+      id: "n1",
+      kind: "document",
+      title: "CAS letter added to your file",
+      body: "Issued by Portsmouth on 19 May. Valid for six months.",
+      at: "2026-05-19T10:12:00+06:00",
+      href: "/student/documents",
     },
   ],
 };

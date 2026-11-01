@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Send } from "lucide-react";
+import { Download, Send } from "lucide-react";
 import StudentShell, { DemoNotice } from "@/components/StudentShell";
+import NotificationBell from "@/components/NotificationBell";
 import { useStudent } from "@/contexts/StudentContext";
+import { downloadChatPdf } from "@/lib/chatPdf";
 
 /* ====================================================================== *
  *  MESSAGES                                                              *
@@ -70,22 +72,33 @@ export default function StudentMessages() {
             With {student.counsellor} at the Tangail office.
           </p>
         </div>
+        <NotificationBell />
       </div>
 
       <DemoNotice />
 
       <section
-        className="sp-panel sp-rise"
+        className="sp-panel sp-msgs sp-rise"
         aria-labelledby="thread-title"
         style={{ "--sp-delay": "60ms" } as React.CSSProperties}
       >
         <div className="sp-panel-head">
-          <h2 className="sp-panel-title" id="thread-title">
-            Your thread
-          </h2>
-          <span className="sp-hint" style={{ flex: "none" }}>
-            Replies usually come the next working day
-          </span>
+          <div>
+            <h2 className="sp-panel-title" id="thread-title">
+              Your thread
+            </h2>
+            <p className="sp-panel-note">
+              Replies usually come the next working day
+            </p>
+          </div>
+          <button
+            type="button"
+            className="sp-btn sp-btn-sm"
+            onClick={() => downloadChatPdf(student)}
+          >
+            <Download size={14} aria-hidden="true" />
+            Download as PDF
+          </button>
         </div>
 
         <div className="sp-thread">

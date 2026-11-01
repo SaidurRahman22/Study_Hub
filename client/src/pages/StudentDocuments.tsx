@@ -1,5 +1,6 @@
 import { useState } from "react";
 import StudentShell, { DemoNotice } from "@/components/StudentShell";
+import NotificationBell from "@/components/NotificationBell";
 import { DocumentRow } from "@/components/DocumentRow";
 import { useStudent } from "@/contexts/StudentContext";
 import { fileProgress, openItems, type DocStatus } from "@/lib/studentData";
@@ -62,6 +63,7 @@ export default function StudentDocuments() {
               : `${open.length} item${open.length > 1 ? "s" : ""} need${open.length > 1 ? "" : "s"} something from you.`}
           </p>
         </div>
+        <NotificationBell />
       </div>
 
       <DemoNotice />

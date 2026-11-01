@@ -765,7 +765,7 @@
   outline-offset: 1px;
 }
 textarea.sp-input {
-  min-height: 92px;
+  min-height: 70px;
   resize: vertical;
   line-height: 1.55;
 }
@@ -791,10 +791,28 @@ textarea.sp-input {
   flex-direction: column;
   gap: 18px;
   padding: 22px 20px;
-  max-height: min(56vh, 32rem);
   overflow-y: auto;
   overscroll-behavior: contain;
   scroll-behavior: smooth;
+}
+
+/* The messages screen is a fixed frame: the panel fills what is left of
+ * the window, the thread takes the slack and scrolls inside itself, and
+ * the composer stays put at the foot. The page itself does not scroll,
+ * so the box never slides out from under the reader. */
+.sp-msgs {
+  display: flex;
+  flex-direction: column;
+  height: calc(100svh - 14.25rem);
+  min-height: 26rem;
+}
+.sp-msgs > .sp-panel-head,
+.sp-msgs > form {
+  flex: none;
+}
+.sp-msgs > .sp-thread {
+  flex: 1;
+  min-height: 0;
 }
 .sp-day {
   display: flex;
@@ -1018,6 +1036,124 @@ textarea.sp-input {
   }
 }
 
+/* --- the bell --------------------------------------------------------- */
+.sp-bell {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 11px;
+  border: 1px solid var(--sp-line);
+  background: var(--sp-panel);
+  color: var(--sp-mute);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 180ms var(--sp-ease),
+    border-color 180ms var(--sp-ease),
+    color 180ms var(--sp-ease);
+}
+.sp-bell:hover {
+  background: #f5f7fa;
+  border-color: #cfd8e6;
+  color: var(--sp-ink);
+}
+.sp-bell[aria-current="page"] {
+  background: var(--sp-navy);
+  border-color: var(--sp-navy);
+  color: #fff;
+}
+.sp-bell-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--sp-gold);
+  color: var(--sp-navy);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 19px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  border: 2px solid var(--sp-canvas);
+}
+
+/* --- notification rows ------------------------------------------------ */
+.sp-note-link {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+.sp-note-day {
+  padding: 12px 20px 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--sp-faint);
+  background: #fafbfd;
+  border-bottom: 1px solid var(--sp-line-soft);
+}
+.sp-note-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+.sp-note-document {
+  background: var(--sp-info-bg);
+  color: var(--sp-info);
+}
+.sp-note-stage {
+  background: var(--sp-ok-bg);
+  color: var(--sp-ok);
+}
+.sp-note-message {
+  background: #e9edf4;
+  color: var(--sp-navy);
+}
+.sp-note-announcement {
+  background: var(--sp-warn-bg);
+  color: var(--sp-warn);
+}
+.sp-note-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.sp-note-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sp-gold);
+}
+.sp-note-body {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--sp-mute);
+  margin-top: 3px;
+  max-width: 70ch;
+}
+.sp-note-at {
+  display: block;
+  font-size: 12.5px;
+  color: var(--sp-faint);
+  margin-top: 5px;
+}
+
 /* --- phone ------------------------------------------------------------ */
 @media (max-width: 1079px) {
   .sp-shell {
@@ -1076,5 +1212,8 @@ textarea.sp-input {
   .sp-main {
     border-radius: 0;
     padding-top: 22px;
+  }
+  .sp-msgs {
+    height: calc(100svh - 18rem);
   }
 }

@@ -104,3 +104,19 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Design-tool and browser-automation output (inspector screenshots, reports,
+# page snapshots). Regenerated on demand; 25 MB of it reached the first commit.
+# direction.json is the exception: it records the dealt design direction the
+# whole site is built on (seed, motif, palette), and it is 29 KB.
+.taste-skill/*
+!.taste-skill/direction.json
+.playwright-mcp/
+
+# Screenshot scratch dropped at the project root during review passes.
+# Real images live under client/public/images.
+/*.png
+
+# Archives of the project itself. The repo is the source of truth, not a zip
+# snapshot of it.
+*.zip

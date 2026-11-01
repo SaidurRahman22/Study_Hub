@@ -103,8 +103,14 @@ function buildLines(student: StudentRecord): Line[] {
     });
     const who = m.from === "student" ? student.name : m.author;
     lines.push({ text: `${who}, ${time}`, bold: true, size: 10, gapBefore: 8 });
-    for (const l of wrap(m.body, WRAP))
-      lines.push({ text: l, size: BODY_SIZE });
+    if (m.body) {
+      for (const l of wrap(m.body, WRAP))
+        lines.push({ text: l, size: BODY_SIZE });
+    }
+    for (const a of m.attachments ?? []) {
+      const label = a.kind === "image" ? "Image" : "File";
+      lines.push({ text: `[${label}: ${a.name}]`, size: BODY_SIZE });
+    }
   }
 
   lines.push({

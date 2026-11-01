@@ -36,6 +36,8 @@ export default function Header() {
    * its ink type lands on white above a navy block. */
   const DARK_PAGES = [
     "/about",
+    "/services",
+    "/success-stories",
     "/privacy",
     "/terms",
     "/refunds",

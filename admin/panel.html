@@ -1028,7 +1028,17 @@ function renderStories(stories) {
       +'<div class="field"><label class="fl">Country</label><input type="text" id="st-c-'+i+'" value="'+xe(s.country||'')+'" /></div>'
       +'<div class="field"><label class="fl">Program</label><input type="text" id="st-p-'+i+'" value="'+xe(s.program||'')+'" /></div>'
       +'<div class="field"><label class="fl">Year</label><input type="text" id="st-y-'+i+'" value="'+xe(s.year||'')+'" /></div>'
-      +'<div class="field"><label class="fl">Image Path / URL</label><input type="text" id="st-i-'+i+'" value="'+xe(s.image||'')+'" /></div>'
+      +'<div class="field fw"><label class="fl">Student photo</label>'
+      +'<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">'
+      +'<img id="st-prev-'+i+'" src="'+xe(s.image||'')+'" alt="" '+(s.image?'':'hidden')+' onerror="stPhotoMissing(this)" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eef1f6;flex:none" />'
+      +'<span id="st-mono-'+i+'" '+(s.image?'hidden':'')+' style="width:44px;height:44px;border-radius:50%;background:#e8edf5;color:#16366b;display:grid;place-items:center;font-weight:600;flex:none">'+xe(stInitials(s.name||''))+'</span>'
+      +'<input type="file" accept="image/jpeg,image/png,image/webp" id="st-f-'+i+'" hidden />'
+      +'<button type="button" data-stup="'+i+'">Upload photo</button>'
+      +'<button type="button" data-strm="'+i+'">Remove</button>'
+      +'<input type="text" id="st-i-'+i+'" value="'+xe(s.image||'')+'" readonly placeholder="No photo uploaded" style="flex:1;min-width:180px" />'
+      +'</div>'
+      +'<p style="font-size:12px;color:#6b7280;margin-top:6px">Only a photo uploaded here is shown on the site. A link copied from the web is ignored on purpose, so a stock photo of a stranger cannot end up next to a student\'s name. Upload only with that student\'s permission.</p>'
+      +'</div>'
       +'<div class="field fw"><label class="fl">Quote</label><textarea id="st-q-'+i+'">'+xe(s.quote||'')+'</textarea></div>'
       +'</div>';
     w.appendChild(el);
@@ -1154,6 +1164,58 @@ async function loadImages() {
     });
   } catch(e) { showStatus('❌ '+e.message, false); }
 }
+
+// A saved photo that the live site has not rebuilt yet would render as a
+// broken image. Fall back to the monogram until it is really there.
+function stPhotoMissing(img) {
+  img.hidden = true;
+  var mo = document.getElementById(img.id.replace('st-prev-', 'st-mono-'));
+  if (mo) mo.hidden = false;
+}
+
+function stInitials(name) {
+  return String(name||'').replace(/^(Md\.?|Mohammad|Muhammad)\s+/i,'').split(/\s+/)
+    .filter(Boolean).map(function(w){return w[0];}).slice(0,2).join('').toUpperCase();
+}
+
+// Per-story photo upload. The site only renders photos it serves itself,
+// so this writes into /images/students and fills the path field for you.
+document.addEventListener('click', function(e) {
+  var up = e.target.closest && e.target.closest('[data-stup]');
+  if (up) { var i = up.getAttribute('data-stup'); var el = $('st-f-'+i); if (el) el.click(); return; }
+  var rm = e.target.closest && e.target.closest('[data-strm]');
+  if (rm) {
+    var j = rm.getAttribute('data-strm');
+    sv('st-i-'+j,'');
+    var pv = $('st-prev-'+j); if (pv) { pv.hidden = true; pv.removeAttribute('src'); }
+    var mo = $('st-mono-'+j); if (mo) mo.hidden = false;
+    showStatus('Photo removed. Press Save to apply.');
+  }
+});
+
+document.addEventListener('change', async function(e) {
+  var f = e.target;
+  if (!f || !f.id || f.id.indexOf('st-f-') !== 0) return;
+  var file = f.files && f.files[0];
+  if (!file) return;
+  var i = f.id.slice(5);
+  try {
+    showStatus('Uploading photo...');
+    var d = await uploadImg(file, 'students');
+    sv('st-i-'+i, d.path);
+    // Preview the file the user just chose, not d.path. The upload commits
+    // the image to the repository; the site cannot serve that path until it
+    // rebuilds, so pointing the preview at it would show a broken image for
+    // the next minute.
+    var pv = $('st-prev-'+i);
+    if (pv) { pv.src = URL.createObjectURL(file); pv.hidden = false; }
+    var mo = $('st-mono-'+i); if (mo) mo.hidden = true;
+    showStatus('Photo uploaded and saved to the site files. Press Save, then it appears on the site once the site rebuilds (about a minute).');
+  } catch (err) {
+    showStatus('Upload failed: ' + err.message, false);
+  }
+  f.value = '';
+});
 
 async function uploadImg(file, folder) {
   var b64 = await new Promise(function(res,rej) {

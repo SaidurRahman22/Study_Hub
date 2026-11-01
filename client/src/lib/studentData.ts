@@ -57,6 +57,18 @@ export type StudentDoc = {
   note?: string;
 };
 
+/** A file or image on a message. The portal has no storage, so the url is
+ *  an in-browser object URL that lives only for this session. Nothing is
+ *  uploaded anywhere. */
+export type Attachment = {
+  id: string;
+  name: string;
+  kind: "image" | "file";
+  mime: string;
+  size: string;
+  url: string;
+};
+
 export type Message = {
   id: string;
   from: "student" | "agency";
@@ -64,6 +76,7 @@ export type Message = {
   /** ISO date-time, rendered in the reader's locale */
   at: string;
   body: string;
+  attachments?: Attachment[];
 };
 
 /** Something that happened on the file. The student did not ask for it,

@@ -809,7 +809,7 @@ textarea.sp-input {
 .sp-msgs {
   display: flex;
   flex-direction: column;
-  height: calc(100svh - 14.25rem);
+  height: calc(100svh - 7rem);
   min-height: 26rem;
 }
 .sp-msgs > .sp-panel-head,
@@ -890,6 +890,123 @@ textarea.sp-input {
   background: var(--sp-navy);
   color: #fff;
   border-radius: 14px 14px 4px;
+}
+
+/* --- attachments ------------------------------------------------------ */
+.sp-att-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.sp-att-img {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--sp-line);
+  line-height: 0;
+  max-width: 220px;
+}
+.sp-att-img img {
+  display: block;
+  max-width: 220px;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+.sp-att-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 260px;
+  padding: 8px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--sp-line);
+  background: var(--sp-panel);
+  color: var(--sp-ink);
+  text-decoration: none;
+  transition: border-color 160ms var(--sp-ease);
+}
+.sp-att-file:hover {
+  border-color: #cfd8e6;
+}
+/* on a student's navy bubble the file chip flips to read on dark */
+.sp-msg-student .sp-att-file {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.sp-att-meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.sp-att-name {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sp-att-size {
+  font-size: 11.5px;
+  color: var(--sp-faint);
+}
+.sp-msg-student .sp-att-size {
+  color: var(--sp-navy-soft);
+}
+
+/* pending chips in the composer */
+.sp-att-pending {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sp-att-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 220px;
+  padding: 6px 8px 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--sp-line);
+  background: #f5f7fa;
+  font-size: 13px;
+}
+.sp-att-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  object-fit: cover;
+  flex: none;
+}
+.sp-att-chip-name {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--sp-ink);
+}
+.sp-att-x {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--sp-faint);
+  cursor: pointer;
+  transition:
+    background-color 140ms var(--sp-ease),
+    color 140ms var(--sp-ease);
+}
+.sp-att-x:hover {
+  background: #e4e9f0;
+  color: var(--sp-ink);
 }
 
 /* --- the sample-data line --------------------------------------------- */
@@ -1417,6 +1534,6 @@ a.sp-pop-item:hover {
     padding-top: 22px;
   }
   .sp-msgs {
-    height: calc(100svh - 18rem);
+    height: calc(100svh - 12rem);
   }
 }

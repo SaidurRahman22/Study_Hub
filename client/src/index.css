@@ -1382,3 +1382,109 @@ textarea.cd-input {
     break-inside: avoid;
   }
 }
+
+/* --- service cards: the full list as individual, clickable cards ------- *
+ *  Each service is its own card that lifts on hover and reveals an        *
+ *  invitation to ask about it. A card is a button: clicking it opens the  *
+ *  consultation already pointed at that service.                          */
+.lp-service {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+}
+.lp-service-more {
+  margin-top: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-gold-deep);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+.lp-service:hover .lp-service-more,
+.lp-service:focus-visible .lp-service-more {
+  opacity: 1;
+  transform: none;
+}
+.lp-service-more svg {
+  transition: transform 200ms var(--ease-out);
+}
+.lp-service:hover .lp-service-more svg,
+.lp-service:focus-visible .lp-service-more svg {
+  transform: translateX(3px);
+}
+/* On a touch screen there is no hover, so the invitation simply stays on. */
+@media (hover: none) {
+  .lp-service-more {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- the reference card: long factual points set as rows -------------- *
+ *  Visa and work rules are two or three sentences each. As bullets they  *
+ *  read as a shopping list; as rows in one card, with room and a divider *
+ *  between them, they read as the reference they are. The row answers    *
+ *  the pointer so a reader can keep their place.                         */
+.lp-facts {
+  background: var(--color-ground);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.lp-facts-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.1rem clamp(1.25rem, 2.2vw, 1.75rem);
+  background: var(--color-ground-2);
+}
+.lp-facts-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.lp-fact {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.25rem clamp(1.25rem, 2.2vw, 1.75rem);
+  transition: background-color var(--dur-hover) ease;
+}
+.lp-fact + .lp-fact {
+  border-top: 1px solid var(--color-ground-3); /* taste-skill-ignore: a row divider inside one reference card, the job a table rule does */
+}
+.lp-fact:hover {
+  background: var(--color-ground-2);
+}
+.lp-fact-mark {
+  margin-top: 0.6em;
+}
+.lp-fact p {
+  max-width: 72ch;
+}
+@media (max-width: 640px) {
+  .lp-fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+  .lp-fact-mark {
+    margin-top: 0;
+  }
+}

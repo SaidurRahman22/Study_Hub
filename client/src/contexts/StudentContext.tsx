@@ -9,6 +9,7 @@ import {
 } from "react";
 import {
   SAMPLE_STUDENT,
+  type Attachment,
   type Message,
   type Notification,
   type StudentDoc,
@@ -83,7 +84,7 @@ type StudentContextValue = {
   /** Records the NAME of a chosen file. The file itself is never read,
    *  never stored and never uploaded. There is nowhere to put it. */
   attachDocument: (docId: string, fileName: string, sizeBytes: number) => void;
-  sendMessage: (body: string) => void;
+  sendMessage: (body: string, attachments?: Attachment[]) => void;
   markMessagesRead: () => void;
   /** when the bell was last opened */
   notesLastRead: string | null;
@@ -173,21 +174,25 @@ export function StudentProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  const sendMessage = useCallback((body: string) => {
-    const text = body.trim();
-    if (!text) return;
-    setStudent(prev => {
-      if (!prev) return prev;
-      const message: Message = {
-        id: `m${prev.messages.length + 1}-${Date.now()}`,
-        from: "student",
-        author: prev.name,
-        at: new Date().toISOString(),
-        body: text,
-      };
-      return { ...prev, messages: [...prev.messages, message] };
-    });
-  }, []);
+  const sendMessage = useCallback(
+    (body: string, attachments: Attachment[] = []) => {
+      const text = body.trim();
+      if (!text && attachments.length === 0) return;
+      setStudent(prev => {
+        if (!prev) return prev;
+        const message: Message = {
+          id: `m${prev.messages.length + 1}-${Date.now()}`,
+          from: "student",
+          author: prev.name,
+          at: new Date().toISOString(),
+          body: text,
+          attachments: attachments.length ? attachments : undefined,
+        };
+        return { ...prev, messages: [...prev.messages, message] };
+      });
+    },
+    []
+  );
 
   const markMessagesRead = useCallback(() => {
     const now = new Date().toISOString();

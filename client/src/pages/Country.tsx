@@ -239,12 +239,17 @@ export default function Country() {
       </section>
 
       {/* ---- what it opens up ---- */}
+      {/* Three rhythms rather than two bullet lists: the job market as an
+          editorial lead, the visa rules as a reference card whose rows
+          answer on hover, and the upsides as cards that lift. The rules
+          are long and factual, so they keep a light ground and a real
+          reading measure instead of being squeezed into a column. */}
       <section
         className="lp-section lp-field-step"
         aria-labelledby="opps-title"
       >
-        <div className="lp-frame lp-grid items-start">
-          <div className="col-span-12 lg:col-span-5">
+        <div className="lp-frame">
+          <div className="max-w-[60rem]">
             <Reveal as="p" className="lp-meta" y={10}>
               Afterwards
             </Reveal>
@@ -257,49 +262,49 @@ export default function Country() {
             >
               What a degree there opens up
             </Reveal>
-            <Reveal as="p" className="lp-body lp-soft mt-4" delay={100}>
+            <Reveal
+              as="p"
+              className="lp-sub lp-soft mt-5 max-w-[52ch]"
+              delay={100}
+            >
               {c.economy}
             </Reveal>
           </div>
 
-          <div className="col-span-12 grid gap-3 sm:grid-cols-2 lg:col-span-7">
-            <Reveal delay={70}>
-              <div className="lp-panel lp-panel-plain h-full">
-                <h3
-                  className="lp-gold font-semibold"
-                  style={{ fontSize: "var(--text-body)" }}
-                >
-                  Work and residency
-                </h3>
-                <ul className="mt-3 space-y-2">
-                  {c.opportunities.map(o => (
-                    <li key={o} className="lp-body flex gap-3">
-                      <span className="lp-bullet" aria-hidden="true" />
-                      <span>{o}</span>
-                    </li>
-                  ))}
-                </ul>
+          {/* the rules, set as a reference card */}
+          <Reveal className="mt-10" delay={60} y={16}>
+            <div className="lp-facts">
+              <div className="lp-facts-head">
+                <h3 className="lp-facts-title">Work and residency</h3>
+                <span className="lp-small lp-soft">
+                  {c.opportunities.length} things to know
+                </span>
               </div>
-            </Reveal>
-            <Reveal delay={140}>
-              <div className="lp-panel lp-panel-plain h-full">
-                <h3
-                  className="lp-gold font-semibold"
-                  style={{ fontSize: "var(--text-body)" }}
-                >
-                  Why students pick it
-                </h3>
-                <ul className="mt-3 space-y-2">
-                  {c.benefits.map(b => (
-                    <li key={b} className="lp-body flex gap-3">
-                      <span className="lp-bullet" aria-hidden="true" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
+              <ul>
+                {c.opportunities.map(o => (
+                  <li key={o} className="lp-fact">
+                    <span className="lp-rule lp-fact-mark" aria-hidden="true" />
+                    <p className="lp-body">{o}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+
+          {/* the upsides, as cards that answer the pointer */}
+          <Reveal className="mt-10" delay={80} y={14}>
+            <h3 className="lp-facts-title">Why students pick it</h3>
+          </Reveal>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {c.benefits.map((b, i) => (
+              <Reveal as="li" key={b} delay={Math.min(i, 4) * 60} y={14}>
+                <div className="lp-panel lp-panel-plain lp-panel-hover h-full">
+                  <span className="lp-rule" aria-hidden="true" />
+                  <p className="lp-body mt-4">{b}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 

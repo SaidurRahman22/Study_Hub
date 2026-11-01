@@ -16,5 +16,16 @@ class Enquiry extends Model
         'message',
         'source',
         'status',
+        'scheduled_at',
+        'timezone',
+        'online',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'scheduled_at' => 'datetime',
+            'online' => 'boolean',
+        ];
+    }
 }

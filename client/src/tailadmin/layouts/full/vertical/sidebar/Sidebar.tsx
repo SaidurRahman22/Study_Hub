@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import FullLogo from '../../shared/logo/FullLogo';
 import { Link, useLocation } from 'react-router';
 import { useTheme } from 'src/components/provider/theme-provider';
+import { useAdminAuth } from 'src/content/AdminAuth';
 import { AMLogo, AMMenu, AMMenuItem, AMSidebar, AMSubmenu } from 'tailwind-sidebar';
 import 'tailwind-sidebar/styles.css';
 
@@ -134,10 +135,34 @@ const SidebarLayout = ({ onClose }: { onClose?: () => void }) => {
               )}
             </div>
           ))}
+
+          {/* Who is signed in, and the way out. */}
+          <SignedInAs />
         </div>
       </SimpleBar>
     </AMSidebar>
   );
 };
+
+/** The signed-in staff member and a sign-out, at the foot of the menu. */
+function SignedInAs() {
+  const { user, signOut } = useAdminAuth();
+  return (
+    <div className="mt-8 mb-4 rounded-lg border border-ld p-3">
+      <div className="text-xs text-muted-foreground">Signed in as</div>
+      <div className="truncate text-sm font-medium text-sidebar-foreground">
+        {user.name}
+      </div>
+      <button
+        type="button"
+        onClick={signOut}
+        className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-error"
+      >
+        <Icon icon="solar:logout-2-linear" width={15} />
+        Sign out
+      </button>
+    </div>
+  );
+}
 
 export default SidebarLayout;

@@ -5,18 +5,22 @@ import { ThemeProvider } from './components/provider/theme-provider';
 import { ContentProvider } from './content/store';
 import { StudentsProvider } from './content/students-store';
 import { PageSearchProvider } from './content/search';
+import { RequireStaff } from './content/AdminAuth';
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       {/* Website content edited on the CMS pages. */}
       <ContentProvider>
-        {/* Student files, documents, bookings, etc. (in-memory, frontend phase). */}
+        {/* Students, their files and the enquiry list, from the API. */}
         <StudentsProvider>
-          {/* The top-bar search drives whichever list page is open. */}
-          <PageSearchProvider>
-            <RouterProvider router={router} />
-          </PageSearchProvider>
+          {/* Nothing below renders until a staff account is signed in. */}
+          <RequireStaff>
+            {/* The top-bar search drives whichever list page is open. */}
+            <PageSearchProvider>
+              <RouterProvider router={router} />
+            </PageSearchProvider>
+          </RequireStaff>
         </StudentsProvider>
       </ContentProvider>
     </ThemeProvider>

@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
 /* ---- staff only ---- */
 Route::middleware(['auth:sanctum', 'staff'])->group(function () {
     Route::get('/enquiries', [EnquiryController::class, 'index']);
+    Route::patch('/enquiries/{enquiry}', [EnquiryController::class, 'update']);
 
     Route::get('/students', [StudentController::class, 'index']);
     Route::post('/students', [StudentController::class, 'store']);

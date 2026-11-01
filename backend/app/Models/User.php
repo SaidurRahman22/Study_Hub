@@ -56,4 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(CaseNote::class)->latest();
     }
+
+    /** Passports, transcripts, bank statements. Files live on the private disk. */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Document::class)->orderBy('group')->orderBy('id');
+    }
 }

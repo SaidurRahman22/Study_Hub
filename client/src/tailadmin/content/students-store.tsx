@@ -2,7 +2,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -13,21 +15,43 @@ import type {
   StudentDoc,
   StudentRecord,
 } from '@/lib/studentData';
-import { STUDENTS, BOOKINGS, type Booking, type BookingStatus } from './students';
+import type { Booking, BookingStatus } from './students';
+import {
+  createCaseNote,
+  createEnquiry,
+  createStudent,
+  deleteStudent as apiDeleteStudent,
+  getAdminToken,
+  listEnquiries,
+  listStudents,
+  patchCaseNote,
+  patchEnquiryStatus,
+  patchStage,
+  removeCaseNote,
+  setStudentPassword,
+  type ApiEnquiry,
+  type ApiStudent,
+} from './admin-api';
 
 /* ======================================================================= *
- *  Mutable students + bookings store (frontend phase)
+ *  Students + enquiries, backed by the Laravel API.
  *
- *  The portal has no backend, so this holds everything in memory, seeded
- *  from the fixtures. Edits (new students, status changes, feedback, uploads,
- *  announcements, bookings) work and show immediately, but reset on reload.
- *  The real version is a database and a private file store (ADMIN-CONTENT-MAP
- *  §5); these methods are the shape that backend will implement.
+ *  The method names and arguments are unchanged from the earlier in-memory
+ *  version, so every admin screen works without edits. What changed is where
+ *  the data lives: students, their stages and case notes, and the enquiry
+ *  list all come from MySQL now and survive a reload.
+ *
+ *  Edits apply locally first so typing stays responsive, then go to the API.
+ *  Text fields are debounced, otherwise every keystroke in a date box would
+ *  be its own request. If a write fails the error is surfaced and the data is
+ *  reloaded from the server, so the screen never quietly disagrees with the
+ *  database.
+ *
+ *  Documents, messages and announcements have no API yet (those are the next
+ *  phases), so they stay empty rather than showing invented data on a real
+ *  student's record.
  * ======================================================================= */
 
-/** A note the admin adds to a student's file: a title, a comment, a progress
- *  status the admin sets, and a date the admin sets. `at` is the automatic
- *  created-at used only for ordering. */
 export type NoteStatus = 'done' | 'now' | 'todo';
 
 export type CaseNote = {
@@ -46,9 +70,11 @@ export type NewNoteInput = {
   date: string;
 };
 
-/** A student as the admin holds it: the portal record plus a login password
- *  and the admin's own case notes. */
+/** A student as the admin holds it: the portal record plus the database id,
+ *  the ids of its stages, and the admin's case notes. */
 export type AdminStudent = StudentRecord & {
+  apiId: number;
+  stageIds: number[];
   password?: string;
   caseNotes?: CaseNote[];
 };
@@ -72,38 +98,69 @@ export type NewBookingInput = {
   destination: string;
   need: string;
   message?: string;
-  /** ISO date (date picker value) */
   date: string;
   online: boolean;
 };
 
-const uid = () =>
-  (globalThis.crypto?.randomUUID?.() ?? `id-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+function toAdminStudent(a: ApiStudent): AdminStudent {
+  return {
+    apiId: a.id,
+    stageIds: a.stages.map((s) => s.id),
+    studentId: a.studentId || `#${a.id}`,
+    name: a.name,
+    email: a.email,
+    counsellor: a.counsellor ?? '',
+    country: a.country ?? '',
+    university: a.university ?? '',
+    course: a.course ?? '',
+    intake: a.intake ?? '',
+    stages: a.stages.map((s) => ({
+      name: s.name,
+      state: s.state,
+      when: s.when ?? '',
+      note: s.note ?? undefined,
+    })),
+    caseNotes: a.caseNotes.map((n) => ({
+      id: String(n.id),
+      title: n.title,
+      body: n.body ?? '',
+      status: n.status,
+      date: n.date ?? '',
+      at: n.at ?? new Date().toISOString(),
+    })),
+    documents: [],
+    messages: [],
+    notifications: [],
+  };
+}
 
-const nowIso = () => new Date().toISOString();
-
-/** The six empty stages a new student starts with. */
-function freshStages(): StudentRecord['stages'] {
-  return [
-    { name: 'Counselling', state: 'now', when: 'Just started' },
-    { name: 'Documents', state: 'todo', when: '' },
-    { name: 'Application sent', state: 'todo', when: '' },
-    { name: 'Offer received', state: 'todo', when: '' },
-    { name: 'Visa file', state: 'todo', when: '' },
-    { name: 'Departure', state: 'todo', when: '' },
-  ];
+function toBooking(e: ApiEnquiry): Booking {
+  return {
+    id: String(e.id),
+    name: e.name,
+    phone: e.phone ?? '',
+    email: e.email || undefined,
+    destination: e.destination ?? '',
+    need: e.need ?? e.subject ?? '',
+    message: e.message ?? undefined,
+    at: e.scheduled_at ?? e.created_at,
+    status: e.status,
+  };
 }
 
 type Store = {
   students: AdminStudent[];
   bookings: Booking[];
+  loading: boolean;
+  error: string | null;
+  clearError: () => void;
+  reload: () => Promise<void>;
 
   addStudent: (input: NewStudentInput) => void;
   updateStudent: (studentId: string, patch: Partial<StudentRecord>) => void;
   deleteStudent: (studentId: string) => void;
   setPassword: (studentId: string, password: string) => void;
 
-  /** Set a stage's progress: its state, date and note. */
   updateStage: (
     studentId: string,
     index: number,
@@ -112,7 +169,6 @@ type Store = {
 
   setDocStatus: (studentId: string, docId: string, status: DocStatus) => void;
   setDocNote: (studentId: string, docId: string, note: string) => void;
-  /** Admin uploads a document on the student's behalf. */
   addDocument: (studentId: string, doc: Omit<StudentDoc, 'id'>) => void;
 
   addCaseNote: (studentId: string, note: NewNoteInput) => void;
@@ -124,8 +180,6 @@ type Store = {
   deleteCaseNote: (studentId: string, noteId: string) => void;
 
   sendMessage: (studentId: string, body: string) => void;
-
-  /** audience is a studentId, or "all" for everyone. */
   postAnnouncement: (audience: string, title: string, body: string) => void;
 
   addBooking: (input: NewBookingInput) => void;
@@ -136,63 +190,115 @@ type Store = {
 
 const Ctx = createContext<Store | null>(null);
 
+const uid = () =>
+  globalThis.crypto?.randomUUID?.() ??
+  `id-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
 export function StudentsProvider({ children }: { children: ReactNode }) {
-  const [students, setStudents] = useState<AdminStudent[]>(
-    () => structuredClone(STUDENTS) as AdminStudent[]
-  );
-  const [bookings, setBookings] = useState<Booking[]>(
-    () => structuredClone(BOOKINGS) as Booking[]
+  const [students, setStudents] = useState<AdminStudent[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  /** Pending debounced writes, keyed so repeated typing in one field
+   *  collapses into a single request. */
+  const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
+
+  const reload = useCallback(async () => {
+    if (!getAdminToken()) return;
+    setLoading(true);
+    try {
+      const [s, e] = await Promise.all([listStudents(), listEnquiries()]);
+      setStudents(s.map(toAdminStudent));
+      setBookings(e.map(toBooking));
+      setError(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not load data.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void reload();
+  }, [reload]);
+
+  /** Run a write. On failure show why and resync from the server. */
+  const run = useCallback(
+    async (fn: () => Promise<unknown>) => {
+      try {
+        await fn();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'That change did not save.');
+        void reload();
+      }
+    },
+    [reload]
   );
 
-  const patchStudent = useCallback(
-    (studentId: string, fn: (s: AdminStudent) => AdminStudent) => {
-      setStudents((prev) => prev.map((s) => (s.studentId === studentId ? fn(s) : s)));
+  /** Same as run(), but collapses rapid repeats of the same field. */
+  const debounced = useCallback(
+    (key: string, fn: () => Promise<unknown>, ms = 600) => {
+      clearTimeout(timers.current[key]);
+      timers.current[key] = setTimeout(() => void run(fn), ms);
     },
+    [run]
+  );
+
+  const find = useCallback(
+    (studentId: string) => students.find((s) => s.studentId === studentId),
+    [students]
+  );
+
+  const patchLocal = useCallback(
+    (studentId: string, fn: (s: AdminStudent) => AdminStudent) =>
+      setStudents((prev) => prev.map((s) => (s.studentId === studentId ? fn(s) : s))),
     []
   );
 
-  const addStudent = useCallback((input: NewStudentInput) => {
-    const s: AdminStudent = {
-      name: input.name,
-      email: input.email,
-      studentId: input.studentId,
-      password: input.password,
-      counsellor: input.counsellor,
-      country: input.country,
-      university: input.university,
-      course: input.course,
-      intake: input.intake,
-      stages: freshStages(),
-      documents: [],
-      messages: [],
-      notifications: [
-        {
-          id: uid(),
-          kind: 'announcement',
-          title: 'Welcome to Study Hub BD',
-          body: `Your counsellor is ${input.counsellor}.`,
-          at: nowIso(),
-        },
-      ],
-      caseNotes: [],
-    };
-    setStudents((prev) => [s, ...prev]);
-  }, []);
+  /* ---- students ---- */
+
+  const addStudent = useCallback(
+    (input: NewStudentInput) => {
+      void run(async () => {
+        await createStudent({
+          name: input.name,
+          email: input.email,
+          password: input.password,
+          studentId: input.studentId || undefined,
+          counsellor: input.counsellor || undefined,
+          country: input.country || undefined,
+          university: input.university || undefined,
+          course: input.course || undefined,
+          intake: input.intake || undefined,
+        });
+        await reload();
+      });
+    },
+    [run, reload]
+  );
 
   const updateStudent = useCallback(
     (studentId: string, patch: Partial<StudentRecord>) =>
-      patchStudent(studentId, (s) => ({ ...s, ...patch })),
-    [patchStudent]
+      patchLocal(studentId, (s) => ({ ...s, ...patch })),
+    [patchLocal]
   );
 
-  const deleteStudent = useCallback((studentId: string) => {
-    setStudents((prev) => prev.filter((s) => s.studentId !== studentId));
-  }, []);
+  const deleteStudent = useCallback(
+    (studentId: string) => {
+      const target = find(studentId);
+      setStudents((prev) => prev.filter((s) => s.studentId !== studentId));
+      if (target) void run(() => apiDeleteStudent(target.apiId));
+    },
+    [find, run]
+  );
 
   const setPassword = useCallback(
-    (studentId: string, password: string) =>
-      patchStudent(studentId, (s) => ({ ...s, password })),
-    [patchStudent]
+    (studentId: string, password: string) => {
+      const target = find(studentId);
+      if (target) void run(() => setStudentPassword(target.apiId, password));
+    },
+    [find, run]
   );
 
   const updateStage = useCallback(
@@ -200,60 +306,54 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
       studentId: string,
       index: number,
       patch: Partial<StudentRecord['stages'][number]>
-    ) =>
-      patchStudent(studentId, (s) => ({
+    ) => {
+      patchLocal(studentId, (s) => ({
         ...s,
         stages: s.stages.map((st, i) => (i === index ? { ...st, ...patch } : st)),
-      })),
-    [patchStudent]
+      }));
+      const target = find(studentId);
+      const stageId = target?.stageIds[index];
+      if (!target || stageId === undefined) return;
+
+      const body: { state?: string; when?: string; note?: string } = {};
+      if (patch.state !== undefined) body.state = patch.state;
+      if (patch.when !== undefined) body.when = patch.when;
+      if (patch.note !== undefined) body.note = patch.note;
+
+      // A dropdown should save at once; typed text waits for a pause.
+      const typed = patch.when !== undefined || patch.note !== undefined;
+      const call = () => patchStage(target.apiId, stageId, body);
+      if (typed) debounced(`stage:${studentId}:${index}`, call);
+      else void run(call);
+    },
+    [patchLocal, find, run, debounced]
   );
 
-  const setDocStatus = useCallback(
-    (studentId: string, docId: string, status: DocStatus) =>
-      patchStudent(studentId, (s) => ({
-        ...s,
-        documents: s.documents.map((d) =>
-          d.id === docId ? { ...d, status, updated: nowIso().slice(0, 10) } : d
-        ),
-      })),
-    [patchStudent]
-  );
-
-  const setDocNote = useCallback(
-    (studentId: string, docId: string, note: string) =>
-      patchStudent(studentId, (s) => ({
-        ...s,
-        documents: s.documents.map((d) => (d.id === docId ? { ...d, note } : d)),
-      })),
-    [patchStudent]
-  );
-
-  const addDocument = useCallback(
-    (studentId: string, doc: Omit<StudentDoc, 'id'>) =>
-      patchStudent(studentId, (s) => ({
-        ...s,
-        documents: [...s.documents, { ...doc, id: uid() }],
-      })),
-    [patchStudent]
-  );
+  /* ---- case notes ---- */
 
   const addCaseNote = useCallback(
-    (studentId: string, note: NewNoteInput) =>
-      patchStudent(studentId, (s) => ({
-        ...s,
-        caseNotes: [
-          {
-            id: uid(),
-            title: note.title,
-            body: note.body,
-            status: note.status,
-            date: note.date,
-            at: nowIso(),
-          },
-          ...(s.caseNotes ?? []),
-        ],
-      })),
-    [patchStudent]
+    (studentId: string, note: NewNoteInput) => {
+      const target = find(studentId);
+      if (!target) return;
+      void run(async () => {
+        const created = await createCaseNote(target.apiId, note);
+        patchLocal(studentId, (s) => ({
+          ...s,
+          caseNotes: [
+            {
+              id: String(created.id),
+              title: created.title,
+              body: created.body ?? '',
+              status: created.status,
+              date: created.date ?? '',
+              at: created.at ?? new Date().toISOString(),
+            },
+            ...(s.caseNotes ?? []),
+          ],
+        }));
+      });
+    },
+    [find, run, patchLocal]
   );
 
   const updateCaseNote = useCallback(
@@ -261,38 +361,78 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
       studentId: string,
       noteId: string,
       patch: Partial<Pick<CaseNote, 'title' | 'body' | 'status' | 'date'>>
-    ) =>
-      patchStudent(studentId, (s) => ({
+    ) => {
+      patchLocal(studentId, (s) => ({
         ...s,
         caseNotes: (s.caseNotes ?? []).map((n) =>
           n.id === noteId ? { ...n, ...patch } : n
         ),
-      })),
-    [patchStudent]
+      }));
+      const target = find(studentId);
+      if (!target) return;
+      const typed = patch.title !== undefined || patch.body !== undefined || patch.date !== undefined;
+      const call = () => patchCaseNote(target.apiId, Number(noteId), patch);
+      if (typed) debounced(`note:${studentId}:${noteId}`, call);
+      else void run(call);
+    },
+    [patchLocal, find, run, debounced]
   );
 
   const deleteCaseNote = useCallback(
-    (studentId: string, noteId: string) =>
-      patchStudent(studentId, (s) => ({
+    (studentId: string, noteId: string) => {
+      patchLocal(studentId, (s) => ({
         ...s,
         caseNotes: (s.caseNotes ?? []).filter((n) => n.id !== noteId),
+      }));
+      const target = find(studentId);
+      if (target) void run(() => removeCaseNote(target.apiId, Number(noteId)));
+    },
+    [patchLocal, find, run]
+  );
+
+  /* ---- documents, messages, announcements: local only until their APIs
+         exist (the next phases). Kept so the screens still work. ---- */
+
+  const setDocStatus = useCallback(
+    (studentId: string, docId: string, status: DocStatus) =>
+      patchLocal(studentId, (s) => ({
+        ...s,
+        documents: s.documents.map((d) => (d.id === docId ? { ...d, status } : d)),
       })),
-    [patchStudent]
+    [patchLocal]
+  );
+
+  const setDocNote = useCallback(
+    (studentId: string, docId: string, note: string) =>
+      patchLocal(studentId, (s) => ({
+        ...s,
+        documents: s.documents.map((d) => (d.id === docId ? { ...d, note } : d)),
+      })),
+    [patchLocal]
+  );
+
+  const addDocument = useCallback(
+    (studentId: string, doc: Omit<StudentDoc, 'id'>) =>
+      patchLocal(studentId, (s) => ({
+        ...s,
+        documents: [...s.documents, { ...doc, id: uid() }],
+      })),
+    [patchLocal]
   );
 
   const sendMessage = useCallback(
     (studentId: string, body: string) =>
-      patchStudent(studentId, (s) => {
+      patchLocal(studentId, (s) => {
         const msg: Message = {
           id: uid(),
           from: 'agency',
           author: 'Study Hub BD',
-          at: nowIso(),
+          at: new Date().toISOString(),
           body,
         };
         return { ...s, messages: [...s.messages, msg] };
       }),
-    [patchStudent]
+    [patchLocal]
   );
 
   const postAnnouncement = useCallback(
@@ -302,7 +442,7 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
         kind: 'announcement',
         title,
         body: body || undefined,
-        at: nowIso(),
+        at: new Date().toISOString(),
       });
       setStudents((prev) =>
         prev.map((s) =>
@@ -315,34 +455,51 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  const addBooking = useCallback((input: NewBookingInput) => {
-    const b: Booking = {
-      id: uid(),
-      name: input.name,
-      phone: input.phone,
-      email: input.email || undefined,
-      destination: input.destination,
-      need: input.need,
-      message: input.message || undefined,
-      at: input.date ? new Date(input.date).toISOString() : nowIso(),
-      status: 'new',
-    };
-    setBookings((prev) => [b, ...prev]);
-  }, []);
+  /* ---- enquiries / bookings ---- */
 
-  const setBookingStatus = useCallback((bookingId: string, status: BookingStatus) => {
-    setBookings((prev) => prev.map((b) => (b.id === bookingId ? { ...b, status } : b)));
-  }, []);
-
-  const getStudent = useCallback(
-    (studentId: string) => students.find((s) => s.studentId === studentId),
-    [students]
+  const addBooking = useCallback(
+    (input: NewBookingInput) => {
+      void run(async () => {
+        await createEnquiry({
+          name: input.name,
+          email: input.email || `${input.phone.replace(/\D/g, '')}@no-email.local`,
+          phone: input.phone,
+          destination: input.destination,
+          need: input.need,
+          message: input.message,
+          source: 'consultation',
+          scheduled_at: input.date || undefined,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          online: input.online,
+        });
+        await reload();
+      });
+    },
+    [run, reload]
   );
+
+  const setBookingStatus = useCallback(
+    (bookingId: string, status: BookingStatus) => {
+      setBookings((prev) =>
+        prev.map((b) => (b.id === bookingId ? { ...b, status } : b))
+      );
+      void run(() => patchEnquiryStatus(Number(bookingId), status));
+    },
+    [run]
+  );
+
+  const getStudent = useCallback((studentId: string) => find(studentId), [find]);
+
+  const clearError = useCallback(() => setError(null), []);
 
   const value = useMemo<Store>(
     () => ({
       students,
       bookings,
+      loading,
+      error,
+      clearError,
+      reload,
       addStudent,
       updateStudent,
       deleteStudent,
@@ -363,6 +520,10 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     [
       students,
       bookings,
+      loading,
+      error,
+      clearError,
+      reload,
       addStudent,
       updateStudent,
       deleteStudent,

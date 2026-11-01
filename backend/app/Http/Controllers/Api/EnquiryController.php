@@ -24,6 +24,10 @@ class EnquiryController extends Controller
             'subject' => ['nullable', 'string', 'max:255'],
             'message' => ['nullable', 'string', 'max:5000'],
             'source' => ['nullable', 'string', 'max:50'],
+            // Present when staff book a consultation rather than a visitor enquiring.
+            'scheduled_at' => ['nullable', 'date'],
+            'timezone' => ['nullable', 'string', 'max:64'],
+            'online' => ['nullable', 'boolean'],
         ]);
 
         $enquiry = Enquiry::create([
@@ -43,5 +47,17 @@ class EnquiryController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(Enquiry::latest()->get());
+    }
+
+    /** Staff: move a lead along (new -> contacted -> booked -> closed). */
+    public function update(Request $request, Enquiry $enquiry): JsonResponse
+    {
+        $data = $request->validate([
+            'status' => ['required', 'in:new,contacted,booked,closed'],
+        ]);
+
+        $enquiry->update($data);
+
+        return response()->json($enquiry);
     }
 }

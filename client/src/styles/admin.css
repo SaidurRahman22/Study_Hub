@@ -1,0 +1,695 @@
+/* ====================================================================== *
+ *  ADMIN PANEL                                                           *
+ *                                                                        *
+ *  Layout and component language adapted from TailwindAdmin (MIT), at    *
+ *  github.com/Tailwind-Admin/free-tailwind-admin-dashboard-template:     *
+ *  the light rail with grouped sections and a rounded active pill, the   *
+ *  top bar with search and account, the pastel stat tiles, and the soft  *
+ *  white cards. Rewritten for this project's stack rather than copied,   *
+ *  and recoloured to Study Hub's navy and gold so the back office looks  *
+ *  like the same product as the site.                                    *
+ *                                                                        *
+ *  This file is imported by the lazily loaded admin entry, so none of it *
+ *  is downloaded by a visitor who never opens the admin.                 *
+ * ====================================================================== */
+
+.ad {
+  --ad-canvas: #f7f9fc;
+  --ad-card: #ffffff;
+  --ad-line: #e6eaf2;
+  --ad-line-soft: #eff2f7;
+  --ad-ink: #111a2b;
+  --ad-mute: #4d5a70;
+  --ad-faint: #6b788d;
+
+  --ad-brand: #0f1a2e;
+  --ad-brand-soft: #eef1f7;
+  --ad-gold: #d4af37;
+
+  --ad-ok: #04603a;
+  --ad-ok-bg: #dcfae5;
+  --ad-warn: #5c3d00;
+  --ad-warn-bg: #fdf0d5;
+  --ad-bad: #831c1e;
+  --ad-bad-bg: #ffedea;
+  --ad-info: #16366b;
+  --ad-info-bg: #e4edfb;
+
+  --ad-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--ad-canvas);
+  color: var(--ad-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ad *:focus-visible {
+  outline: 2px solid var(--ad-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* --- shell ------------------------------------------------------------ */
+.ad-shell {
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.ad-side {
+  background: var(--ad-card);
+  border-right: 1px solid var(--ad-line);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow-y: auto;
+}
+
+.ad-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 22px 22px 18px;
+  text-decoration: none;
+  color: inherit;
+}
+.ad-brand img {
+  width: 34px;
+  height: 34px;
+  flex: none;
+}
+.ad-brand-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.ad-brand-sub {
+  display: block;
+  font-size: 12px;
+  color: var(--ad-faint);
+}
+
+.ad-navgroup {
+  padding: 14px 14px 2px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ad-faint);
+}
+.ad-nav {
+  padding: 0 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ad-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 10px;
+  color: var(--ad-mute);
+  font-size: 14.5px;
+  text-decoration: none;
+  transition:
+    background-color 170ms var(--ad-ease),
+    color 170ms var(--ad-ease);
+}
+.ad-nav-item:hover {
+  background: var(--ad-brand-soft);
+  color: var(--ad-ink);
+}
+/* the rounded filled pill the template uses for the current page */
+.ad-nav-item[aria-current="page"] {
+  background: var(--ad-brand);
+  color: #fff;
+  font-weight: 500;
+}
+.ad-nav-item svg {
+  flex: none;
+  opacity: 0.8;
+}
+.ad-nav-item[aria-current="page"] svg {
+  opacity: 1;
+}
+.ad-nav-count {
+  margin-left: auto;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: var(--ad-warn-bg);
+  color: var(--ad-warn);
+}
+.ad-nav-item[aria-current="page"] .ad-nav-count {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.ad-side-foot {
+  margin-top: auto;
+  padding: 14px;
+  border-top: 1px solid var(--ad-line-soft);
+}
+
+/* --- top bar ---------------------------------------------------------- */
+.ad-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ad-top {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--ad-card);
+  border-bottom: 1px solid var(--ad-line);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px clamp(16px, 2.4vw, 28px);
+}
+.ad-search {
+  flex: 1;
+  max-width: 26rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.ad-search svg {
+  position: absolute;
+  left: 13px;
+  color: var(--ad-faint);
+  pointer-events: none;
+}
+.ad-search input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px 10px 40px;
+  border: 1px solid var(--ad-line);
+  border-radius: 999px;
+  background: var(--ad-canvas);
+  font: inherit;
+  font-size: 14px;
+  color: var(--ad-ink);
+}
+.ad-search input::placeholder {
+  color: var(--ad-faint);
+}
+.ad-search input:focus {
+  outline: none;
+  border-color: var(--ad-brand);
+  background: var(--ad-card);
+}
+.ad-top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ad-iconbtn {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--ad-line);
+  background: var(--ad-card);
+  color: var(--ad-mute);
+  cursor: pointer;
+  transition:
+    background-color 170ms var(--ad-ease),
+    color 170ms var(--ad-ease);
+}
+.ad-iconbtn:hover {
+  background: var(--ad-brand-soft);
+  color: var(--ad-ink);
+}
+.ad-avatar {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ad-gold);
+  color: var(--ad-brand);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ad-body {
+  padding: clamp(18px, 2.4vw, 30px);
+  flex: 1;
+}
+.ad-wrap {
+  max-width: 1180px;
+}
+
+/* --- page heading ----------------------------------------------------- */
+.ad-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.ad-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 1.2rem + 0.5vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.ad-sub {
+  font-size: 14px;
+  color: var(--ad-mute);
+  margin-top: 4px;
+}
+
+/* --- cards ------------------------------------------------------------ */
+.ad-card {
+  background: var(--ad-card);
+  border: 1px solid var(--ad-line);
+  border-radius: 14px;
+}
+.ad-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ad-line-soft);
+}
+.ad-card-title {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.ad-card-note {
+  font-size: 13px;
+  color: var(--ad-faint);
+  margin-top: 2px;
+}
+.ad-card-body {
+  padding: 20px;
+}
+
+.ad-grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .ad-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --- stat tiles, the template's pastel row ---------------------------- */
+.ad-stats {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+/* A link, so it is inline by default and the spans inside would share one
+ * line. The column is what separates the caption from the figure. */
+.ad-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid transparent;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+.ad-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(15 23 42 / 0.09);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ad-stat {
+    transition: none;
+  }
+  .ad-stat:hover {
+    transform: none;
+  }
+}
+.ad-stat-label {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.ad-stat-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+.ad-stat-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.65);
+}
+.ad-stat-a {
+  background: var(--ad-info-bg);
+  color: var(--ad-info);
+}
+.ad-stat-b {
+  background: var(--ad-ok-bg);
+  color: var(--ad-ok);
+}
+.ad-stat-c {
+  background: var(--ad-warn-bg);
+  color: var(--ad-warn);
+}
+.ad-stat-d {
+  background: var(--ad-bad-bg);
+  color: var(--ad-bad);
+}
+
+/* --- forms ------------------------------------------------------------ */
+.ad-field {
+  display: block;
+  margin-bottom: 16px;
+}
+.ad-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.ad-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 14px;
+  border: 1px solid #d7dde8;
+  border-radius: 10px;
+  background: var(--ad-card);
+  color: var(--ad-ink);
+  font: inherit;
+  font-size: 14.5px;
+  transition: border-color 170ms var(--ad-ease);
+}
+.ad-input::placeholder {
+  color: var(--ad-faint);
+}
+.ad-input:hover {
+  border-color: #c5cedd;
+}
+.ad-input:focus {
+  outline: none;
+  border-color: var(--ad-brand);
+}
+textarea.ad-input {
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.55;
+}
+.ad-hint {
+  font-size: 12.5px;
+  color: var(--ad-faint);
+  margin-top: 6px;
+}
+.ad-row {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 720px) {
+  .ad-row-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ad-row-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* --- buttons ---------------------------------------------------------- */
+.ad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid var(--ad-line);
+  background: var(--ad-card);
+  color: var(--ad-ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 170ms var(--ad-ease),
+    border-color 170ms var(--ad-ease),
+    transform 120ms var(--ad-ease);
+}
+.ad-btn:hover {
+  background: var(--ad-brand-soft);
+  border-color: #cfd8e6;
+}
+.ad-btn:active {
+  transform: scale(0.985);
+}
+.ad-btn-primary {
+  background: var(--ad-brand);
+  border-color: var(--ad-brand);
+  color: #fff;
+}
+.ad-btn-primary:hover {
+  background: #1b2b47;
+  border-color: #1b2b47;
+}
+.ad-btn-gold {
+  background: var(--ad-gold);
+  border-color: var(--ad-gold);
+  color: var(--ad-brand);
+}
+.ad-btn-gold:hover {
+  background: #c09c22;
+  border-color: #c09c22;
+}
+.ad-btn-sm {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 13.5px;
+}
+.ad-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.ad-btn-danger {
+  color: var(--ad-bad);
+  border-color: #f3d4d2;
+}
+.ad-btn-danger:hover {
+  background: var(--ad-bad-bg);
+  border-color: #eab8b5;
+}
+
+/* --- tags and notices ------------------------------------------------- */
+.ad-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.ad-tag-ok {
+  background: var(--ad-ok-bg);
+  color: var(--ad-ok);
+}
+.ad-tag-warn {
+  background: var(--ad-warn-bg);
+  color: var(--ad-warn);
+}
+.ad-tag-bad {
+  background: var(--ad-bad-bg);
+  color: var(--ad-bad);
+}
+.ad-tag-info {
+  background: var(--ad-info-bg);
+  color: var(--ad-info);
+}
+
+.ad-note {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 13px 16px;
+  border-radius: 11px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  border: 1px solid var(--ad-line);
+  background: var(--ad-card);
+}
+.ad-note svg {
+  flex: none;
+  margin-top: 2px;
+}
+.ad-note-warn {
+  background: #fffaf0;
+  border-color: #f0dcb4;
+  color: #5c4a1e;
+}
+.ad-note-bad {
+  background: var(--ad-bad-bg);
+  border-color: #f3d4d2;
+  color: var(--ad-bad);
+}
+
+/* --- repeatable item rows (stories, services) ------------------------- */
+.ad-item {
+  border: 1px solid var(--ad-line);
+  border-radius: 12px;
+  padding: 18px;
+  background: var(--ad-card);
+}
+.ad-item + .ad-item {
+  margin-top: 14px;
+}
+.ad-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ad-item-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* --- photo control ---------------------------------------------------- */
+.ad-photo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ad-photo-prev,
+.ad-photo-mono {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.ad-photo-mono {
+  display: grid;
+  place-items: center;
+  background: var(--ad-info-bg);
+  color: var(--ad-info);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* --- save bar --------------------------------------------------------- */
+.ad-savebar {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 14px 18px;
+  background: var(--ad-card);
+  border: 1px solid var(--ad-line);
+  border-radius: 12px;
+  box-shadow: 0 14px 40px -26px rgba(15, 26, 46, 0.5); /* taste-skill-ignore: a sticky action bar over scrolling content, not a surface at rest */
+}
+
+/* --- sign in ---------------------------------------------------------- */
+.ad-login {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--ad-canvas);
+}
+.ad-login-card {
+  width: 100%;
+  max-width: 24rem;
+  background: var(--ad-card);
+  border: 1px solid var(--ad-line);
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 34px);
+}
+
+/* --- phone ------------------------------------------------------------ */
+@media (max-width: 1023px) {
+  .ad-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ad-side {
+    position: sticky;
+    top: 0;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--ad-line);
+  }
+  .ad-brand {
+    padding: 12px 14px;
+    flex: none;
+  }
+  .ad-brand-sub,
+  .ad-navgroup,
+  .ad-side-foot {
+    display: none;
+  }
+  .ad-nav {
+    flex-direction: row;
+    padding: 8px 0;
+  }
+  .ad-nav-item {
+    white-space: nowrap;
+    min-height: 40px;
+  }
+}

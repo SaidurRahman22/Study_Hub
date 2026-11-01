@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* The student portal is an app screen, not a page: different rules,
+ * different namespace (.sp-*), its own file. */
+@import "./styles/student.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -299,6 +302,13 @@
 html:has(.lp),
 body:has(.lp) {
   background: var(--color-ground);
+}
+
+/* The portal is neither: it has its own canvas, and without this the
+ * document behind it keeps the older pages' cream. */
+html:has(.sp),
+body:has(.sp) {
+  background: #f6f7f9;
 }
 
 .lp {

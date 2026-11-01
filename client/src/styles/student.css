@@ -1,0 +1,720 @@
+/* ====================================================================== *
+ *  STUDENT PORTAL                                                        *
+ *                                                                        *
+ *  An app screen, not a page: it is worked in rather than read, so it    *
+ *  follows different rules from the rest of this stylesheet.             *
+ *                                                                        *
+ *   - Colour goes on data, never on chrome. The sidebar is white with a  *
+ *     hairline, the active item is a neutral grey pill, and the only     *
+ *     saturated pixels on the screen are the statuses a student has to   *
+ *     act on. The navy field and the gold button belong to the marketing *
+ *     pages; a 240px navy rail here would be a sixth of the screen.      *
+ *   - Surfaces are flat. A panel is a 1px line and a tone step, never a  *
+ *     shadow.                                                            *
+ *   - No hero heading. The page title is 20-24px; the largest thing on   *
+ *     the screen is the figure that answers its question.                *
+ *   - A finished item is plain text, not a coloured tag, and an item     *
+ *     that is not due yet is grey with no background — the GOV.UK task   *
+ *     list rule, which keeps the colour budget for what is blocked.      *
+ * ====================================================================== */
+
+.sp {
+  --sp-canvas: #f6f7f9;
+  --sp-panel: #ffffff;
+  --sp-line: #e2e6ed;
+  --sp-line-soft: #eef0f4;
+  --sp-ink: #0f1a2e;
+  --sp-mute: #5b6676;
+  --sp-faint: #67707e;
+
+  /* status pairs — dark text on its own pale tint */
+  --sp-ok: #04250e;
+  --sp-ok-bg: #dcfae5;
+  --sp-info: #16366b;
+  --sp-info-bg: #e4edfb;
+  --sp-warn: #5c3d00;
+  --sp-warn-bg: #fdf0d5;
+  --sp-bad: #831c1e;
+  --sp-bad-bg: #ffedea;
+
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--sp-canvas);
+  color: var(--sp-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sp *:focus-visible {
+  outline: 2px solid #15466b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- shell ------------------------------------------------------------ */
+.sp-shell {
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  /* The sidebar is sticky and one viewport tall, so on a long page its
+   * grid cell runs past it. Painting the shell white and the canvas on
+   * the main column keeps the rail white all the way down. */
+  background: var(--sp-panel);
+}
+
+.sp-side {
+  background: var(--sp-panel);
+  border-right: 1px solid var(--sp-line);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+}
+
+/* The product is named: mark, name, and the scope under it. A screen
+ * whose product cannot be named from a screenshot reads as a template. */
+.sp-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid var(--sp-line-soft);
+}
+.sp-brand img {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+.sp-brand-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+.sp-brand-scope {
+  display: block;
+  font-size: 12px;
+  color: var(--sp-faint);
+  line-height: 1.3;
+}
+
+.sp-nav {
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sp-nav-group {
+  font-size: 12px;
+  color: var(--sp-faint);
+  padding: 14px 8px 6px;
+}
+.sp-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--sp-mute);
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+.sp-nav-item:hover {
+  background: #f1f3f6;
+  color: var(--sp-ink);
+}
+/* the active item: a neutral pill, the label unchanged — not a brand fill */
+.sp-nav-item[aria-current="page"] {
+  background: #ebedf1;
+  color: var(--sp-ink);
+  font-weight: 500;
+}
+.sp-nav-item svg {
+  flex: none;
+  color: var(--sp-faint);
+}
+.sp-nav-item[aria-current="page"] svg {
+  color: var(--sp-ink);
+}
+/* a count appears only on a queue that needs action */
+.sp-nav-count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sp-warn-bg);
+  color: var(--sp-warn);
+}
+
+.sp-side-foot {
+  margin-top: auto;
+  padding: 10px 8px 14px;
+  border-top: 1px solid var(--sp-line-soft);
+}
+.sp-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+.sp-avatar {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e8eefb;
+  color: #16366b;
+}
+
+/* --- canvas ----------------------------------------------------------- */
+.sp-main {
+  min-width: 0;
+  background: var(--sp-canvas);
+  padding: 22px clamp(16px, 2.4vw, 32px) 56px;
+}
+.sp-wrap {
+  max-width: 1100px;
+}
+.sp-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.sp-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.sp-sub {
+  font-size: 14px;
+  color: var(--sp-mute);
+  margin-top: 3px;
+}
+
+/* --- panels: a line and a tone step, never a lifted plane ------------- */
+.sp-panel {
+  background: var(--sp-panel);
+  border: 1px solid var(--sp-line);
+  border-radius: 10px;
+}
+.sp-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--sp-line-soft);
+}
+.sp-panel-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.sp-panel-body {
+  padding: 16px;
+}
+
+.sp-grid {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 1024px) {
+  .sp-grid-2 {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* --- the figure that answers the screen's question -------------------- */
+.sp-lead-figure {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+.sp-lead-unit {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--sp-mute);
+  letter-spacing: 0;
+}
+.sp-kpi-label {
+  font-size: 13px;
+  color: var(--sp-mute);
+}
+.sp-kpi-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+/* one container split by hairlines, not four floating tiles */
+.sp-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.sp-kpis > * {
+  padding: 14px 16px;
+  border-right: 1px solid var(--sp-line-soft);
+}
+.sp-kpis > *:last-child {
+  border-right: 0;
+}
+
+/* --- the unit strip: one block per document in the visa file ---------- *
+ *  The product's own element. Every square is a real document, so the    *
+ *  strip says at a glance how much of the file is ready and exactly how  *
+ *  many items are blocked — which a percentage never does.               */
+.sp-units {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.sp-unit {
+  width: 26px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--sp-line);
+}
+.sp-unit-accepted {
+  background: #2f6f4e;
+}
+.sp-unit-review {
+  background: #3f6ea8;
+}
+.sp-unit-needed {
+  background: #8a6400;
+}
+.sp-unit-rejected {
+  background: #b4453f;
+}
+
+/* --- status tags ------------------------------------------------------ */
+.sp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  white-space: nowrap;
+  height: 21px;
+  padding: 0 8px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.sp-tag-info {
+  background: var(--sp-info-bg);
+  color: var(--sp-info);
+}
+.sp-tag-warn {
+  background: var(--sp-warn-bg);
+  color: var(--sp-warn);
+}
+.sp-tag-bad {
+  background: var(--sp-bad-bg);
+  color: var(--sp-bad);
+}
+/* finished: plain text, no background — it is the commonest state and
+ * does not need to shout */
+.sp-tag-plain {
+  padding: 0;
+  color: var(--sp-ink);
+}
+.sp-tag-plain::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2f6f4e;
+}
+/* not due yet: grey, no background, and its row is not actionable */
+.sp-tag-mute {
+  padding: 0;
+  color: var(--sp-faint);
+}
+
+/* --- rows ------------------------------------------------------------- */
+.sp-rows {
+  display: flex;
+  flex-direction: column;
+}
+.sp-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--sp-line-soft);
+}
+.sp-row:last-child {
+  border-bottom: 0;
+}
+.sp-row-main {
+  min-width: 0;
+  flex: 1 1 15rem;
+}
+.sp-row-name {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.sp-row-meta {
+  display: block;
+  font-size: 13px;
+  color: var(--sp-faint);
+  margin-top: 2px;
+}
+.sp-row-note {
+  display: block;
+  font-size: 13px;
+  color: var(--sp-mute);
+  margin-top: 5px;
+  max-width: 68ch;
+}
+.sp-row-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding-top: 1px;
+}
+
+/* --- stages ----------------------------------------------------------- */
+.sp-stages {
+  display: flex;
+  flex-direction: column;
+}
+.sp-stage {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  padding-bottom: 16px;
+  position: relative;
+}
+.sp-stage:last-child {
+  padding-bottom: 0;
+}
+/* the thread between the marks */
+.sp-stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  bottom: 2px;
+  width: 2px;
+  background: var(--sp-line);
+}
+.sp-stage-mark {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--sp-panel);
+  border: 2px solid var(--sp-line);
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+}
+.sp-stage-done .sp-stage-mark {
+  background: #2f6f4e;
+  border-color: #2f6f4e;
+  color: #fff;
+}
+.sp-stage-now .sp-stage-mark {
+  border-color: #15466b;
+  box-shadow: inset 0 0 0 3px #15466b; /* taste-skill-ignore: an inset ring drawing the mark itself, not a drop shadow */
+}
+.sp-stage-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.sp-stage-todo .sp-stage-name {
+  color: var(--sp-faint);
+  font-weight: 400;
+}
+.sp-stage-when {
+  font-size: 13px;
+  color: var(--sp-faint);
+}
+.sp-stage-note {
+  display: block;
+  font-size: 13px;
+  color: var(--sp-mute);
+  margin-top: 4px;
+  max-width: 62ch;
+}
+
+/* --- the finding: the one line that needs attention ------------------- */
+.sp-finding {
+  display: flex;
+  gap: 11px;
+  padding: 13px 16px;
+  border: 1px solid #f0dcb4;
+  background: #fffaf0;
+  border-radius: 10px;
+}
+.sp-finding svg {
+  flex: none;
+  color: #8a6400;
+  margin-top: 1px;
+}
+.sp-finding-text {
+  font-size: 14px;
+  color: #4a3a12;
+  max-width: 76ch;
+}
+
+/* --- controls --------------------------------------------------------- */
+.sp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--sp-line);
+  background: var(--sp-panel);
+  color: var(--sp-ink);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
+}
+.sp-btn:hover {
+  background: #f3f5f8;
+  border-color: #cfd5de;
+}
+.sp-btn-primary {
+  background: #15466b;
+  border-color: #15466b;
+  color: #fff;
+}
+.sp-btn-primary:hover {
+  background: #0f3755;
+  border-color: #0f3755;
+}
+.sp-btn-sm {
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: 13px;
+}
+.sp-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.sp-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.sp-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid #cfd5de;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--sp-ink);
+  font-family: inherit;
+  font-size: 15px;
+}
+.sp-input::placeholder {
+  color: var(--sp-faint);
+}
+.sp-input:focus {
+  border-color: #15466b;
+}
+textarea.sp-input {
+  min-height: 86px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.sp-err {
+  font-size: 13px;
+  color: var(--sp-bad);
+  margin-top: 6px;
+}
+.sp-hint {
+  font-size: 13px;
+  color: var(--sp-mute);
+  margin-top: 6px;
+}
+
+/* --- messages --------------------------------------------------------- */
+.sp-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  /* The thread scrolls inside itself, so arriving at the newest message
+   * does not drag the page title and the composer off the screen. */
+  max-height: min(58vh, 34rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.sp-msg {
+  max-width: 70ch;
+}
+.sp-msg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.sp-msg-who {
+  font-size: 13px;
+  font-weight: 600;
+}
+.sp-msg-at {
+  font-size: 12px;
+  color: var(--sp-faint);
+}
+.sp-msg-body {
+  font-size: 14px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: #f1f3f6;
+  border: 1px solid var(--sp-line-soft);
+}
+.sp-msg-student {
+  margin-left: auto;
+}
+.sp-msg-student .sp-msg-head {
+  justify-content: flex-end;
+}
+.sp-msg-student .sp-msg-body {
+  background: #e8eefb;
+  border-color: #d6e0f4;
+}
+
+/* --- the notice that this is sample data ------------------------------ */
+.sp-demo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border: 1px solid #d7deea;
+  background: #eef2f8;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #2b3b55;
+}
+.sp-demo svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* --- sign-in ---------------------------------------------------------- */
+.sp-auth {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .sp-auth {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.sp-auth-pitch {
+  background: var(--color-ink-field);
+  color: #fff;
+  padding: clamp(28px, 5vw, 60px);
+  display: flex;
+  flex-direction: column;
+  /* Grouped in the middle rather than pushed to the corners: spreading
+   * three short blocks over a 900px column left two 200px voids inside
+   * the panel. The air belongs at the edges, not between the lines. */
+  justify-content: center;
+  gap: 36px;
+}
+.sp-auth-form {
+  background: #fff;
+  padding: clamp(28px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-auth-card {
+  width: 100%;
+  max-width: 25rem;
+}
+
+/* --- phone ------------------------------------------------------------ */
+@media (max-width: 899px) {
+  .sp-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sp-side {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--sp-line);
+  }
+  .sp-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px;
+    gap: 4px;
+    scrollbar-width: none;
+  }
+  .sp-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .sp-nav-item {
+    white-space: nowrap;
+    min-height: 38px;
+  }
+  .sp-nav-group {
+    display: none;
+  }
+  .sp-side-foot {
+    border-top: 0;
+    padding: 0 8px 8px;
+  }
+  .sp-row {
+    flex-wrap: wrap;
+  }
+}

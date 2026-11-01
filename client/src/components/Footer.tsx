@@ -20,6 +20,15 @@ const PAGES: [string, string][] = [
   ["Success stories", "/success-stories"],
 ];
 
+const LEGAL: [string, string][] = [
+  ["Privacy", "/privacy"],
+  ["Terms", "/terms"],
+  ["Refunds", "/refunds"],
+  ["Complaints", "/complaints"],
+  ["Cookies", "/cookies"],
+  ["Data processing", "/data-processing"],
+];
+
 const PROGRAMMES: [string, string][] = [
   ["Destinations", "/destinations"],
   ["IELTS training", "/ielts"],
@@ -31,6 +40,13 @@ export default function Footer() {
   const { open: openConsultation } = useConsultation();
   const g = content.global;
   const f = content.footer;
+  const legal = (content as Record<string, unknown>).legal as
+    | {
+        tradeLicence?: string;
+        binNumber?: string;
+        dataContact?: { name?: string; email?: string };
+      }
+    | undefined;
 
   /* Every social handle in the CMS is still "#". A link to "#" jumps the
    * page to the top and looks broken, so an unset one is not rendered. */
@@ -227,6 +243,56 @@ export default function Footer() {
             </p>
           </details>
 
+          <nav
+            aria-label="Legal"
+            className="mb-6 flex flex-wrap gap-x-5 gap-y-2"
+          >
+            {LEGAL.map(([label, href]) => (
+              <Link key={href} href={href} className="lp-link lp-small">
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Who to write to about data, and the numbers that say this is a
+              real registered business. Both are required reading for a
+              partner university's due diligence team. */}
+          <div className="mb-5 grid gap-3 sm:grid-cols-2">
+            <p className="lp-small lp-soft">
+              <span className="lp-gold">Data contact</span>
+              <br />
+              {legal?.dataContact?.name ? (
+                <Placeholder text={legal.dataContact.name} />
+              ) : (
+                "Not yet named"
+              )}
+              {legal?.dataContact?.email && (
+                <>
+                  {" · "}
+                  <a
+                    href={`mailto:${legal.dataContact.email}`}
+                    className="lp-link"
+                  >
+                    {legal.dataContact.email}
+                  </a>
+                </>
+              )}
+            </p>
+            <p className="lp-small lp-soft sm:text-right">
+              <span className="lp-gold">Registered in Bangladesh</span>
+              <br />
+              Trade licence{" "}
+              <Placeholder
+                text={legal?.tradeLicence ?? "[TRADE LICENCE NUMBER]"}
+              />
+              {legal?.binNumber && (
+                <>
+                  {" · "}BIN <Placeholder text={legal.binNumber} />
+                </>
+              )}
+            </p>
+          </div>
+
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="lp-small lp-soft">{f.copyrightText}</p>
             <p className="lp-small lp-soft">
@@ -238,4 +304,17 @@ export default function Footer() {
       </div>
     </footer>
   );
+}
+
+/** A fact the client still has to supply. Marked so it cannot go live
+ *  unnoticed, and so a reviewer can find every one of them at a glance. */
+function Placeholder({ text }: { text: string }) {
+  if (/^\[[A-Z0-9 /.-]+\]$/.test(text)) {
+    return (
+      <mark className="lp-todo" title="To be supplied before publication">
+        {text}
+      </mark>
+    );
+  }
+  return <>{text}</>;
 }

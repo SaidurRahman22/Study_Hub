@@ -31,9 +31,21 @@ export default function Header() {
    * reference site does it. It is NOT an overlay: the header is a sibling
    * above the hero, so leaving it transparent put white type on the white
    * page rather than on the navy. */
+  /* Pages that open on the navy field. The header is a sibling above the
+   * hero rather than an overlay, so it has to be told to go navy too, or
+   * its ink type lands on white above a navy block. */
+  const DARK_PAGES = [
+    "/about",
+    "/privacy",
+    "/terms",
+    "/refunds",
+    "/complaints",
+    "/cookies",
+    "/data-processing",
+  ];
   const onDark =
     location === "/" ||
-    location === "/about" ||
+    DARK_PAGES.includes(location) ||
     location.startsWith("/destinations");
 
   useEffect(() => {

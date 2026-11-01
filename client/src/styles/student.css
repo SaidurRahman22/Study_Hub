@@ -223,6 +223,12 @@
 }
 
 .sp-title-row {
+  /* The panel hangs off this row. Every card below it carries the rise
+   * animation, and an animated transform makes its own stacking context,
+   * so those later siblings painted over the panel no matter what
+   * z-index it asked for. Lifting the whole row settles the order. */
+  position: relative;
+  z-index: 30;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -1081,6 +1087,203 @@ textarea.sp-input {
   text-align: center;
   font-variant-numeric: tabular-nums;
   border: 2px solid var(--sp-canvas);
+}
+
+/* --- the notification panel ------------------------------------------- */
+.sp-bellwrap {
+  position: relative;
+  flex: none;
+}
+
+/* An overlay, so this one may carry a shadow. */
+.sp-pop {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 50;
+  width: min(23.5rem, calc(100vw - 2rem));
+  background: var(--sp-panel);
+  border: 1px solid var(--sp-line);
+  border-radius: 16px;
+  box-shadow: 0 24px 56px -28px rgba(15, 26, 46, 0.5); /* taste-skill-ignore: a real overlay, not a surface at rest */
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sp-pop {
+    animation: sp-pop-in 160ms var(--sp-ease) both;
+  }
+  @keyframes sp-pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.sp-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px 12px;
+}
+.sp-pop-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.sp-pop-mark {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--sp-mute);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 160ms var(--sp-ease);
+}
+.sp-pop-mark:hover:not(:disabled) {
+  color: var(--sp-ink);
+}
+.sp-pop-mark:disabled {
+  opacity: 0.45;
+  cursor: default;
+  text-decoration: none;
+}
+
+/* the two pills, on their own track */
+.sp-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 18px 10px;
+  padding: 4px;
+  background: #f1f3f6;
+  border-radius: 999px;
+}
+.sp-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--sp-mute);
+  cursor: pointer;
+  transition:
+    background-color 180ms var(--sp-ease),
+    color 180ms var(--sp-ease);
+}
+.sp-tab:hover[aria-selected="false"] {
+  color: var(--sp-ink);
+}
+.sp-tab[aria-selected="true"] {
+  background: var(--sp-navy);
+  color: #fff;
+}
+.sp-tab-n {
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sp-gold);
+  color: var(--sp-navy);
+}
+
+.sp-pop-list {
+  max-height: min(23rem, 54vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.sp-pop-empty {
+  padding: 24px 18px 28px;
+  font-size: 13.5px;
+  color: var(--sp-mute);
+  text-align: center;
+}
+
+.sp-pop-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 160ms var(--sp-ease);
+}
+a.sp-pop-item:hover {
+  background: #f7f9fc;
+}
+.sp-pop-main {
+  min-width: 0;
+  flex: 1;
+}
+.sp-pop-t {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.sp-pop-b {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sp-mute);
+  margin-top: 2px;
+}
+.sp-pop-m {
+  display: block;
+  font-size: 12.5px;
+  color: var(--sp-faint);
+  margin-top: 4px;
+}
+
+.sp-pop-foot {
+  padding: 12px 18px 14px;
+  text-align: center;
+  border-top: 1px solid var(--sp-line-soft);
+}
+.sp-pop-all {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--sp-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sp-pop-all:hover {
+  color: var(--sp-navy);
+}
+
+/* On a phone the panel spans the canvas rather than hanging off the
+ * button, which would push it past the right edge. */
+@media (max-width: 520px) {
+  .sp-pop {
+    position: fixed;
+    top: auto;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+  }
 }
 
 /* --- notification rows ------------------------------------------------ */

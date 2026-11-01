@@ -1145,3 +1145,240 @@ textarea.cd-input {
   .lp-card-more {
   color: var(--color-golden);
 }
+
+/* ====================================================================== *
+ *  LEGAL DOCUMENTS AND THE COOKIE BANNER                                 *
+ *                                                                        *
+ *  Long-form reading rather than a sales page: one column at a real      *
+ *  measure, a contents list that follows on desktop, numbered headings   *
+ *  so a reader can cite a clause, and tables that stay tables.           *
+ * ====================================================================== */
+
+/* --- contents --------------------------------------------------------- */
+.lp-toc {
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .lp-toc {
+    position: sticky;
+    top: 7rem;
+    max-height: calc(100svh - 10rem);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+}
+.lp-toc-link {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--color-ink-soft);
+  text-decoration: none;
+  padding: 0.3rem 0;
+  transition: color 160ms ease;
+}
+.lp-toc-link:hover {
+  color: var(--color-ink);
+}
+.lp-toc-link[aria-current="true"] {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.lp-toc-n {
+  flex: none;
+  min-width: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-gold-deep);
+  font-weight: 600;
+}
+
+/* --- the document ----------------------------------------------------- */
+/* The measure belongs to the running text, not to the whole column.
+ * Capping the container left a void down the right of the page and
+ * squeezed the retention tables into half the room they needed. */
+.lp-doc {
+  max-width: none;
+}
+.lp-doc-p,
+.lp-doc-list li {
+  max-width: 68ch;
+}
+.lp-doc-section {
+  padding-bottom: 2.5rem;
+}
+.lp-doc-section:last-child {
+  padding-bottom: 0;
+}
+.lp-doc-h {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  scroll-margin-top: 7rem;
+  margin-bottom: 0.9rem;
+}
+.lp-doc-n {
+  flex: none;
+  min-width: 1.6rem;
+  font-size: var(--text-small);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-gold-deep);
+  font-weight: 600;
+}
+.lp-doc-p {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.9rem;
+  max-width: 68ch;
+}
+.lp-doc-p:last-child {
+  margin-bottom: 0;
+}
+.lp-doc-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.2rem 0 1rem;
+}
+.lp-doc-list li {
+  display: flex;
+  gap: 0.75rem;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  color: var(--color-ink-soft);
+}
+
+/* --- tables ----------------------------------------------------------- */
+.lp-table-wrap {
+  overflow-x: auto;
+  margin: 0.4rem 0 1.2rem;
+  border-radius: 12px;
+  background: var(--color-ground-2);
+}
+.lp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+  line-height: 1.55;
+}
+.lp-table th,
+.lp-table td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+}
+.lp-table th {
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+.lp-table tbody tr {
+  border-top: 1px solid var(--color-ground-3); /* taste-skill-ignore: a table rule, which is what separates rows in a table */
+}
+.lp-table td {
+  color: var(--color-ink-soft);
+}
+
+/* --- a fact the client still has to supply ---------------------------- */
+.lp-todo {
+  background: #fdf0d5;
+  color: #5c3d00;
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.94em;
+  white-space: nowrap;
+}
+
+/* --- the cookie banner ------------------------------------------------ */
+.lp-cookie {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--color-ink-field);
+  color: #fff;
+  box-shadow: 0 -12px 40px -24px rgba(0, 0, 0, 0.8); /* taste-skill-ignore: a fixed bar over the page, not a surface at rest */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lp-cookie {
+    animation: lp-cookie-in 320ms var(--ease-out) both;
+  }
+  @keyframes lp-cookie-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+}
+.lp-cookie-inner {
+  width: 100%;
+  max-width: 82rem;
+  margin-inline: auto;
+  padding: 0.9rem var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.lp-cookie-mark {
+  flex: none;
+  color: var(--color-golden);
+}
+.lp-cookie-text {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+.lp-cookie-text p {
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: #c9d3e2;
+  max-width: 76ch;
+}
+.lp-cookie-text .lp-link {
+  color: #fff;
+  font-weight: 500;
+}
+.lp-cookie-actions {
+  flex: none;
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.lp-cookie-actions .lp-btn {
+  padding: 0.6rem 1.1rem;
+  min-height: 42px;
+  font-size: var(--text-small);
+}
+
+/* --- print ------------------------------------------------------------ */
+@media print {
+  .lp-cookie,
+  .lp-toc,
+  .lp-progress {
+    display: none !important;
+  }
+  .lp-field-ink {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .lp-doc {
+    max-width: none;
+  }
+  .lp-doc-p,
+  .lp-doc-list li,
+  .lp-table td {
+    color: #000;
+  }
+  .lp-doc-section {
+    break-inside: avoid;
+  }
+}

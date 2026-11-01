@@ -727,5 +727,1118 @@
   "footer": {
     "about": "Your trusted partner for international education and language learning.",
     "copyrightText": "© 2024 Study Hub BD. All rights reserved."
+  },
+  "legal": {
+    "lastUpdated": "1 November 2026",
+    "tradeLicence": "[TRADE LICENCE NUMBER]",
+    "binNumber": "[BIN/TIN NUMBER]",
+    "dataContact": {
+      "name": "Amirul Islam",
+      "role": "[DATA CONTACT JOB TITLE]",
+      "email": "studyhubbd2023@gmail.com",
+      "phone": "01623-935872"
+    },
+    "documents": {
+      "privacy": {
+        "title": "Privacy Policy",
+        "summary": "This explains what Study Hub BD does with your personal information. The website collects almost nothing. The office collects a great deal, because a visa file needs it.",
+        "sections": [
+          {
+            "id": "who-we-are",
+            "heading": "Who we are",
+            "body": [
+              "Study Hub BD is a study abroad consultancy based in Tangail, Bangladesh. We decide how your personal information is used when you deal with us, so in the language of data protection law we are the controller of that information.",
+              "If you want to ask anything about this policy, or about the information we hold on you, contact our data contact."
+            ],
+            "list": [
+              "Address: GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh",
+              "Phone: 01623-935872 and 01613-160021",
+              "Email: studyhubbd2023@gmail.com",
+              "Website: studyhubbd.com",
+              "Trade licence number: [TRADE LICENCE NUMBER]",
+              "BIN/TIN: [BIN/TIN NUMBER]",
+              "Company registration number: [COMPANY REGISTRATION NUMBER]",
+              "Data contact: Amirul Islam, [DATA CONTACT JOB TITLE], studyhubbd2023@gmail.com",
+              "First published: [DATE OF FIRST PUBLICATION]"
+            ]
+          },
+          {
+            "id": "two-different-things",
+            "heading": "Two different things, kept separate in this policy",
+            "body": [
+              "There are two places your information reaches us, and they are very different in size.",
+              "The website collects almost nothing. There is no analytics, no tracking and no advertising on it. The office is the opposite. To apply to a university and file a visa we handle your passport, your certificates, your bank statements and more. Read both parts below."
+            ]
+          },
+          {
+            "id": "what-the-website-collects",
+            "heading": "What the website collects",
+            "body": [
+              "The website does not use Google Analytics or any other analytics tool. There is no tracking pixel, no advertising tag and no third party script of any kind. We do not build a profile of you and we do not know who is reading the site.",
+              "Two small things are saved inside your own browser, in what is called local storage. One is a flag that remembers you are signed in to the student portal. The other is your light or dark theme choice. Both are needed for the site to work. Neither is sent to us. Neither is used to track you. You can clear both at any time in your browser settings.",
+              "When you tap a button to ask for a consultation, the site opens your own WhatsApp or your own email app with a message ready to send. Nothing is submitted through the website itself. Your message reaches us only when you press send, and it then sits in our WhatsApp account or our inbox."
+            ]
+          },
+          {
+            "id": "the-student-portal",
+            "heading": "The student portal",
+            "body": [
+              "The student portal on the website is a prototype. It shows sample data so you can see how the finished portal will work.",
+              "Nothing you do in it is stored on a server. If you use its upload screen, the file is not sent anywhere and is not saved by us. Do not treat the prototype portal as a safe place to put a document. Send documents to us the way you normally do, or bring them to the office.",
+              "When the portal becomes a real service that stores your data, we will update this policy before it goes live."
+            ]
+          },
+          {
+            "id": "hosting",
+            "heading": "Where the website itself lives",
+            "body": [
+              "The website and the file that holds its text are stored on third party infrastructure: GitHub, and the hosting provider the site is published through. Those providers keep ordinary server logs, which can include the internet address a request came from, for their own security and reliability.",
+              "We do not read those logs to identify visitors and we do not combine them with anything else. We will tell you the name of our hosting provider if you ask."
+            ]
+          },
+          {
+            "id": "what-the-office-collects",
+            "heading": "What we collect in the office, on WhatsApp and by email",
+            "body": [
+              "This is the large part. A university application and a student visa file need real documents, and we handle them for you.",
+              "Depending on the country and the stage you reach, we may handle:"
+            ],
+            "list": [
+              "Your name, date of birth, address, phone number and email",
+              "Your passport and passport copies",
+              "Academic transcripts and certificates",
+              "IELTS or other test score reports",
+              "Your statement of purpose, motivation letters and CV",
+              "Bank statements and other proof of funds",
+              "Sponsor affidavits, sponsor income papers and sponsor NID copies",
+              "Your own NID or birth certificate",
+              "Photographs",
+              "Medical and TB certificates",
+              "Police clearance certificates",
+              "Visa application forms, appointment details and decision letters",
+              "Notes of our counselling sessions with you, and our messages with you",
+              "Enrolment, attendance and results for IELTS, Spoken English or Japanese classes with us",
+              "Records of what you paid and when"
+            ]
+          },
+          {
+            "id": "why-we-use-it",
+            "heading": "Why we use it, and what allows us to",
+            "body": [
+              "We only use your information for the work you asked us to do. Here is each purpose and the ground we rely on."
+            ],
+            "table": {
+              "columns": [
+                "What we do",
+                "What we use",
+                "What allows us to"
+              ],
+              "rows": [
+                [
+                  "Answer your enquiry and book a consultation",
+                  "Your name, phone, email and what you want to study",
+                  "Your consent, and the steps you ask us to take before we agree to work together"
+                ],
+                [
+                  "Counsel you on course and country",
+                  "Academic history, test scores, budget and the family details you choose to share",
+                  "Our contract with you"
+                ],
+                [
+                  "Prepare and submit university applications",
+                  "Passport, transcripts, certificates, test reports, statement of purpose",
+                  "Our contract with you"
+                ],
+                [
+                  "Write or edit your statement of purpose and motivation letters",
+                  "Your academic and personal history",
+                  "Our contract with you"
+                ],
+                [
+                  "Prepare bank and financial documents",
+                  "Bank statements, sponsor affidavits, sponsor income papers, sponsor NID copies",
+                  "Our contract with you"
+                ],
+                [
+                  "File your student visa application",
+                  "Everything above, plus photographs, forms, medical or TB certificate and police clearance",
+                  "Our contract with you, and your explicit consent for health and police records"
+                ],
+                [
+                  "Run IELTS, Spoken English and Japanese classes",
+                  "Enrolment details, attendance and class results",
+                  "Our contract with you"
+                ],
+                [
+                  "Guide you on scholarships",
+                  "Academic record and financial information",
+                  "Our contract with you"
+                ],
+                [
+                  "Keep records of the work we did and the money you paid",
+                  "Your file and your payment record",
+                  "Our legal duty to keep business and tax records, and our need to answer a complaint or defend a claim"
+                ],
+                [
+                  "Keep the website working",
+                  "A theme preference and a portal sign-in flag held inside your own browser",
+                  "These are strictly necessary for the site you asked for, so no separate consent is needed"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "sensitive-documents",
+            "heading": "Medical certificates and police clearance",
+            "body": [
+              "Health records and criminal record checks are the most sensitive documents we touch, so we treat them differently from the rest of your file.",
+              "We ask for them only when an embassy or a university requires them, and only at the stage they are required. We ask for your explicit consent in writing before we handle them. You can refuse, but we will then not be able to complete a visa file that requires them.",
+              "We keep them apart from the rest of your papers, we do not copy them more than we must, and we destroy them 12 months after your visa decision. We never share them with anyone except the embassy, the visa application centre or the university that required them."
+            ]
+          },
+          {
+            "id": "sponsors-and-family",
+            "heading": "Information about your sponsor and your family",
+            "body": [
+              "Your file usually contains information about someone else: a parent, a sponsor, a guarantor. Their NID, their income, their bank account.",
+              "If you give us someone else's documents, please tell them that we hold a copy, why we hold it, and that they can contact us about it. We handle their information under this same policy and for the same length of time as your file."
+            ]
+          },
+          {
+            "id": "who-we-share-with",
+            "heading": "Who we share it with",
+            "body": [
+              "We share only what a particular organisation needs, and only to move your case forward. We do not sell your data. We do not give your contact details to anyone for marketing."
+            ],
+            "list": [
+              "The universities and colleges you apply to, in the United Kingdom, Canada, Australia, Italy, Malta, South Korea, Japan, Cyprus, Russia and Denmark, and their admissions and verification teams",
+              "Embassies, high commissions and the visa application centres they appoint",
+              "Courier companies, when a physical document has to travel",
+              "Our email provider and our messaging channels, because that is how documents reach you and us",
+              "GitHub and our hosting provider, which hold the website itself and not your file",
+              "A government body, a regulator or a court, if the law requires us to hand something over"
+            ]
+          },
+          {
+            "id": "your-data-leaving-bangladesh",
+            "heading": "Your information leaving Bangladesh",
+            "body": [
+              "If you apply abroad, your information has to go abroad. That is the service. When you ask us to apply to a university in the United Kingdom, Canada, Australia, Italy, Malta, South Korea, Japan, Cyprus, Russia or Denmark, your application goes to that country.",
+              "We send only what the university or the embassy asks for. Once it arrives, that university or that embassy decides what happens to it under its own rules and its own country's law. We cannot control that part, and we will tell you so honestly rather than promise otherwise.",
+              "Where a university in the United Kingdom or the European Economic Area asks us to sign a formal transfer agreement before data flows back to us, we are ready to do so."
+            ]
+          },
+          {
+            "id": "how-long-we-keep-it",
+            "heading": "How long we keep it",
+            "body": [
+              "We do not keep things forever. Your file closes when the last service you paid for is finished, or when you tell us to stop. The clock starts then."
+            ],
+            "table": {
+              "columns": [
+                "What we hold",
+                "How long we keep it",
+                "What happens then"
+              ],
+              "rows": [
+                [
+                  "Enquiries that never become a case",
+                  "24 months from your last message",
+                  "Deleted"
+                ],
+                [
+                  "Your student file: counselling notes, application copies, our messages with you",
+                  "6 years from the date the file closes",
+                  "Paper shredded, digital copies deleted"
+                ],
+                [
+                  "Copies of passport, transcripts, certificates and test reports",
+                  "6 years from the date the file closes",
+                  "Paper shredded, digital copies deleted"
+                ],
+                [
+                  "Bank statements, sponsor affidavits, sponsor NID copies",
+                  "6 years from the date the file closes",
+                  "Paper shredded, digital copies deleted"
+                ],
+                [
+                  "Medical and TB certificates, police clearance certificates",
+                  "12 months after your visa decision",
+                  "Paper shredded, digital copies deleted"
+                ],
+                [
+                  "Original documents you handed us",
+                  "Returned to you within 30 days of the file closing",
+                  "We keep no originals, only copies"
+                ],
+                [
+                  "Payment and fee records",
+                  "6 years from the date of payment",
+                  "Kept longer only if tax law requires it"
+                ],
+                [
+                  "IELTS, Spoken English and Japanese course records",
+                  "3 years from the end of your course",
+                  "Deleted"
+                ],
+                [
+                  "Anything you typed into the student portal prototype",
+                  "Not stored at all",
+                  "There is nothing to delete"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "how-we-protect-it",
+            "heading": "How we protect it",
+            "body": [
+              "We describe the measures we take. We do not promise that nothing can ever go wrong, because no honest organisation can promise that.",
+              "Paper files are kept in a locked cabinet at the Tangail office, and only the counsellors working on your case open it. Digital copies sit in accounts protected by passwords and two step verification. Office devices are password locked. Staff are told not to move student documents through personal accounts and not to open student files on shared or cyber cafe computers. When a member of staff leaves, their access is removed.",
+              "If something does go wrong and your information is exposed, we will tell you what happened, what was involved and what to do about it, as soon as we can."
+            ]
+          },
+          {
+            "id": "your-rights",
+            "heading": "Your rights",
+            "body": [
+              "These are yours, free of charge. Ask our data contact and we will answer as quickly as we reasonably can."
+            ],
+            "list": [
+              "Ask what we hold about you and get a copy",
+              "Ask us to correct anything that is wrong",
+              "Ask us to delete what we no longer need",
+              "Withdraw a consent you gave, including consent for health and police records, at any time",
+              "Ask us to stop using your details to contact you about our services",
+              "Complain to us, and complain to a regulator if our answer does not satisfy you"
+            ]
+          },
+          {
+            "id": "limits-on-those-rights",
+            "heading": "When we cannot do what you ask",
+            "body": [
+              "Sometimes we have to say no, and we will explain why in writing.",
+              "We cannot delete a file we still need in order to defend a complaint or to meet a tax or record keeping duty. We cannot pull a document back once a university or an embassy has it, because it is theirs now and you would need to ask them. We cannot act on a request if we cannot satisfy ourselves that it really came from you."
+            ]
+          },
+          {
+            "id": "the-law-behind-this",
+            "heading": "The law behind this policy",
+            "body": [
+              "Bangladesh now has a dedicated data protection law, referred to in this policy as Bangladesh's Personal Data Protection Act. We follow its principles: collect only what is needed, say why, keep it safe, keep it no longer than necessary, and let people see and correct their own information.",
+              "Reporting on the exact short title and commencement date of that law is not consistent across sources, and some parts of it were deferred. Before this policy is published, the citation should be confirmed against the official gazette and corrected here if needed.",
+              "Because we place students at universities in the United Kingdom and the European Economic Area, UK and EU data protection law also applies to that part of the flow, through the universities themselves. We describe the measures we take to meet what those universities ask of us. We do not claim to be certified or approved under any of those laws. No such certification exists."
+            ]
+          },
+          {
+            "id": "complaining-about-privacy",
+            "heading": "If you are unhappy with how we handled your information",
+            "body": [
+              "Tell our data contact first. We would rather fix it ourselves, and we will treat it under our Complaints Procedure.",
+              "If our answer does not satisfy you, you can take it to the data protection authority established under Bangladesh's Personal Data Protection Act. If your complaint is about what a university abroad did with your application, you can also raise it with that university's own data protection officer and with the data protection regulator in the country where it is based."
+            ]
+          },
+          {
+            "id": "changes",
+            "heading": "Changes to this policy",
+            "body": [
+              "We review this policy once a year and whenever our service or our website changes.",
+              "If we change anything important, we will say so on the website and date the new version. The student portal going live with real storage would be one of those changes."
+            ]
+          }
+        ]
+      },
+      "terms": {
+        "title": "Terms of Service",
+        "summary": "What Study Hub BD will do for you, what you must do for us, and what nobody can promise you. Read the part about admission and visa decisions carefully.",
+        "sections": [
+          {
+            "id": "who-these-terms-are-between",
+            "heading": "Who these terms are between",
+            "body": [
+              "These terms are between you, the student, and Study Hub BD of GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh. Trade licence number [TRADE LICENCE NUMBER]. Company registration number [COMPANY REGISTRATION NUMBER]. BIN/TIN [BIN/TIN NUMBER].",
+              "They apply from the moment you accept our service agreement or pay us anything, whichever comes first. If you are under 18, a parent or guardian must agree to them with you.",
+              "First published: [DATE OF FIRST PUBLICATION]."
+            ]
+          },
+          {
+            "id": "what-we-do",
+            "heading": "What we do",
+            "body": [
+              "We guide students from Bangladesh to universities in ten countries: the United Kingdom, Canada, Australia, Italy, Malta, South Korea, Japan, Cyprus, Russia and Denmark.",
+              "The service you buy is written in your service agreement. It will be some or all of the following."
+            ],
+            "list": [
+              "Counselling on which course and which country suit you",
+              "Shortlisting universities and preparing and submitting applications",
+              "Helping you write your statement of purpose and motivation letters",
+              "IELTS, Spoken English and Japanese language training, taught in-house",
+              "Preparing and filing your student visa application",
+              "Preparing bank and financial documents for the application",
+              "Guidance on scholarships you may be eligible for"
+            ]
+          },
+          {
+            "id": "what-we-do-not-promise",
+            "heading": "What nobody can promise you",
+            "body": [
+              "Read this twice. The university decides who it admits. The embassy or high commission decides who gets a visa. We are not part of either decision and we cannot change either one.",
+              "No one can guarantee you an admission. No one can guarantee you a visa. No one can guarantee a scholarship, a particular intake, an IELTS band, a part time job, permanent residence or a salary after you graduate. If any agent anywhere tells you they can guarantee these things, they are not telling you the truth, and we will never write such a promise into your agreement.",
+              "What we do promise is honest advice, careful and complete paperwork, applications filed on time, and a straight answer about your chances even when it is not what you want to hear."
+            ]
+          },
+          {
+            "id": "your-obligations",
+            "heading": "What you must do",
+            "body": [
+              "Our work only holds up if what you give us is true and arrives in time."
+            ],
+            "list": [
+              "Give us accurate and complete information about your studies, your finances, your travel history and any previous visa refusal",
+              "Give us genuine documents that belong to you",
+              "Tell us straight away if something changes, including a new refusal, a new test score or a change of plan",
+              "Give us documents and fees by the deadlines we tell you, because university and embassy deadlines do not move for us",
+              "Answer our calls and messages while your case is running",
+              "Attend your embassy appointment, your medical and your interview yourself",
+              "Tell the truth at your visa interview. Never recite a story, and never take advice from anyone to do so"
+            ]
+          },
+          {
+            "id": "false-documents",
+            "heading": "False or altered documents",
+            "body": [
+              "If you give us a document that is forged, altered, borrowed or bought, we will stop work on your case immediately and we will not submit it. You will not get a refund.",
+              "This is not us being difficult. Universities and embassies verify documents and share information about fraudulent applications with each other. A false document can get your application refused, get you banned from applying to that country for years, affect every other country you later apply to, and lead to criminal action against you in Bangladesh and abroad.",
+              "The consequences of a false document fall on you. We will not share them and we will not be held responsible for them."
+            ]
+          },
+          {
+            "id": "fees",
+            "heading": "Our fees and what they cover",
+            "body": [
+              "Our consultancy fee is [CONSULTANCY FEE AMOUNT]. It is written into your service agreement before you pay anything, and it covers only the services listed in that agreement.",
+              "Pay at the office or into the account named in your agreement, and always take a receipt. Never pay cash to a member of staff privately and never pay into a personal account. If anyone asks you to, tell the office.",
+              "Our fee is payment for our work. It is not a deposit on an admission and it is not a payment towards a visa."
+            ]
+          },
+          {
+            "id": "third-party-costs",
+            "heading": "Costs that are not ours",
+            "body": [
+              "Several costs in a study abroad case are paid to other organisations. They are yours to pay, they are set by those organisations, and we receive none of them.",
+              "They usually include university application fees, tuition deposits, embassy and visa fees, visa application centre charges, IELTS or other test fees, medical and TB test fees, police clearance fees, document attestation, translation, notary and courier charges, bank charges and airfare.",
+              "We will tell you what each one is likely to be before you commit to it. If one of them changes, that is not a change we made."
+            ]
+          },
+          {
+            "id": "language-training",
+            "heading": "Language training",
+            "body": [
+              "Our IELTS, Spoken English and Japanese classes are taught at our own centre, on the schedule given to you when you enrol.",
+              "Your result depends on your own preparation and attendance. We do not guarantee a band score or a language level, and no honest trainer does. If you miss classes, we are not able to repeat them for you individually.",
+              "We may change a timetable, a classroom or a trainer if we have to. We will tell you in advance where we can."
+            ]
+          },
+          {
+            "id": "your-documents",
+            "heading": "Documents you hand us",
+            "body": [
+              "Give us originals only when a university or an embassy requires an original. Keep your own copies of everything.",
+              "We give you a receipt for every original we hold, and we return it to you within 30 days of your file closing. We keep copies for the periods set out in our Privacy Policy.",
+              "A document in transit with a courier, or lodged with an embassy, is outside our hands. We will chase it for you, but we are not responsible for loss or delay by a courier, an embassy or a visa application centre."
+            ]
+          },
+          {
+            "id": "ending-the-agreement",
+            "heading": "Ending the agreement",
+            "body": [
+              "You can stop working with us at any time by telling us in writing. What you get back, if anything, is decided by our Refund Policy.",
+              "We can stop working on your case by giving you [NOTICE PERIOD] written notice. We can stop immediately, without notice, if you give us a false document, ask us to mislead a university or an embassy, do not pay what you owe, or behave abusively towards our staff.",
+              "If we end the agreement for our own reasons and not because of anything you did, we refund the fee for the work we have not done."
+            ]
+          },
+          {
+            "id": "limitation-of-liability",
+            "heading": "What we are responsible for, and what we are not",
+            "body": [
+              "If we get something wrong in the service you paid us for, our responsibility to you is limited to the fees you paid us for that service.",
+              "We are not responsible for the decisions of universities, embassies, high commissions, visa application centres, banks, courier companies, language test bodies, medical centres or police authorities. We are not responsible for a lost intake, a changed government policy, a changed visa rule, a lost deposit, travel costs, accommodation costs or income you expected to earn abroad.",
+              "Nothing here removes any right you have under Bangladeshi law that cannot be removed by agreement, and nothing here limits our responsibility for fraud."
+            ]
+          },
+          {
+            "id": "your-privacy",
+            "heading": "Your information",
+            "body": [
+              "How we handle your documents and your personal information is set out in our Privacy Policy, which forms part of these terms.",
+              "By asking us to apply on your behalf, you are asking us to send your information to the universities and embassies concerned, which are usually outside Bangladesh."
+            ]
+          },
+          {
+            "id": "governing-law",
+            "heading": "Governing law and disputes",
+            "body": [
+              "These terms are governed by the law of Bangladesh, and the courts of Bangladesh have jurisdiction over any dispute.",
+              "Before going to court, please use our Complaints Procedure. Most problems are solved faster across a desk in Tangail than anywhere else."
+            ]
+          },
+          {
+            "id": "changes-to-terms",
+            "heading": "Changes to these terms",
+            "body": [
+              "We review these terms once a year and whenever our service changes. The version that applies to you is the one in force when you signed your service agreement.",
+              "If we need to change the terms of a case that is already running, we will agree the change with you in writing first."
+            ]
+          }
+        ]
+      },
+      "refunds": {
+        "title": "Refund Policy",
+        "summary": "What you get back, what you do not, and when. The short version: you are paying for work, so finished work is not refundable, and money already paid to someone else cannot come back to you from us.",
+        "sections": [
+          {
+            "id": "the-short-version",
+            "heading": "The short version",
+            "body": [
+              "You are paying for our work, not for a result. Work we have already done is not refundable. Work we have not started is.",
+              "Money we paid out on your behalf to a university, an embassy, a test centre, a medical centre or a courier has left our hands, and we cannot return it to you. You would have to ask that organisation.",
+              "A refusal by a university or an embassy is not by itself a reason for a refund, because the decision was never ours to make."
+            ]
+          },
+          {
+            "id": "the-four-stages",
+            "heading": "The four stages",
+            "body": [
+              "Your fee is treated as four stages. What you get back depends on the last stage we completed, not on the outcome of your case."
+            ],
+            "list": [
+              "Stage 1, registration and counselling: course and country advice, shortlisting, document checklist",
+              "Stage 2, application preparation and submission: statement of purpose, document set, applications sent to universities",
+              "Stage 3, visa filing: financial documents prepared, forms completed, application lodged with the embassy or visa application centre",
+              "Stage 4, third party costs: money we paid out on your behalf to other organisations"
+            ]
+          },
+          {
+            "id": "stage-table",
+            "heading": "What is refundable at each stage",
+            "body": [
+              "Our consultancy fee of [CONSULTANCY FEE AMOUNT] is split across the stages in your service agreement. Read this table together with that agreement."
+            ],
+            "table": {
+              "columns": [
+                "Stage reached",
+                "Our fee for that stage",
+                "Our fee for later stages"
+              ],
+              "rows": [
+                [
+                  "Nothing started yet",
+                  "Fully refundable",
+                  "Fully refundable"
+                ],
+                [
+                  "Stage 1, counselling session delivered",
+                  "Not refundable",
+                  "Fully refundable"
+                ],
+                [
+                  "Stage 2, applications sent to a university",
+                  "Not refundable",
+                  "Fully refundable"
+                ],
+                [
+                  "Stage 3, visa application lodged",
+                  "Not refundable",
+                  "No later stage remains"
+                ],
+                [
+                  "Stage 4, third party costs already paid out",
+                  "Never refundable by us",
+                  "Ask the organisation that holds the money"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "never-refundable",
+            "heading": "What we can never refund",
+            "body": [
+              "These are not our money. We pass them straight to the organisation that charges them, and that organisation sets its own refund rules.",
+              "They include university application fees, tuition deposits, embassy and visa fees, visa application centre charges, IELTS and other test fees, medical and TB test fees, police clearance fees, attestation, translation, notary, courier and bank charges.",
+              "If one of those organisations does operate a refund, we will tell you how to claim it and help you with the form. The money will come from them, not from us."
+            ]
+          },
+          {
+            "id": "cooling-off",
+            "heading": "Changing your mind at the start",
+            "body": [
+              "You have 7 days from signing your service agreement to change your mind and get your fee back in full, as long as we have not started work and have not paid out anything on your behalf.",
+              "If we already did part of Stage 1 inside those 7 days because you asked us to hurry, we refund everything except the stage we completed."
+            ]
+          },
+          {
+            "id": "if-your-visa-is-refused",
+            "heading": "If your visa is refused",
+            "body": [
+              "A refusal does not by itself entitle you to a refund. The embassy made that decision, and our fee paid for the work of preparing and filing, which was done.",
+              "We will explain the refusal letter to you, tell you honestly whether reapplying is worth it, and tell you what would have to change. If you reapply with us, we will tell you in writing what that will cost.",
+              "If the refusal was caused by a mistake we made, for example a document you gave us in time that we failed to file, that is a complaint rather than a refund request, and we will deal with it under our Complaints Procedure. If the complaint is upheld, a refund of the relevant stage is one of the outcomes available."
+            ]
+          },
+          {
+            "id": "no-refund-cases",
+            "heading": "When there is no refund at all",
+            "body": [
+              "There is no refund if you gave us a false, altered or borrowed document.",
+              "There is no refund if you did not attend your interview, your medical or your appointment without a good reason, or if you stopped answering us and the deadline passed.",
+              "There is no refund if you withheld a previous refusal, a previous overstay or a criminal matter that we would have needed to disclose."
+            ]
+          },
+          {
+            "id": "if-we-stop",
+            "heading": "If we are the ones who stop",
+            "body": [
+              "If we end the agreement for our own reasons, or if we cannot deliver a service you paid for, we refund the fee for every stage we have not completed, in full.",
+              "If a class you paid for is cancelled by us and not rescheduled, we refund the unused part of the course fee."
+            ]
+          },
+          {
+            "id": "how-to-ask",
+            "heading": "How to ask for a refund",
+            "body": [
+              "Ask in writing within 30 days of the event you are asking about. Email studyhubbd2023@gmail.com, or bring a signed letter to the office at GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail.",
+              "Tell us your full name, your file or student reference, what you paid and when, what you are asking to be refunded and why. Attach your receipts.",
+              "If you want the money paid to someone else, for example the parent who paid it, say so and give their details. We pay back to the person who paid unless you tell us otherwise in writing."
+            ]
+          },
+          {
+            "id": "how-long-it-takes",
+            "heading": "What happens next, and how long it takes",
+            "body": [
+              "We acknowledge your request within 3 working days.",
+              "We give you a written decision within 15 working days, showing which stages we completed and the arithmetic behind the figure.",
+              "If we approve a refund, we pay it within 30 days of the decision, by bank transfer or cheque, to the person who paid. Bank charges on the transfer come out of the amount. We do not refund in cash, and we do not refund into a third party account without written instruction."
+            ]
+          },
+          {
+            "id": "if-you-disagree",
+            "heading": "If you disagree with our decision",
+            "body": [
+              "Use our Complaints Procedure. The owner or branch manager will review the decision and answer you within 10 working days.",
+              "If you are still not satisfied after that review, the escalation routes in the Complaints Procedure are open to you."
+            ]
+          },
+          {
+            "id": "review",
+            "heading": "Version and changes",
+            "body": [
+              "The version of this policy that applies to you is the one in force on the day you signed your service agreement.",
+              "First published: [DATE OF FIRST PUBLICATION]. Reviewed once a year."
+            ]
+          }
+        ]
+      },
+      "complaints": {
+        "title": "Complaints Procedure",
+        "summary": "If something has gone wrong, tell us. This is who to tell, how long we take, and what to do if our answer does not satisfy you.",
+        "sections": [
+          {
+            "id": "what-this-covers",
+            "heading": "What this covers",
+            "body": [
+              "Use this procedure for anything you are unhappy about in our service: advice you think was wrong, a deadline missed, a document mishandled, a fee you did not expect, a refund decision, the way a member of staff spoke to you, or how we handled your personal information.",
+              "Complaining is free. It will not affect how we treat your case and it will not slow your application down. We would much rather hear it from you than read it online."
+            ]
+          },
+          {
+            "id": "step-one",
+            "heading": "Step one: talk to your counsellor",
+            "body": [
+              "Most problems are a misunderstanding and get fixed the same day. Call or visit the office and speak to the counsellor handling your case.",
+              "Phone 01623-935872 or 01613-160021, or come to GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail.",
+              "If that does not settle it, or you would rather not raise it with your counsellor, go straight to step two. You do not have to do step one first."
+            ]
+          },
+          {
+            "id": "step-two",
+            "heading": "Step two: make a formal complaint",
+            "body": [
+              "Send it in writing to studyhubbd2023@gmail.com with the word Complaint in the subject line, or hand a signed letter in at the office and ask for a receipt.",
+              "You can write in Bangla or in English. If writing is difficult, come to the office and we will write it down for you, read it back and ask you to sign it.",
+              "Please include:"
+            ],
+            "list": [
+              "Your full name and phone number",
+              "Your file or student reference, if you have one",
+              "What happened, with dates, in the order it happened",
+              "Who you dealt with",
+              "Copies of anything relevant: receipts, messages, letters",
+              "What you would like us to do about it"
+            ]
+          },
+          {
+            "id": "what-happens-next",
+            "heading": "What we do when we get it",
+            "body": [
+              "We write your complaint into our complaints register and give it a reference number.",
+              "Someone who was not involved in what you are complaining about reviews it. They read your file, speak to the staff involved, and speak to you if anything is unclear.",
+              "You will get a written answer that says what we found, whether we think we got it wrong, and what we will do about it. If we were wrong, we will say so plainly and tell you how we will put it right."
+            ]
+          },
+          {
+            "id": "timescales",
+            "heading": "How long we take",
+            "body": [
+              "These are the times we hold ourselves to. Working days mean our normal office days, not Fridays, Saturdays or public holidays."
+            ],
+            "table": {
+              "columns": [
+                "Step",
+                "Our timescale"
+              ],
+              "rows": [
+                [
+                  "We acknowledge your complaint in writing",
+                  "Within 3 working days"
+                ],
+                [
+                  "We send you our written answer",
+                  "Within 15 working days"
+                ],
+                [
+                  "If it is complicated, we update you on progress",
+                  "Every 10 working days until it is closed"
+                ],
+                [
+                  "Our final answer, in every case",
+                  "Within 30 working days"
+                ],
+                [
+                  "A review of our answer, if you ask for one",
+                  "Within 10 working days of your request"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "if-you-are-not-satisfied",
+            "heading": "If our answer does not satisfy you",
+            "body": [
+              "Reply within 30 days and ask for a review. Say which part of our answer you disagree with and why.",
+              "The owner or the branch manager will look at the complaint again from the start, including the way it was handled the first time, and answer you within 10 working days. That is our final position."
+            ]
+          },
+          {
+            "id": "taking-it-further",
+            "heading": "Taking it further",
+            "body": [
+              "If our final answer does not satisfy you, you are free to take the matter outside Study Hub BD. Which route fits depends on what the complaint is about.",
+              "A complaint about money or service as a consumer can go to the consumer protection authority in Bangladesh or to the courts of Bangladesh. A complaint about how we handled your personal information can go to the data protection authority established under Bangladesh's Personal Data Protection Act. A complaint about a university's own decision, offer or fees belongs with that university, which has its own complaints process, and we will give you the contact details and the file history you need to use it.",
+              "We will not ask you to sign anything that stops you from complaining to a regulator or a court."
+            ]
+          },
+          {
+            "id": "data-complaints",
+            "heading": "Complaints about your personal information",
+            "body": [
+              "Send these to our data contact, Amirul Islam, [DATA CONTACT JOB TITLE], at studyhubbd2023@gmail.com. They follow the same timescales as any other complaint.",
+              "If your complaint concerns an application already with a university in the United Kingdom or the European Economic Area, you can also contact that university's data protection officer and the data protection regulator in its country."
+            ]
+          },
+          {
+            "id": "what-we-do-with-complaints",
+            "heading": "What we do with complaints afterwards",
+            "body": [
+              "We keep the complaints register and review it with the whole team, so that the same mistake does not reach the next student.",
+              "We keep complaint records for 6 years, with your file, and then destroy them. See our Privacy Policy."
+            ]
+          },
+          {
+            "id": "how-we-treat-you",
+            "heading": "How we will treat you",
+            "body": [
+              "We will not retaliate. Your case will be worked on exactly as before while the complaint is open.",
+              "We expect the same in return. We will not continue with a complaint where our staff are threatened or abused, and we will tell you in writing if we stop on those grounds."
+            ]
+          },
+          {
+            "id": "published",
+            "heading": "Version and changes",
+            "body": [
+              "First published: [DATE OF FIRST PUBLICATION]. Reviewed once a year.",
+              "The complaints register and these timescales are reviewed at the same time."
+            ]
+          }
+        ]
+      },
+      "dataProcessing": {
+        "title": "Data Processing Statement",
+        "summary": "A statement for partner universities and their due diligence teams, setting out how Study Hub BD processes applicant personal data: on what basis, with which sub-processors, under which transfer arrangements, and with what security, breach and audit commitments.",
+        "sections": [
+          {
+            "id": "purpose-and-scope",
+            "heading": "Purpose and scope",
+            "body": [
+              "This statement is written for the due diligence officer of a partner university or college. It describes how Study Hub BD processes the personal data of prospective students whom it refers and whose applications it prepares.",
+              "It covers all processing carried out in connection with counselling, application preparation and submission, language training, student visa filing and financial document preparation. It does not itself create a contract. Where a contract is required, Study Hub BD will enter into the institution's own data processing agreement.",
+              "First published: [DATE OF FIRST PUBLICATION]. Reviewed annually."
+            ]
+          },
+          {
+            "id": "the-organisation",
+            "heading": "The organisation",
+            "body": [
+              "Study Hub BD, GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh.",
+              "Trade licence number [TRADE LICENCE NUMBER]. Company registration number [COMPANY REGISTRATION NUMBER]. BIN/TIN [BIN/TIN NUMBER]. Telephone 01623-935872 and 01613-160021. Email studyhubbd2023@gmail.com. Website studyhubbd.com.",
+              "Data contact: Amirul Islam, [DATA CONTACT JOB TITLE], studyhubbd2023@gmail.com. This is the single point of contact for data protection questions, for data subject requests passed to us, and for breach notifications."
+            ]
+          },
+          {
+            "id": "roles",
+            "heading": "Roles of the parties",
+            "body": [
+              "Study Hub BD acts as an independent controller for the data it collects in order to counsel a student, to judge whether a student is suitable for a given destination, to run its own language courses, and to meet its own legal and record keeping duties in Bangladesh.",
+              "In respect of an application submitted to your institution, Study Hub BD acts on your institution's instructions and on the student's instructions, and expects to be treated as your processor or as a joint controller, depending on how your institution characterises the referral relationship. We will accept either characterisation and sign the corresponding agreement.",
+              "Study Hub BD does not use applicant data for its own marketing, does not sell applicant data, and does not share applicant data with other institutions without the student's instruction."
+            ]
+          },
+          {
+            "id": "data-subjects-and-categories",
+            "heading": "Data subjects and categories of data",
+            "body": [
+              "Data subjects are prospective and enrolled students, together with the sponsors and family members named in financial or supporting documents.",
+              "Categories processed are: identity and contact data; academic records; English and other language test results; immigration history including previous refusals; financial data including bank statements, sponsor income and sponsor identity documents; photographs; visa application content; and correspondence.",
+              "Special category and equivalent sensitive data processed are medical and TB certificates, and police clearance certificates. These are collected only where a destination embassy or institution requires them, only at the stage they are required, and only with the student's explicit written consent. They are stored separately from the main file and destroyed on a shorter schedule."
+            ]
+          },
+          {
+            "id": "processing-activities",
+            "heading": "Summary of processing activities",
+            "body": [
+              "The following table summarises each processing activity, the data involved, the purpose, the basis relied on, and the retention period applied."
+            ],
+            "table": {
+              "columns": [
+                "Activity",
+                "Data categories",
+                "Purpose",
+                "Basis",
+                "Retention"
+              ],
+              "rows": [
+                [
+                  "Enquiry handling",
+                  "Identity and contact data, intended course and destination",
+                  "Respond to a student enquiry and arrange counselling",
+                  "Consent, and pre-contractual steps requested by the student",
+                  "24 months from last contact if no case opens"
+                ],
+                [
+                  "Counselling and course selection",
+                  "Academic records, test results, financial capacity, immigration history",
+                  "Advise on course and country and assess suitability",
+                  "Performance of the contract with the student",
+                  "6 years from file closure"
+                ],
+                [
+                  "Application preparation and submission",
+                  "Identity, passport, transcripts, certificates, test reports, statement of purpose",
+                  "Prepare and submit an application to the institution",
+                  "Performance of the contract with the student, and the institution's instructions",
+                  "6 years from file closure"
+                ],
+                [
+                  "Financial document preparation",
+                  "Bank statements, sponsor income, sponsor affidavits, sponsor identity documents",
+                  "Evidence maintenance funds to the institution and the embassy",
+                  "Performance of the contract with the student",
+                  "6 years from file closure"
+                ],
+                [
+                  "Student visa filing",
+                  "All of the above, plus photographs, visa forms and appointment data",
+                  "Lodge the student visa application",
+                  "Performance of the contract with the student",
+                  "6 years from file closure"
+                ],
+                [
+                  "Health and police documentation",
+                  "Medical and TB certificates, police clearance certificates",
+                  "Meet a mandatory embassy or institutional requirement",
+                  "Explicit written consent, recorded separately",
+                  "12 months after the visa decision"
+                ],
+                [
+                  "Language training",
+                  "Enrolment, attendance and assessment records",
+                  "Deliver IELTS, Spoken English and Japanese courses",
+                  "Performance of the contract with the student",
+                  "3 years from course end"
+                ],
+                [
+                  "Record keeping and dispute handling",
+                  "Case file and payment records",
+                  "Meet statutory record keeping duties and defend complaints and claims",
+                  "Legal obligation, and legitimate interests in defending claims",
+                  "6 years"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "website-processing",
+            "heading": "Processing through the website",
+            "body": [
+              "The website studyhubbd.com performs no analytics, loads no tracking pixel, serves no advertising tag, and loads no third party script. No profiling of visitors is carried out.",
+              "Two items of strictly necessary browser local storage are used: a student portal sign-in flag and a theme preference. Neither is transmitted to Study Hub BD. No cookies are set for tracking purposes.",
+              "Enquiry controls on the website do not post data to a server. They open the visitor's own WhatsApp or email client with a prepared message, which the visitor then sends from their own account.",
+              "The student portal on the website is at present a prototype populated with sample data. It performs no server side storage, and documents selected in its upload interface are neither transmitted nor retained. Before the portal becomes a live service holding applicant data, this statement and the privacy policy will be revised and partner institutions will be informed."
+            ]
+          },
+          {
+            "id": "sub-processors",
+            "heading": "Sub-processors and recipients",
+            "body": [
+              "The following third parties are involved in the handling of applicant data, or of the website that supports it. Study Hub BD will supply current provider names and locations on request.",
+              "Study Hub BD will give [NOTICE PERIOD] written notice before adding or replacing a sub-processor that handles applicant data, and will accept a reasoned objection from the institution."
+            ],
+            "list": [
+              "The website hosting provider: hosts the public website and retains ordinary server logs. No applicant case data is held there.",
+              "GitHub: stores the website source and its content file. No applicant case data is held there.",
+              "Google, through the Gmail account studyhubbd2023@gmail.com: carries correspondence and attached documents between students, Study Hub BD and institutions.",
+              "WhatsApp, operated by Meta: a messaging channel chosen by students, through which documents and messages are frequently sent to us.",
+              "Courier companies: physical transport of original documents.",
+              "Visa application centres appointed by destination embassies: these act for the embassy rather than for Study Hub BD, and are recipients rather than sub-processors."
+            ]
+          },
+          {
+            "id": "international-transfers",
+            "heading": "International transfers",
+            "body": [
+              "Study Hub BD is established in Bangladesh. Bangladesh is not the subject of a UK or EU adequacy decision.",
+              "Applicant data is transferred from Bangladesh to the destination institution and, where relevant, to the destination embassy or high commission, at the student's explicit request and for the performance of the student's own application. Destinations are the United Kingdom, Canada, Australia, Italy, Malta, South Korea, Japan, Cyprus, Russia and Denmark.",
+              "Where an institution requires a formal transfer mechanism for data flowing to or from Study Hub BD, we are ready to execute the European Commission Standard Contractual Clauses, the UK International Data Transfer Agreement, or the UK Addendum to the Standard Contractual Clauses, in the version and with the schedules the institution's legal team prefers, and to complete a transfer risk assessment on request."
+            ]
+          },
+          {
+            "id": "security-measures",
+            "heading": "Security measures",
+            "body": [
+              "The following are the measures Study Hub BD takes. They are described as measures and not as guarantees, and Study Hub BD makes no claim of certification or approval under any data protection law. No such certification exists."
+            ],
+            "list": [
+              "Paper files are held in a locked cabinet at the Tangail office, accessible only to counsellors assigned to the case",
+              "Health and police documents are held apart from the main file and destroyed on a shorter schedule",
+              "Digital copies are held in accounts protected by strong passwords and two step verification",
+              "Office devices are password locked and are not shared with visitors",
+              "Staff are instructed not to route applicant documents through personal accounts, and not to open case files on public or shared machines",
+              "Access is reviewed and revoked when a member of staff leaves or changes role",
+              "Original documents are receipted on arrival and returned to the student within 30 days of file closure",
+              "The public website carries no applicant case data, and no analytics or third party scripts that could leak it"
+            ]
+          },
+          {
+            "id": "personnel",
+            "heading": "Personnel and confidentiality",
+            "body": [
+              "Every member of staff with access to applicant data is bound by a written confidentiality obligation in their terms of engagement, which continues after they leave.",
+              "Staff are instructed on document handling, on what may and may not be sent over messaging apps, and on the rule that an application is never submitted with a document the student did not genuinely provide."
+            ]
+          },
+          {
+            "id": "data-subject-rights",
+            "heading": "Assistance with data subject rights",
+            "body": [
+              "Study Hub BD will pass to the institution, without undue delay, any request it receives from an applicant that concerns data held by the institution, and will not answer such a request on the institution's behalf unless instructed to.",
+              "Study Hub BD will provide the records, file history and correspondence the institution needs in order to answer a subject access, rectification, erasure or objection request, at no charge, within the timescale the institution specifies."
+            ]
+          },
+          {
+            "id": "breach-notification",
+            "heading": "Personal data breach notification",
+            "body": [
+              "Study Hub BD will notify the institution's named contact of any personal data breach affecting that institution's applicants without undue delay, and in any case within 24 hours of becoming aware of it.",
+              "The first notification will state what is known at that point: what happened, when it happened and when it was discovered, which categories and approximately how many data subjects and records are affected, the likely consequences, the measures taken or proposed, and a contact point for further information. Further detail will follow in stages as the investigation proceeds.",
+              "Study Hub BD will not make a public statement about a breach affecting the institution's applicants without first consulting the institution, unless Bangladeshi law requires it to."
+            ]
+          },
+          {
+            "id": "retention-and-deletion",
+            "heading": "Retention, return and deletion",
+            "body": [
+              "Retention periods are set out in the table at section 5 and in the published privacy policy.",
+              "On the institution's written instruction, and on termination of the referral relationship, Study Hub BD will return or delete the applicant data it processes on the institution's behalf, except where Bangladeshi record keeping or tax law requires a copy to be retained. Any such retained copy will be identified to the institution and will continue to be protected under this statement."
+            ]
+          },
+          {
+            "id": "audit",
+            "heading": "Audit and inspection",
+            "body": [
+              "Study Hub BD will complete the institution's written due diligence or information security questionnaire once a year, and sooner following a material change to its processing.",
+              "Study Hub BD will permit an audit or inspection of the records, systems and premises relevant to the applicant data it holds for the institution, carried out by the institution or by an auditor it appoints, on reasonable written notice and during office hours. An audit will be conducted so that it does not disclose the personal data of another institution's applicants."
+            ]
+          },
+          {
+            "id": "applicable-law",
+            "heading": "Applicable law",
+            "body": [
+              "Study Hub BD processes personal data in Bangladesh under Bangladesh's Personal Data Protection Act. Reporting on the exact short title and commencement date of that law is not consistent across sources, and some provisions were deferred, so the citation should be confirmed against the official gazette before this statement is relied on in a contract.",
+              "Study Hub BD recognises that UK and EU data protection law governs the institution's processing of the applicant data it receives, and that the institution's obligations under that law flow down to Study Hub BD through the agreement between them. Study Hub BD describes the measures it takes to meet those obligations. It does not assert certification or formal compliance under either regime."
+            ]
+          },
+          {
+            "id": "contact-point",
+            "heading": "Contact point for institutions",
+            "body": [
+              "Due diligence questionnaires, data processing agreements, transfer documents, data subject request referrals and breach correspondence should be addressed to Amirul Islam, [DATA CONTACT JOB TITLE], Study Hub BD, GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh. Email studyhubbd2023@gmail.com. Telephone 01623-935872 or 01613-160021."
+            ]
+          }
+        ]
+      },
+      "cookies": {
+        "title": "Cookie and Local Storage Notice",
+        "summary": "This site does not track you. There is no analytics, no advertising and no third party script. Two small settings are saved inside your own browser so that the site works.",
+        "sections": [
+          {
+            "id": "the-short-version",
+            "heading": "The short version",
+            "body": [
+              "studyhubbd.com sets no tracking cookies. It runs no analytics, no advertising tags and no social media pixels. It loads no third party script of any kind.",
+              "Two things are saved inside your own browser, and both are needed for the site to work the way you asked it to. Nothing about you is sent to us when you browse."
+            ]
+          },
+          {
+            "id": "cookies-and-local-storage",
+            "heading": "What a cookie is, and what local storage is",
+            "body": [
+              "A cookie is a small file a website leaves on your device and sends back to its server on every visit. Cookies are what most tracking is built on. This site does not use them for that.",
+              "Local storage is different. It is a small space inside your own browser where a site can keep a setting. The setting stays on your device. It is not attached to your requests and it is not transmitted to anyone.",
+              "Everything this site saves is in local storage, on your device."
+            ]
+          },
+          {
+            "id": "what-we-store",
+            "heading": "What is actually stored",
+            "body": [
+              "Six items, and every one of them is either strictly necessary or there to remember a choice you made. None of them tracks you, none is sent to us or to anyone else, and all of them sit on your own device.",
+              "We checked this list against the code rather than writing it from memory. If you find something stored that is not listed here, tell us and we will either explain it or remove it."
+            ],
+            "table": {
+              "columns": [
+                "What is stored",
+                "Why",
+                "Type",
+                "How long it lasts"
+              ],
+              "rows": [
+                [
+                  "Your theme preference",
+                  "So the site opens in the light or dark theme you chose instead of resetting every visit",
+                  "Functional, local storage",
+                  "Until you change it or clear your browser storage"
+                ],
+                [
+                  "That you have seen this notice",
+                  "So the banner does not reappear on every page you open",
+                  "Strictly necessary, local storage",
+                  "Until you clear your browser storage"
+                ],
+                [
+                  "Your answer about optional services",
+                  "So we can honour it. Today there is nothing optional to answer about, so this is usually empty",
+                  "Strictly necessary, local storage",
+                  "Until you change it or clear your browser storage"
+                ],
+                [
+                  "A student portal sign-in flag",
+                  "So the portal remembers you are signed in while you move between its pages",
+                  "Strictly necessary, local storage",
+                  "Until you sign out or clear your browser storage"
+                ],
+                [
+                  "When you last opened your portal messages",
+                  "So the portal can show you which replies are new",
+                  "Functional, local storage",
+                  "Until you clear your browser storage"
+                ],
+                [
+                  "When you last opened your portal notifications",
+                  "So the portal can show you which updates are new",
+                  "Functional, local storage",
+                  "Until you clear your browser storage"
+                ]
+              ]
+            },
+            "list": [
+              "Staff who sign in to the content admin area store a login token on their own machine. That is not part of your visit and is never set for a visitor.",
+              "The animated globe on the home page reads two optional display settings if a member of staff has set them while tuning the scene. The site only reads them. It never writes them for a visitor, so on your device they do not exist."
+            ]
+          },
+          {
+            "id": "what-we-do-not-do",
+            "heading": "What this site does not do",
+            "body": [
+              "We think this part matters more than the part above."
+            ],
+            "list": [
+              "No Google Analytics and no other analytics tool",
+              "No Facebook, Meta, TikTok or other advertising pixel",
+              "No advertising network and no retargeting",
+              "No third party fonts, widgets, chat bubbles or embeds that could watch you",
+              "No profile of you, no visitor history, no cross site tracking",
+              "No selling or sharing of visitor data, because there is none to sell"
+            ]
+          },
+          {
+            "id": "the-consent-banner",
+            "heading": "The consent banner",
+            "body": [
+              "If you see a short notice about storage when you first open the site, this is what it is telling you: the site uses nothing beyond the two strictly necessary items above, so at present there is nothing for you to consent to or refuse.",
+              "If we ever add analytics, or anything else that is not strictly necessary, it will not load until you have chosen to accept it. Saying no will not break the site and will not take any feature away. We will not ask again on every page, and we will update this notice before anything new is added."
+            ]
+          },
+          {
+            "id": "the-student-portal",
+            "heading": "The student portal",
+            "body": [
+              "The portal is a prototype filled with sample data. It stores nothing on a server.",
+              "The only thing it leaves on your device is the sign-in flag in the table above. If you use its upload screen, the file is not sent anywhere and is not saved by us."
+            ]
+          },
+          {
+            "id": "whatsapp-and-email",
+            "heading": "When you tap WhatsApp or email us",
+            "body": [
+              "The consultation buttons do not send anything through this website. They open your own WhatsApp or your own email app with a message ready for you to send.",
+              "From that point you are using WhatsApp or your email provider, and their own privacy rules apply to the message. We receive it in our WhatsApp account or our inbox, and we then handle it under our Privacy Policy."
+            ]
+          },
+          {
+            "id": "hosting-logs",
+            "heading": "Logs kept by the people who host the site",
+            "body": [
+              "The site is served by a third party hosting provider, and its content file is stored on GitHub. Like all hosting providers, they keep ordinary server logs for security and reliability, which can include the internet address a request came from.",
+              "Those logs belong to the provider, not to us. We do not use them to identify visitors and we do not combine them with anything else."
+            ]
+          },
+          {
+            "id": "how-to-clear-it",
+            "heading": "How to clear or block what is stored",
+            "body": [
+              "Every browser lets you clear site data and block storage for a site. Look for Clear browsing data, Site settings, or Cookies and site data in your browser's settings, on a phone or on a computer.",
+              "Clearing it will sign you out of the student portal and reset the theme to the default. Nothing else will change, because nothing else is stored."
+            ]
+          },
+          {
+            "id": "changes-and-contact",
+            "heading": "Changes and contact",
+            "body": [
+              "We review this notice once a year, and always before adding anything new to the site. First published: [DATE OF FIRST PUBLICATION].",
+              "Questions go to Amirul Islam, [DATA CONTACT JOB TITLE], at studyhubbd2023@gmail.com, or phone 01623-935872 or 01613-160021."
+            ]
+          }
+        ]
+      }
+    }
   }
 }

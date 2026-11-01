@@ -25,6 +25,8 @@ import StudentPortal from "./pages/StudentPortal";
 import StudentDocuments from "./pages/StudentDocuments";
 import StudentMessages from "./pages/StudentMessages";
 import StudentNotifications from "./pages/StudentNotifications";
+import Legal from "./pages/Legal";
+import CookieBanner from "./components/CookieBanner";
 
 function Router() {
   return (
@@ -44,6 +46,16 @@ function Router() {
       <Route path={"/student/messages"} component={StudentMessages} />
       <Route path={"/student/notifications"} component={StudentNotifications} />
       <Route path={"/student"} component={StudentPortal} />
+      {/* Legal and compliance. One renderer, six documents, all driven
+          from the CMS so the client can edit them without a deploy. */}
+      <Route path={"/privacy"}>{() => <Legal slug="privacy" />}</Route>
+      <Route path={"/terms"}>{() => <Legal slug="terms" />}</Route>
+      <Route path={"/refunds"}>{() => <Legal slug="refunds" />}</Route>
+      <Route path={"/complaints"}>{() => <Legal slug="complaints" />}</Route>
+      <Route path={"/cookies"}>{() => <Legal slug="cookies" />}</Route>
+      <Route path={"/data-processing"}>
+        {() => <Legal slug="dataProcessing" />}
+      </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -79,6 +91,7 @@ function Shell() {
     return (
       <div className="min-h-screen">
         <Router />
+        <CookieBanner />
       </div>
     );
   }
@@ -92,6 +105,7 @@ function Shell() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <CookieBanner />
     </div>
   );
 }

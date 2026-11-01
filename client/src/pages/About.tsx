@@ -85,7 +85,7 @@ export default function About() {
       {/* ============ HERO ============ */}
       <section className="lp-field-ink" aria-labelledby="about-hero">
         <div className="lp-frame lp-grid items-center py-16 md:py-24">
-          <div className="col-span-12 lg:col-span-6">
+          <div className="col-span-12 lg:col-span-5">
             <Reveal as="p" className="lp-meta" y={10}>
               About us
             </Reveal>
@@ -120,7 +120,7 @@ export default function About() {
               Tangail town. A gate people walk through is the plainest
               possible picture of what this page is about, and the arch is
               the shape the rest of the site is built on. */}
-          <Reveal className="col-span-12 lg:col-span-6" y={20} delay={160}>
+          <Reveal className="col-span-12 lg:col-span-7" y={20} delay={160}>
             <figure className="m-0">
               <span className="lp-media block aspect-[4/3] w-full">
                 <img
@@ -144,9 +144,6 @@ export default function About() {
       <section className="lp-section" aria-labelledby="story-title">
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-7">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Who we are
-            </Reveal>
             <Reveal
               as="h2"
               id="story-title"
@@ -236,9 +233,6 @@ export default function About() {
       >
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Reveal as="p" className="lp-meta" y={10}>
-              What we are for
-            </Reveal>
             <Reveal
               as="h2"
               id="purpose-title"
@@ -269,9 +263,6 @@ export default function About() {
       <section className="lp-section" aria-labelledby="work-title">
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-8">
-            <Reveal as="p" className="lp-meta" y={10}>
-              The work
-            </Reveal>
             <Reveal
               as="h2"
               id="work-title"
@@ -352,9 +343,7 @@ export default function About() {
                 <div
                   className={`lp-panel lp-panel-plain lp-swap-item h-full ${i === 0 ? "lp-swap-lead" : ""}`}
                 >
-                  <span className="lp-num lp-gold" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span className="lp-rule" aria-hidden="true" />
                   <h3
                     className="mt-4 font-semibold"
                     style={{
@@ -376,9 +365,6 @@ export default function About() {
       <section className="lp-section" aria-labelledby="why-title">
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-5">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Why this office
-            </Reveal>
             <Reveal
               as="h2"
               id="why-title"
@@ -412,23 +398,18 @@ export default function About() {
             {REASONS.map((r, i) => (
               <Reveal as="li" key={r.title} delay={60 + i * 70} y={14}>
                 <div
-                  className={`lp-panel lp-swap-item flex h-full gap-5 ${i === 0 ? "lp-swap-lead" : ""}`}
+                  className={`lp-panel lp-swap-item h-full ${i === 0 ? "lp-swap-lead" : ""}`}
                 >
-                  <span className="lp-num lp-gold" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3
-                      className="font-semibold"
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "var(--text-body)",
-                      }}
-                    >
-                      {r.title}
-                    </h3>
-                    <p className="lp-body lp-soft mt-2">{r.body}</p>
-                  </div>
+                  <h3
+                    className="font-semibold"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "var(--text-body)",
+                    }}
+                  >
+                    {r.title}
+                  </h3>
+                  <p className="lp-body lp-soft mt-2">{r.body}</p>
                 </div>
               </Reveal>
             ))}

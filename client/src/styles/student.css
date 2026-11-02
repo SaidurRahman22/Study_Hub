@@ -523,6 +523,7 @@
 .sp-row-actions {
   flex: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 8px;
   width: 13.5rem;
@@ -532,6 +533,20 @@
   .sp-row-actions {
     width: auto;
   }
+}
+
+/* A file the server turned away says why, next to the button that was
+ * pressed, rather than in a dialog the reader has to dismiss. It takes a
+ * line of its own so it never squeezes the buttons. */
+.sp-row-error {
+  flex-basis: 100%;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--sp-bad);
+  margin-top: 2px;
+}
+.sp-row-actions .sp-row-error {
+  text-align: right;
 }
 
 /* --- stages ----------------------------------------------------------- */

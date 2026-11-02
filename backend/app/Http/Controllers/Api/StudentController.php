@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountCreated;
+use App\Models\Announcement;
 use App\Models\ApplicationStage;
 use App\Models\CaseNote;
 use App\Models\User;
+use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +30,7 @@ class StudentController extends Controller
     public function index(): JsonResponse
     {
         $students = User::where('role', 'student')
-            ->with(['stages', 'caseNotes'])
+            ->with(['stages', 'caseNotes', 'documents', 'messages'])
             ->latest()
             ->get()
             ->map(fn (User $u) => $this->present($u));
@@ -68,12 +71,20 @@ class StudentController extends Controller
             $user->stages()->create([...$stage, 'position' => $i]);
         }
 
-        return response()->json($this->present($user->fresh(['stages', 'caseNotes'])), 201);
+        // The student is told their file is open and how to sign in. This is
+        // the only time the first password is sent anywhere.
+        Notify::mail($user->email, new AccountCreated(
+            $user,
+            $data['password'],
+            config('app.portal_url').'/student/login'
+        ));
+
+        return response()->json($this->present($user->fresh(['stages', 'caseNotes', 'documents', 'messages'])), 201);
     }
 
     public function show(User $student): JsonResponse
     {
-        return response()->json($this->present($student->load(['stages', 'caseNotes'])));
+        return response()->json($this->present($student->load(['stages', 'caseNotes', 'documents', 'messages'])));
     }
 
     public function update(Request $request, User $student): JsonResponse
@@ -91,7 +102,7 @@ class StudentController extends Controller
 
         $student->update($data);
 
-        return response()->json($this->present($student->fresh(['stages', 'caseNotes'])));
+        return response()->json($this->present($student->fresh(['stages', 'caseNotes', 'documents', 'messages'])));
     }
 
     public function destroy(User $student): JsonResponse
@@ -182,7 +193,7 @@ class StudentController extends Controller
 
     public function myApplication(Request $request): JsonResponse
     {
-        return response()->json($this->present($request->user()->load(['stages', 'caseNotes'])));
+        return response()->json($this->present($request->user()->load(['stages', 'caseNotes', 'documents', 'messages'])));
     }
 
     /* ---- shaping ---- */
@@ -202,9 +213,33 @@ class StudentController extends Controller
             'intake' => $u->intake,
             'stages' => $u->stages->map(fn ($s) => $this->presentStage($s))->values(),
             'caseNotes' => $u->caseNotes->map(fn ($n) => $this->presentNote($n))->values(),
-            'documents' => [],
-            'messages' => [],
-            'notifications' => [],
+            'documents' => $u->documents->map(fn ($d) => [
+                'id' => (string) $d->id,
+                'name' => $d->name,
+                'group' => $d->group,
+                'status' => $d->status,
+                'file' => $d->original_name,
+                'size' => $d->humanSize(),
+                'updated' => $d->updated_at?->setTimezone(config('app.office_timezone'))->toDateString(),
+                'note' => $d->note,
+                'hasFile' => (bool) $d->path,
+            ])->values(),
+            'messages' => $u->messages->map(fn ($m) => [
+                'id' => (string) $m->id,
+                'from' => $m->sender,
+                'author' => $m->author,
+                'at' => $m->created_at?->toISOString(),
+                'body' => $m->body,
+            ])->values(),
+            'notifications' => Announcement::visibleTo($u)->latest()->limit(50)->get()
+                ->map(fn ($a) => [
+                    'id' => (string) $a->id,
+                    'kind' => $a->kind,
+                    'title' => $a->title,
+                    'body' => $a->body,
+                    'at' => $a->created_at?->toISOString(),
+                    'href' => $a->href,
+                ])->values(),
         ];
     }
 

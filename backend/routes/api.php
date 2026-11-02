@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\AnnouncementController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\Api\EnquiryController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +19,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // A student's own application (the tracker).
     Route::get('/my/application', [StudentController::class, 'myApplication']);
+
+    // A student's own documents. Each route checks the file belongs to them.
+    Route::get('/my/documents', [DocumentController::class, 'mine']);
+    Route::post('/my/documents/{document}/upload', [DocumentController::class, 'upload']);
+    Route::get('/my/documents/{document}/download', [DocumentController::class, 'myDownload']);
+
+    // A student's own thread with the office, and what the office has told them.
+    Route::get('/my/messages', [MessageController::class, 'mine']);
+    Route::post('/my/messages', [MessageController::class, 'send']);
+    Route::get('/my/announcements', [AnnouncementController::class, 'mine']);
 });
 
 /* ---- staff only ---- */
@@ -31,6 +44,20 @@ Route::middleware(['auth:sanctum', 'staff'])->group(function () {
     Route::patch('/students/{student}/password', [StudentController::class, 'setPassword']);
 
     Route::patch('/students/{student}/stages/{stage}', [StudentController::class, 'updateStage']);
+
+    // Documents. A file is sent as multipart; to replace one on an existing
+    // document POST with _method=PATCH, since PHP does not parse multipart on PATCH.
+    Route::post('/students/{student}/documents', [DocumentController::class, 'store']);
+    Route::match(['patch', 'post'], '/students/{student}/documents/{document}', [DocumentController::class, 'update']);
+    Route::delete('/students/{student}/documents/{document}', [DocumentController::class, 'destroy']);
+    Route::get('/students/{student}/documents/{document}/download', [DocumentController::class, 'download']);
+
+    Route::get('/students/{student}/messages', [MessageController::class, 'index']);
+    Route::post('/students/{student}/messages', [MessageController::class, 'store']);
+
+    Route::get('/announcements', [AnnouncementController::class, 'index']);
+    Route::post('/announcements', [AnnouncementController::class, 'store']);
+    Route::delete('/announcements/{announcement}', [AnnouncementController::class, 'destroy']);
 
     Route::post('/students/{student}/case-notes', [StudentController::class, 'addCaseNote']);
     Route::patch('/students/{student}/case-notes/{note}', [StudentController::class, 'updateCaseNote']);

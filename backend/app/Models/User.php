@@ -62,4 +62,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Document::class)->orderBy('group')->orderBy('id');
     }
+
+    /** The one thread between this student and the office, oldest first so it
+     *  reads top to bottom like a conversation. */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class)->oldest();
+    }
+
+    /** Announcements addressed to this student by name. Those posted to
+     *  everyone are not here; `Announcement::visibleTo()` covers both. */
+    public function announcements(): HasMany
+    {
+        return $this->hasMany(Announcement::class)->latest();
+    }
 }

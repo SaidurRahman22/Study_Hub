@@ -43,6 +43,20 @@ async function call(path: string, opts: RequestInit = {}): Promise<Response> {
   });
 }
 
+/** Multipart must not carry a JSON content-type: the browser sets the
+ *  boundary itself. */
+async function callForm(path: string, form: FormData): Promise<Response> {
+  const token = getAdminToken();
+  return fetch(`${API_URL}${path}`, {
+    method: 'POST',
+    body: form,
+    headers: {
+      Accept: 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+}
+
 async function fail(res: Response, fallback: string): Promise<never> {
   let msg = fallback;
   try {
@@ -98,6 +112,8 @@ export type ApiStudent = {
   intake: string | null;
   stages: ApiStage[];
   caseNotes: ApiNote[];
+  documents: ApiDocument[];
+  messages: ApiMessage[];
 };
 
 export type ApiEnquiry = {
@@ -229,6 +245,143 @@ export async function removeCaseNote(studentId: number, noteId: number): Promise
     { method: 'DELETE' },
     'Could not delete the note.'
   );
+}
+
+/* ---- documents ---- */
+
+export type ApiDocument = {
+  id: string;
+  name: string;
+  group: 'application' | 'visa';
+  status: string;
+  file: string | null;
+  size: string | null;
+  updated: string | null;
+  note: string | null;
+  hasFile: boolean;
+};
+
+/** Add a document to a student's file, with an optional real file attached. */
+export async function createDocument(
+  studentId: number,
+  meta: { name: string; group: string; status?: string; note?: string },
+  file?: File | null
+): Promise<ApiDocument> {
+  const form = new FormData();
+  form.append('name', meta.name);
+  form.append('group', meta.group);
+  if (meta.status) form.append('status', meta.status);
+  if (meta.note) form.append('note', meta.note);
+  if (file) form.append('file', file);
+
+  let res: Response;
+  try {
+    res = await callForm(`/students/${studentId}/documents`, form);
+  } catch {
+    throw new Error('Could not reach the server. Is the API running?');
+  }
+  if (!res.ok) await fail(res, 'Could not upload the document.');
+  return res.json();
+}
+
+export async function patchDocument(
+  studentId: number,
+  documentId: string,
+  patch: { status?: string; note?: string; name?: string; group?: string }
+): Promise<ApiDocument> {
+  return send<ApiDocument>(
+    `/students/${studentId}/documents/${documentId}`,
+    { method: 'PATCH', body: JSON.stringify(patch) },
+    'Could not update the document.'
+  );
+}
+
+export async function deleteDocument(
+  studentId: number,
+  documentId: string
+): Promise<void> {
+  await send(
+    `/students/${studentId}/documents/${documentId}`,
+    { method: 'DELETE' },
+    'Could not delete the document.'
+  );
+}
+
+/** Download through the authorised route, then hand the browser a blob. The
+ *  file is never on a public URL, so it cannot be linked to directly. */
+export async function downloadDocument(
+  studentId: number,
+  documentId: string,
+  filename: string
+): Promise<void> {
+  const res = await call(`/students/${studentId}/documents/${documentId}/download`);
+  if (!res.ok) await fail(res, 'Could not download the file.');
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename || 'document';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* ---- messages: one thread per student ---- */
+
+export type ApiMessage = {
+  id: string;
+  from: 'student' | 'agency';
+  author: string;
+  at: string | null;
+  body: string;
+};
+
+export async function listMessages(studentId: number): Promise<ApiMessage[]> {
+  return send<ApiMessage[]>(`/students/${studentId}/messages`, {}, 'Could not load the thread.');
+}
+
+export async function postMessage(studentId: number, body: string): Promise<ApiMessage> {
+  return send<ApiMessage>(
+    `/students/${studentId}/messages`,
+    { method: 'POST', body: JSON.stringify({ body }) },
+    'Could not send the message.'
+  );
+}
+
+/* ---- announcements ---- */
+
+export type ApiAnnouncement = {
+  id: string;
+  kind: 'document' | 'stage' | 'message' | 'announcement';
+  title: string;
+  body: string | null;
+  at: string | null;
+  href: string | null;
+  /** "all", or the student's numeric id as a string. Staff list only. */
+  audience?: string;
+  audienceName?: string;
+};
+
+export async function listAnnouncements(): Promise<ApiAnnouncement[]> {
+  return send<ApiAnnouncement[]>('/announcements', {}, 'Could not load announcements.');
+}
+
+export async function createAnnouncement(body: {
+  audience: string;
+  title: string;
+  body?: string;
+  kind?: string;
+}): Promise<ApiAnnouncement> {
+  return send<ApiAnnouncement>(
+    '/announcements',
+    { method: 'POST', body: JSON.stringify(body) },
+    'Could not post the announcement.'
+  );
+}
+
+export async function deleteAnnouncement(id: string): Promise<void> {
+  await send(`/announcements/${id}`, { method: 'DELETE' }, 'Could not delete the announcement.');
 }
 
 /* ---- enquiries (the leads list, and booked consultations) ---- */

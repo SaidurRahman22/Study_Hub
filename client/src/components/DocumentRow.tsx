@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Download, FileText, Upload } from "lucide-react";
 import { useStudent } from "@/contexts/StudentContext";
 import { DOC_STATUS, type StudentDoc } from "@/lib/studentData";
@@ -6,16 +6,23 @@ import { DOC_STATUS, type StudentDoc } from "@/lib/studentData";
 /* ====================================================================== *
  *  A document, as a row in a list or as a card in the task grid.         *
  *  Shared so it looks and behaves the same on every screen.              *
+ *                                                                        *
+ *  Files are real. An upload goes to the server's private disk and a     *
+ *  download comes back through a route that checks it is your document.  *
+ *  Nothing is ever on a public URL.                                      *
  * ====================================================================== */
+
+/** What the API accepts. The server checks this again. */
+const ACCEPT = ".pdf,.jpg,.jpeg,.png,.webp";
+const MAX_MB = 10;
 
 export function StatusTag({ status }: { status: StudentDoc["status"] }) {
   const meta = DOC_STATUS[status];
   return <span className={`sp-tag sp-tag-${meta.tone}`}>{meta.label}</span>;
 }
 
-/** Choosing a file records its name and size, nothing else. The file is
- *  never read and never sent: there is nowhere to send it, and this
- *  repository must never become that place. */
+/** Sends the chosen file to the office. Says so while it is going, and says
+ *  why if the server turns it away. */
 export function UploadButton({
   docId,
   label = "Upload",
@@ -27,6 +34,26 @@ export function UploadButton({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { attachDocument } = useStudent();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function send(file: File) {
+    if (file.size > MAX_MB * 1024 * 1024) {
+      setError(
+        `That file is ${(file.size / 1024 / 1024).toFixed(1)} MB. The limit is ${MAX_MB} MB.`
+      );
+      return;
+    }
+    setError("");
+    setBusy(true);
+    try {
+      await attachDocument(docId, file);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "That file could not be sent.");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <>
@@ -34,61 +61,65 @@ export function UploadButton({
         ref={inputRef}
         type="file"
         className="sr-only"
-        accept=".pdf,.jpg,.jpeg,.png"
+        accept={ACCEPT}
         onChange={e => {
           const file = e.target.files?.[0];
-          if (file) attachDocument(docId, file.name, file.size);
           e.target.value = "";
+          if (file) void send(file);
         }}
       />
       <button
         type="button"
         className={`sp-btn sp-btn-sm${primary ? " sp-btn-primary" : ""}`}
         onClick={() => inputRef.current?.click()}
+        disabled={busy}
       >
         <Upload size={14} aria-hidden="true" />
-        {label}
+        {busy ? "Sending…" : label}
       </button>
+      {error && (
+        <span className="sp-row-error" role="alert">
+          {error}
+        </span>
+      )}
     </>
   );
 }
 
-/** No file storage yet, so rather than a button that does nothing this
- *  hands back a short note naming the document and saying so. */
-function downloadPlaceholder(doc: StudentDoc) {
-  const lines = [
-    doc.name,
-    `File on record: ${doc.file ?? "none"}`,
-    `Status: ${DOC_STATUS[doc.status].label}`,
-    doc.updated ? `Last updated: ${doc.updated}` : "",
-    "",
-    "This is a placeholder from the Study Hub BD student portal prototype.",
-    "There is no document storage yet, so there is no real file to return.",
-  ].filter(Boolean);
-
-  const blob = new Blob([lines.join("\n")], {
-    type: "text/plain;charset=utf-8",
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${doc.name.replace(/[^\w\d -]+/g, "")} (placeholder).txt`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
 export function DownloadButton({ doc }: { doc: StudentDoc }) {
+  const { downloadDocument } = useStudent();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function get() {
+    setError("");
+    setBusy(true);
+    try {
+      await downloadDocument(doc.id, doc.file ?? doc.name);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "That file could not be downloaded.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
-    <button
-      type="button"
-      className="sp-btn sp-btn-sm"
-      onClick={() => downloadPlaceholder(doc)}
-    >
-      <Download size={14} aria-hidden="true" />
-      Download
-    </button>
+    <>
+      <button
+        type="button"
+        className="sp-btn sp-btn-sm"
+        onClick={() => void get()}
+        disabled={busy}
+      >
+        <Download size={14} aria-hidden="true" />
+        {busy ? "Fetching…" : "Download"}
+      </button>
+      {error && (
+        <span className="sp-row-error" role="alert">
+          {error}
+        </span>
+      )}
+    </>
   );
 }
 

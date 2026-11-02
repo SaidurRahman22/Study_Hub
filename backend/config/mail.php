@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Office Inbox
+    |--------------------------------------------------------------------------
+    |
+    | Where the office is told that something has happened: a new enquiry, a
+    | student sending a document in. Left unset, those emails are simply not
+    | sent, which is better than sending them to a guessed address.
+    |
+    */
+
+    'office_address' => env('MAIL_OFFICE_ADDRESS'),
+
 ];

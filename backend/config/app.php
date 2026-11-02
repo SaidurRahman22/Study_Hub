@@ -69,6 +69,33 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Office Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Everything is stored in UTC, which is what the timezone above sets. This
+    | is the zone a plain date is READ in: the office and nearly every student
+    | are in Bangladesh, so a document sent at one in the morning in Dhaka must
+    | not come back dated yesterday.
+    |
+    */
+
+    'office_timezone' => env('OFFICE_TIMEZONE', 'Asia/Dhaka'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Student Portal URL
+    |--------------------------------------------------------------------------
+    |
+    | Where the React site lives, so an email can link a student back to the
+    | screen it is about. The API and the site are separate origins in
+    | development, so this cannot be derived from APP_URL.
+    |
+    */
+
+    'portal_url' => rtrim(env('PORTAL_URL', 'http://localhost:4180'), '/'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |

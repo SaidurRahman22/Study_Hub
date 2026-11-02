@@ -9,8 +9,11 @@ import { useStudents } from 'src/content/students-store';
 import { useListSearch } from 'src/content/search';
 
 /* Messages, conversations with students, as a master-detail view. The left
- * list picks a student; the right shows the thread and a working reply. All
- * store-backed, so a sent reply shows at once (and resets on reload). */
+ * list picks a student; the right shows the thread and a working reply.
+ *
+ * Threads come from the API and a reply is sent for real, which also emails
+ * the student. Nothing is attached: files belong on the Documents screen,
+ * where each one gets a status and is kept on the private disk. */
 
 export default function MessagesPage() {
   const { students, sendMessage } = useStudents();
@@ -149,7 +152,10 @@ export default function MessagesPage() {
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                   />
-                  <div className="flex justify-end mt-3">
+                  <div className="flex items-center justify-between gap-4 mt-3">
+                    <p className="text-xs text-muted-foreground">
+                      Sending emails {selected.name.split(' ')[0]} a copy as well.
+                    </p>
                     <Button onClick={send} disabled={!draft.trim()}>
                       <Icon icon="solar:plain-linear" width={18} className="mr-1.5" />
                       Send

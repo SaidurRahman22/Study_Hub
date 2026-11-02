@@ -11,24 +11,31 @@ import {
 import type {
   DocStatus,
   Message,
-  Notification,
-  StudentDoc,
   StudentRecord,
 } from '@/lib/studentData';
 import type { Booking, BookingStatus } from './students';
 import {
+  createAnnouncement,
   createCaseNote,
+  createDocument,
   createEnquiry,
   createStudent,
+  deleteAnnouncement as apiDeleteAnnouncement,
+  deleteDocument as apiDeleteDocument,
   deleteStudent as apiDeleteStudent,
+  downloadDocument as apiDownloadDocument,
   getAdminToken,
+  patchDocument,
+  listAnnouncements,
   listEnquiries,
   listStudents,
   patchCaseNote,
   patchEnquiryStatus,
   patchStage,
+  postMessage,
   removeCaseNote,
   setStudentPassword,
+  type ApiAnnouncement,
   type ApiEnquiry,
   type ApiStudent,
 } from './admin-api';
@@ -47,9 +54,10 @@ import {
  *  reloaded from the server, so the screen never quietly disagrees with the
  *  database.
  *
- *  Documents, messages and announcements have no API yet (those are the next
- *  phases), so they stay empty rather than showing invented data on a real
- *  student's record.
+ *  Documents are real files: they are uploaded to the private disk through the
+ *  API and downloaded back through it, never from a public URL. Messages and
+ *  announcements have no API yet (the next phase), so they stay empty rather
+ *  than showing invented data on a real student's record.
  * ======================================================================= */
 
 export type NoteStatus = 'done' | 'now' | 'todo';
@@ -68,6 +76,19 @@ export type NewNoteInput = {
   body: string;
   status: NoteStatus;
   date: string;
+};
+
+/** An announcement as the admin's feed shows it: one row, saying who it went
+ *  to, rather than one copy per student who can see it. */
+export type AdminAnnouncement = {
+  id: string;
+  kind: 'document' | 'stage' | 'message' | 'announcement';
+  title: string;
+  body: string;
+  at: string;
+  /** "all", or the student's database id as a string */
+  audience: string;
+  audienceName: string;
 };
 
 /** A student as the admin holds it: the portal record plus the database id,
@@ -128,9 +149,38 @@ function toAdminStudent(a: ApiStudent): AdminStudent {
       date: n.date ?? '',
       at: n.at ?? new Date().toISOString(),
     })),
-    documents: [],
-    messages: [],
+    documents: (a.documents ?? []).map((d) => ({
+      id: d.id,
+      name: d.name,
+      group: d.group,
+      status: d.status as DocStatus,
+      file: d.file ?? undefined,
+      size: d.size ?? undefined,
+      updated: d.updated ?? undefined,
+      note: d.note ?? undefined,
+    })),
+    messages: (a.messages ?? []).map((m) => ({
+      id: m.id,
+      from: m.from,
+      author: m.author,
+      at: m.at ?? new Date().toISOString(),
+      body: m.body,
+    })),
+    // What this student can see in their bell. The admin's own feed comes
+    // from the announcements list, so an "all" notice is not counted twice.
     notifications: [],
+  };
+}
+
+function toAdminAnnouncement(a: ApiAnnouncement): AdminAnnouncement {
+  return {
+    id: a.id,
+    kind: a.kind,
+    title: a.title,
+    body: a.body ?? '',
+    at: a.at ?? new Date().toISOString(),
+    audience: a.audience ?? 'all',
+    audienceName: a.audienceName ?? 'Everyone',
   };
 }
 
@@ -169,7 +219,15 @@ type Store = {
 
   setDocStatus: (studentId: string, docId: string, status: DocStatus) => void;
   setDocNote: (studentId: string, docId: string, note: string) => void;
-  addDocument: (studentId: string, doc: Omit<StudentDoc, 'id'>) => void;
+  /** Upload a document for a student. The file is optional: without one the
+   *  row reads as the office asking the student for it. */
+  uploadDocument: (
+    studentId: string,
+    meta: { name: string; group: string; status?: string; note?: string },
+    file?: File | null
+  ) => void;
+  removeDocument: (studentId: string, docId: string) => void;
+  downloadDocument: (studentId: string, docId: string, filename: string) => void;
 
   addCaseNote: (studentId: string, note: NewNoteInput) => void;
   updateCaseNote: (
@@ -180,7 +238,13 @@ type Store = {
   deleteCaseNote: (studentId: string, noteId: string) => void;
 
   sendMessage: (studentId: string, body: string) => void;
+
+  /** Every announcement posted, newest first, each row once whoever it went
+   *  to. The per-student copies in `notifications` are what a student sees. */
+  announcements: AdminAnnouncement[];
+  /** `audience` is "all" or a student's studentId. */
   postAnnouncement: (audience: string, title: string, body: string) => void;
+  removeAnnouncement: (id: string) => void;
 
   addBooking: (input: NewBookingInput) => void;
   setBookingStatus: (bookingId: string, status: BookingStatus) => void;
@@ -197,6 +261,7 @@ const uid = () =>
 export function StudentsProvider({ children }: { children: ReactNode }) {
   const [students, setStudents] = useState<AdminStudent[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [announcements, setAnnouncements] = useState<AdminAnnouncement[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -208,9 +273,14 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     if (!getAdminToken()) return;
     setLoading(true);
     try {
-      const [s, e] = await Promise.all([listStudents(), listEnquiries()]);
+      const [s, e, a] = await Promise.all([
+        listStudents(),
+        listEnquiries(),
+        listAnnouncements(),
+      ]);
       setStudents(s.map(toAdminStudent));
       setBookings(e.map(toBooking));
+      setAnnouncements(a.map(toAdminAnnouncement));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load data.');
@@ -390,69 +460,125 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     [patchLocal, find, run]
   );
 
-  /* ---- documents, messages, announcements: local only until their APIs
-         exist (the next phases). Kept so the screens still work. ---- */
+  /* ---- documents: real files on the private disk ---- */
 
   const setDocStatus = useCallback(
-    (studentId: string, docId: string, status: DocStatus) =>
+    (studentId: string, docId: string, status: DocStatus) => {
       patchLocal(studentId, (s) => ({
         ...s,
         documents: s.documents.map((d) => (d.id === docId ? { ...d, status } : d)),
-      })),
-    [patchLocal]
+      }));
+      const target = find(studentId);
+      if (target) void run(() => patchDocument(target.apiId, docId, { status }));
+    },
+    [patchLocal, find, run]
   );
 
   const setDocNote = useCallback(
-    (studentId: string, docId: string, note: string) =>
+    (studentId: string, docId: string, note: string) => {
       patchLocal(studentId, (s) => ({
         ...s,
         documents: s.documents.map((d) => (d.id === docId ? { ...d, note } : d)),
-      })),
-    [patchLocal]
+      }));
+      const target = find(studentId);
+      if (target) void run(() => patchDocument(target.apiId, docId, { note }));
+    },
+    [patchLocal, find, run]
   );
 
-  const addDocument = useCallback(
-    (studentId: string, doc: Omit<StudentDoc, 'id'>) =>
+  const uploadDocument = useCallback(
+    (
+      studentId: string,
+      meta: { name: string; group: string; status?: string; note?: string },
+      file?: File | null
+    ) => {
+      const target = find(studentId);
+      if (!target) return;
+      void run(async () => {
+        await createDocument(target.apiId, meta, file);
+        await reload();
+      });
+    },
+    [find, run, reload]
+  );
+
+  const removeDocument = useCallback(
+    (studentId: string, docId: string) => {
       patchLocal(studentId, (s) => ({
         ...s,
-        documents: [...s.documents, { ...doc, id: uid() }],
-      })),
-    [patchLocal]
+        documents: s.documents.filter((d) => d.id !== docId),
+      }));
+      const target = find(studentId);
+      if (target) void run(() => apiDeleteDocument(target.apiId, docId));
+    },
+    [patchLocal, find, run]
   );
 
+  const downloadDocument = useCallback(
+    (studentId: string, docId: string, filename: string) => {
+      const target = find(studentId);
+      if (target) void run(() => apiDownloadDocument(target.apiId, docId, filename));
+    },
+    [find, run]
+  );
+
+  /* ---- messages and announcements ---- */
+
   const sendMessage = useCallback(
-    (studentId: string, body: string) =>
-      patchLocal(studentId, (s) => {
-        const msg: Message = {
-          id: uid(),
-          from: 'agency',
-          author: 'Study Hub BD',
-          at: new Date().toISOString(),
-          body,
-        };
-        return { ...s, messages: [...s.messages, msg] };
-      }),
-    [patchLocal]
+    (studentId: string, body: string) => {
+      const target = find(studentId);
+      if (!target) return;
+
+      // Show it at once so the thread does not stall while the request runs.
+      // The id is provisional until the reply comes back.
+      const pending: Message = {
+        id: uid(),
+        from: 'agency',
+        author: 'Study Hub BD',
+        at: new Date().toISOString(),
+        body,
+      };
+      patchLocal(studentId, (s) => ({ ...s, messages: [...s.messages, pending] }));
+
+      void run(async () => {
+        const saved = await postMessage(target.apiId, body);
+        patchLocal(studentId, (s) => ({
+          ...s,
+          messages: s.messages.map((m) =>
+            m.id === pending.id
+              ? { ...m, id: saved.id, author: saved.author, at: saved.at ?? m.at }
+              : m
+          ),
+        }));
+      });
+    },
+    [find, patchLocal, run]
   );
 
   const postAnnouncement = useCallback(
     (audience: string, title: string, body: string) => {
-      const note = (): Notification => ({
-        id: uid(),
-        kind: 'announcement',
-        title,
-        body: body || undefined,
-        at: new Date().toISOString(),
+      // The screens speak in studentIds; the API in database ids.
+      const target = audience === 'all' ? null : find(audience);
+      if (audience !== 'all' && !target) return;
+
+      void run(async () => {
+        await createAnnouncement({
+          audience: target ? String(target.apiId) : 'all',
+          title,
+          body: body || undefined,
+        });
+        await reload();
       });
-      setStudents((prev) =>
-        prev.map((s) =>
-          audience === 'all' || s.studentId === audience
-            ? { ...s, notifications: [note(), ...s.notifications] }
-            : s
-        )
-      );
     },
-    []
+    [find, run, reload]
+  );
+
+  const removeAnnouncement = useCallback(
+    (id: string) => {
+      setAnnouncements((prev) => prev.filter((a) => a.id !== id));
+      void run(() => apiDeleteAnnouncement(id));
+    },
+    [run]
   );
 
   /* ---- enquiries / bookings ---- */
@@ -507,12 +633,16 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
       updateStage,
       setDocStatus,
       setDocNote,
-      addDocument,
+      uploadDocument,
+      removeDocument,
+      downloadDocument,
       addCaseNote,
       updateCaseNote,
       deleteCaseNote,
       sendMessage,
+      announcements,
       postAnnouncement,
+      removeAnnouncement,
       addBooking,
       setBookingStatus,
       getStudent,
@@ -531,12 +661,16 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
       updateStage,
       setDocStatus,
       setDocNote,
-      addDocument,
+      uploadDocument,
+      removeDocument,
+      downloadDocument,
       addCaseNote,
       updateCaseNote,
       deleteCaseNote,
       sendMessage,
+      announcements,
       postAnnouncement,
+      removeAnnouncement,
       addBooking,
       setBookingStatus,
       getStudent,

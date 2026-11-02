@@ -8,13 +8,21 @@ import {
   type ReactNode,
 } from "react";
 import {
-  type Attachment,
   type Message,
   type Notification,
   type StudentDoc,
   type StudentRecord,
 } from "@/lib/studentData";
-import { getMyApplication, getToken, login, logout, setToken } from "@/lib/api";
+import {
+  downloadMyDocument,
+  getMyApplication,
+  getToken,
+  login,
+  logout,
+  postMyMessage,
+  setToken,
+  uploadMyDocument,
+} from "@/lib/api";
 
 /** Map the API's /my/application payload to the portal's StudentRecord. */
 function mapApplication(a: Record<string, unknown>): StudentRecord {
@@ -41,33 +49,29 @@ function mapApplication(a: Record<string, unknown>): StudentRecord {
 }
 
 /* ====================================================================== *
- *  STUDENT SESSION: DEMONSTRATION ONLY                                   *
+ *  STUDENT SESSION                                                       *
  *                                                                        *
- *  Read this before wiring anything real to it.                           *
+ *  The sign-in is real. The password is checked on the server against a  *
+ *  bcrypt hash and never reaches the browser; what comes back is a       *
+ *  Sanctum token. Every read is scoped to the signed-in student, so      *
+ *  student A cannot fetch student B's file by changing an id, and        *
+ *  documents live on the server's private disk and are only released     *
+ *  through a download route that checks who is asking.                   *
  *                                                                        *
- *  The sign-in below compares a password IN THE BROWSER. That protects    *
- *  nothing at all: the credential is in the JavaScript bundle, which      *
- *  anyone can read, and the "session" is a flag in localStorage that any  *
- *  visitor can set by hand. It exists so the screens can be walked        *
- *  through, and for no other purpose.                                     *
- *                                                                        *
- *  A real version needs, at minimum:                                      *
- *   - accounts and password hashing on a server (Argon2id or bcrypt),     *
- *     with the comparison never reaching the client;                      *
- *   - sessions in an HttpOnly, Secure, SameSite cookie, not localStorage, *
- *     which any injected script can read;                                 *
+ *  What is still owed before this carries real students:                  *
+ *   - the token is in localStorage, which any injected script can read.  *
+ *     An HttpOnly, Secure, SameSite cookie is the safer home for it;     *
  *   - rate limiting on sign-in, and a real password reset;                *
- *   - per-student authorisation on every read, so student A cannot        *
- *     fetch student B's file by changing an id;                           *
- *   - documents in private object storage behind short-lived signed URLs. *
+ *   - the API must be served over HTTPS from the same site, not over     *
+ *     plain HTTP as it is in local development.                           *
  *                                                                        *
- *  None of that can be done by this repository's current architecture:    *
- *  the site is a static bundle whose datastore is a JSON file in a        *
- *  PUBLIC GitHub repo. Student documents must never go there.             *
+ *  Student documents must never go into the GitHub repo. They are on the *
+ *  server's private disk, outside the web root, and nothing in the build *
+ *  copies them.                                                           *
  * ====================================================================== */
 
-/** The one demo account. Deliberately obvious, and shown on the sign-in
- *  screen so nobody mistakes the portal for a live service. */
+/** The seeded development account, shown on the sign-in screen while the
+ *  site has no real students. Remove the hint before launch. */
 const DEMO_EMAIL = "student@demo.studyhubbd.com";
 const DEMO_PASSWORD = "password";
 
@@ -104,10 +108,15 @@ type StudentContextValue = {
   lastRead: string | null;
   signIn: (email: string, password: string) => Promise<SignInResult>;
   signOut: () => void;
-  /** Records the NAME of a chosen file. The file itself is never read,
-   *  never stored and never uploaded. There is nowhere to put it. */
-  attachDocument: (docId: string, fileName: string, sizeBytes: number) => void;
-  sendMessage: (body: string, attachments?: Attachment[]) => void;
+  /** Send a real file in for a document the office asked for. It goes to the
+   *  server's private disk; the promise rejects with a readable message if the
+   *  server refuses it (wrong type, too large, not your document). */
+  attachDocument: (docId: string, file: File) => Promise<void>;
+  /** Fetch one of your own documents back through the authorised route. */
+  downloadDocument: (docId: string, fileName: string) => Promise<void>;
+  /** Write to the office. Text only: files belong on the documents screen,
+   *  where they get a status and are kept properly. */
+  sendMessage: (body: string) => Promise<void>;
   markMessagesRead: () => void;
   /** when the bell was last opened */
   notesLastRead: string | null;
@@ -173,60 +182,65 @@ export function StudentProvider({ children }: { children: ReactNode }) {
     setStudent(null);
   }, []);
 
-  const attachDocument = useCallback(
-    (docId: string, fileName: string, sizeBytes: number) => {
-      setStudent(prev => {
-        if (!prev) return prev;
-        const documents: StudentDoc[] = prev.documents.map(d =>
-          d.id === docId
-            ? {
-                ...d,
-                status: "review",
-                file: fileName,
-                size: formatSize(sizeBytes),
-                updated: new Date().toISOString().slice(0, 10),
-                note: "Just sent. The office will check it and come back to you.",
-              }
-            : d
-        );
-        const doc = prev.documents.find(d => d.id === docId);
-        const note: Notification = {
-          id: `n-${docId}-${Date.now()}`,
-          kind: "document",
-          title: `${doc?.name ?? "Document"} sent to the office`,
-          body: "We will check it and come back to you.",
-          at: new Date().toISOString(),
-          href: "/student/documents",
-        };
-        return {
-          ...prev,
-          documents,
-          notifications: [note, ...prev.notifications],
-        };
-      });
-    },
+  const attachDocument = useCallback(async (docId: string, file: File) => {
+    // The server has the last word on type and size; it answers with the row
+    // as it now stands, which is what the screen then shows.
+    const saved = (await uploadMyDocument(docId, file)) as Record<string, unknown>;
+
+    setStudent(prev => {
+      if (!prev) return prev;
+      const documents: StudentDoc[] = prev.documents.map(d =>
+        d.id === docId
+          ? {
+              ...d,
+              status: (saved.status as StudentDoc["status"]) ?? "review",
+              file: (saved.file as string) ?? file.name,
+              size: (saved.size as string) ?? formatSize(file.size),
+              updated:
+                (saved.updated as string) ?? new Date().toISOString().slice(0, 10),
+              note: "Just sent. The office will check it and come back to you.",
+            }
+          : d
+      );
+      const doc = prev.documents.find(d => d.id === docId);
+      const note: Notification = {
+        id: `n-${docId}-${Date.now()}`,
+        kind: "document",
+        title: `${doc?.name ?? "Document"} sent to the office`,
+        body: "We will check it and come back to you.",
+        at: new Date().toISOString(),
+        href: "/student/documents",
+      };
+      return {
+        ...prev,
+        documents,
+        notifications: [note, ...prev.notifications],
+      };
+    });
+  }, []);
+
+  const downloadDocument = useCallback(
+    (docId: string, fileName: string) => downloadMyDocument(docId, fileName),
     []
   );
 
-  const sendMessage = useCallback(
-    (body: string, attachments: Attachment[] = []) => {
-      const text = body.trim();
-      if (!text && attachments.length === 0) return;
-      setStudent(prev => {
-        if (!prev) return prev;
-        const message: Message = {
-          id: `m${prev.messages.length + 1}-${Date.now()}`,
-          from: "student",
-          author: prev.name,
-          at: new Date().toISOString(),
-          body: text,
-          attachments: attachments.length ? attachments : undefined,
-        };
-        return { ...prev, messages: [...prev.messages, message] };
-      });
-    },
-    []
-  );
+  const sendMessage = useCallback(async (body: string) => {
+    const text = body.trim();
+    if (!text) return;
+
+    const saved = (await postMyMessage(text)) as Record<string, unknown>;
+    setStudent(prev => {
+      if (!prev) return prev;
+      const message: Message = {
+        id: String(saved.id ?? `m-${Date.now()}`),
+        from: "student",
+        author: String(saved.author ?? prev.name),
+        at: String(saved.at ?? new Date().toISOString()),
+        body: String(saved.body ?? text),
+      };
+      return { ...prev, messages: [...prev.messages, message] };
+    });
+  }, []);
 
   const markMessagesRead = useCallback(() => {
     const now = new Date().toISOString();
@@ -249,6 +263,7 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       attachDocument,
+      downloadDocument,
       sendMessage,
       markMessagesRead,
       notesLastRead,
@@ -261,6 +276,7 @@ export function StudentProvider({ children }: { children: ReactNode }) {
       signIn,
       signOut,
       attachDocument,
+      downloadDocument,
       sendMessage,
       markMessagesRead,
       notesLastRead,

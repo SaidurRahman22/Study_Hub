@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DocumentReviewed;
+use App\Mail\DocumentSubmitted;
 use App\Models\Document;
 use App\Models\User;
+use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +30,10 @@ class DocumentController extends Controller
         'mimes:pdf,jpg,jpeg,png,webp',
         'max:10240', // 10 MB
     ];
+
+    /** Status changes the student is emailed about. "review" and "later" are
+     *  the office's own bookkeeping and go unannounced. */
+    private const WORTH_TELLING = ['accepted', 'rejected', 'needed'];
 
     /* ---- staff ---- */
 
@@ -72,6 +79,8 @@ class DocumentController extends Controller
             'file' => array_merge(['nullable'], self::FILE_RULES),
         ]);
 
+        $before = $document->status;
+
         foreach (['name', 'group', 'status', 'note'] as $field) {
             if (array_key_exists($field, $data)) {
                 $document->{$field} = $data[$field];
@@ -83,6 +92,15 @@ class DocumentController extends Controller
         }
 
         $document->save();
+
+        // Only a verdict is worth an email. Renaming a row, or writing a note
+        // without changing the status, is not news to the student.
+        if ($document->status !== $before && in_array($document->status, self::WORTH_TELLING, true)) {
+            Notify::mail($student->email, new DocumentReviewed(
+                $document,
+                config('app.portal_url').'/student/documents'
+            ));
+        }
 
         return response()->json($this->present($document));
     }
@@ -123,6 +141,8 @@ class DocumentController extends Controller
         // Back to the office to look at, whatever it was before.
         $document->status = 'review';
         $document->save();
+
+        Notify::office(new DocumentSubmitted($document->load('user')));
 
         return response()->json($this->present($document));
     }
@@ -183,7 +203,7 @@ class DocumentController extends Controller
             'status' => $d->status,
             'file' => $d->original_name,
             'size' => $d->humanSize(),
-            'updated' => $d->updated_at?->toDateString(),
+            'updated' => $d->updated_at?->setTimezone(config('app.office_timezone'))->toDateString(),
             'note' => $d->note,
             'hasFile' => (bool) $d->path,
         ];

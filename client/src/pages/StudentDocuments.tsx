@@ -139,9 +139,9 @@ export default function StudentDocuments() {
       </div>
 
       <p className="sp-hint" style={{ marginTop: 20, maxWidth: "72ch" }}>
-        Scans should be straight, in colour and readable corner to corner. PDF
-        or JPG, under 5 MB. If you are unsure whether something is right, send
-        it and ask on the messages screen.
+        Scans should be straight, in colour and readable corner to corner. PDF,
+        JPG, PNG or WebP, up to 10 MB. If you are unsure whether something is
+        right, send it and ask on the messages screen.
       </p>
     </StudentShell>
   );

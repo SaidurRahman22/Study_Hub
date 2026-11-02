@@ -20,13 +20,16 @@ import {
   TableHeader,
   TableRow,
 } from 'src/components/ui/table';
+import { Icon } from '@iconify/react';
 import { ScreenHead, StatusTag, type Tone } from 'src/content/ui';
-import { useStudents } from 'src/content/students-store';
+import { useStudents, type AdminAnnouncement } from 'src/content/students-store';
 import { useListSearch } from 'src/content/search';
 
-/* Announcements. Post a notice to one student or to everyone, then read the
- * feed of every notification flattened across students (newest first). Store-
- * backed: posting adds a notification to each targeted student right away. */
+/* Announcements. Post a notice to one student or to everyone, then read what
+ * has been posted, newest first. Each notice is one row here whoever it went
+ * to; the students see their own copies in the portal's bell.
+ *
+ * Posting also emails the students it was addressed to. */
 
 const KIND_TAG: Record<
   'document' | 'stage' | 'message' | 'announcement',
@@ -39,7 +42,7 @@ const KIND_TAG: Record<
 };
 
 export default function AnnouncementsPage() {
-  const { students, postAnnouncement } = useStudents();
+  const { students, announcements, postAnnouncement, removeAnnouncement } = useStudents();
   const q = useListSearch('Search announcements');
 
   const [audience, setAudience] = useState('all');
@@ -53,15 +56,20 @@ export default function AnnouncementsPage() {
     setBody('');
   }
 
-  const feed = useMemo(() => {
-    const rows = students.flatMap((student) =>
-      student.notifications.map((note) => ({ student, note }))
+  function remove(note: AdminAnnouncement) {
+    const ok = window.confirm(
+      `Delete "${note.title}"? It disappears from every student who can see it. The email already sent cannot be recalled.`
     );
-    rows.sort((a, b) => (a.note.at < b.note.at ? 1 : -1));
-    return rows.filter(({ student, note }) =>
-      [note.title, student.name].join(' ').toLowerCase().includes(q)
-    );
-  }, [students, q]);
+    if (ok) removeAnnouncement(note.id);
+  }
+
+  const feed = useMemo(
+    () =>
+      announcements.filter((note) =>
+        [note.title, note.audienceName].join(' ').toLowerCase().includes(q)
+      ),
+    [announcements, q]
+  );
 
   return (
     <>
@@ -111,9 +119,14 @@ export default function AnnouncementsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              <Button onClick={post} disabled={!title.trim()}>
-                Post
-              </Button>
+              <div className="flex items-center gap-4">
+                <p className="text-xs text-muted-foreground max-w-[32ch]">
+                  Posting emails everyone it is addressed to, as well as putting it in their bell.
+                </p>
+                <Button onClick={post} disabled={!title.trim()}>
+                  Post
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -128,15 +141,16 @@ export default function AnnouncementsPage() {
                 <TableRow>
                   <TableHead className="text-sm font-semibold py-3 whitespace-nowrap">Kind</TableHead>
                   <TableHead className="text-sm font-semibold py-3 whitespace-nowrap">Title</TableHead>
-                  <TableHead className="text-sm font-semibold py-3 whitespace-nowrap">Student</TableHead>
+                  <TableHead className="text-sm font-semibold py-3 whitespace-nowrap">Sent to</TableHead>
                   <TableHead className="text-sm font-semibold py-3 whitespace-nowrap">When</TableHead>
+                  <TableHead className="text-sm font-semibold py-3 text-end whitespace-nowrap">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {feed.map(({ student, note }) => {
+                {feed.map((note) => {
                   const tag = KIND_TAG[note.kind];
                   return (
-                    <TableRow key={`${student.studentId}-${note.id}`}>
+                    <TableRow key={note.id}>
                       <TableCell className="py-3">
                         <StatusTag tone={tag.tone}>{tag.label}</StatusTag>
                       </TableCell>
@@ -148,9 +162,20 @@ export default function AnnouncementsPage() {
                           </div>
                         )}
                       </TableCell>
-                      <TableCell className="py-3 text-foreground/90">{student.name}</TableCell>
+                      <TableCell className="py-3 text-foreground/90">{note.audienceName}</TableCell>
                       <TableCell className="py-3 whitespace-nowrap text-muted-foreground">
                         {format(new Date(note.at), 'd MMM yyyy')}
+                      </TableCell>
+                      <TableCell className="py-3 text-end">
+                        <Button
+                          variant="ghosterror"
+                          className="h-8 w-8 p-0"
+                          title="Delete announcement"
+                          aria-label={`Delete ${note.title}`}
+                          onClick={() => remove(note)}
+                        >
+                          <Icon icon="solar:trash-bin-minimalistic-linear" width={17} />
+                        </Button>
                       </TableCell>
                     </TableRow>
                   );
@@ -161,13 +186,10 @@ export default function AnnouncementsPage() {
 
           {/* Mobile: stacked cards */}
           <div className="md:hidden flex flex-col gap-3">
-            {feed.map(({ student, note }) => {
+            {feed.map((note) => {
               const tag = KIND_TAG[note.kind];
               return (
-                <div
-                  key={`${student.studentId}-${note.id}`}
-                  className="rounded-lg border border-ld p-4"
-                >
+                <div key={note.id} className="rounded-lg border border-ld p-4">
                   <div className="flex items-center justify-between gap-3">
                     <StatusTag tone={tag.tone}>{tag.label}</StatusTag>
                     <span className="text-xs text-muted-foreground whitespace-nowrap">
@@ -178,7 +200,19 @@ export default function AnnouncementsPage() {
                   {note.body && (
                     <div className="text-sm text-muted-foreground">{note.body}</div>
                   )}
-                  <div className="mt-2 text-sm text-muted-foreground">{student.name}</div>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <span className="text-sm text-muted-foreground">
+                      Sent to {note.audienceName}
+                    </span>
+                    <Button
+                      variant="ghosterror"
+                      className="h-11 w-11 p-0 shrink-0"
+                      aria-label={`Delete ${note.title}`}
+                      onClick={() => remove(note)}
+                    >
+                      <Icon icon="solar:trash-bin-minimalistic-linear" width={18} />
+                    </Button>
+                  </div>
                 </div>
               );
             })}

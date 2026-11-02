@@ -73,6 +73,10 @@ dev origins in Laravel.
 
 ## Build order (phases)
 
+Phases 1 to 4 are **built and browser-verified** (as of 2026-11-02), and phase 6
+came with them because wiring the admin to the API is what a CRM view is. Phase 5
+is next.
+
 1. **Foundation + contact form** (items 1, 2, start of 10): Laravel scaffold,
    MySQL wired, `enquiries` table, `POST /api/enquiries`, the React contact form
    submitting to it, and the admin Bookings/Enquiries list reading real rows.
@@ -80,9 +84,26 @@ dev origins in Laravel.
    application stages and case notes, the student portal and the admin student
    screens on real data.
 3. **Secure documents** (4): authorized upload, list, status, feedback, download.
+   Files go to `storage/app/private` under generated UUID names and are only
+   released through a route that checks who is asking, so nothing is on a public
+   URL. Multipart is sent as POST, with `_method=PATCH` to replace a file, since
+   PHP does not parse multipart bodies on PATCH.
 4. **Messages + announcements + emails** (7, part of 6): threads, the "All"
-   announcement, and automated email at each step (enquiry received, account
-   created, document reviewed, booking confirmed).
+   announcement, and automated email at each step.
+   One thread per student, with no thread table: the student is the thread.
+   An announcement with a null `user_id` goes to everyone; the portal decides
+   what is unread from a timestamp on the reader's own device, so there is no
+   read table. Messages carry no attachments on purpose, so a file cannot end
+   up somewhere it is never checked or given a status.
+   Every automated email goes through `App\Support\Notify`, which swallows a
+   send failure into the log rather than failing the request that caused it,
+   and refuses to mail the placeholder addresses the enquiry form generates.
+   Seven mailables: enquiry received, enquiry to the office, account created
+   (the only time a first password is sent), document reviewed, document
+   submitted, message from the office, message from the student, announcement
+   posted. `MAIL_MAILER=log` in development, so nothing leaves the machine.
+   **Before production:** real SMTP credentials, and switch `Notify::mail` to
+   `->queue()` with a worker running, so SMTP latency is off the request.
 5. **Video booking + timezones** (6): bookings with UTC + timezone conversion and
    a meeting link.
 6. **CRM polish** (8): staff views over every lead and its status.

@@ -97,6 +97,69 @@ export async function getMyApplication(): Promise<unknown> {
   return res.json();
 }
 
+/* ---- the student's own documents ---- */
+
+/** Send in a file for a document the office has asked for. The API checks the
+ *  document belongs to the signed-in student and returns the updated row. */
+export async function uploadMyDocument(
+  documentId: string,
+  file: File
+): Promise<Record<string, unknown>> {
+  const form = new FormData();
+  form.append("file", file);
+
+  const token = getToken();
+  let res: Response;
+  try {
+    // No Content-Type: the browser sets the multipart boundary itself.
+    res = await fetch(`${API_URL}/my/documents/${documentId}/upload`, {
+      method: "POST",
+      body: form,
+      headers: {
+        Accept: "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+  } catch {
+    throw new Error("We could not reach the server. Check your connection and try again.");
+  }
+  if (!res.ok) throw new Error(await errorMessage(res, "Could not send that file."));
+  return res.json();
+}
+
+/** Download one of the student's own documents. The file is fetched through
+ *  the authorised route and handed to the browser as a blob, so it is never on
+ *  a public URL that could be shared or guessed. */
+export async function downloadMyDocument(
+  documentId: string,
+  filename: string
+): Promise<void> {
+  const res = await apiFetch(`/my/documents/${documentId}/download`);
+  if (!res.ok) throw new Error(await errorMessage(res, "Could not download that file."));
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename || "document";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* ---- the student's own thread with the office ---- */
+
+/** Write to the office. Text only; the API carries no attachments, because a
+ *  file belongs on the documents screen where it is checked and kept. */
+export async function postMyMessage(body: string): Promise<unknown> {
+  const res = await apiFetch("/my/messages", {
+    method: "POST",
+    body: JSON.stringify({ body }),
+  });
+  if (!res.ok) throw new Error(await errorMessage(res, "That message was not sent."));
+  return res.json();
+}
+
 export { API_URL };
 
 export type EnquiryInput = {

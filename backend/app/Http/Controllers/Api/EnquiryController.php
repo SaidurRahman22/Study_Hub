@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EnquiryReceived;
+use App\Mail\EnquiryToOffice;
 use App\Models\Enquiry;
+use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -36,7 +39,11 @@ class EnquiryController extends Controller
             'status' => 'new',
         ]);
 
-        // A real email confirmation is wired in Phase 4.
+        // Both sides are told at once: the enquirer that we have it, the
+        // office that there is someone to ring. Neither can fail the request.
+        Notify::mail($enquiry->email, new EnquiryReceived($enquiry));
+        Notify::office(new EnquiryToOffice($enquiry));
+
         return response()->json(['ok' => true, 'id' => $enquiry->id], 201);
     }
 

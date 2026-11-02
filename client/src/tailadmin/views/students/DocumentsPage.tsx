@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
 import CardBox from 'src/components/shared/CardBox';
 import { Button } from 'src/components/ui/button';
@@ -37,7 +37,10 @@ import type { DocStatus, StudentDoc } from '@/lib/studentData';
 /* Documents, the review screen. The admin sets each document's status, writes
  * feedback, and uploads files on a student's behalf (students send files by
  * WhatsApp, email or in person; the student only sees the status and the
- * download once the admin has acted). Store-backed, in-memory for now. */
+ * download once the admin has acted).
+ *
+ * Files are real: they go to the API's private disk and come back through an
+ * authorised download, never a public URL. */
 
 /** The five statuses, in the order the office reads them. */
 const STATUS_OPTIONS: DocStatus[] = ['accepted', 'review', 'needed', 'rejected', 'later'];
@@ -48,30 +51,50 @@ const GROUP_LABEL: Record<StudentDoc['group'], string> = {
   visa: 'Visa file',
 };
 
+/** What the API will take. Anything else is refused server-side too. */
+const ACCEPT = '.pdf,.jpg,.jpeg,.png,.webp';
+const MAX_MB = 10;
+
+/** Matches how the API words a size, so the chosen file and the saved row
+ *  read the same. A small file says bytes rather than "0 KB". */
+function readableSize(bytes: number): string {
+  if (bytes >= 1048576) return `${(bytes / 1048576).toFixed(1)} MB`;
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${bytes} B`;
+}
+
 type UploadForm = {
   studentId: string;
   name: string;
   group: StudentDoc['group'];
   status: DocStatus;
-  fileName: string;
 };
 
 const BLANK_UPLOAD: UploadForm = {
   studentId: '',
   name: '',
   group: 'application',
-  status: 'review',
-  fileName: '',
+  status: 'needed',
 };
 
 type DocRow = { student: AdminStudent; doc: StudentDoc };
 
 export default function DocumentsPage() {
-  const { students, setDocStatus, setDocNote, addDocument } = useStudents();
+  const {
+    students,
+    setDocStatus,
+    setDocNote,
+    uploadDocument,
+    removeDocument,
+    downloadDocument,
+  } = useStudents();
   const q = useListSearch('Search documents');
 
   const [uploadOpen, setUploadOpen] = useState(false);
   const [upload, setUpload] = useState<UploadForm>(BLANK_UPLOAD);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState('');
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const [noteFor, setNoteFor] = useState<DocRow | null>(null);
   const [noteText, setNoteText] = useState('');
@@ -93,20 +116,65 @@ export default function DocumentsPage() {
 
   function openUpload() {
     setUpload(BLANK_UPLOAD);
+    clearFile();
     setUploadOpen(true);
+  }
+
+  function clearFile() {
+    setFile(null);
+    setFileError('');
+    if (fileInput.current) fileInput.current.value = '';
+  }
+
+  /** With a file the row is something to check; without one it is something
+   *  the office is asking the student for. Changing the file sets the status
+   *  to match; the admin can still override it afterwards. */
+  function statusForFile(picked: File | null) {
+    setUpload((f) => ({ ...f, status: picked ? 'review' : 'needed' }));
+  }
+
+  /** Catch an oversized file here so the office is told at once, rather than
+   *  after the upload has crawled to the server and been refused. */
+  function chooseFile(picked: File | null) {
+    if (!picked) {
+      clearFile();
+      statusForFile(null);
+      return;
+    }
+    if (picked.size > MAX_MB * 1024 * 1024) {
+      setFile(null);
+      setFileError(`That file is ${(picked.size / 1024 / 1024).toFixed(1)} MB. The limit is ${MAX_MB} MB.`);
+      if (fileInput.current) fileInput.current.value = '';
+      return;
+    }
+    setFileError('');
+    setFile(picked);
+    // A document with no name yet takes the file's own, so the common case
+    // needs no typing.
+    setUpload((f) => ({
+      ...f,
+      status: 'review',
+      name: f.name.trim() ? f.name : picked.name.replace(/\.[^.]+$/, ''),
+    }));
   }
 
   function doUpload() {
     if (!canUpload) return;
-    addDocument(upload.studentId, {
-      name: upload.name.trim(),
-      group: upload.group,
-      status: upload.status,
-      file: upload.fileName.trim() || undefined,
-      updated: new Date().toISOString().slice(0, 10),
-    });
+    uploadDocument(
+      upload.studentId,
+      { name: upload.name.trim(), group: upload.group, status: upload.status },
+      file
+    );
     setUpload(BLANK_UPLOAD);
+    clearFile();
     setUploadOpen(false);
+  }
+
+  function doDelete(row: DocRow) {
+    const ok = window.confirm(
+      `Delete "${row.doc.name}" from ${row.student.name}'s file? The uploaded file goes with it.`
+    );
+    if (ok) removeDocument(row.student.studentId, row.doc.id);
   }
 
   function openNote(row: DocRow) {
@@ -133,9 +201,9 @@ export default function DocumentsPage() {
       />
 
       <Caveat>
-        Documents like passport scans and bank statements must live in private, access-controlled
-        storage, never the public repo. Nothing is really stored here yet; actually holding files
-        is a backend job (see <code>Docs/ADMIN-CONTENT-MAP.md §5</code>).
+        Passport scans and bank statements are held on the server's private disk under generated
+        names, and are only released through a download that checks who is asking. They are never
+        on a public URL and never in the repo. PDF, JPG, PNG or WebP, up to {MAX_MB} MB.
       </Caveat>
 
       <CardBox>
@@ -164,8 +232,17 @@ export default function DocumentsPage() {
                       <div className="text-foreground">{doc.name}</div>
                       <div className="text-xs text-muted-foreground">{GROUP_LABEL[doc.group]}</div>
                     </TableCell>
-                    <TableCell className="py-3 whitespace-nowrap text-foreground/90">
-                      {doc.file ?? 'Not uploaded'}
+                    <TableCell className="py-3">
+                      {doc.file ? (
+                        <>
+                          <div className="max-w-[180px] truncate text-foreground/90" title={doc.file}>
+                            {doc.file}
+                          </div>
+                          <div className="text-xs text-muted-foreground">{doc.size}</div>
+                        </>
+                      ) : (
+                        <span className="text-muted-foreground/70">Not uploaded</span>
+                      )}
                     </TableCell>
                     <TableCell className="py-3">
                       <Select
@@ -193,14 +270,41 @@ export default function DocumentsPage() {
                         {doc.note || 'No feedback yet'}
                       </span>
                     </TableCell>
-                    <TableCell className="py-3 text-end">
-                      <Button
-                        variant="outline"
-                        className="h-8 px-3 text-xs"
-                        onClick={() => openNote({ student, doc })}
-                      >
-                        Edit
-                      </Button>
+                    <TableCell className="py-3">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <Button
+                          variant="outline"
+                          className="h-8 px-3 text-xs"
+                          onClick={() => openNote({ student, doc })}
+                        >
+                          Edit
+                        </Button>
+                        {/* The two icon actions are quiet by default. A column
+                            of ten outlined red bins shouts louder than the
+                            work on this screen, which is reading and
+                            answering, not deleting. */}
+                        <Button
+                          variant="ghost"
+                          className="h-8 w-8 p-0 text-muted-foreground"
+                          disabled={!doc.file}
+                          title={doc.file ? `Download ${doc.file}` : 'No file to download'}
+                          aria-label={`Download ${doc.name}`}
+                          onClick={() =>
+                            downloadDocument(student.studentId, doc.id, doc.file ?? doc.name)
+                          }
+                        >
+                          <Icon icon="solar:download-minimalistic-linear" width={17} />
+                        </Button>
+                        <Button
+                          variant="ghosterror"
+                          className="h-8 w-8 p-0"
+                          title="Delete document"
+                          aria-label={`Delete ${doc.name}`}
+                          onClick={() => doDelete({ student, doc })}
+                        >
+                          <Icon icon="solar:trash-bin-minimalistic-linear" width={17} />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -225,7 +329,10 @@ export default function DocumentsPage() {
                   </div>
                   <div>
                     <dt className="text-xs text-muted-foreground">File</dt>
-                    <dd className="text-foreground break-words">{doc.file ?? 'Not uploaded'}</dd>
+                    <dd className="text-foreground break-words">
+                      {doc.file ?? <span className="text-muted-foreground/70">Not uploaded</span>}
+                    </dd>
+                    {doc.size && <dd className="text-xs text-muted-foreground">{doc.size}</dd>}
                   </div>
                 </dl>
                 <div className="mt-3">
@@ -264,6 +371,34 @@ export default function DocumentsPage() {
                       Edit
                     </Button>
                   </div>
+                </div>
+                {/* With no file there is nothing to download, so the button is
+                    left out rather than shown dead. */}
+                <div className="mt-3 flex justify-end gap-2">
+                  {doc.file && (
+                    <Button
+                      variant="outline"
+                      className="h-11 flex-1 text-xs"
+                      onClick={() =>
+                        downloadDocument(student.studentId, doc.id, doc.file ?? doc.name)
+                      }
+                    >
+                      <Icon
+                        icon="solar:download-minimalistic-linear"
+                        width={16}
+                        className="mr-1.5"
+                      />
+                      Download
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghosterror"
+                    className="h-11 w-11 p-0 shrink-0"
+                    aria-label={`Delete ${doc.name}`}
+                    onClick={() => doDelete({ student, doc })}
+                  >
+                    <Icon icon="solar:trash-bin-minimalistic-linear" width={18} />
+                  </Button>
                 </div>
               </div>
             ))}
@@ -314,15 +449,6 @@ export default function DocumentsPage() {
                 />
               </div>
               <div>
-                <Label>File name</Label>
-                <Input
-                  className="mt-1.5"
-                  value={upload.fileName}
-                  onChange={(e) => setUp('fileName')(e.target.value)}
-                  placeholder="e.g. bank-statement.pdf"
-                />
-              </div>
-              <div>
                 <Label>File group</Label>
                 <Select
                   value={upload.group}
@@ -353,10 +479,39 @@ export default function DocumentsPage() {
                 </Select>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-              There is no real storage here, so this captures a file name only. Actually uploading
-              and holding the file is a backend job.
-            </p>
+
+            <div>
+              <Label htmlFor="doc-file">File</Label>
+              <input
+                id="doc-file"
+                ref={fileInput}
+                type="file"
+                accept={ACCEPT}
+                onChange={(e) => chooseFile(e.target.files?.[0] ?? null)}
+                className="mt-1.5 block w-full cursor-pointer rounded-lg border border-ld bg-transparent text-sm text-foreground file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-muted file:px-4 file:py-2.5 file:text-sm file:font-medium file:text-foreground hover:file:bg-muted/70"
+              />
+              {fileError ? (
+                <p className="mt-1.5 text-xs text-destructive">{fileError}</p>
+              ) : file ? (
+                <p className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="truncate">
+                    {file.name} ({readableSize(file.size)})
+                  </span>
+                  <button
+                    type="button"
+                    onClick={clearFile}
+                    className="shrink-0 underline hover:text-foreground"
+                  >
+                    Remove
+                  </button>
+                </p>
+              ) : (
+                <p className="mt-1.5 text-xs text-muted-foreground">
+                  PDF, JPG, PNG or WebP, up to {MAX_MB} MB. Leave it empty to ask the student for
+                  this document instead.
+                </p>
+              )}
+            </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setUploadOpen(false)}>

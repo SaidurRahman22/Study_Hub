@@ -147,15 +147,15 @@ export default function StudentShell({ children }: { children: ReactNode }) {
   );
 }
 
-/** One line, on every portal screen. Your sign-in and your application now come
- *  from the server; documents and messages are still being wired. */
+/** One line, on every portal screen. Sign-in, the application and documents
+ *  now come from the server; messages are the part still being wired. */
 export function DemoNotice() {
   return (
     <p className="sp-demo" style={{ marginBottom: 18 }}>
       <Info size={15} aria-hidden="true" />
       <span>
-        Your application is live. Documents and messages are still being
-        connected, so anything you add there is not kept yet.
+        Your application and your documents are live and kept. Messages are
+        still being connected, so anything you write there is not kept yet.
       </span>
     </p>
   );

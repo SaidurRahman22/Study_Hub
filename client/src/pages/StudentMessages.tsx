@@ -1,11 +1,6 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type ClipboardEvent,
-  type FormEvent,
-} from "react";
-import { Download, FileText, Paperclip, Send, X } from "lucide-react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import { Download, FileText, Send } from "lucide-react";
+import { Link } from "wouter";
 import StudentShell from "@/components/StudentShell";
 import NotificationBell from "@/components/NotificationBell";
 import { useStudent } from "@/contexts/StudentContext";
@@ -17,10 +12,9 @@ import type { Attachment } from "@/lib/studentData";
  *                                                                        *
  *  Can I ask my counsellor something, and has anyone answered me?        *
  *                                                                        *
- *  The composer takes a document or image, from the attach button or     *
- *  pasted straight in (a screenshot, say). The portal has no storage, so  *
- *  an attachment is held as an in-browser object URL for this session     *
- *  only. Nothing is uploaded anywhere.                                    *
+ *  Text only. Files go to the Documents screen instead, where the office  *
+ *  gives each one a status and feedback, and where it is kept on the      *
+ *  server's private disk. A file dropped into a chat would have neither.  *
  * ====================================================================== */
 
 function dayLabel(iso: string): string {
@@ -46,25 +40,8 @@ function initials(name: string): string {
     .join("");
 }
 
-function humanSize(bytes: number): string {
-  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
-  return `${bytes} B`;
-}
-
-let seq = 0;
-function toAttachment(file: File): Attachment {
-  const kind = file.type.startsWith("image/") ? "image" : "file";
-  return {
-    id: `att-${Date.now()}-${seq++}`,
-    name: file.name || (kind === "image" ? "pasted-image.png" : "file"),
-    kind,
-    mime: file.type || "application/octet-stream",
-    size: humanSize(file.size),
-    url: URL.createObjectURL(file),
-  };
-}
-
+/** Older messages may still carry an attachment from before files moved to
+ *  the Documents screen, so the thread can still show one. */
 function AttachmentView({ a }: { a: Attachment }) {
   if (a.kind === "image") {
     return (
@@ -99,9 +76,9 @@ function AttachmentView({ a }: { a: Attachment }) {
 export default function StudentMessages() {
   const { student, sendMessage, markMessagesRead } = useStudent();
   const [draft, setDraft] = useState("");
-  const [pending, setPending] = useState<Attachment[]>([]);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const endRef = useRef<HTMLDivElement>(null);
-  const fileRef = useRef<HTMLInputElement>(null);
   const count = student?.messages.length ?? 0;
 
   /* Opening the screen is reading it. */
@@ -111,37 +88,27 @@ export default function StudentMessages() {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ block: "nearest" });
-  }, [count, pending.length]);
+  }, [count]);
 
   if (!student) return <StudentShell>{null}</StudentShell>;
 
-  const addFiles = (files: FileList | File[]) => {
-    const picked = Array.from(files).filter(Boolean).map(toAttachment);
-    if (picked.length) setPending(prev => [...prev, ...picked]);
-  };
-
-  const removePending = (id: string) =>
-    setPending(prev => prev.filter(a => a.id !== id));
-
-  /* A pasted screenshot arrives as an image item on the clipboard. Text
-   * paste is left to the textarea's own handling. */
-  const onPaste = (e: ClipboardEvent<HTMLTextAreaElement>) => {
-    const files = Array.from(e.clipboardData.files || []);
-    if (files.length) {
-      e.preventDefault();
-      addFiles(files);
-    }
-  };
-
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!draft.trim() && pending.length === 0) return;
-    sendMessage(draft, pending);
-    setDraft("");
-    setPending([]);
+    const text = draft.trim();
+    if (!text || sending) return;
+    setError("");
+    setSending(true);
+    try {
+      await sendMessage(text);
+      setDraft("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "That message was not sent.");
+    } finally {
+      setSending(false);
+    }
   }
 
-  const canSend = draft.trim().length > 0 || pending.length > 0;
+  const canSend = draft.trim().length > 0 && !sending;
   let lastDay = "";
 
   return (
@@ -232,44 +199,14 @@ export default function StudentMessages() {
             className="sp-input"
             value={draft}
             onChange={e => setDraft(e.target.value)}
-            onPaste={onPaste}
-            placeholder="Write a message, attach a file, or paste an image."
+            placeholder="Ask anything about your application."
           />
 
-          {pending.length > 0 && (
-            <ul className="sp-att-pending">
-              {pending.map(a => (
-                <li key={a.id} className="sp-att-chip">
-                  {a.kind === "image" ? (
-                    <img src={a.url} alt="" className="sp-att-thumb" />
-                  ) : (
-                    <FileText size={15} aria-hidden="true" />
-                  )}
-                  <span className="sp-att-chip-name">{a.name}</span>
-                  <button
-                    type="button"
-                    className="sp-att-x"
-                    onClick={() => removePending(a.id)}
-                    aria-label={`Remove ${a.name}`}
-                  >
-                    <X size={13} aria-hidden="true" />
-                  </button>
-                </li>
-              ))}
-            </ul>
+          {error && (
+            <p className="sp-row-error" role="alert" style={{ marginTop: 8 }}>
+              {error}
+            </p>
           )}
-
-          <input
-            ref={fileRef}
-            type="file"
-            className="sr-only"
-            multiple
-            accept="image/*,.pdf,.doc,.docx"
-            onChange={e => {
-              if (e.target.files) addFiles(e.target.files);
-              e.target.value = "";
-            }}
-          />
 
           <div
             style={{
@@ -280,21 +217,20 @@ export default function StudentMessages() {
               marginTop: 12,
             }}
           >
-            <button
-              type="button"
-              className="sp-btn sp-btn-sm"
-              onClick={() => fileRef.current?.click()}
-            >
-              <Paperclip size={15} aria-hidden="true" />
-              Attach
-            </button>
+            <p className="sp-hint" style={{ margin: 0, maxWidth: "46ch" }}>
+              Sending a document? Put it on the{" "}
+              <Link href="/student/documents" style={{ color: "var(--sp-ink)" }}>
+                Documents
+              </Link>{" "}
+              screen so we can check it and tell you what it needs.
+            </p>
             <button
               type="submit"
               className="sp-btn sp-btn-primary"
               disabled={!canSend}
             >
               <Send size={15} aria-hidden="true" />
-              Send
+              {sending ? "Sending…" : "Send"}
             </button>
           </div>
         </form>

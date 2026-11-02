@@ -11,6 +11,23 @@ const API_URL =
   (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ||
   'http://localhost:8000/api';
 
+/* Without VITE_API_URL this points at the machine that built it, which only
+ * works locally: a published HTTPS page cannot reach a loopback address, and
+ * the browser reports that as "Failed to fetch". Say what is really wrong. */
+const API_IS_LOOPBACK = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/i.test(API_URL);
+
+function unreachable(): Error {
+  const pageIsLocal =
+    typeof location !== 'undefined' &&
+    /^(localhost|127\.0\.0\.1)$/i.test(location.hostname);
+  if (API_IS_LOOPBACK && !pageIsLocal) {
+    return new Error(
+      'This published copy has no backend connected, so the admin cannot sign in here. Open it on the machine running the API, or rebuild with VITE_API_URL set to a public API.'
+    );
+  }
+  return new Error(`Could not reach the API at ${API_URL}. Check that it is running.`);
+}
+
 const TOKEN_KEY = 'shb_admin_token';
 
 export function getAdminToken(): string | null {
@@ -32,29 +49,37 @@ export function setAdminToken(token: string | null): void {
 
 async function call(path: string, opts: RequestInit = {}): Promise<Response> {
   const token = getAdminToken();
-  return fetch(`${API_URL}${path}`, {
-    ...opts,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(opts.headers ?? {}),
-    },
-  });
+  try {
+    return await fetch(`${API_URL}${path}`, {
+      ...opts,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(opts.headers ?? {}),
+      },
+    });
+  } catch {
+    throw unreachable();
+  }
 }
 
 /** Multipart must not carry a JSON content-type: the browser sets the
  *  boundary itself. */
 async function callForm(path: string, form: FormData): Promise<Response> {
   const token = getAdminToken();
-  return fetch(`${API_URL}${path}`, {
-    method: 'POST',
-    body: form,
-    headers: {
-      Accept: 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  });
+  try {
+    return await fetch(`${API_URL}${path}`, {
+      method: 'POST',
+      body: form,
+      headers: {
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
+  } catch {
+    throw unreachable();
+  }
 }
 
 async function fail(res: Response, fallback: string): Promise<never> {
@@ -320,7 +345,9 @@ export async function downloadDocument(
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = filename || 'document';
+  // Same reasoning as the portal's download: this string decides the name of
+  // a file written to the staff member's own machine.
+  a.download = (filename || 'document').replace(/[\/:*?"<>|]+/g, '_').slice(0, 120);
   document.body.appendChild(a);
   a.click();
   a.remove();

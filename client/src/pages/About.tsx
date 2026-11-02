@@ -5,6 +5,7 @@ import { useConsultation } from "@/components/ConsultationDialog";
 import { CountUp, Reveal, ScrollProgress } from "@/components/Reveal";
 import { COUNTRIES } from "@/lib/countries";
 import { asset } from "@/lib/asset";
+import { safeHref } from "@/lib/safe-url";
 
 /* ====================================================================== *
  *  ABOUT                                                                 *
@@ -177,7 +178,7 @@ export default function About() {
                   <dt className="lp-small opacity-70">Office</dt>
                   <dd className="lp-body mt-0.5">
                     <a
-                      href={contact.mapDirectionsUrl}
+                      href={safeHref(contact.mapDirectionsUrl)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="lp-link"
@@ -527,7 +528,7 @@ export default function About() {
             </Reveal>
             <Reveal className="mt-7 flex flex-wrap gap-3" delay={210}>
               <a
-                href={contact.mapDirectionsUrl}
+                href={safeHref(contact.mapDirectionsUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="lp-btn lp-btn-ink"

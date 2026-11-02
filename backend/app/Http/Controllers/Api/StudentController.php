@@ -12,6 +12,7 @@ use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -107,6 +108,23 @@ class StudentController extends Controller
 
     public function destroy(User $student): JsonResponse
     {
+        /* Take the files before the database takes the rows that point at
+         * them. documents.user_id cascades on delete, so the moment the user
+         * row goes the `path` column goes with it, and the passport scans and
+         * bank statements are left on disk with nothing referencing them:
+         * invisible to the admin, outside any retention process, and
+         * impossible to prove deleted if anyone ever asks. */
+        foreach ($student->documents as $document) {
+            if ($document->path && Storage::disk('local')->exists($document->path)) {
+                Storage::disk('local')->delete($document->path);
+            }
+        }
+        Storage::disk('local')->deleteDirectory("documents/{$student->id}");
+
+        // personal_access_tokens is a morph table with no foreign key, so the
+        // cascade does not reach it. Clear it or the rows outlive the user.
+        $student->tokens()->delete();
+
         $student->delete();
 
         return response()->json(['ok' => true]);
@@ -114,8 +132,14 @@ class StudentController extends Controller
 
     public function setPassword(Request $request, User $student): JsonResponse
     {
-        $data = $request->validate(['password' => ['required', 'string', 'min:6']]);
+        $data = $request->validate(['password' => ['required', 'string', 'min:8']]);
         $student->update(['password' => Hash::make($data['password'])]);
+
+        /* The whole point of an administrative reset is usually that someone
+         * else has the account. Leaving the old tokens alive means the person
+         * you are locking out keeps their session, and nothing in the app
+         * would ever close it. */
+        $student->tokens()->delete();
 
         return response()->json(['ok' => true]);
     }
@@ -193,14 +217,25 @@ class StudentController extends Controller
 
     public function myApplication(Request $request): JsonResponse
     {
-        return response()->json($this->present($request->user()->load(['stages', 'caseNotes', 'documents', 'messages'])));
+        // Deliberately does NOT load caseNotes. Those are the office's own
+        // notes ABOUT this student, written on staff-only routes, and they
+        // hold the things you would never read out to the applicant: a
+        // refusal history, a judgement about their finances, a view of how
+        // the case is going. They are not loaded rather than merely not
+        // shown, so a later edit to the shape cannot leak them by accident.
+        return response()->json($this->present(
+            $request->user()->load(['stages', 'documents', 'messages']),
+            forStaff: false
+        ));
     }
 
     /* ---- shaping ---- */
 
-    private function present(User $u): array
+    /* One shape for two very different audiences, so $forStaff decides what
+     * the office can see and the student cannot. */
+    private function present(User $u, bool $forStaff = true): array
     {
-        return [
+        $shape = [
             'id' => $u->id,
             'studentId' => $u->student_code,
             'name' => $u->name,
@@ -212,7 +247,6 @@ class StudentController extends Controller
             'course' => $u->course,
             'intake' => $u->intake,
             'stages' => $u->stages->map(fn ($s) => $this->presentStage($s))->values(),
-            'caseNotes' => $u->caseNotes->map(fn ($n) => $this->presentNote($n))->values(),
             'documents' => $u->documents->map(fn ($d) => [
                 'id' => (string) $d->id,
                 'name' => $d->name,
@@ -241,6 +275,13 @@ class StudentController extends Controller
                     'href' => $a->href,
                 ])->values(),
         ];
+
+        // Staff only. The student's own endpoint passes forStaff: false.
+        if ($forStaff) {
+            $shape['caseNotes'] = $u->caseNotes->map(fn ($n) => $this->presentNote($n))->values();
+        }
+
+        return $shape;
     }
 
     private function presentStage(ApplicationStage $s): array

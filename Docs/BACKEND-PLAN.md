@@ -104,6 +104,9 @@ is next.
    posted. `MAIL_MAILER=log` in development, so nothing leaves the machine.
    **Before production:** real SMTP credentials, and switch `Notify::mail` to
    `->queue()` with a worker running, so SMTP latency is off the request.
+   **Also before production:** set `DEV_OPEN_LOGIN=false`. While it is on,
+   `/api/auth/login` accepts any email and any password (development only;
+   the config also refuses to honour it when `APP_ENV=production`).
 5. **Video booking + timezones** (6): bookings with UTC + timezone conversion and
    a meeting link.
 6. **CRM polish** (8): staff views over every lead and its status.

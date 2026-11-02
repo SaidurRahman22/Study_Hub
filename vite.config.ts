@@ -8,7 +8,31 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 // svgr lets the admin template import .svg files as React components, which
 // seven of its files do.
-const plugins = [svgr(), react(), tailwindcss(), vitePluginManusRuntime()];
+const plugins = [svgr(), react(), tailwindcss()];
+
+/* The preview runtime is a development tool and must not ship.
+ *
+ * It injects a ~366 KB inline <script> into index.html AND admin.html, which
+ * took the built HTML from 2 KB to 369 KB. Two problems with that in
+ * production, beyond the weight:
+ *
+ *  1. It makes a real Content-Security-Policy impossible. A policy strong
+ *     enough to stop injected script has to forbid inline script, and this is
+ *     one enormous inline script, so the page would simply stop working.
+ *  2. It is an iframe bridge. It listens for window "message" events and acts
+ *     on them after checking only a type field, with no check of
+ *     event.origin, and it posts back with a "*" target origin. On /admin the
+ *     page it is bridging holds student records.
+ *
+ * It is genuinely useful while developing, so it stays in the dev server.
+ *
+ * The test is for development explicitly, not "not production". If NODE_ENV
+ * is ever unset, by a CI runner or a one-off build command, the safe outcome
+ * is to leave the runtime out rather than to ship it.
+ */
+if (process.env.NODE_ENV === "development") {
+  plugins.push(vitePluginManusRuntime());
+}
 
 /**
  * Where the site will be served from.

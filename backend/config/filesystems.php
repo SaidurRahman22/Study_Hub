@@ -33,7 +33,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            'serve' => false, // we stream every file through an authorised controller route instead
             'throw' => false,
             'report' => false,
         ],

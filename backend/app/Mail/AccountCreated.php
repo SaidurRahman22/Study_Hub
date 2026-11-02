@@ -17,7 +17,7 @@ use Illuminate\Queue\SerializesModels;
  * therefore a one-time secret in a mailbox: the message says to change it,
  * and it is never sent again.
  */
-class AccountCreated extends Mailable
+class AccountCreated extends Mailable implements CarriesCredentials
 {
     use Queueable, SerializesModels;
 

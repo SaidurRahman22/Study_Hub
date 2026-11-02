@@ -289,9 +289,18 @@ export function StudentsProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  useEffect(() => {
-    void reload();
-  }, [reload]);
+  /* Deliberately NOT loading on mount.
+   *
+   * This provider has to sit above RequireStaff, because RequireStaff calls
+   * useStudents() to refresh after a successful sign-in. That meant a reload
+   * here fired GET /students, /enquiries and /announcements on every cold
+   * load, before any check had run, carrying whatever token happened to be in
+   * localStorage. The server refused them, so nothing ever leaked, but the
+   * admin was asking for student records before it knew who was asking, and a
+   * signed-out tab sat there calling the API on every refresh.
+   *
+   * RequireStaff calls reload() itself once it has confirmed a staff account
+   * with the server, which is the only moment this data should be fetched. */
 
   /** Run a write. On failure show why and resync from the server. */
   const run = useCallback(

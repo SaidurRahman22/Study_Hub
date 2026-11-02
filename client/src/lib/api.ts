@@ -8,6 +8,27 @@ const API_URL =
   (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") ||
   "http://localhost:8000/api";
 
+/* A build with no VITE_API_URL points at this machine's dev API. That is right
+ * locally and impossible anywhere else: a published HTTPS page is not allowed
+ * to reach a loopback address, and the browser's own wording for that is
+ * "Failed to fetch", which on a sign-in screen reads as a wrong password.
+ * Say what actually happened instead. */
+const API_IS_LOOPBACK = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/i.test(API_URL);
+
+function unreachable(): Error {
+  const pageIsLocal =
+    typeof location !== "undefined" &&
+    /^(localhost|127\.0\.0\.1)$/i.test(location.hostname);
+  if (API_IS_LOOPBACK && !pageIsLocal) {
+    return new Error(
+      "This published copy has no backend connected, so signing in cannot work here. Open the site on your own machine, or rebuild it with VITE_API_URL set to a public API."
+    );
+  }
+  return new Error(
+    `Could not reach the API at ${API_URL}. Check that it is running, then try again.`
+  );
+}
+
 /* ---- auth token (kept per browser) ---- */
 
 const TOKEN_KEY = "shb_token";
@@ -32,15 +53,20 @@ export function setToken(token: string | null): void {
 /** fetch against the API with JSON headers and the bearer token attached. */
 export async function apiFetch(path: string, opts: RequestInit = {}): Promise<Response> {
   const token = getToken();
-  return fetch(`${API_URL}${path}`, {
-    ...opts,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(opts.headers ?? {}),
-    },
-  });
+  try {
+    return await fetch(`${API_URL}${path}`, {
+      ...opts,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(opts.headers ?? {}),
+      },
+    });
+  } catch {
+    /* fetch only rejects when the request never reached the server */
+    throw unreachable();
+  }
 }
 
 async function errorMessage(res: Response, fallback: string): Promise<string> {
@@ -121,7 +147,7 @@ export async function uploadMyDocument(
       },
     });
   } catch {
-    throw new Error("We could not reach the server. Check your connection and try again.");
+    throw unreachable();
   }
   if (!res.ok) throw new Error(await errorMessage(res, "Could not send that file."));
   return res.json();
@@ -140,7 +166,10 @@ export async function downloadMyDocument(
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = filename || "document";
+  // The name comes from an uploaded file or a staff-typed document title,
+  // so it decides what lands in someone's Downloads folder. Strip the path
+  // separators and the characters Windows treats specially.
+  a.download = (filename || "document").replace(/[\/:*?"<>|]+/g, "_").slice(0, 120);
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -186,9 +215,7 @@ export async function submitEnquiry(
       body: JSON.stringify(data),
     });
   } catch {
-    throw new Error(
-      "We could not reach the server. Check your connection and try again."
-    );
+    throw unreachable();
   }
 
   if (!res.ok) {

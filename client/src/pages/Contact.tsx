@@ -4,6 +4,7 @@ import { useCms } from "@/contexts/CmsContext";
 import RichText from "@/components/RichText";
 import { useConsultation } from "@/components/ConsultationDialog";
 import { submitEnquiry } from "@/lib/api";
+import { safeHref, safeMapEmbed } from "@/lib/safe-url";
 
 export default function Contact() {
   const { content } = useCms();
@@ -270,8 +271,10 @@ export default function Contact() {
           </h2>
 
           <div className="rounded-xl overflow-hidden shadow-lg h-96 border-4 border-golden">
+            {/* Only a real Google Maps embed is framed. A javascript:
+                URL in an iframe src executes in THIS page's origin. */}
             <iframe
-              src={c.mapEmbedUrl}
+              src={safeMapEmbed(c.mapEmbedUrl)}
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -284,7 +287,7 @@ export default function Contact() {
           <div className="mt-8 text-center">
             <p className="text-gray mb-4">Located at {c.address}</p>
             <a
-              href={c.mapDirectionsUrl}
+              href={safeHref(c.mapDirectionsUrl)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-3 bg-gradient-to-r from-golden to-dark-golden text-black font-semibold rounded-lg hover:shadow-lg transition-all"

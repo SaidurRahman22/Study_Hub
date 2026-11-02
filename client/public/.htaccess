@@ -56,3 +56,31 @@
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
 </IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers. The Cloudflare Pages equivalent is in _headers beside this
+# file, and the API sets its own; all three are needed and none covers another.
+#
+# The CSP has no 'unsafe-inline' in script-src. That is the directive doing the
+# real work, and it is only possible because the preview runtime no longer
+# injects a large inline <script> into the built HTML (see vite.config.ts).
+# style-src keeps 'unsafe-inline' because the toast and dialog libraries append
+# a <style> element at runtime and take no nonce; inline style is a far weaker
+# hole than inline script.
+#
+# connect-src lists the local Laravel API. Change it to the real API origin
+# when there is one.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' http://localhost:8000 https://api.iconify.design https://api2.iconify.design; frame-src https://www.google.com; worker-src 'self'"
+
+  # The admin must never be indexed or cached.
+  <FilesMatch "^admin\.html$">
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+    Header always set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>

@@ -6,6 +6,7 @@ import { CountUp, Reveal, ScrollProgress } from "@/components/Reveal";
 import HeroGlobe from "@/components/HeroGlobe";
 import { asset } from "@/lib/asset";
 import { useConsultation } from "@/components/ConsultationDialog";
+import { safeHref } from "@/lib/safe-url";
 
 /* ====================================================================== *
  *  THE LANDING PAGE                                                      *
@@ -717,7 +718,7 @@ export default function Home() {
                   <dt className="lp-small lp-soft">Office</dt>
                   <dd>
                     <a
-                      href={contact.mapDirectionsUrl}
+                      href={safeHref(contact.mapDirectionsUrl)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="lp-link"

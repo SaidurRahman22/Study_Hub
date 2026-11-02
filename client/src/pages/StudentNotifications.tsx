@@ -4,6 +4,7 @@ import { FileText, Megaphone, MessageSquare, Milestone } from "lucide-react";
 import StudentShell, { DemoNotice } from "@/components/StudentShell";
 import { useStudent } from "@/contexts/StudentContext";
 import { unreadNotifications, type Notification } from "@/lib/studentData";
+import { safeHref } from "@/lib/safe-url";
 
 /* ====================================================================== *
  *  NOTIFICATIONS                                                         *
@@ -149,7 +150,7 @@ function NoteRow({
       )}
       <li className="sp-row">
         {note.href ? (
-          <Link href={note.href} className="sp-note-link">
+          <Link href={safeHref(note.href) ?? "#"} className="sp-note-link">
             {body}
           </Link>
         ) : (

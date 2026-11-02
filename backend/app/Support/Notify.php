@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Mail\CarriesCredentials;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,6 +32,22 @@ class Notify
     public static function mail(?string $to, object $mailable): void
     {
         if (! self::sendable($to)) {
+            return;
+        }
+
+        /* The log mailer writes the whole rendered body to
+         * storage/logs/laravel.log. That is fine for an announcement and not
+         * fine for a password, which would then sit in an unrotated file, in
+         * every backup of it, and in anything that ships those logs onward.
+         * Refuse rather than quietly leak, and say so loudly enough that the
+         * missing email is not a mystery. */
+        if ($mailable instanceof CarriesCredentials && config('mail.default') === 'log') {
+            Log::warning('Credential email NOT sent: the log mailer would write the password to disk.', [
+                'to' => $to,
+                'mailable' => $mailable::class,
+                'fix' => 'Set a real MAIL_MAILER, or hand the password over in person.',
+            ]);
+
             return;
         }
 

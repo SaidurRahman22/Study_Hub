@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { lazy, Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Switch, useLocation, Router as WouterRouter } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -27,10 +27,6 @@ import StudentMessages from "./pages/StudentMessages";
 import StudentNotifications from "./pages/StudentNotifications";
 import Legal from "./pages/Legal";
 import CookieBanner from "./components/CookieBanner";
-
-/* The admin is a separate chunk. A visitor who never opens it never
- * downloads it, and its stylesheet rides along with the same chunk. */
-const AdminApp = lazy(() => import("./admin/AdminApp"));
 
 function Router() {
   return (
@@ -90,21 +86,11 @@ function Shell() {
    * the marketing chrome around it is what makes it read as somewhere you
    * work rather than somewhere you browse. */
   const inPortal = location.startsWith("/student");
-  const inAdmin = location.startsWith("/admin");
-
-  if (inAdmin) {
-    return (
-      <Suspense
-        fallback={
-          <div style={{ padding: 32, fontFamily: "var(--font-sans)" }}>
-            Loading the admin…
-          </div>
-        }
-      >
-        <AdminApp />
-      </Suspense>
-    );
-  }
+  /* There is no /admin branch here on purpose. The admin is its own Vite
+   * entry (client/admin.html) and every host rewrites /admin* to it, so this
+   * bundle must never carry a second copy. An earlier one did, and it was a
+   * whole second admin whose sign-in was a localStorage flag the server never
+   * checked. */
 
   if (inPortal) {
     return (

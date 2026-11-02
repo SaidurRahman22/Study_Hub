@@ -9,6 +9,7 @@ use App\Models\Enquiry;
 use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class EnquiryController extends Controller
 {
@@ -33,8 +34,13 @@ class EnquiryController extends Controller
             'online' => ['nullable', 'boolean'],
         ]);
 
+        /* scheduled_at, timezone and online are staff fields: they mean the
+         * office agreed a consultation time. This endpoint is public, so an
+         * anonymous caller could otherwise post appointments into the
+         * consultation list that nobody in the office ever agreed to. Staff
+         * set a time through the authenticated PATCH route instead. */
         $enquiry = Enquiry::create([
-            ...$data,
+            ...Arr::except($data, ['scheduled_at', 'timezone', 'online']),
             'source' => $data['source'] ?? 'contact',
             'status' => 'new',
         ]);

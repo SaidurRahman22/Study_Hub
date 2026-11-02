@@ -39,7 +39,11 @@ class AnnouncementController extends Controller
             'kind' => ['nullable', 'in:document,stage,message,announcement'],
             'title' => ['required', 'string', 'max:255'],
             'body' => ['nullable', 'string', 'max:5000'],
-            'href' => ['nullable', 'string', 'max:255'],
+            // A path inside the portal, never a whole URL. This value ends up
+            // as a link in the student's notification bell, so accepting a
+            // free-form string here would let a notice point anywhere,
+            // including at a javascript: or data: URL.
+            'href' => ['nullable', 'string', 'max:255', 'starts_with:/'],
         ]);
 
         $toEveryone = $data['audience'] === 'all';

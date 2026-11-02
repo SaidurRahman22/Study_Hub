@@ -16,6 +16,7 @@ return [
         'http://localhost:4173',
         'http://localhost:4180',
         'http://studyhub.local',
+        'http://studyhub.localhost',
         'https://studyhub.local',
     ],
 

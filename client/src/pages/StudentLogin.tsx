@@ -42,12 +42,12 @@ export default function StudentLogin() {
     if (error) errorRef.current?.focus();
   }, [error]);
 
+  /* No "fill both fields" guard and no browser email validation while the
+   * API runs with DEV_OPEN_LOGIN on: it accepts anything, so stopping the
+   * submit here would be the only thing left blocking the way in. Put the
+   * guard back when the real password check comes back. */
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!email.trim() || !password) {
-      setError("Enter your email and password.");
-      return;
-    }
     const result = await signIn(email, password);
     if (result.ok) navigate("/student", { replace: true });
     else setError(result.error);
@@ -191,10 +191,14 @@ export default function StudentLogin() {
               style={{ marginTop: 24, alignItems: "flex-start" }}
             >
               <Info size={15} aria-hidden="true" style={{ marginTop: 2 }} />
+              {/* True while the API runs with DEV_OPEN_LOGIN on. Turning that
+                  off restores the real password check, and this copy, along
+                  with the whole box, goes before the site is real. */}
               <span>
-                Prototype with sample data. Sign in with{" "}
-                <strong style={{ fontWeight: 600 }}>{DEMO_EMAIL}</strong> and{" "}
-                <strong style={{ fontWeight: 600 }}>{DEMO_PASSWORD}</strong>.
+                Development build: the password is not checked. Anything you
+                type signs you in as the demo student,{" "}
+                <strong style={{ fontWeight: 600 }}>{DEMO_EMAIL}</strong>{" "}
+                (password <strong style={{ fontWeight: 600 }}>{DEMO_PASSWORD}</strong>).
               </span>
             </p>
 

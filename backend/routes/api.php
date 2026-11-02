@@ -9,13 +9,20 @@ use App\Http\Controllers\Api\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /* ---- public ---- */
-Route::post('/enquiries', [EnquiryController::class, 'store']);
-Route::post('/auth/login', [AuthController::class, 'login']);
+/* Both of these are unauthenticated, so the rate limit is the only thing
+ * between them and a script. The limiters are defined in AppServiceProvider. */
+Route::post('/enquiries', [EnquiryController::class, 'store'])
+    ->middleware('throttle:enquiries');
+Route::post('/auth/login', [AuthController::class, 'login'])
+    ->middleware('throttle:login');
 
 /* ---- signed in (student or staff) ---- */
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+
+    // A student changing their own password. Requires the current one.
+    Route::patch('/my/password', [AuthController::class, 'changePassword']);
 
     // A student's own application (the tracker).
     Route::get('/my/application', [StudentController::class, 'myApplication']);
@@ -32,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 /* ---- staff only ---- */
-Route::middleware(['auth:sanctum', 'staff'])->group(function () {
+Route::middleware(['auth:sanctum', 'staff', 'throttle:api'])->group(function () {
     Route::get('/enquiries', [EnquiryController::class, 'index']);
     Route::patch('/enquiries/{enquiry}', [EnquiryController::class, 'update']);
 

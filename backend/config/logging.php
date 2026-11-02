@@ -58,6 +58,25 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        /* Who opened which student document, and when.
+         *
+         * Its own channel on purpose: this is the record you need when a
+         * student asks who has seen their passport scan, or when an account
+         * is suspected of being misused. Mixed into the application log it
+         * would be rotated away with the noise, and it would be impossible to
+         * hand to anyone without handing over everything else too.
+         *
+         * A year of retention, because that is the horizon over which someone
+         * actually asks. No document CONTENT is ever written here, only who
+         * touched which row. */
+        'documents' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/document-access.log'),
+            'level' => 'info',
+            'days' => env('DOCUMENT_LOG_DAYS', 365),
+            'replace_placeholders' => true,
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

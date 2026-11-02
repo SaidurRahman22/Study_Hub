@@ -12,7 +12,12 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       {/* Website content edited on the CMS pages. */}
       <ContentProvider>
-        {/* Students, their files and the enquiry list, from the API. */}
+        {/* Students, their files and the enquiry list, from the API.
+          *
+          * This has to stay ABOVE RequireStaff, because RequireStaff calls
+          * useStudents() to load the data once it has confirmed a staff
+          * account. What it must not do is fetch on mount, which is handled
+          * in students-store.tsx; see the note there. */}
         <StudentsProvider>
           {/* Nothing below renders until a staff account is signed in. */}
           <RequireStaff>

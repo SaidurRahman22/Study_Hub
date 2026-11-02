@@ -114,4 +114,24 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Open sign-in (development only)
+    |--------------------------------------------------------------------------
+    |
+    | With this on, /api/auth/login accepts any email and any password, so the
+    | portal and the admin can be opened without typing real credentials. It
+    | exists because this is a development database with no real student data
+    | in it.
+    |
+    | Two locks, because an auth bypass that reaches a server is the worst bug
+    | this codebase could ship: it must be switched on by hand in .env, AND it
+    | is ignored outright when APP_ENV is production, so copying a .env onto a
+    | real server cannot leave the door open.
+    |
+    */
+
+    'open_login' => env('APP_ENV') !== 'production'
+        && filter_var(env('DEV_OPEN_LOGIN', false), FILTER_VALIDATE_BOOLEAN),
+
 ];

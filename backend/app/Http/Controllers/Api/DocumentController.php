@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Support\Notify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -105,20 +106,22 @@ class DocumentController extends Controller
         return response()->json($this->present($document));
     }
 
-    public function destroy(User $student, Document $document): JsonResponse
+    public function destroy(Request $request, User $student, Document $document): JsonResponse
     {
         abort_unless($document->user_id === $student->id, 404);
         $this->deleteFile($document);
+        self::record('delete', $document, $request);
+
         $document->delete();
 
         return response()->json(['ok' => true]);
     }
 
-    public function download(User $student, Document $document): StreamedResponse
+    public function download(Request $request, User $student, Document $document): StreamedResponse
     {
         abort_unless($document->user_id === $student->id, 404);
 
-        return $this->stream($document);
+        return $this->stream($document, $request);
     }
 
     /* ---- student (self) ---- */
@@ -151,7 +154,7 @@ class DocumentController extends Controller
     {
         abort_unless($document->user_id === $request->user()->id, 404);
 
-        return $this->stream($document);
+        return $this->stream($document, $request);
     }
 
     /* ---- internals ---- */
@@ -162,7 +165,17 @@ class DocumentController extends Controller
         $file = $request->file('file');
         $this->deleteFile($doc);
 
-        $stored = "documents/{$ownerId}/".Str::uuid().'.'.$file->getClientOriginalExtension();
+        /* The extension comes from the file's CONTENT, not from the name the
+         * uploader chose. getClientOriginalExtension() is just pathinfo() of
+         * a client string, so a real PDF called "report.html" would be stored
+         * as .html. Nothing serves this directory today, but the extension is
+         * what decides the content type the day something does, and it is
+         * what any extension-based malware or DLP sweep reads. guessExtension()
+         * is derived from the sniffed type, which is also what the "mimes"
+         * rule validated against, so the two can never disagree. */
+        $extension = $file->guessExtension() ?: 'bin';
+
+        $stored = "documents/{$ownerId}/".Str::uuid().'.'.$extension;
         Storage::disk('local')->putFileAs(
             dirname($stored),
             $file,
@@ -174,6 +187,11 @@ class DocumentController extends Controller
         $doc->size = $file->getSize();
         $doc->mime = $file->getMimeType();
         $doc->uploaded_by = $request->user()?->id;
+
+        // Logged here rather than in the callers, because this is the one
+        // place a file is actually written: staff replacing a document and a
+        // student sending one in both arrive through it.
+        self::record('upload', $doc, $request);
     }
 
     private function deleteFile(Document $doc): void
@@ -183,14 +201,38 @@ class DocumentController extends Controller
         }
     }
 
-    private function stream(Document $document): StreamedResponse
+    private function stream(Document $document, Request $request): StreamedResponse
     {
         abort_if(! $document->path || ! Storage::disk('local')->exists($document->path), 404, 'No file on this document.');
+
+        self::record('download', $document, $request);
 
         return Storage::disk('local')->download(
             $document->path,
             $document->original_name ?: $document->name
         );
+    }
+
+    /* Every touch of a student's file is written down.
+     *
+     * These are passport scans, bank statements and medical certificates. The
+     * question "who has opened mine?" has to have an answer, and after the
+     * fact is too late to start collecting it. Only the actor and the row are
+     * recorded: never the file, never its contents, never the stored path. */
+    private static function record(string $action, Document $document, Request $request): void
+    {
+        $actor = $request->user();
+
+        Log::channel('documents')->info($action, [
+            'document_id' => $document->id,
+            'document' => $document->name,
+            'owner_id' => $document->user_id,
+            'actor_id' => $actor?->id,
+            'actor_role' => $actor?->role,
+            'own_file' => $actor?->id === $document->user_id,
+            'ip' => $request->ip(),
+            'at' => now()->toIso8601String(),
+        ]);
     }
 
     /** The shape the screens expect. `path` is never exposed. */

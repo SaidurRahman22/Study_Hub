@@ -1,0 +1,46 @@
+# Security headers for Cloudflare Pages.
+#
+# Vite copies this file to the root of the build output, next to _redirects.
+# The Apache/XAMPP equivalent is .htaccess beside it, and the API sets its own
+# in backend/app/Http/Middleware/SecurityHeaders.php. All three are needed and
+# none of them covers the others.
+#
+# ONE POLICY FOR EVERY PATH, ON PURPOSE. Cloudflare Pages applies every rule
+# whose pattern matches, it does not stop at the first. A second, stricter CSP
+# on /admin* therefore did not replace this one, it was enforced alongside it,
+# and a browser given two policies enforces the INTERSECTION. The admin lost
+# its icon origin that way, and two Referrer-Policy headers with different
+# values is simply ambiguous. So everything shared lives here, and the /admin*
+# block below carries only the headers that are additional rather than
+# different.
+#
+# ABOUT script-src: there is deliberately no 'unsafe-inline'. That is the
+# directive doing the real work, and it only became possible once the preview
+# runtime stopped being injected into the built HTML (see vite.config.ts). If
+# something reintroduces a large inline <script>, the page breaks rather than
+# quietly losing its protection, which is the right way round.
+#
+# ABOUT style-src 'unsafe-inline': this one stays. The toast and dialog
+# libraries (sonner, and Radix via react-style-singleton) append a <style>
+# element at runtime on every dialog, popover and select. A nonce does not
+# help: a nonce makes 'unsafe-inline' be ignored, and those libraries take no
+# nonce. Inline style is a far weaker hole than inline script, and with
+# script-src locked down the path that matters is already closed.
+#
+# ABOUT connect-src: http://localhost:8000 is the local Laravel API; replace
+# it with the real API origin when one exists. The iconify entries are the
+# admin's icon set, fetched as JSON at runtime.
+
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' http://localhost:8000 https://api.iconify.design https://api2.iconify.design; frame-src https://www.google.com; worker-src 'self'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Additional, not different: these two headers do not appear above, so there
+# is nothing for them to conflict with.
+/admin*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store

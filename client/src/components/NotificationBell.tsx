@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useStudent } from "@/contexts/StudentContext";
 import { unreadNotifications, type Notification } from "@/lib/studentData";
+import { safeHref } from "@/lib/safe-url";
 
 /* ====================================================================== *
  *  The bell and its panel.                                               *
@@ -185,9 +186,9 @@ export default function NotificationBell() {
                   );
                   return (
                     <li key={n.id}>
-                      {n.href ? (
+                      {safeHref(n.href) ? (
                         <Link
-                          href={n.href}
+                          href={safeHref(n.href)!}
                           className="sp-pop-item"
                           onClick={() => setOpen(false)}
                         >

@@ -17,6 +17,9 @@ return [
         'http://localhost:4180',
         'http://studyhub.local',
         'http://studyhub.localhost',
+        // The published Cloudflare Pages site, while it talks to this machine
+        // through a cloudflared tunnel.
+        'https://studyhub-bd.pages.dev',
         'https://studyhub.local',
     ],
 

@@ -105,9 +105,23 @@ class AuthController extends Controller
     {
         $email = trim((string) $request->input('email', ''));
 
-        $user = ($email !== '' ? User::where('email', $email)->first() : null)
-            ?? User::where('role', 'student')->oldest('id')->first()
-            ?? User::oldest('id')->first();
+        /* The admin sends context=staff, because the two apps need different
+         * answers to "anything". Signing in to the admin as a student is not
+         * open access, it is a 403 from EnsureStaff a moment later, so in that
+         * case we resolve to a staff account whatever was typed. */
+        $wantStaff = $request->input('context') === 'staff';
+
+        $match = $email !== '' ? User::where('email', $email)->first() : null;
+
+        if ($wantStaff && (! $match || ! $match->isStaff())) {
+            $match = null;
+        }
+
+        $fallback = $wantStaff
+            ? User::whereIn('role', ['admin', 'staff'])->oldest('id')->first()
+            : User::where('role', 'student')->oldest('id')->first();
+
+        $user = $match ?? $fallback ?? User::oldest('id')->first();
 
         if (! $user) {
             throw ValidationException::withMessages([

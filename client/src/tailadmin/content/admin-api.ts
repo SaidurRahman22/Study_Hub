@@ -171,7 +171,11 @@ export type AdminUser = {
 export async function adminLogin(email: string, password: string): Promise<AdminUser> {
   const data = await send<{ token: string; user: AdminUser }>(
     '/auth/login',
-    { method: 'POST', body: JSON.stringify({ email, password }) },
+    // context=staff matters only while DEV_OPEN_LOGIN is on: it tells the API
+    // that an unrecognised sign-in here should resolve to a staff account, not
+    // a student, because a student token is refused by RequireStaff anyway.
+    // With the real password check on, it is ignored.
+    { method: 'POST', body: JSON.stringify({ email, password, context: 'staff' }) },
     'Those details do not match our records.'
   );
   setAdminToken(data.token);

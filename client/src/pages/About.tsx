@@ -99,7 +99,7 @@ export default function About() {
             <Reveal as="p" className="lp-lead lp-soft mt-5" delay={130}>
               {about.hero.subtitle}
             </Reveal>
-            <Reveal className="mt-8 flex flex-wrap gap-3" delay={200}>
+            <Reveal className="mt-8 lp-btn-row" delay={200}>
               <button
                 type="button"
                 className="lp-btn"
@@ -514,7 +514,7 @@ export default function About() {
               college gate. Come in with your results and your budget, and the
               first conversation will tell you where you actually stand.
             </Reveal>
-            <Reveal className="mt-7 flex flex-wrap gap-3" delay={210}>
+            <Reveal className="mt-7 lp-btn-row" delay={210}>
               <a
                 href={safeHref(contact.mapDirectionsUrl)}
                 target="_blank"

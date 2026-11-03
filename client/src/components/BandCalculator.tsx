@@ -106,7 +106,7 @@ export default function BandCalculator({ target = 7, tone = "ink" }: Props) {
   const gap = Math.round((target - overall) * 2) / 2;
 
   return (
-    <div className={`bc bc-${tone}`}>
+    <div className={`bc bc-${tone} ${tone === "ink" ? "bc-inset" : ""}`}>
       {/* The number leads and the instruction supports it, rather than a
           small label sitting above the big figure: that shape is an eyebrow,
           and it is the one thing this design system bans outright. */}
@@ -124,10 +124,6 @@ export default function BandCalculator({ target = 7, tone = "ink" }: Props) {
         </div>
       </div>
 
-      <p className="bc-note">
-        Your overall band. Move each slider to the score you are getting now.
-      </p>
-
       {/* The scale, drawn once, with the target marked. The one ornament the
           page allows itself is the gold rule, and a band scale IS a ruled
           line with marks, so the motif and the subject are the same shape. */}
@@ -137,10 +133,27 @@ export default function BandCalculator({ target = 7, tone = "ink" }: Props) {
             className="bc-scale-fill"
             style={{ width: `${(overall / 9) * 100}%` }}
           />
+          {/* The distance still to cover, drawn. A bare target tick left the
+              visitor to measure the gap for themselves. */}
+          {!hitsTarget && (
+            <span
+              className="bc-scale-gap"
+              style={{
+                left: `${(overall / 9) * 100}%`,
+                width: `${((target - overall) / 9) * 100}%`,
+              }}
+            />
+          )}
           <span
             className="bc-scale-target"
             style={{ left: `${(target / 9) * 100}%` }}
           />
+          <span
+            className="bc-scale-label"
+            style={{ left: `${(target / 9) * 100}%` }}
+          >
+            target {band(target)}
+          </span>
         </div>
         <div className="bc-scale-ticks">
           {[0, 3, 6, 9].map(n => (
@@ -178,10 +191,12 @@ export default function BandCalculator({ target = 7, tone = "ink" }: Props) {
         ))}
       </div>
 
+      <p className="bc-note">
+        Your overall band. Move each slider to the score you are getting now.
+      </p>
+
       <p className="bc-rule">
-        The overall band is the average of the four, rounded to the nearest
-        half band. An average ending in .25 rounds up to the next half band;
-        one ending in .75 rounds up to the next whole band.
+        The average of the four, rounded to the nearest half band.
       </p>
     </div>
   );

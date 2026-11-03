@@ -40,7 +40,8 @@ export function safeHref(url?: string | null): string | undefined {
 /* A map embed is narrower still: it is the one value that gets to be an
  * iframe src, so it is matched against the provider rather than merely
  * checked for a safe scheme. Anything else renders no frame. */
-const MAP_EMBED = /^https:\/\/(www\.)?google\.com\/maps\/embed(\?|\/)/i;
+const MAP_EMBED =
+  /^https:\/\/(www\.)?google\.com\/maps(\/embed(\?|\/)|\?q=)/i;
 
 /** Clean a map embed URL. Returns undefined if it is not a Google Maps embed. */
 export function safeMapEmbed(url?: string | null): string | undefined {
@@ -49,3 +50,34 @@ export function safeMapEmbed(url?: string | null): string | undefined {
 
   return MAP_EMBED.test(clean) ? clean : undefined;
 }
+
+
+/* Build a map embed from an address, which is the fact the office actually
+ * maintains.
+ *
+ * WHY: the stored embed URL carried the coordinates 89.9, 24.4 — round
+ * numbers typed into a template rather than a geocoded point, and about
+ * 16km north of Tangail, in farmland. A contact page that shows the wrong
+ * place is worse than one that shows no map. Geocoding the address string
+ * means the pin follows whatever the office writes, and corrects itself the
+ * moment they edit it.
+ *
+ * A pasted embed from Google Maps is still more precise, so a real one wins
+ * over this; see the caller.
+ */
+export function mapEmbedForAddress(address?: string | null): string | undefined {
+  const q = (address ?? "").trim();
+  if (!q) return undefined;
+  return `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed`;
+}
+
+/** A stored embed whose coordinates are obviously a placeholder, e.g. the
+ *  one-decimal pair a template ships with rather than a real location. */
+export function isPlaceholderMapEmbed(url?: string | null): boolean {
+  if (!url) return true;
+  const m = /!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/.exec(url);
+  if (!m) return false;
+  // a genuine Google embed carries several decimal places on both values
+  return m[1].split(".")[1]?.length < 3 || m[2].split(".")[1]?.length < 3;
+}
+

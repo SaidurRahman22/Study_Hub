@@ -238,6 +238,26 @@ export const IMAGE_CREDITS: ImageCredit[] = [
     subject: 'slot: library',
   },
 
+  {
+    file: '/images/stories/malaysia.jpg',
+    title: 'Petronas Twin Towers, Kuala Lumpur',
+    creator: 'Unsplash contributor',
+    licence: 'Unsplash Licence',
+    licenceUrl: 'https://unsplash.com/license',
+    sourceUrl: 'https://unsplash.com/photos/photo-1566914447826-bf04e54bf1be',
+    subject: 'story: Malaysia',
+  },
+  {
+    file: '/images/stories/russia-spb.jpg',
+    title: 'The Winter Palace and Column of Alexander I, Saint Petersburg, Russia',
+    creator: 'Wikimedia Commons contributor',
+    licence: 'CC BY 4.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    sourceUrl:
+      'https://commons.wikimedia.org/wiki/File:The_Winter_Palace_and_Column_of_Alexander_I,_Saint_Petersburg,_Russia.jpg',
+    subject: 'story: Russia',
+  },
+
   // ----- Country page heroes (wide, 16:9) -----
   {
     file: '/images/country/australia.jpg',

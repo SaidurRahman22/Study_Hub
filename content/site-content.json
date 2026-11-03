@@ -397,7 +397,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "Study Hub BD helped me achieve my dream of studying abroad. Their guidance was invaluable!"
+      "quote": "Study Hub BD helped me achieve my dream of studying abroad. Their guidance was invaluable!",
+      "destinationImage": "/images/country/malta.jpg"
     },
     {
       "id": "2",
@@ -407,7 +408,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "The IELTS training was comprehensive and the visa support was seamless. Highly recommended!"
+      "quote": "The IELTS training was comprehensive and the visa support was seamless. Highly recommended!",
+      "destinationImage": "/images/world/malta.jpg"
     },
     {
       "id": "3",
@@ -417,7 +419,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "From admission to visa, Study Hub BD handled everything professionally. I'm grateful!"
+      "quote": "From admission to visa, Study Hub BD handled everything professionally. I'm grateful!",
+      "destinationImage": "/images/stories/malaysia.jpg"
     },
     {
       "id": "4",
@@ -427,7 +430,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "The team's expertise in medical university admissions was exceptional. Thank you!"
+      "quote": "The team's expertise in medical university admissions was exceptional. Thank you!",
+      "destinationImage": "/images/country/russia.jpg"
     },
     {
       "id": "5",
@@ -437,7 +441,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "Best decision to choose Study Hub BD. They made my journey smooth and stress-free."
+      "quote": "Best decision to choose Study Hub BD. They made my journey smooth and stress-free.",
+      "destinationImage": "/images/world/russia.jpg"
     },
     {
       "id": "6",
@@ -447,7 +452,8 @@
       "program": "",
       "year": "",
       "image": "",
-      "quote": "Excellent support throughout the entire process. Highly professional team!"
+      "quote": "Excellent support throughout the entire process. Highly professional team!",
+      "destinationImage": "/images/stories/russia-spb.jpg"
     }
   ],
   "successPage": {
@@ -709,19 +715,20 @@
   },
   "contact": {
     "hero": {
-      "title": "Get in",
-      "titleHighlight": "Touch",
-      "subtitle": "Have questions? We're here to help! Contact us today and start your journey with Study Hub BD."
+      "title": "Call the",
+      "titleHighlight": "Tangail office",
+      "subtitle": "Mymensingh Road, at the Kumudini College gate. Ring during opening hours and you will speak to a counsellor, not a queue."
     },
     "address": "GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail",
     "phone1": "01623-935872",
     "phone2": "01613-160021",
     "email": "studyhubbd2023@gmail.com",
     "website": "studyhubbd.com",
+    "hours": "Saturday to Thursday, 10:00 to 18:00. Friday closed.",
     "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3631.8404123456!2d89.9!3d24.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDI0JzAwLjAiTiA4OcKwNTQnMDAuMCJF!5e0!3m2!1sen!2sbd!4v1234567890",
     "mapDirectionsUrl": "https://maps.google.com/?q=GIIT+Building+Tangail",
-    "ctaTitle": "Ready to Start Your Journey?",
-    "ctaSubtitle": "Contact us today or register online to begin your transformation with Study Hub BD.",
+    "ctaTitle": "Come in and talk it through",
+    "ctaSubtitle": "No appointment needed. Bring your transcripts and any test scores you already have, and we will tell you where you stand.",
     "ctaButton": "Book a consultation"
   },
   "footer": {
@@ -736,7 +743,7 @@
       "name": "Amirul Islam",
       "role": "[DATA CONTACT JOB TITLE]",
       "email": "studyhubbd2023@gmail.com",
-      "phone": "01623-935872"
+      "phone": "+880 1623-935872"
     },
     "documents": {
       "privacy": {
@@ -752,7 +759,7 @@
             ],
             "list": [
               "Address: GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh",
-              "Phone: 01623-935872 and 01613-160021",
+              "Phone: +880 1623-935872 and +880 1613-160021",
               "Email: studyhubbd2023@gmail.com",
               "Website: studyhubbd.com",
               "Trade licence number: [TRADE LICENCE NUMBER]",
@@ -1355,7 +1362,7 @@
             "heading": "Step one: talk to your counsellor",
             "body": [
               "Most problems are a misunderstanding and get fixed the same day. Call or visit the office and speak to the counsellor handling your case.",
-              "Phone 01623-935872 or 01613-160021, or come to GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail.",
+              "Phone +880 1623-935872 or +880 1613-160021, or come to GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail.",
               "If that does not settle it, or you would rather not raise it with your counsellor, go straight to step two. You do not have to do step one first."
             ]
           },
@@ -1489,7 +1496,7 @@
             "heading": "The organisation",
             "body": [
               "Study Hub BD, GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh.",
-              "Trade licence number [TRADE LICENCE NUMBER]. Company registration number [COMPANY REGISTRATION NUMBER]. BIN/TIN [BIN/TIN NUMBER]. Telephone 01623-935872 and 01613-160021. Email studyhubbd2023@gmail.com. Website studyhubbd.com.",
+              "Trade licence number [TRADE LICENCE NUMBER]. Company registration number [COMPANY REGISTRATION NUMBER]. BIN/TIN [BIN/TIN NUMBER]. Telephone +880 1623-935872 and +880 1613-160021. Email studyhubbd2023@gmail.com. Website studyhubbd.com.",
               "Data contact: Amirul Islam, [DATA CONTACT JOB TITLE], studyhubbd2023@gmail.com. This is the single point of contact for data protection questions, for data subject requests passed to us, and for breach notifications."
             ]
           },
@@ -1690,7 +1697,7 @@
             "id": "contact-point",
             "heading": "Contact point for institutions",
             "body": [
-              "Due diligence questionnaires, data processing agreements, transfer documents, data subject request referrals and breach correspondence should be addressed to Amirul Islam, [DATA CONTACT JOB TITLE], Study Hub BD, GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh. Email studyhubbd2023@gmail.com. Telephone 01623-935872 or 01613-160021."
+              "Due diligence questionnaires, data processing agreements, transfer documents, data subject request referrals and breach correspondence should be addressed to Amirul Islam, [DATA CONTACT JOB TITLE], Study Hub BD, GIIT Building, Mymensingh Road, Kumudini College Gate, Tangail, Bangladesh. Email studyhubbd2023@gmail.com. Telephone +880 1623-935872 or +880 1613-160021."
             ]
           }
         ]
@@ -1834,7 +1841,7 @@
             "heading": "Changes and contact",
             "body": [
               "We review this notice once a year, and always before adding anything new to the site. First published: [DATE OF FIRST PUBLICATION].",
-              "Questions go to Amirul Islam, [DATA CONTACT JOB TITLE], at studyhubbd2023@gmail.com, or phone 01623-935872 or 01613-160021."
+              "Questions go to Amirul Islam, [DATA CONTACT JOB TITLE], at studyhubbd2023@gmail.com, or phone +880 1623-935872 or +880 1613-160021."
             ]
           }
         ]

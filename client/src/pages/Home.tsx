@@ -7,6 +7,7 @@ import HeroGlobe from "@/components/HeroGlobe";
 import { asset } from "@/lib/asset";
 import { useConsultation } from "@/components/ConsultationDialog";
 import { safeHref } from "@/lib/safe-url";
+import { phoneDisplay, phoneHref } from "@/lib/phone";
 
 /* ====================================================================== *
  *  THE LANDING PAGE                                                      *
@@ -111,8 +112,7 @@ export default function Home() {
     global: g,
   } = content;
 
-  const tel = (n: string) =>
-    `tel:+880${n.replace(/\D/g, "").replace(/^0/, "")}`;
+  const tel = phoneHref;
   const wa = `https://wa.me/880${g.whatsapp.replace(/\D/g, "").replace(/^0/, "")}`;
 
   return (
@@ -152,7 +152,7 @@ export default function Home() {
             <Reveal as="p" className="lp-lead lp-soft mt-5" delay={130}>
               {home.hero.description}
             </Reveal>
-            <Reveal className="mt-7 flex flex-wrap gap-3" delay={200}>
+            <Reveal className="mt-7 lp-btn-row" delay={200}>
               <button
                 type="button"
                 onClick={() => openConsultation("Home")}
@@ -225,7 +225,7 @@ export default function Home() {
               will call you back.
             </Reveal>
           </div>
-          <Reveal className="flex flex-wrap gap-3" delay={120}>
+          <Reveal className="lp-btn-row" delay={120}>
             <a
               href={wa}
               target="_blank"
@@ -235,7 +235,7 @@ export default function Home() {
               Book a consultation
             </a>
             <a href={tel(g.phone1)} className="lp-btn lp-btn-quiet">
-              {g.phone1}
+              {phoneDisplay(g.phone1)}
             </a>
           </Reveal>
         </div>
@@ -684,7 +684,7 @@ export default function Home() {
               {home.ctaSection.subtitle}
             </Reveal>
 
-            <Reveal className="mt-7 flex flex-wrap gap-3" delay={160}>
+            <Reveal className="mt-7 lp-btn-row" delay={160}>
               <button
                 type="button"
                 onClick={() => openConsultation("Home")}
@@ -722,10 +722,10 @@ export default function Home() {
                   <dt className="lp-small lp-soft">Phone</dt>
                   <dd className="flex flex-wrap gap-x-4">
                     <a href={tel(g.phone1)} className="lp-link">
-                      {g.phone1}
+                      {phoneDisplay(g.phone1)}
                     </a>
                     <a href={tel(g.phone2)} className="lp-link">
-                      {g.phone2}
+                      {phoneDisplay(g.phone2)}
                     </a>
                   </dd>
                 </div>

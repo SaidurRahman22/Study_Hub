@@ -33,7 +33,12 @@ import { asset } from "@/lib/asset";
  * ====================================================================== */
 
 /** What each paper actually is. Facts about the test, not claims about us. */
-const PAPERS = [
+const PAPERS: {
+  name: string;
+  time: string;
+  shape: string;
+  body: string;
+}[] = [
   {
     name: "Listening",
     time: "30 minutes",
@@ -150,12 +155,20 @@ export default function IELTS() {
       {/* ============ HERO — the scale, as something you can move ============ */}
       <section className="lp-field-ink" aria-labelledby="ielts-hero">
         {/* Three children, so the phone can order them differently from the
-            desktop. Stacked, the buttons go BELOW the calculator: a pill
+            desktop.
+
+            grid-template-rows is explicit because it has to be. The
+            calculator spans both rows, and a grid with auto rows shares a
+            spanning item's height out between them — which stretched row 1
+            past the headline and left a measured 113px of nothing between
+            the lead and the buttons. Pinning row 1 to max-content sizes it
+            by the text alone and sends the calculator's overflow to row 2,
+            where it is the section's own bottom padding. Stacked, the buttons go BELOW the calculator: a pill
             button sitting directly above the big band number reads as a
             label above a headline, which is the one shape this design system
             bans. On desktop the calculator spans both rows on the right and
             the text and buttons stack on the left, as before. */}
-        <div className="lp-frame flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-6 lg:items-center py-16 md:py-24">
+        <div className="lp-frame flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-6 lg:items-start lg:[grid-template-rows:max-content_1fr] py-16 md:py-24">
           <div className="lg:col-span-6 lg:col-start-1 lg:row-start-1">
             <Reveal
               as="h1"
@@ -172,21 +185,39 @@ export default function IELTS() {
               className="lp-lead mt-5 opacity-85"
               text={ielts.hero.description}
             />
+
+
+
           </div>
 
           {/* The live thing sits in the hero rather than further down,
               because it is the fastest honest answer to the question the
               visitor actually arrived with: how far off am I? */}
           <Reveal
-            className="lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:row-span-2"
+            className="lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:row-span-2 lg:self-start"
             y={20}
             delay={160}
           >
             <BandCalculator target={7} tone="ink" />
           </Reveal>
 
+          {/* Stacked, the buttons and the course facts go BELOW the
+              calculator (order-last).
+           *
+           * Either one directly above the big band number reads as a label
+           * over a headline — the one shape this design system bans — and
+           * the inspector caught both in turn: the facts at 768px, then
+           * "See the programme" at 390px once the facts had moved.
+           *
+           * On desktop they return to the foot of the left column, in grid
+           * row 2. The calculator spans rows 1 and 2, so row 1 is sized by
+           * the headline and lead alone and row 2 opens directly beneath
+           * them; align-items:start then holds this cell to the top of
+           * row 2 rather than letting the calculator's overflow push it
+           * down the column. */}
+          <div className="order-last lg:order-none lg:col-span-6 lg:col-start-1 lg:row-start-2 lg:-mt-2">
           <Reveal
-            className="flex flex-wrap gap-3 lg:col-span-6 lg:col-start-1 lg:row-start-2"
+            className="lp-btn-row"
             delay={200}
           >
             <button
@@ -201,6 +232,38 @@ export default function IELTS() {
               See the programme
             </a>
           </Reveal>
+
+            {/* What the course actually is, on the first screen.
+             *
+             * Two problems, one answer. The left column ran out of content
+             * about 340px before the calculator did, leaving a field of bare
+             * navy that read as a broken layout rather than as rest. And
+             * these same four facts were printed twice further down the
+             * page — once as the gold figures and again, in words, as a
+             * bullet list directly beneath them.
+             *
+             * They belong here: they are the answer to "what am I being
+             * offered", asked at the moment the visitor is deciding whether
+             * to read on. The programme section keeps the figures. */}
+            {ielts.courseFeatures?.length > 0 && (
+              <ul className="grid gap-3 list-none p-0 sm:grid-cols-2">
+                {ielts.courseFeatures.map((f: string, i: number) => (
+                  <Reveal
+                    as="li"
+                    key={i}
+                    className="flex gap-3 items-baseline"
+                    y={12}
+                    delay={240 + i * 60}
+                  >
+                    <span className="lp-bullet" aria-hidden="true" />
+                    <span className="lp-body opacity-85">{f}</span>
+                  </Reveal>
+                ))}
+              </ul>
+            )}
+          </div>
+
+
         </div>
       </section>
 
@@ -226,7 +289,20 @@ export default function IELTS() {
             {PAPERS.map((paper, i) => (
               <Reveal
                 key={paper.name}
-                className="col-span-12 sm:col-span-6 lg:col-span-3"
+                /* Two across, not four.
+                 *
+                 * Four cells in a 12-column grid gave each paper about 300px,
+                 * and the two narrow ones wrapped their copy to roughly 18
+                 * characters a line — a column so thin the eye returns to the
+                 * left before it has read anything. Half the row also sat
+                 * empty underneath the shorter cards, because a grid row is
+                 * as tall as its tallest cell.
+                 *
+                 * Six columns each gives about 630px, which lands in the
+                 * readable 45-75 character band, and halves the height the
+                 * unevenness can leave behind. The papers are peers; the
+                 * emphasis belongs in the words, not in the cell widths. */
+                className="col-span-12 lg:col-span-6"
                 y={16}
                 delay={60 + i * 60}
               >
@@ -355,8 +431,12 @@ export default function IELTS() {
           </div>
 
           <Reveal className="mt-8" delay={120}>
-            <Link href="/destinations" className="lp-link">
+            <Link
+              href="/destinations"
+              className="lp-link inline-flex items-center gap-2"
+            >
               Every destination the office works with
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </Reveal>
         </div>
@@ -401,22 +481,6 @@ export default function IELTS() {
                 </dl>
               )}
 
-              {ielts.courseFeatures?.length > 0 && (
-                <ul className="mt-8 grid gap-3 list-none p-0">
-                  {ielts.courseFeatures.map((f: string, i: number) => (
-                    <Reveal
-                      as="li"
-                      key={i}
-                      className="flex gap-3"
-                      y={12}
-                      delay={60 + i * 50}
-                    >
-                      <span className="lp-bullet" aria-hidden="true" />
-                      <span className="lp-body">{f}</span>
-                    </Reveal>
-                  ))}
-                </ul>
-              )}
             </div>
 
             <Reveal className="col-span-12 lg:col-span-6 lg:pl-6" y={20} delay={140}>
@@ -468,7 +532,11 @@ export default function IELTS() {
                 ) => (
                   <Reveal
                     key={item.id}
-                    className="col-span-12 sm:col-span-6"
+                    className={
+                      i === 0
+                        ? "col-span-12 lg:col-span-7"
+                        : "col-span-12 sm:col-span-6 lg:col-span-5"
+                    }
                     y={16}
                     delay={60 + i * 60}
                   >
@@ -506,7 +574,7 @@ export default function IELTS() {
               What the office adds
             </Reveal>
 
-            <div className="lp-facts mt-10">
+            <div className="lp-facts mt-10 lg:grid-cols-2">
               {ielts.whyChooseUs.map(
                 (
                   item: { id: string | number; title: string; description: string },
@@ -563,7 +631,7 @@ export default function IELTS() {
                        surface change rather than a drawn line. */
                     <div
                       key={item.q}
-                      className={isOpen ? "bg-[var(--color-ground-2)]" : ""}
+                      className={isOpen ? "bg-[var(--color-ground)]" : ""}
                     >
                       <h3 className="m-0">
                         <button
@@ -613,7 +681,7 @@ export default function IELTS() {
               />
             </div>
             <Reveal
-              className="col-span-12 lg:col-span-5 flex flex-wrap gap-3 lg:justify-end"
+              className="col-span-12 lg:col-span-5 lp-btn-row lg:justify-end"
               y={14}
               delay={80}
             >

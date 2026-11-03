@@ -11,6 +11,8 @@ import {
 } from "react";
 import { Check, Mail, MessageCircle, X } from "lucide-react";
 import { useCms } from "@/contexts/CmsContext";
+import { phoneDisplay, phoneHref } from "@/lib/phone";
+import { recordEnquiry } from "@/lib/api";
 
 /* ====================================================================== *
  *  BOOK A CONSULTATION                                                   *
@@ -221,6 +223,25 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
     e.preventDefault();
     setSubmitted(true);
     if (!isValid) return; // the effect below moves focus to the summary
+    /* Save the lead BEFORE handing the visitor off. Until now this dialog —
+     * the site's primary call to action, reached from the header and footer
+     * of every page — wrote nothing to the database: it composed a message
+     * and opened WhatsApp or a mail client, so an enquiry only existed if
+     * the visitor actually completed the send on the other side, and the
+     * office's own enquiry list never saw it.
+     *
+     * Fired without awaiting, so the window.open below still runs inside
+     * this click's call stack and is not treated as a popup. */
+    recordEnquiry({
+      name: f.name.trim(),
+      email: f.email.trim(),
+      phone: f.phone.trim(),
+      destination: f.destination,
+      need: f.help,
+      message: f.message.trim(),
+      source: source ? `consultation: ${source}` : "consultation",
+    });
+
     const body = compose();
     if (via === "whatsapp") {
       const number = `880${g.whatsapp.replace(/\D/g, "").replace(/^0/, "")}`;
@@ -280,14 +301,14 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
               Nothing was sent automatically. You stay in control of the
               message. If nothing opened, call{" "}
               <a
-                href={`tel:+880${g.phone1.replace(/\D/g, "").replace(/^0/, "")}`}
+                href={phoneHref(g.phone1)}
                 className="lp-link"
               >
-                {g.phone1}
+                {phoneDisplay(g.phone1)}
               </a>
               .
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-7 lp-btn-row">
               <button type="button" className="lp-btn" onClick={onClose}>
                 Done
               </button>
@@ -483,10 +504,10 @@ function Dialog({ onClose, source }: { onClose: () => void; source: string }) {
                 Your details go straight to the office on WhatsApp or by email.
                 Nothing is stored on this website. Prefer to talk? Call{" "}
                 <a
-                  href={`tel:+880${g.phone1.replace(/\D/g, "").replace(/^0/, "")}`}
+                  href={phoneHref(g.phone1)}
                   className="lp-link"
                 >
-                  {g.phone1}
+                  {phoneDisplay(g.phone1)}
                 </a>
                 .
               </p>

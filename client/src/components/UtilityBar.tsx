@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Mail, Phone, UserRound } from "lucide-react";
 import { useCms } from "@/contexts/CmsContext";
+import { phoneDisplay, phoneHref } from "@/lib/phone";
 
 /**
  * The contact strip above the navigation.
@@ -13,8 +14,7 @@ export default function UtilityBar() {
   const { content } = useCms();
   const g = content.global;
 
-  const tel = (n: string) =>
-    `tel:+880${n.replace(/\D/g, "").replace(/^0/, "")}`;
+  const tel = phoneHref;
 
   return (
     <div className="lp-field-ink">
@@ -25,14 +25,14 @@ export default function UtilityBar() {
             className="lp-link inline-flex items-center gap-2"
           >
             <Phone size={14} aria-hidden="true" />
-            {g.phone1}
+            {phoneDisplay(g.phone1)}
           </a>
           <a
             href={tel(g.phone2)}
             className="lp-link hidden items-center gap-2 sm:inline-flex"
           >
             <Phone size={14} aria-hidden="true" />
-            {g.phone2}
+            {phoneDisplay(g.phone2)}
           </a>
           <a
             href={`mailto:${g.email}`}

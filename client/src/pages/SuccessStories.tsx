@@ -133,10 +133,29 @@ export default function SuccessStories() {
             <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {stories.map((s, i) => {
                 const photo = ownPhoto(s.image);
+                /* Where the student went, not a picture of the student. The
+                 * site's bundled photographs never show its own students, so
+                 * a stock face beside a real name would be a lie; the place
+                 * is the honest illustration, and the initials stay. */
+                const destination = ownPhoto(
+                  (s as { destinationImage?: string }).destinationImage
+                );
                 const tint = tintFor(s.name);
                 return (
                   <Reveal as="li" key={s.id} delay={Math.min(i, 5) * 60} y={14}>
-                    <figure className="lp-panel lp-panel-hover m-0 flex h-full flex-col">
+                    <figure className="lp-panel lp-panel-hover m-0 flex h-full flex-col overflow-hidden p-0">
+                      {destination && (
+                        <img
+                          src={asset(destination)}
+                          alt=""
+                          width={1200}
+                          height={800}
+                          loading="lazy"
+                          decoding="async"
+                          className="aspect-[3/2] w-full object-cover"
+                        />
+                      )}
+                      <div className="flex flex-1 flex-col p-6">
                       <Quote
                         size={20}
                         aria-hidden="true"
@@ -182,6 +201,7 @@ export default function SuccessStories() {
                           </span>
                         </span>
                       </figcaption>
+                      </div>
                     </figure>
                   </Reveal>
                 );

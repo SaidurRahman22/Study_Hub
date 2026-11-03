@@ -12,6 +12,7 @@ import { useCms } from "@/contexts/CmsContext";
 import { IMAGE_CREDITS } from "@/lib/imageCredits";
 import { asset } from "@/lib/asset";
 import { useConsultation } from "@/components/ConsultationDialog";
+import { phoneDisplay, phoneHref } from "@/lib/phone";
 
 const PAGES: [string, string][] = [
   ["Home", "/"],
@@ -77,8 +78,7 @@ export default function Footer() {
     },
   ].filter(s => s.href && s.href !== "#");
 
-  const tel = (n: string) =>
-    `tel:+880${n.replace(/\D/g, "").replace(/^0/, "")}`;
+  const tel = phoneHref;
 
   return (
     <footer className="lp-field-ink">
@@ -183,10 +183,10 @@ export default function Footer() {
                 />
                 <span className="flex flex-wrap gap-x-4">
                   <a href={tel(g.phone1)} className="lp-link">
-                    {g.phone1}
+                    {phoneDisplay(g.phone1)}
                   </a>
                   <a href={tel(g.phone2)} className="lp-link">
-                    {g.phone2}
+                    {phoneDisplay(g.phone2)}
                   </a>
                 </span>
               </p>
@@ -278,16 +278,23 @@ export default function Footer() {
                 </>
               )}
             </p>
+            {/* A registration line whose numbers have not been supplied says
+                less than no line at all: a visitor reads the literal
+                "[TRADE LICENCE NUMBER]" token on the page whose job is to
+                show this is a real registered business. The admin still sees
+                it flagged, because `Placeholder` marks it wherever a real
+                value IS present but malformed. */}
             <p className="lp-small lp-soft sm:text-right">
               <span className="lp-gold">Registered in Bangladesh</span>
-              <br />
-              Trade licence{" "}
-              <Placeholder
-                text={legal?.tradeLicence ?? "[TRADE LICENCE NUMBER]"}
-              />
-              {legal?.binNumber && (
+              {legal?.tradeLicence && !isPlaceholder(legal.tradeLicence) && (
                 <>
-                  {" · "}BIN <Placeholder text={legal.binNumber} />
+                  <br />
+                  Trade licence <Placeholder text={legal.tradeLicence} />
+                  {legal?.binNumber && !isPlaceholder(legal.binNumber) && (
+                    <>
+                      {" · "}BIN <Placeholder text={legal.binNumber} />
+                    </>
+                  )}
                 </>
               )}
             </p>
@@ -308,6 +315,11 @@ export default function Footer() {
 
 /** A fact the client still has to supply. Marked so it cannot go live
  *  unnoticed, and so a reviewer can find every one of them at a glance. */
+/** An unfilled template token, e.g. "[TRADE LICENCE NUMBER]". */
+function isPlaceholder(text?: string): boolean {
+  return !text || /^\[[A-Z0-9 /.-]+\]$/.test(text);
+}
+
 function Placeholder({ text }: { text: string }) {
   if (/^\[[A-Z0-9 /.-]+\]$/.test(text)) {
     return (

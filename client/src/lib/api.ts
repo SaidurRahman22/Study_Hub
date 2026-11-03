@@ -202,6 +202,34 @@ export type EnquiryInput = {
   source?: string;
 };
 
+/* Record an enquiry WITHOUT making the caller wait for it.
+ *
+ * The consultation dialog hands the visitor straight to WhatsApp or to their
+ * mail client, and both of those are hostile to an awaited fetch: the popup
+ * has to be opened inside the click's own call stack or the browser blocks
+ * it, and the mailto navigates the page away, which cancels a request in
+ * flight. `keepalive` is the part that makes this safe — the browser keeps
+ * the request alive across that navigation.
+ *
+ * It never throws and never reports. Losing the office's copy of a lead is
+ * bad; breaking the visitor's handoff to WhatsApp because our own API was
+ * down would be worse.
+ */
+export function recordEnquiry(data: EnquiryInput): void {
+  try {
+    void fetch(`${API_URL}/enquiries`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data),
+      keepalive: true,
+    }).catch(() => {
+      /* the visitor is already on their way to WhatsApp */
+    });
+  } catch {
+    /* as above */
+  }
+}
+
 /** Submit a website enquiry (the contact form). Throws with a readable message
  *  on failure, including Laravel's 422 validation message. */
 export async function submitEnquiry(

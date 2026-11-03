@@ -31,14 +31,18 @@
 
   /* the landing page */
   --color-ground: #ffffff;
-  --color-ground-2: #f5f6f8;
-  --color-ground-3: #e8eaef;
+  --color-ground-2: #edf0f5;
+  --color-ground-3: #dde2eb;
   --color-ink: #0f1a2e;
   --color-ink-soft: #4a5568;
   --color-ink-mute: #5e6b7f;
   --color-gold-deep: #7d620f;
   --color-ink-field: #0f1a2e;
   --color-hairline: #e3e6ec;
+  /* The edge of a control a visitor types into. Darker than the hairline on
+     purpose: it has to clear 3:1 against BOTH the panel behind it and the
+     white inside it. See .ct-input. */
+  --color-field-edge: #7d8a9e;
 
   /* Lexend for headings (drawn for reading proficiency, which is the right
    * instinct for an audience reading in a second language), Source Sans 3
@@ -51,8 +55,16 @@
 
   /* Five steps, sized for a professional page rather than an editorial one.
    * The previous scale topped out at 80px and read as shouting. */
-  --text-small: clamp(1rem, 0.98rem + 0.08vw, 1.0625rem);
-  --text-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  /* 16px flat, not a clamp that bottomed out at 15.2px.
+     This step is not only captions: `lp-small` carries the reading copy
+     inside every card on the site — the paper descriptions, the FAQ
+     answers, the card bodies — and that is body text, which has a 16px
+     floor at every width, not only on a wide desktop.
+     Its distinction from `--text-body` is carried by colour as much as by
+     size: `lp-small` is nearly always paired with `lp-soft`. `--text-body`
+     moves up a step with it so the two stay apart. */
+  --text-small: 1rem;
+  --text-body: clamp(1.0625rem, 1.03rem + 0.15vw, 1.125rem);
   --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
   --text-head: clamp(1.625rem, 1.2rem + 1.6vw, 2.375rem);
   --text-display: clamp(2.125rem, 1.4rem + 2.8vw, 3.25rem);
@@ -522,7 +534,27 @@ a.lp-panel:hover h3,
 .lp-field-gold .lp-btn:hover {
   background: #1b2b47;
 }
-.lp-field-gold .lp-btn-quiet {
+.lp-field-gold /* A row of actions, stacked on a narrow phone.
+ *
+ * Wrapped, two buttons take their natural widths and land one above the
+ * other at different lengths — "Enroll Now" short, "See the programme"
+ * long — which reads as two unrelated controls rather than a primary and
+ * its alternative, and gives the shorter one a smaller target. Below
+ * 480px they both take the full column: equal width, equal weight as
+ * targets, and the hierarchy is carried by fill against outline, which
+ * is where it belongs. */
+.lp-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+@media (max-width: 29.99rem) {
+  .lp-btn-row > .lp-btn {
+    width: 100%;
+  }
+}
+
+.lp-btn-quiet {
   background: color-mix(in srgb, var(--color-ink) 12%, transparent);
   color: var(--color-ink);
 }
@@ -570,12 +602,22 @@ a.lp-panel:hover h3,
   background: var(--color-golden);
   color: var(--color-ink);
 }
-.lp-field-ink .lp-btn-quiet {
-  background: rgba(255, 255, 255, 0.1);
+/* On navy, a 10%-white fill is barely a shape: it reads as a dead slab the
+ * eye skips, which is the opposite of what a secondary action wants. Drawn
+ * instead — a real edge, transparent inside — it is unmistakably a control,
+ * and it is quieter than the gold primary rather than muddier than it. A
+ * border is allowed here for the same reason the form fields have one: a
+ * control has to show where it begins and ends. */
+.lp-field-ink .lp-btn-quiet,
+.lp-panel-ink .lp-btn-quiet {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.45);
   color: #fff;
 }
-.lp-field-ink .lp-btn-quiet:hover {
-  background: rgba(255, 255, 255, 0.16);
+.lp-field-ink .lp-btn-quiet:hover,
+.lp-panel-ink .lp-btn-quiet:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.75);
 }
 .lp-field-ink :focus-visible {
   outline-color: var(--color-golden);
@@ -1507,8 +1549,27 @@ textarea.cd-input {
  *  is 8.3:1 and fine, on white it is 2.1:1 and is not used that way.     *
  * ====================================================================== */
 .bc {
-  border-radius: 16px;
   padding: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+
+/* In the hero the panel is part of the navy field, not an object sitting on
+   top of it.
+ *
+ * The rounded corner is what made it read as a third-party embed: a radius
+ * says "this is a separate thing that has been placed here". Squaring it and
+ * aligning it to the grid says the opposite, that the tone is a region of
+ * this field. The gold hairline along its top edge is the page's own rule
+ * motif, which the band scale below repeats: the panel is announced by the
+ * same mark the rest of the page is divided by.
+ *
+ * An earlier version pulled the panel out to the frame edge with a negative
+ * margin. It reached the frame, not the viewport, so it landed ~50px proud
+ * of the header above it and read as misaligned rather than bled. Alignment
+ * beats a half-bleed. */
+.bc-inset {
+  border-radius: 0;
+  border-top: 2px solid var(--color-golden);
+  padding-top: clamp(1.1rem, 2.2vw, 1.5rem);
 }
 
 .bc-ink {
@@ -1541,7 +1602,7 @@ textarea.cd-input {
 .bc-note {
   font-size: var(--text-small);
   margin: 0.9rem 0 0;
-  opacity: 0.78;
+  opacity: 0.65;
   max-width: 46ch;
 }
 
@@ -1549,7 +1610,7 @@ textarea.cd-input {
    is the answer the visitor came for. */
 .bc-result {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: clamp(0.9rem, 2vw, 1.4rem);
 }
 
@@ -1578,8 +1639,8 @@ textarea.cd-input {
 
 .bc-verdict {
   font-size: var(--text-small);
-  margin: 0.25rem 0 0;
-  opacity: 0.78;
+  margin: 0.3rem 0 0;
+  opacity: 0.65;
 }
 
 /* The scale: a ruled line with marks, which is the page's one ornament and
@@ -1607,22 +1668,45 @@ textarea.cd-input {
   transition: width 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* The target band. It had been an unexplained 2px white scratch; now it is a
+   labelled mark, and the stretch between the score and the target is drawn so
+   the SHORTFALL is the thing you see. */
 .bc-scale-target {
   position: absolute;
-  top: -5px;
+  top: -6px;
   width: 2px;
-  height: 16px;
-  background: currentColor;
-  opacity: 0.55;
+  height: 18px;
+  background: #fff;
+  opacity: 0.85;
   transform: translateX(-1px);
+}
+.bc-scale-gap {
+  position: absolute;
+  inset-block: 0;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.28) 0 4px,
+    transparent 4px 8px
+  );
+}
+.bc-scale-label {
+  position: absolute;
+  top: -1.6rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: #fff;
+  opacity: 0.85;
 }
 
 .bc-scale-ticks {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.4rem;
-  font-size: 0.8125rem;
-  opacity: 0.6;
+  margin-top: 0.5rem;
+  font-size: var(--text-small);
+  opacity: 0.65;
   font-variant-numeric: tabular-nums;
 }
 
@@ -1666,8 +1750,8 @@ textarea.cd-input {
 
 .bc-label-detail {
   display: block;
-  font-size: 0.8125rem;
-  opacity: 0.62;
+  font-size: var(--text-small);
+  opacity: 0.65;
   line-height: 1.3;
 }
 
@@ -1738,10 +1822,10 @@ textarea.cd-input {
 }
 
 .bc-rule {
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.5;
   margin: 1.1rem 0 0;
-  opacity: 0.66;
+  opacity: 0.65;
   max-width: 52ch;
 }
 
@@ -1759,4 +1843,188 @@ textarea.cd-input {
  * notice closes. */
 body[data-cookie-open="1"] {
   padding-bottom: var(--cookie-h, 0px);
+}
+
+/* ====================================================================== *
+ *  CONTACT  (/contact)                                                   *
+ *                                                                        *
+ *  Scoped `.ct-*`, used inside `.lp`. Form fields are one of the three   *
+ *  places the house style allows a real border, because a control has to *
+ *  show where it begins and ends.                                        *
+ * ====================================================================== */
+
+/* The two phone numbers are the fastest route to a person, so they are
+   sized like a heading rather than like body copy. Gold on the navy field
+   measures 8.3:1, which is the one place the brand gold is safe as text. */
+.ct-tel {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--color-golden);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+  width: fit-content;
+}
+.ct-tel:hover,
+.ct-tel:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* The first number is the page's primary action, so it takes a fill rather
+   than a size. A tel: link styled as plain text has no touch affordance at
+   all on the device where calling actually happens. */
+.ct-tel-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  background: var(--color-golden);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.ct-tel-primary:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.ct-tel-secondary {
+  font-size: var(--text-lead);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.ct-mail {
+  font-size: inherit;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  word-break: break-word;
+}
+.ct-mail:hover {
+  color: var(--color-golden);
+}
+
+/* The numeral beside each step in the "after you send it" aside. A filled
+   gold square with the ink numeral on it: gold-on-navy as a FILL, never as
+   text, which is the one rule the brand gold has on this site. */
+.ct-step {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  border-radius: 6px;
+  background: var(--color-golden);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ct-label {
+  display: block;
+  font-size: var(--text-body);
+  font-weight: 400;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+.ct-input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--color-ink);
+  background: var(--color-ground);
+  /* NOT --color-hairline. The form sits on the #edf0f5 panel, and a #e3e6ec
+   * edge against that measures 1.1:1 — the fields read as white shapes with
+   * no boundary, which is the "white on grey sandwich" this page was pulled
+   * up for. #7d8a9e measures 3.1:1 against the panel and 3.5:1 against the
+   * field's own white, so the control's bounds are visible on both sides,
+   * which is what WCAG 1.4.11 asks of a UI component edge. */
+  border: 1px solid var(--color-field-edge);
+  border-radius: 10px;
+  transition:
+    border-color var(--dur-hover) ease,
+    box-shadow var(--dur-hover) ease;
+}
+
+textarea.ct-input {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.ct-input:hover {
+  border-color: var(--color-ink-mute);
+}
+
+/* A visible focus ring, in the accent, so keyboard users can see where
+   they are. Never remove this. */
+.ct-input:focus-visible {
+  outline: none;
+  border-color: var(--color-gold-deep);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+.ct-error {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: var(--text-small);
+  /* A tinted field rather than an outlined box, and the text at a tone
+     that clears 4.5:1 on it. */
+  background: #fdeaea;
+  color: #8a1c1c;
+}
+
+
+/* A button that cannot be pressed has to look it. Without this the form's
+   submit stayed fully gold and kept its hover lift while disabled. */
+.lp-btn:disabled,
+.lp-btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.lp-btn:disabled:hover,
+.lp-btn[aria-disabled="true"]:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* The select kept its native chevron and its own internal rhythm, so it was
+   the one field that did not line up with the others. */
+select.ct-input {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2.6rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%234a5568' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+/* A field the visitor has to come back to. Form controls are one of the three
+   places this design system allows a real border, so the error reads as a
+   border rather than as a new ornament. */
+.ct-input[aria-invalid="true"] {
+  border-color: #a4262c;
+}
+.ct-input[aria-invalid="true"]:focus-visible {
+  border-color: #a4262c;
+  box-shadow: 0 0 0 3px rgba(164, 38, 44, 0.25);
+}
+.ct-field-error {
+  margin: 0.4rem 0 0;
+  font-size: var(--text-small);
+  color: #8a1c1c;
 }

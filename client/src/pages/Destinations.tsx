@@ -43,7 +43,7 @@ export default function Destinations() {
             <Reveal as="p" className="lp-lead lp-soft mt-5" delay={130}>
               {page.heroSubtitle}
             </Reveal>
-            <Reveal className="mt-8 flex flex-wrap gap-3" delay={200}>
+            <Reveal className="mt-8 lp-btn-row" delay={200}>
               <button
                 type="button"
                 className="lp-btn"

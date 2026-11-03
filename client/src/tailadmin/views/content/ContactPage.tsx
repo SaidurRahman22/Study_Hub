@@ -38,6 +38,11 @@ export default function ContactPage() {
         <Row>
           <TextField label="Email" path="contact.email" />
           <TextField label="Website" path="contact.website" />
+        <TextField
+          label="Opening hours"
+          path="contact.hours"
+          hint="Shown on the contact page beside the map. Confirm these before launch."
+        />
         </Row>
       </Section>
 

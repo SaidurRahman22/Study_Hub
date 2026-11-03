@@ -264,7 +264,7 @@ function ConsentControls() {
                   "."
                 : "You have said no, and nothing optional is loading."}
           </p>
-          <div className="mt-2 flex flex-wrap gap-3">
+          <div className="mt-2 lp-btn-row">
             <button
               type="button"
               className="lp-btn lp-btn-quiet"

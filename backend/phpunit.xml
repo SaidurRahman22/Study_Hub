@@ -23,6 +23,11 @@
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="BROADCAST_CONNECTION" value="null"/>
         <env name="CACHE_STORE" value="array"/>
+        <!-- The development sign-in door is shut for the suite whatever the
+             .env file says, so the auth tests measure the real check. -->
+        <env name="DEV_OPEN_LOGIN" value="false"/>
+        <!-- Trust no proxy: the rate limits are keyed on the real client ip. -->
+        <env name="TRUSTED_PROXIES" value=""/>
         <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
         <env name="DB_URL" value=""/>

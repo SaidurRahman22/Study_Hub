@@ -76,7 +76,7 @@
   Header always set X-Frame-Options "DENY"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-  Header always set Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' http://localhost:8000 https://interactions-occur-gathering-continued.trycloudflare.com https://api.iconify.design https://api2.iconify.design; frame-src https://www.google.com; worker-src 'self'"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' http://localhost:8000 https://roman-roll-fun-walk.trycloudflare.com https://api.iconify.design https://api2.iconify.design; frame-src https://www.google.com; worker-src 'self'"
 
   # The admin must never be indexed or cached.
   <FilesMatch "^admin\.html$">

@@ -57,10 +57,73 @@ function ownPhoto(src?: string): string | null {
   return src.startsWith("/images/") ? src : null;
 }
 
+/* ---------------------------------------------------------------------- *
+ *  THE PICTURE ON EACH CARD                                              *
+ *                                                                        *
+ *  It used to be a photograph of the destination city. That said nothing *
+ *  about the student it sat above, and six of them stacked down the page *
+ *  read as stock filler competing with the quotes they were meant to     *
+ *  support. (Those photographs are not gone — they still do their proper *
+ *  job on Destinations, where the subject really is the country.)        *
+ *                                                                        *
+ *  These are flat vector scenes recoloured into the site's own palette:  *
+ *  the accent moved to the brand gold and the figures to the brand ink,  *
+ *  so the set looks drawn for this page rather than bought for it.       *
+ *                                                                        *
+ *  Nobody here is a portrait, which is the whole point on this page: a   *
+ *  drawn figure makes no claim to be anyone, so the rule at the top of   *
+ *  this file still holds.                                                *
+ * ---------------------------------------------------------------------- */
+
+/** The scenes, in the order an unmatched story takes them. */
+const SCENES = [
+  "around-the-world",
+  "exam-prep",
+  "at-the-airport",
+  "doctors",
+  "education",
+  "next-adventure",
+] as const;
+
+/** What a story would prefer, read from what it actually says. */
+function preferredScene(story: { university?: string; quote?: string }): string | null {
+  const said = `${story.university ?? ""} ${story.quote ?? ""}`.toLowerCase();
+  if (/medic|medical|health|nurs|pharmac|dental/.test(said)) return "doctors";
+  if (/ielts|exam|test|language|training/.test(said)) return "exam-prep";
+  return null;
+}
+
+/**
+ * One scene per story, no two alike.
+ *
+ * Three of the six students here went to the same medical university, so
+ * matching on the subject alone would print the same drawing three times
+ * in one grid. A preference is honoured once and then gives way to the
+ * next unused scene, which keeps the grid varied without anyone having to
+ * pick a picture by hand when the office adds a student.
+ */
+function scenesFor(stories: ReadonlyArray<{ university?: string; quote?: string }>): string[] {
+  const taken = new Set<string>();
+
+  return stories.map((story, i) => {
+    const wanted = preferredScene(story);
+    const scene =
+      wanted && !taken.has(wanted)
+        ? wanted
+        : SCENES.find(s => !taken.has(s)) ?? SCENES[i % SCENES.length];
+
+    taken.add(scene);
+    return scene;
+  });
+}
+
 export default function SuccessStories() {
   const { content } = useCms();
   const { open: openConsultation } = useConsultation();
   const stories = content.successStories;
+  /* Resolved for the whole list at once, not per card: "has this scene been
+   * used yet" is a question about the grid, which a single card cannot see. */
+  const scenes = scenesFor(stories);
   const page = content.successPage;
   const home = content.home;
 
@@ -133,28 +196,21 @@ export default function SuccessStories() {
             <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {stories.map((s, i) => {
                 const photo = ownPhoto(s.image);
-                /* Where the student went, not a picture of the student. The
-                 * site's bundled photographs never show its own students, so
-                 * a stock face beside a real name would be a lie; the place
-                 * is the honest illustration, and the initials stay. */
-                const destination = ownPhoto(
-                  (s as { destinationImage?: string }).destinationImage
-                );
+                const scene = scenes[i];
                 const tint = tintFor(s.name);
                 return (
                   <Reveal as="li" key={s.id} delay={Math.min(i, 5) * 60} y={14}>
                     <figure className="lp-panel lp-panel-hover m-0 flex h-full flex-col overflow-hidden p-0">
-                      {destination && (
+                      <div className="ss-scene" aria-hidden="true">
                         <img
-                          src={asset(destination)}
+                          src={asset(`/images/illustrations/${scene}.svg`)}
                           alt=""
-                          width={1200}
-                          height={800}
+                          width={720}
+                          height={405}
                           loading="lazy"
                           decoding="async"
-                          className="aspect-[3/2] w-full object-cover"
                         />
-                      )}
+                      </div>
                       <div className="flex flex-1 flex-col p-6">
                       <Quote
                         size={20}

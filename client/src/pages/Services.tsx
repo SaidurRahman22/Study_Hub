@@ -50,9 +50,6 @@ export default function Services() {
       <section className="lp-field-ink" aria-labelledby="svc-hero">
         <div className="lp-frame lp-grid items-center py-16 md:py-24">
           <div className="col-span-12 lg:col-span-6">
-            <Reveal as="p" className="lp-meta" y={10}>
-              What we do
-            </Reveal>
             <Reveal
               as="h1"
               id="svc-hero"
@@ -85,7 +82,7 @@ export default function Services() {
               <span className="lp-media block aspect-[4/3] w-full">
                 <img
                   src={asset("/images/slots/classroom.jpg")}
-                  alt="Rows of desks in a lecture theatre"
+                  alt="Students in a bright university classroom with their lecturer"
                   width={1200}
                   height={900}
                   decoding="async"
@@ -103,9 +100,6 @@ export default function Services() {
       {/* ============ THE WHOLE JOURNEY ============ */}
       <section className="lp-section" aria-labelledby="svc-flow">
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            Start to finish
-          </Reveal>
           <Reveal
             as="h2"
             id="svc-flow"
@@ -151,9 +145,6 @@ export default function Services() {
       {/* ============ SERVICE CATEGORIES ============ */}
       <section className="lp-section lp-field-step" aria-labelledby="svc-cats">
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            {page.categoriesTitle} {page.categoriesHighlight}
-          </Reveal>
           <Reveal
             as="h2"
             id="svc-cats"
@@ -202,9 +193,6 @@ export default function Services() {
         <div className="lp-frame">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Reveal as="p" className="lp-meta" y={10}>
-                The full list
-              </Reveal>
               <Reveal
                 as="h2"
                 id="svc-all"
@@ -277,7 +265,7 @@ export default function Services() {
             {
               src: "/images/slots/paperwork.jpg",
               alt: "A hand writing on a sheet of paper beside a stack of documents",
-              cap: "The documents an embassy reads, prepared and checked in-house.",
+              cap: "The travel documents, prepared and checked in-house.",
             },
             {
               src: "/images/slots/japanese-signage.jpg",

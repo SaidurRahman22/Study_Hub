@@ -140,9 +140,6 @@ export default function Home() {
             through; only the copy block itself takes them back. */}
         <div className="lp-frame pointer-events-none relative z-10 w-full">
           <div className="pointer-events-auto max-w-[36rem] pb-[44svh] pt-8 lg:max-w-[48%] lg:pb-0 lg:pt-0">
-            <Reveal as="p" className="lp-meta" y={10}>
-              {home.hero.badge}
-            </Reveal>
             <Reveal
               as="h1"
               id="hero-title"
@@ -338,9 +335,6 @@ export default function Home() {
       <section className="lp-section" aria-labelledby="diff-title">
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Reveal as="p" className="lp-meta" y={10}>
-              About us
-            </Reveal>
             <Reveal
               as="h2"
               id="diff-title"
@@ -677,9 +671,6 @@ export default function Home() {
       <section className="lp-section" aria-labelledby="visit-title">
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-5">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Contact
-            </Reveal>
             <Reveal
               as="h2"
               id="visit-title"
@@ -786,10 +777,7 @@ function SectionHead({
 }) {
   return (
     <div className="max-w-[46rem]">
-      <Reveal as="p" className="lp-meta" y={10}>
-        {meta}
-      </Reveal>
-      <Reveal as="h2" id={id} className="lp-head mt-3" y={14} delay={50}>
+      <Reveal as="h2" id={id} className="lp-head" y={14} delay={50}>
         {title}
       </Reveal>
       {lead && (

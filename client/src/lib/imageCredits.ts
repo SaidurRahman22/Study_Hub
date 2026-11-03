@@ -177,11 +177,12 @@ export const IMAGE_CREDITS: ImageCredit[] = [
   // ----- Inline text slots (cropped very small and wide) -----
   {
     file: '/images/slots/classroom.jpg',
-    title: 'Rows of Desks in Lecture Theatre',
-    creator: 'Paul The Writer',
-    licence: 'CC0 1.0',
-    licenceUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rows_of_Desks_in_Lecture_Theatre.jpg',
+    title: 'University classroom with students and a lecturer',
+    creator: 'Unsplash contributor',
+    licence: 'Unsplash Licence',
+    licenceUrl: 'https://unsplash.com/license',
+    sourceUrl:
+      'https://unsplash.com/photos/photo-1758270705087-76e81a5117bd',
     subject: 'slot: classroom',
   },
   {
@@ -195,22 +196,46 @@ export const IMAGE_CREDITS: ImageCredit[] = [
   },
   {
     file: '/images/slots/passport-stamps.jpg',
-    title: 'Brazil, Iceland, UK, US passport stamps',
-    creator: 'Jon Evans',
-    licence: 'CC BY 2.0',
-    licenceUrl: 'https://creativecommons.org/licenses/by/2.0/',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Brazil,_Iceland,_UK,_US_passport_stamps.jpg',
+    title: 'Open passport showing border stamps',
+    creator: 'Unsplash contributor',
+    licence: 'Unsplash Licence',
+    licenceUrl: 'https://unsplash.com/license',
+    sourceUrl:
+      'https://unsplash.com/photos/photo-1655722725332-9925c96dd627',
     subject: 'slot: passport stamps',
   },
   {
     file: '/images/slots/paperwork.jpg',
-    title: 'The write thing Project 365(2) Day 12',
-    creator: 'Keith Williamson',
-    licence: 'CC BY 2.0',
-    licenceUrl: 'https://creativecommons.org/licenses/by/2.0/',
+    title: 'A passport resting on a boarding pass',
+    creator: 'Unsplash contributor',
+    licence: 'Unsplash Licence',
+    licenceUrl: 'https://unsplash.com/license',
     sourceUrl:
-      'https://commons.wikimedia.org/wiki/File:The_write_thing_Project_365(2)_Day_12_(4355765412).jpg',
+      'https://unsplash.com/photos/photo-1454496406107-dc34337da8d6',
     subject: 'slot: paperwork',
+  },
+
+  {
+    file: '/images/slots/answer-sheet.jpg',
+    title: 'Hand-writing-exam-classroom',
+    creator: 'Alison wood',
+    licence: 'CC BY 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by/3.0/',
+    sourceUrl:
+      'https://commons.wikimedia.org/w/index.php?curid=31443109',
+    subject: 'slot: answer sheet',
+  },
+  {
+    file: '/images/slots/library.jpg',
+    title: "Duke Humfrey's Library Interior 6, Bodleian Library, Oxford, UK",
+    creator: 'Diliff',
+    // Share-alike: a MODIFIED version of this picture must be shared under the
+    // same licence. It is used here resized and re-encoded only.
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    sourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Duke_Humfrey%27s_Library_Interior_6,_Bodleian_Library,_Oxford,_UK_-_Diliff.jpg',
+    subject: 'slot: library',
   },
 
   // ----- Country page heroes (wide, 16:9) -----

@@ -125,3 +125,8 @@ temp/
 # Never committed: these exist so the local XAMPP/Laravel setup can be signed
 # into during development. They are not real user data and not production.
 *.local.txt
+
+# Local credential inventory — contains live secrets, never commit
+Docs/CREDENTIALS.local.md
+**/CREDENTIALS.local.md
+**/*credentials*.local.md

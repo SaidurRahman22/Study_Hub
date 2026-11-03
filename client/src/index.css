@@ -1438,10 +1438,14 @@ textarea.cd-input {
  *  read as a shopping list; as rows in one card, with room and a divider *
  *  between them, they read as the reference they are. The row answers    *
  *  the pointer so a reader can keep their place.                         */
+/* Rows separated by space over a tone step, not by a drawn line. The
+ * container carries the darker ground and each row sits on it as its own
+ * pale surface, so the boundary is a change of surface rather than a rule. */
 .lp-facts {
-  background: var(--color-ground);
+  background: transparent;
   border-radius: 14px;
-  overflow: hidden;
+  display: grid;
+  gap: 0.5rem;
 }
 .lp-facts-head {
   display: flex;
@@ -1451,6 +1455,7 @@ textarea.cd-input {
   gap: 0.75rem;
   padding: 1.1rem clamp(1.25rem, 2.2vw, 1.75rem);
   background: var(--color-ground-2);
+  border-radius: 12px;
 }
 .lp-facts-title {
   font-family: var(--font-display);
@@ -1467,8 +1472,9 @@ textarea.cd-input {
   padding: 1.25rem clamp(1.25rem, 2.2vw, 1.75rem);
   transition: background-color var(--dur-hover) ease;
 }
-.lp-fact + .lp-fact {
-  border-top: 1px solid var(--color-ground-3); /* taste-skill-ignore: a row divider inside one reference card, the job a table rule does */
+.lp-fact {
+  background: var(--color-ground);
+  border-radius: 12px;
 }
 .lp-fact:hover {
   background: var(--color-ground-2);
@@ -1487,4 +1493,270 @@ textarea.cd-input {
   .lp-fact-mark {
     margin-top: 0;
   }
+}
+
+/* ====================================================================== *
+ *  THE BAND CALCULATOR  (/ielts)                                         *
+ *                                                                        *
+ *  Scoped to `.bc` and used inside `.lp`, so it inherits the landing     *
+ *  page's type and spacing and adds only what a control surface needs.   *
+ *                                                                        *
+ *  Two tones because it appears twice: `bc-ink` on the navy hero field,  *
+ *  `bc-light` if it is ever placed on the white ground. The gold is the  *
+ *  fill and the target mark only, never the text: on navy the brand gold *
+ *  is 8.3:1 and fine, on white it is 2.1:1 and is not used that way.     *
+ * ====================================================================== */
+.bc {
+  border-radius: 16px;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+
+.bc-ink {
+  /* A step in tone, not an outlined box: the surface is read from the
+     lighter fill against the navy field, which is what the house style
+     asks for in place of a 1px rule. */
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.bc-light {
+  background: var(--color-ground-2);
+  color: var(--color-ink);
+}
+
+.bc-kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+.bc-ink .bc-kicker {
+  color: var(--color-golden);
+}
+.bc-light .bc-kicker {
+  color: var(--color-gold-deep);
+}
+
+.bc-note {
+  font-size: var(--text-small);
+  margin: 0.9rem 0 0;
+  opacity: 0.78;
+  max-width: 46ch;
+}
+
+/* The result: the number is the largest thing in the component, because it
+   is the answer the visitor came for. */
+.bc-result {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+}
+
+.bc-score {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 7vw, 4.75rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.bc-ink .bc-score {
+  color: var(--color-golden);
+}
+.bc-light .bc-score {
+  color: var(--color-ink);
+}
+
+.bc-descriptor {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.bc-verdict {
+  font-size: var(--text-small);
+  margin: 0.25rem 0 0;
+  opacity: 0.78;
+}
+
+/* The scale: a ruled line with marks, which is the page's one ornament and
+   the test's own structure at the same time. */
+.bc-scale {
+  margin-top: 1.25rem;
+}
+
+.bc-scale-line {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.bc-light .bc-scale-line {
+  background: var(--color-ground-3);
+}
+
+.bc-scale-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: 3px;
+  background: var(--color-golden);
+  transition: width 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.bc-scale-target {
+  position: absolute;
+  top: -5px;
+  width: 2px;
+  height: 16px;
+  background: currentColor;
+  opacity: 0.55;
+  transform: translateX(-1px);
+}
+
+.bc-scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The controls. */
+.bc-rows {
+  margin-top: 1.4rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.bc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) 2.75rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+@media (max-width: 30rem) {
+  .bc-row {
+    grid-template-columns: minmax(0, 1fr) 2.75rem;
+  }
+  .bc-range {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+.bc-label {
+  display: block;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.bc-label-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.bc-label-detail {
+  display: block;
+  font-size: 0.8125rem;
+  opacity: 0.62;
+  line-height: 1.3;
+}
+
+.bc-value {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* A native range input, restyled rather than replaced, so it keeps its
+   keyboard behaviour and its 44px touch target on a phone. */
+.bc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.bc-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.bc-light .bc-range::-webkit-slider-runnable-track {
+  background: var(--color-ground-3);
+}
+.bc-range::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.bc-light .bc-range::-moz-range-track {
+  background: var(--color-ground-3);
+}
+
+.bc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--color-golden);
+  border: 2px solid var(--color-ink-field);
+}
+.bc-light .bc-range::-webkit-slider-thumb {
+  border-color: #fff;
+}
+.bc-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-golden);
+  border: 2px solid var(--color-ink-field);
+}
+.bc-light .bc-range::-moz-range-thumb {
+  border-color: #fff;
+}
+
+.bc-range:focus-visible {
+  outline: 2px solid var(--color-golden);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.bc-rule {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 1.1rem 0 0;
+  opacity: 0.66;
+  max-width: 52ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-scale-fill {
+    transition: none;
+  }
+}
+
+
+/* The cookie notice is fixed to the bottom of the viewport, so without this
+ * it lies on top of whatever the page's last screen happens to be. The
+ * banner measures itself and sets --cookie-h, and the page reserves exactly
+ * that much room underneath, so nothing is ever covered. Removed when the
+ * notice closes. */
+body[data-cookie-open="1"] {
+  padding-bottom: var(--cookie-h, 0px);
 }

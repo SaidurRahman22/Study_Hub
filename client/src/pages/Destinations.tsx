@@ -31,9 +31,6 @@ export default function Destinations() {
       <section className="lp-field-ink" aria-labelledby="dest-hero">
         <div className="lp-frame lp-grid items-center py-16 md:py-24">
           <div className="col-span-12 lg:col-span-6">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Destinations
-            </Reveal>
             <Reveal
               as="h1"
               id="dest-hero"
@@ -65,7 +62,7 @@ export default function Destinations() {
             <span className="lp-media block aspect-[4/3] w-full lg:aspect-square">
               <img
                 src={asset("/images/slots/passport-stamps.jpg")}
-                alt="A passport page filled with entry stamps and a visa"
+                alt="An open passport showing border entry stamps"
                 width={1200}
                 height={1200}
                 decoding="async"
@@ -123,9 +120,6 @@ export default function Destinations() {
         aria-labelledby="why-abroad"
       >
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            Before you choose
-          </Reveal>
           <Reveal
             as="h2"
             id="why-abroad"

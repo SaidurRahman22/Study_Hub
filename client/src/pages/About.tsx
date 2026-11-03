@@ -87,9 +87,6 @@ export default function About() {
       <section className="lp-field-ink" aria-labelledby="about-hero">
         <div className="lp-frame lp-grid items-center py-16 md:py-24">
           <div className="col-span-12 lg:col-span-5">
-            <Reveal as="p" className="lp-meta" y={10}>
-              About us
-            </Reveal>
             <Reveal
               as="h1"
               id="about-hero"
@@ -303,7 +300,7 @@ export default function About() {
               <span className="lp-media block aspect-[4/3] w-full lg:aspect-[3/4]">
                 <img
                   src={asset("/images/slots/classroom.jpg")}
-                  alt="Rows of desks in a lecture theatre"
+                  alt="Students in a bright university classroom with their lecturer"
                   width={900}
                   height={1200}
                   loading="lazy"
@@ -312,7 +309,7 @@ export default function About() {
                 />
               </span>
               <figcaption className="lp-small lp-soft mt-3">
-                Rows of desks in a lecture theatre.
+                A university classroom. Our own classes run at the Tangail office.
               </figcaption>
             </figure>
           </Reveal>
@@ -325,9 +322,6 @@ export default function About() {
         aria-labelledby="values-title"
       >
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            How we work
-          </Reveal>
           <Reveal
             as="h2"
             id="values-title"
@@ -380,7 +374,7 @@ export default function About() {
                 <span className="lp-media block aspect-[4/3] w-full">
                   <img
                     src={asset("/images/slots/passport-stamps.jpg")}
-                    alt="A passport page filled with entry stamps and a visa"
+                    alt="An open passport showing border entry stamps"
                     width={1200}
                     height={900}
                     loading="lazy"
@@ -426,9 +420,6 @@ export default function About() {
         <div className="lp-frame">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Reveal as="p" className="lp-meta" y={10}>
-                Destinations
-              </Reveal>
               <Reveal
                 as="h2"
                 id="where-title"
@@ -509,9 +500,6 @@ export default function About() {
           </Reveal>
 
           <div className="col-span-12 lg:col-span-6">
-            <Reveal as="p" className="lp-meta" y={10} delay={60}>
-              Find us
-            </Reveal>
             <Reveal
               as="h2"
               id="find-title"

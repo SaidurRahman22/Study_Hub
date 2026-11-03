@@ -152,9 +152,6 @@ export default function Country() {
       >
         <div className="lp-frame lp-grid items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Living there
-            </Reveal>
             <Reveal
               as="h2"
               id="life-title"
@@ -195,9 +192,6 @@ export default function Country() {
       {/* ---- universities ---- */}
       <section className="lp-section" aria-labelledby="unis-title">
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            Institutions
-          </Reveal>
           <Reveal
             as="h2"
             id="unis-title"
@@ -250,9 +244,6 @@ export default function Country() {
       >
         <div className="lp-frame">
           <div className="max-w-[60rem]">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Afterwards
-            </Reveal>
             <Reveal
               as="h2"
               id="opps-title"
@@ -311,9 +302,6 @@ export default function Country() {
       {/* ---- what it costs ---- */}
       <section className="lp-section" aria-labelledby="cost-title">
         <div className="lp-frame">
-          <Reveal as="p" className="lp-meta" y={10}>
-            Money
-          </Reveal>
           <Reveal
             as="h2"
             id="cost-title"

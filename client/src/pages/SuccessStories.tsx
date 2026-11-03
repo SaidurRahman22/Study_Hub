@@ -78,9 +78,6 @@ export default function SuccessStories() {
       <section className="lp-field-ink" aria-labelledby="ss-hero">
         <div className="lp-frame py-16 md:py-24">
           <div className="max-w-[46rem]">
-            <Reveal as="p" className="lp-meta" y={10}>
-              Where students got to
-            </Reveal>
             <Reveal
               as="h1"
               id="ss-hero"
@@ -123,9 +120,6 @@ export default function SuccessStories() {
       {stories.length > 0 && (
         <section className="lp-section" aria-labelledby="ss-stories">
           <div className="lp-frame">
-            <Reveal as="p" className="lp-meta" y={10}>
-              {page.sectionTitle} {page.sectionHighlight}
-            </Reveal>
             <Reveal
               as="h2"
               id="ss-stories"
@@ -201,9 +195,6 @@ export default function SuccessStories() {
       {page.testimonials.length > 0 && (
         <section className="lp-section lp-field-step" aria-labelledby="ss-says">
           <div className="lp-frame">
-            <Reveal as="p" className="lp-meta" y={10}>
-              {page.testimonialTitle} {page.testimonialHighlight}
-            </Reveal>
             <Reveal
               as="h2"
               id="ss-says"

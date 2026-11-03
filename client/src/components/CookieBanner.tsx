@@ -64,6 +64,35 @@ export default function CookieBanner() {
     return () => window.removeEventListener("shb:consent", onChange);
   }, [asksConsent]);
 
+  /* The notice is fixed to the bottom of the viewport, so on its own it lies
+   * on top of whatever the page's last screen happens to be — which is how
+   * it ended up covering a heading. Measure it and have the page reserve
+   * exactly that much room underneath instead. Re-measured on resize,
+   * because the text wraps to two or three lines on a phone. */
+  useEffect(() => {
+    if (!show) return;
+    const el = ref.current;
+    if (!el) return;
+
+    const apply = () => {
+      document.body.dataset.cookieOpen = "1";
+      document.body.style.setProperty("--cookie-h", `${el.offsetHeight}px`);
+    };
+    apply();
+
+    const ro =
+      typeof ResizeObserver !== "undefined" ? new ResizeObserver(apply) : null;
+    ro?.observe(el);
+    window.addEventListener("resize", apply);
+
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", apply);
+      delete document.body.dataset.cookieOpen;
+      document.body.style.removeProperty("--cookie-h");
+    };
+  }, [show]);
+
   if (!show) return null;
 
   const close = () => setShow(false);
